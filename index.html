@@ -3,497 +3,1322 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Potenzen lernen — Macht Spaß!</title>
-<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Fredoka+One&display=swap" rel="stylesheet">
+<title>Potenzen Meister 🚀</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Syne:wght@700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
 :root {
-  --pink:#ff6b9d;--orange:#ff9f43;--yellow:#ffd32a;--green:#26de81;
-  --teal:#2bcbba;--blue:#45aaf2;--purple:#a55eea;--red:#fc5c65;
-  --bg:#f0f4ff;--white:#ffffff;--dark:#2d3436;--gray:#636e72;--light:#dfe6e9;
+  --bg: #0a0a12;
+  --surface: #13131f;
+  --surface2: #1c1c2e;
+  --border: rgba(255,255,255,0.08);
+  --text: #f0f0ff;
+  --muted: #6b6b8a;
+  --accent: #7c6af7;
+  --accent2: #f76aaa;
+  --accent3: #6af7c4;
+  --accent4: #f7c46a;
+  --accent5: #6ab8f7;
+  --red: #f76a6a;
+  --green: #6af7a0;
+  --locked: #1a1a2a;
 }
-*{margin:0;padding:0;box-sizing:border-box;}
-body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--dark);min-height:100vh;overflow-x:hidden;}
-body::before{content:'';position:fixed;inset:0;background:radial-gradient(circle at 15% 20%,rgba(255,107,157,.12) 0%,transparent 40%),radial-gradient(circle at 85% 80%,rgba(69,170,242,.12) 0%,transparent 40%),radial-gradient(circle at 50% 50%,rgba(165,94,234,.07) 0%,transparent 60%);pointer-events:none;z-index:0;}
-.shape{position:fixed;border-radius:50%;opacity:.1;pointer-events:none;z-index:0;animation:float 8s ease-in-out infinite;}
-.shape:nth-child(1){width:120px;height:120px;background:var(--pink);top:5%;left:3%;animation-delay:0s;}
-.shape:nth-child(2){width:80px;height:80px;background:var(--blue);top:15%;right:5%;animation-delay:1s;border-radius:30% 70% 70% 30%/30% 30% 70% 70%;}
-.shape:nth-child(3){width:60px;height:60px;background:var(--yellow);bottom:20%;left:8%;animation-delay:2s;border-radius:20%;}
-.shape:nth-child(4){width:100px;height:100px;background:var(--green);bottom:10%;right:4%;animation-delay:3s;}
-.shape:nth-child(5){width:45px;height:45px;background:var(--purple);top:45%;left:1%;animation-delay:.5s;}
-@keyframes float{0%,100%{transform:translateY(0) rotate(0deg);}50%{transform:translateY(-20px) rotate(5deg);}}
-header{position:relative;z-index:10;background:linear-gradient(135deg,#667eea 0%,#764ba2 50%,#f64f59 100%);padding:2.5rem 1.5rem 3.5rem;text-align:center;overflow:hidden;}
-header::after{content:'';position:absolute;bottom:-2px;left:0;right:0;height:50px;background:var(--bg);clip-path:ellipse(55% 100% at 50% 100%);}
-.header-emoji-row{font-size:2.5rem;margin-bottom:.75rem;animation:bounce-in .6s ease;}
-@keyframes bounce-in{0%{transform:scale(0);}70%{transform:scale(1.2);}100%{transform:scale(1);}}
-header h1{font-family:'Fredoka One',cursive;font-size:clamp(2rem,6vw,3.5rem);color:white;line-height:1.1;text-shadow:0 4px 15px rgba(0,0,0,.2);}
-header h1 .hi{background:linear-gradient(to right,#ffd32a,#ff9f43);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
-header p{color:rgba(255,255,255,.85);font-size:1.1rem;margin-top:.5rem;font-weight:600;}
-.stars-bar{display:flex;justify-content:center;gap:.35rem;margin-top:1rem;font-size:1.4rem;}
-.app{position:relative;z-index:1;max-width:1000px;margin:0 auto;padding:2rem 1rem 4rem;}
-.chapter-nav{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:2rem;justify-content:center;}
-.cp{border:none;cursor:pointer;font-family:'Nunito',sans-serif;font-size:.85rem;font-weight:800;padding:.5rem 1rem;border-radius:50px;background:white;color:var(--gray);box-shadow:0 3px 10px rgba(0,0,0,.08);transition:all .2s;display:flex;align-items:center;gap:.3rem;}
-.cp:hover{transform:translateY(-2px);box-shadow:0 6px 18px rgba(0,0,0,.12);}
-.cp.active{color:white;transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,0,0,.2);}
-.cp.active.c0{background:linear-gradient(135deg,#ff6b9d,#c44569);}
-.cp.active.c1{background:linear-gradient(135deg,#ff9f43,#e55039);}
-.cp.active.c2{background:linear-gradient(135deg,#ffd32a,#f9a825);color:#333!important;}
-.cp.active.c3{background:linear-gradient(135deg,#26de81,#20bf6b);}
-.cp.active.c4{background:linear-gradient(135deg,#2bcbba,#0fb9b1);}
-.cp.active.c5{background:linear-gradient(135deg,#45aaf2,#2d98da);}
-.cp.active.c6{background:linear-gradient(135deg,#a55eea,#8854d0);}
-.cp.active.c7{background:linear-gradient(135deg,#fc5c65,#eb3b5a);}
-.cp.active.c8{background:linear-gradient(135deg,#fd9644,#fa8231);}
-.cp.active.c9{background:linear-gradient(135deg,#26de81,#20bf6b);}
-.cp.active.c10{background:linear-gradient(135deg,#ff6b9d,#c44569);}
-.cp.active.c11{background:linear-gradient(135deg,#a55eea,#8854d0);}
-.lesson{display:none;}
-.lesson.active{display:block;animation:pop-in .35s cubic-bezier(.36,.07,.19,.97);}
-@keyframes pop-in{0%{opacity:0;transform:scale(.95) translateY(12px);}100%{opacity:1;transform:scale(1) translateY(0);}}
-.hero{border-radius:24px;padding:2rem 2.5rem;margin-bottom:1.5rem;color:white;position:relative;overflow:hidden;}
-.hero::before{content:attr(data-e);position:absolute;right:1.5rem;top:50%;transform:translateY(-50%);font-size:5rem;opacity:.25;line-height:1;}
-.hero .tag{font-size:.7rem;font-weight:800;letter-spacing:.15em;text-transform:uppercase;opacity:.8;margin-bottom:.4rem;}
-.hero h2{font-family:'Fredoka One',cursive;font-size:2rem;margin-bottom:.4rem;}
-.hero .sub{font-size:1rem;opacity:.9;font-weight:600;max-width:70%;}
-.gp{background:linear-gradient(135deg,#ff6b9d,#c44569);}
-.go{background:linear-gradient(135deg,#ff9f43,#e55039);}
-.gy{background:linear-gradient(135deg,#ffd32a,#f9a825);color:var(--dark)!important;}
-.gg{background:linear-gradient(135deg,#26de81,#20bf6b);}
-.gt{background:linear-gradient(135deg,#2bcbba,#0fb9b1);}
-.gb{background:linear-gradient(135deg,#45aaf2,#2d98da);}
-.gpu{background:linear-gradient(135deg,#a55eea,#8854d0);}
-.gr{background:linear-gradient(135deg,#fc5c65,#eb3b5a);}
-.block{background:white;border-radius:20px;padding:1.5rem 2rem;margin-bottom:1.2rem;box-shadow:0 4px 20px rgba(0,0,0,.06);}
-.block-title{font-family:'Fredoka One',cursive;font-size:1.25rem;margin-bottom:1rem;display:flex;align-items:center;gap:.5rem;}
-.fbub{background:linear-gradient(135deg,#667eea,#764ba2);color:white;border-radius:16px;padding:1.25rem 1.75rem;margin:1rem 0;text-align:center;}
-.fmain{font-family:'Fredoka One',cursive;font-size:1.8rem;margin-bottom:.3rem;}
-.fwords{font-size:.95rem;opacity:.85;font-weight:600;}
-.steps{display:flex;flex-direction:column;gap:.6rem;margin:1rem 0;}
-.sr{display:flex;align-items:center;gap:.75rem;padding:.75rem 1rem;background:var(--bg);border-radius:12px;border-left:4px solid var(--blue);font-size:1rem;flex-wrap:wrap;}
-.sb{color:white;font-size:.7rem;font-weight:800;padding:.2rem .5rem;border-radius:8px;white-space:nowrap;flex-shrink:0;}
-.sm{font-weight:800;font-size:1.05rem;}
-.sh{font-size:.8rem;color:var(--gray);font-style:italic;margin-left:auto;}
-.res{background:linear-gradient(135deg,#26de81,#20bf6b);color:white;border-radius:12px;padding:.85rem 1.25rem;font-family:'Fredoka One',cursive;font-size:1.3rem;text-align:center;margin-top:.5rem;}
-.cgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(165px,1fr));gap:.75rem;margin:1rem 0;}
-.mc{background:var(--bg);border-radius:16px;padding:1rem;text-align:center;border:2px solid transparent;transition:all .2s;cursor:default;}
-.mc:hover{transform:translateY(-4px);box-shadow:0 8px 24px rgba(0,0,0,.1);border-color:var(--blue);}
-.mc-i{font-size:1.8rem;margin-bottom:.3rem;}
-.mc-p{font-weight:900;font-size:1.05rem;margin-bottom:.2rem;}
-.mc-a{font-weight:900;font-size:1.1rem;color:var(--purple);}
-.mc-n{font-size:.73rem;color:var(--gray);margin-top:.2rem;}
-.cl{border-radius:16px;padding:1rem 1.25rem;margin:1rem 0;display:flex;gap:.75rem;align-items:flex-start;font-size:.95rem;font-weight:600;}
-.cl-i{font-size:1.5rem;flex-shrink:0;margin-top:.1rem;}
-.cl.warn{background:#fff3e0;border:2px solid var(--orange);}
-.cl.tip{background:#e8f8f0;border:2px solid var(--green);}
-.cl.info{background:#e8f0ff;border:2px solid var(--blue);}
-.cl.err{background:#ffe8ea;border:2px solid var(--red);}
-.sgrid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:1rem 0;}
-.scard{border-radius:20px;overflow:hidden;text-align:center;box-shadow:0 4px 16px rgba(0,0,0,.1);}
-.stop{padding:.85rem;font-family:'Fredoka One',cursive;font-size:1.1rem;color:white;}
-.stop.pl{background:linear-gradient(135deg,#26de81,#20bf6b);}
-.stop.mi{background:linear-gradient(135deg,#fc5c65,#eb3b5a);}
-.sbody{background:white;padding:1rem;font-size:.9rem;line-height:1.8;font-weight:600;}
-.ft{width:100%;border-collapse:separate;border-spacing:0;border-radius:16px;overflow:hidden;margin:1rem 0;box-shadow:0 4px 16px rgba(0,0,0,.07);}
-.ft th{background:linear-gradient(135deg,#667eea,#764ba2);color:white;padding:.75rem 1rem;font-family:'Fredoka One',cursive;font-size:1rem;text-align:left;}
-.ft td{background:white;padding:.65rem 1rem;font-weight:700;border-bottom:1px solid #f0f4ff;}
-.ft tr:last-child td{border-bottom:none;}
-.ft tr:hover td{background:#f0f4ff;}
-.ft td:nth-child(2){color:var(--purple);font-family:'Fredoka One',cursive;font-size:1.05rem;}
-.ft td:nth-child(3){color:var(--orange);}
-.acc{background:white;border-radius:16px;margin-bottom:.65rem;overflow:hidden;box-shadow:0 3px 12px rgba(0,0,0,.06);transition:box-shadow .2s;}
-.acc:hover{box-shadow:0 6px 20px rgba(0,0,0,.1);}
-.ach{display:flex;align-items:center;gap:.85rem;padding:1rem 1.25rem;cursor:pointer;user-select:none;font-weight:800;font-size:1rem;}
-.an{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Fredoka One',cursive;font-size:1rem;color:white;flex-shrink:0;}
-.acb{display:none;padding:0 1.25rem 1rem;font-size:.95rem;font-weight:600;line-height:1.7;}
-.acb.open{display:block;animation:sd .2s ease;}
-@keyframes sd{from{opacity:0;transform:translateY(-8px);}to{opacity:1;transform:translateY(0);}}
-.aar{margin-left:auto;font-size:1.2rem;transition:transform .2s;color:var(--gray);}
-.ach.iso .aar{transform:rotate(180deg);}
-.frac{display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;font-size:.9em;margin:0 .15em;}
-.frac>span:first-child{border-bottom:2px solid currentColor;padding:0 .2em;line-height:1.3;}
-.frac>span:last-child{padding:0 .2em;line-height:1.3;}
-.qwrap{display:flex;flex-direction:column;gap:1rem;}
-.qcard{background:white;border-radius:20px;padding:1.5rem;box-shadow:0 4px 16px rgba(0,0,0,.07);border:3px solid transparent;transition:border-color .3s;}
-.qcard.ok{border-color:var(--green);}
-.qq{font-family:'Fredoka One',cursive;font-size:1.5rem;margin-bottom:1rem;}
-.qi{font-family:'Nunito',sans-serif;font-size:1.1rem;font-weight:800;border:3px solid var(--light);border-radius:12px;padding:.5rem 1rem;width:130px;outline:none;transition:border-color .2s;background:var(--bg);}
-.qi:focus{border-color:var(--blue);}
-.bchk,.brev{font-family:'Nunito',sans-serif;font-weight:800;font-size:.9rem;padding:.5rem 1.2rem;border:none;border-radius:12px;cursor:pointer;margin-left:.5rem;transition:all .2s;}
-.bchk{background:linear-gradient(135deg,var(--purple),var(--blue));color:white;}
-.bchk:hover{transform:translateY(-2px);box-shadow:0 5px 15px rgba(165,94,234,.4);}
-.brev{background:var(--light);color:var(--gray);}
-.brev:hover{background:#c8d6e5;}
-.qfb{margin-top:.75rem;font-weight:800;font-size:1rem;min-height:1.5rem;border-radius:10px;padding:.3rem 0;}
-.qfb.ok{color:var(--green);}
-.qfb.no{color:var(--red);}
-.qfb.rv{color:var(--blue);}
-.csgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:.85rem;margin:1rem 0;}
-.cscard{border-radius:18px;padding:1rem 1.2rem;color:white;box-shadow:0 4px 16px rgba(0,0,0,.12);transition:transform .2s;}
-.cscard:hover{transform:translateY(-4px);}
-.csl{font-size:.65rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;opacity:.8;margin-bottom:.35rem;}
-.csf{font-family:'Fredoka One',cursive;font-size:1.2rem;margin-bottom:.25rem;}
-.cse{font-size:.8rem;opacity:.85;font-weight:700;}
-.nav-arrows{display:flex;justify-content:space-between;align-items:center;margin-top:2rem;gap:1rem;}
-.nav-btn{font-family:'Nunito',sans-serif;font-weight:800;font-size:1rem;padding:.75rem 1.75rem;border:none;border-radius:50px;cursor:pointer;background:white;color:var(--dark);box-shadow:0 4px 16px rgba(0,0,0,.1);transition:all .2s;display:flex;align-items:center;gap:.5rem;}
-.nav-btn:hover:not(:disabled){transform:translateY(-3px);box-shadow:0 8px 24px rgba(0,0,0,.15);background:linear-gradient(135deg,#667eea,#764ba2);color:white;}
-.nav-btn:disabled{opacity:.3;cursor:not-allowed;}
-.dots{display:flex;gap:.4rem;}
-.dot{width:10px;height:10px;border-radius:50%;background:var(--light);transition:all .3s;cursor:pointer;}
-.dot.ad{background:var(--purple);transform:scale(1.4);}
-.dot.dd{background:var(--green);}
-sup{font-size:.65em;vertical-align:super;font-weight:900;}
-@keyframes shake{0%,100%{transform:translateX(0);}25%{transform:translateX(-8px);}75%{transform:translateX(8px);}}
-@media(max-width:600px){.sgrid{grid-template-columns:1fr;}.hero .sub{max-width:100%;}.block{padding:1.25rem;}}
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body {
+  font-family: 'Space Grotesk', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* BG grid */
+body::before {
+  content: '';
+  position: fixed; inset: 0;
+  background-image:
+    linear-gradient(rgba(124,106,247,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(124,106,247,0.03) 1px, transparent 1px);
+  background-size: 60px 60px;
+  pointer-events: none; z-index: 0;
+}
+
+/* HEADER */
+.header {
+  position: relative; z-index: 10;
+  padding: 2.5rem 2rem 2rem;
+  border-bottom: 1px solid var(--border);
+  background: linear-gradient(180deg, rgba(124,106,247,0.08) 0%, transparent 100%);
+}
+.header-top {
+  display: flex; align-items: center; justify-content: space-between;
+  flex-wrap: wrap; gap: 1rem; max-width: 1100px; margin: 0 auto;
+}
+.logo {
+  font-family: 'Syne', sans-serif;
+  font-size: 1.8rem; font-weight: 800;
+  background: linear-gradient(135deg, #7c6af7, #f76aaa);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text;
+  letter-spacing: -0.03em;
+}
+.logo span { -webkit-text-fill-color: var(--text); }
+
+/* STATS BAR */
+.stats-bar {
+  display: flex; gap: 1.5rem; flex-wrap: wrap; align-items: center;
+}
+.stat-chip {
+  display: flex; align-items: center; gap: 0.5rem;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 50px; padding: 0.4rem 1rem;
+  font-size: 0.85rem; font-weight: 600;
+}
+.stat-chip .val {
+  font-family: 'JetBrains Mono', monospace;
+  color: var(--accent3); font-size: 1rem;
+}
+
+/* NOTE BADGE */
+.note-badge {
+  font-family: 'Syne', sans-serif; font-size: 2rem; font-weight: 800;
+  width: 56px; height: 56px; border-radius: 14px;
+  display: flex; align-items: center; justify-content: center;
+  border: 2px solid; transition: all 0.3s;
+  cursor: help; position: relative;
+}
+.note-badge::after {
+  content: attr(data-label);
+  position: absolute; top: 110%; left: 50%; transform: translateX(-50%);
+  background: var(--surface2); border: 1px solid var(--border);
+  padding: 0.3rem 0.7rem; border-radius: 8px; font-size: 0.7rem;
+  font-family: 'Space Grotesk', sans-serif; white-space: nowrap;
+  opacity: 0; pointer-events: none; transition: opacity 0.2s;
+}
+.note-badge:hover::after { opacity: 1; }
+
+/* PROGRESS */
+.progress-section {
+  max-width: 1100px; margin: 1.5rem auto 0;
+  padding: 0 2rem;
+}
+.progress-label {
+  display: flex; justify-content: space-between;
+  font-size: 0.8rem; color: var(--muted); margin-bottom: 0.5rem;
+}
+.progress-bar-outer {
+  height: 6px; background: var(--surface2);
+  border-radius: 3px; overflow: hidden;
+}
+.progress-bar-inner {
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent), var(--accent2));
+  border-radius: 3px;
+  transition: width 0.6s cubic-bezier(0.34,1.56,0.64,1);
+}
+
+/* LAYOUT */
+.app {
+  max-width: 1100px; margin: 0 auto;
+  padding: 2rem; position: relative; z-index: 1;
+  display: grid; grid-template-columns: 260px 1fr;
+  gap: 2rem;
+}
+@media(max-width:768px) {
+  .app { grid-template-columns: 1fr; }
+  .sidebar { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+}
+
+/* SIDEBAR NAV */
+.sidebar {
+  display: flex; flex-direction: column; gap: 0.4rem;
+}
+.sidebar-title {
+  font-size: 0.7rem; font-weight: 700; letter-spacing: 0.15em;
+  text-transform: uppercase; color: var(--muted);
+  margin-bottom: 0.5rem; padding: 0 0.5rem;
+}
+.nav-item {
+  display: flex; align-items: center; gap: 0.75rem;
+  padding: 0.65rem 0.85rem; border-radius: 12px;
+  cursor: pointer; transition: all 0.2s;
+  border: 1px solid transparent; position: relative;
+  background: transparent;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.9rem; font-weight: 500; color: var(--muted);
+  text-align: left; width: 100%;
+}
+.nav-item:hover:not(.locked) { background: var(--surface2); color: var(--text); }
+.nav-item.active {
+  background: var(--surface2); color: var(--text);
+  border-color: var(--border);
+}
+.nav-item.active::before {
+  content: '';
+  position: absolute; left: 0; top: 50%; transform: translateY(-50%);
+  width: 3px; height: 60%; border-radius: 2px;
+  background: var(--accent);
+}
+.nav-item.locked {
+  opacity: 0.35; cursor: not-allowed;
+}
+.nav-item.done .nav-check { display: flex; }
+.nav-num {
+  width: 26px; height: 26px; border-radius: 8px;
+  background: var(--surface2); display: flex; align-items: center; justify-content: center;
+  font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; font-weight: 700;
+  flex-shrink: 0; transition: all 0.3s;
+}
+.nav-item.active .nav-num { background: var(--accent); color: white; }
+.nav-item.done .nav-num { background: var(--green); color: #0a2a1a; }
+.nav-lock { margin-left: auto; font-size: 0.8rem; }
+.nav-stars { margin-left: auto; font-size: 0.65rem; letter-spacing: -0.05em; }
+
+/* LESSON CONTENT */
+.content { min-width: 0; }
+.lesson { display: none; }
+.lesson.active {
+  display: block;
+  animation: slideIn 0.35s cubic-bezier(0.34,1.1,0.64,1);
+}
+@keyframes slideIn {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* LESSON HERO */
+.lesson-hero {
+  border-radius: 20px; padding: 2rem 2.5rem;
+  margin-bottom: 1.5rem; position: relative; overflow: hidden;
+}
+.lesson-hero::after {
+  content: attr(data-e);
+  position: absolute; right: 2rem; top: 50%; transform: translateY(-50%);
+  font-size: 5rem; opacity: 0.12; line-height: 1;
+  pointer-events: none;
+}
+.lesson-tag {
+  font-size: 0.65rem; font-weight: 700; letter-spacing: 0.2em;
+  text-transform: uppercase; opacity: 0.7; margin-bottom: 0.5rem;
+}
+.lesson-hero h2 {
+  font-family: 'Syne', sans-serif; font-size: 2rem;
+  font-weight: 800; line-height: 1.1; margin-bottom: 0.4rem;
+}
+.lesson-hero p { font-size: 1rem; opacity: 0.85; font-weight: 500; max-width: 65%; }
+
+/* CARDS */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px; padding: 1.5rem;
+  margin-bottom: 1rem;
+}
+.card-title {
+  font-family: 'Syne', sans-serif; font-weight: 700;
+  font-size: 1.05rem; margin-bottom: 1rem;
+  display: flex; align-items: center; gap: 0.5rem;
+}
+
+/* FORMULA BOX */
+.formula {
+  background: linear-gradient(135deg, rgba(124,106,247,0.15), rgba(247,106,170,0.15));
+  border: 1px solid rgba(124,106,247,0.3);
+  border-radius: 14px; padding: 1.25rem 1.75rem;
+  text-align: center; margin: 0.75rem 0;
+}
+.formula-main {
+  font-family: 'Syne', sans-serif; font-size: 1.8rem;
+  font-weight: 800; margin-bottom: 0.3rem;
+  color: var(--accent);
+}
+.formula-sub { font-size: 0.9rem; color: var(--muted); font-weight: 500; }
+
+/* STEPS */
+.steps { display: flex; flex-direction: column; gap: 0.5rem; }
+.step {
+  display: flex; align-items: center; gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  background: var(--surface2); border-radius: 12px;
+  border-left: 3px solid var(--accent);
+}
+.step-badge {
+  font-size: 0.65rem; font-weight: 800; letter-spacing: 0.1em;
+  text-transform: uppercase; white-space: nowrap;
+  padding: 0.2rem 0.6rem; border-radius: 6px;
+  background: var(--accent); color: white; flex-shrink: 0;
+}
+.step-main { font-weight: 700; font-size: 1rem; }
+.step-hint { font-size: 0.78rem; color: var(--muted); margin-left: auto; }
+.result {
+  background: linear-gradient(135deg, rgba(106,247,160,0.15), rgba(106,247,196,0.1));
+  border: 1px solid rgba(106,247,160,0.25);
+  border-radius: 12px; padding: 0.85rem 1.25rem;
+  font-family: 'Syne', sans-serif; font-size: 1.3rem;
+  text-align: center; color: var(--green); font-weight: 700;
+}
+
+/* INFO BOXES */
+.infobox {
+  border-radius: 12px; padding: 1rem 1.25rem;
+  margin: 0.75rem 0; display: flex; gap: 0.75rem;
+  font-size: 0.9rem; font-weight: 600; line-height: 1.6;
+}
+.infobox.warn { background: rgba(247,196,106,0.1); border: 1px solid rgba(247,196,106,0.3); }
+.infobox.tip { background: rgba(106,247,160,0.08); border: 1px solid rgba(106,247,160,0.25); }
+.infobox.info { background: rgba(106,184,247,0.08); border: 1px solid rgba(106,184,247,0.25); }
+.infobox.danger { background: rgba(247,106,106,0.1); border: 1px solid rgba(247,106,106,0.3); }
+.infobox-icon { font-size: 1.3rem; flex-shrink: 0; margin-top: 0.05rem; }
+
+/* GRID CARDS */
+.concept-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(155px,1fr));
+  gap: 0.75rem; margin: 1rem 0;
+}
+.concept-card {
+  background: var(--surface2); border: 1px solid var(--border);
+  border-radius: 14px; padding: 1rem; text-align: center;
+  transition: all 0.2s;
+}
+.concept-card:hover { transform: translateY(-3px); border-color: var(--accent); }
+.concept-card .cc-p { font-weight: 800; font-size: 1rem; margin: 0.3rem 0; }
+.concept-card .cc-a { color: var(--accent); font-family: 'JetBrains Mono', monospace; font-size: 1.05rem; font-weight: 700; }
+.concept-card .cc-n { font-size: 0.72rem; color: var(--muted); margin-top: 0.25rem; }
+
+/* TABLE */
+.data-table {
+  width: 100%; border-collapse: separate; border-spacing: 0;
+  border-radius: 12px; overflow: hidden; margin: 1rem 0;
+  border: 1px solid var(--border);
+}
+.data-table th {
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  color: white; padding: 0.65rem 1rem;
+  font-family: 'Syne', sans-serif; font-size: 0.9rem; text-align: left;
+}
+.data-table td {
+  background: var(--surface); padding: 0.6rem 1rem;
+  font-weight: 600; border-bottom: 1px solid var(--border);
+  font-size: 0.9rem;
+}
+.data-table tr:last-child td { border-bottom: none; }
+.data-table tr:hover td { background: var(--surface2); }
+.data-table td:nth-child(2) { color: var(--accent); font-family: 'JetBrains Mono', monospace; }
+.data-table td:nth-child(3) { color: var(--accent4); }
+
+/* ACCORDION */
+.acc-item {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 12px; margin-bottom: 0.5rem; overflow: hidden;
+  transition: border-color 0.2s;
+}
+.acc-item.solved { border-color: rgba(106,247,160,0.4); }
+.acc-head {
+  display: flex; align-items: center; gap: 0.85rem;
+  padding: 0.9rem 1.25rem; cursor: pointer;
+  font-weight: 700; font-size: 0.95rem;
+  user-select: none;
+}
+.acc-head:hover { background: var(--surface2); }
+.acc-letter {
+  width: 32px; height: 32px; border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Syne', sans-serif; font-weight: 800; font-size: 0.9rem;
+  color: white; flex-shrink: 0;
+}
+.acc-arrow { margin-left: auto; transition: transform 0.2s; color: var(--muted); }
+.acc-head.open .acc-arrow { transform: rotate(180deg); }
+.acc-body {
+  display: none; padding: 0 1.25rem 1rem;
+  font-size: 0.9rem; font-weight: 500; line-height: 1.7;
+  border-top: 1px solid var(--border);
+}
+.acc-body.open { display: block; }
+
+/* SPICK GRID */
+.spick-grid {
+  display: grid; grid-template-columns: repeat(auto-fill,minmax(200px,1fr));
+  gap: 0.85rem; margin: 1rem 0;
+}
+.spick-card {
+  border-radius: 14px; padding: 1rem 1.25rem;
+  border: 1px solid rgba(255,255,255,0.1);
+  transition: transform 0.2s;
+}
+.spick-card:hover { transform: translateY(-3px); }
+.spick-label {
+  font-size: 0.62rem; font-weight: 800; letter-spacing: 0.12em;
+  text-transform: uppercase; opacity: 0.7; margin-bottom: 0.35rem;
+}
+.spick-formula {
+  font-family: 'JetBrains Mono', monospace; font-weight: 700;
+  font-size: 1.1rem; margin-bottom: 0.3rem; color: white;
+}
+.spick-ex { font-size: 0.78rem; opacity: 0.75; font-weight: 600; }
+
+/* QUIZ */
+.quiz-wrap { display: flex; flex-direction: column; gap: 1rem; }
+.quiz-card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 16px; padding: 1.5rem; transition: border-color 0.3s;
+}
+.quiz-card.ok { border-color: rgba(106,247,160,0.5); }
+.quiz-q {
+  font-family: 'Syne', sans-serif; font-size: 1.5rem;
+  font-weight: 800; margin-bottom: 1rem; color: var(--text);
+}
+.quiz-input-row { display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; }
+.quiz-input {
+  font-family: 'JetBrains Mono', monospace; font-size: 1.1rem;
+  font-weight: 700; border: 2px solid var(--border);
+  border-radius: 10px; padding: 0.45rem 0.9rem;
+  width: 130px; outline: none; background: var(--surface2);
+  color: var(--text); transition: border-color 0.2s;
+}
+.quiz-input:focus { border-color: var(--accent); }
+.btn-check, .btn-hint {
+  font-family: 'Space Grotesk', sans-serif; font-weight: 700;
+  font-size: 0.85rem; padding: 0.45rem 1.1rem;
+  border: none; border-radius: 10px; cursor: pointer; transition: all 0.2s;
+}
+.btn-check {
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  color: white;
+}
+.btn-check:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(124,106,247,0.4); }
+.btn-hint { background: var(--surface2); color: var(--muted); border: 1px solid var(--border); }
+.btn-hint:hover { color: var(--text); }
+.quiz-fb {
+  margin-top: 0.75rem; font-weight: 700; font-size: 0.95rem;
+  min-height: 1.4rem;
+}
+.quiz-fb.ok { color: var(--green); }
+.quiz-fb.no { color: var(--red); }
+.quiz-fb.hint { color: var(--accent5); }
+
+/* LESSON COMPLETE */
+.lesson-complete-btn {
+  margin-top: 1.5rem; width: 100%; padding: 1rem;
+  font-family: 'Syne', sans-serif; font-size: 1.1rem; font-weight: 800;
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  color: white; border: none; border-radius: 14px;
+  cursor: pointer; transition: all 0.25s; letter-spacing: 0.02em;
+}
+.lesson-complete-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 30px rgba(124,106,247,0.4);
+}
+.lesson-complete-btn:disabled {
+  opacity: 0.5; cursor: not-allowed; transform: none; box-shadow: none;
+}
+
+/* QUIZ UNLOCK */
+.quiz-unlock-msg {
+  background: linear-gradient(135deg, rgba(124,106,247,0.2), rgba(247,106,170,0.2));
+  border: 1px solid rgba(124,106,247,0.4); border-radius: 16px;
+  padding: 2rem; text-align: center;
+}
+.quiz-unlock-msg h3 {
+  font-family: 'Syne', sans-serif; font-size: 1.5rem;
+  font-weight: 800; margin-bottom: 0.5rem;
+}
+
+/* SPLIT CARD */
+.split-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 1rem 0; }
+.split-card { border-radius: 16px; overflow: hidden; }
+.split-head { padding: 0.85rem 1.25rem; font-family: 'Syne', sans-serif; font-weight: 700; color: white; font-size: 1rem; }
+.split-body { background: var(--surface2); padding: 1rem 1.25rem; font-size: 0.88rem; font-weight: 600; line-height: 2; }
+@media(max-width:500px) { .split-grid { grid-template-columns: 1fr; } }
+
+/* LOCKED LESSON */
+.locked-msg {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 20px; padding: 3rem; text-align: center;
+}
+.locked-msg .lock-icon { font-size: 3rem; margin-bottom: 1rem; }
+.locked-msg h3 { font-family: 'Syne', sans-serif; font-size: 1.5rem; margin-bottom: 0.5rem; }
+.locked-msg p { color: var(--muted); font-weight: 500; }
+
+/* DATA MANAGEMENT */
+.data-mgmt {
+  background: var(--surface); border: 1px solid rgba(247,106,106,0.3);
+  border-radius: 16px; padding: 1.5rem; margin: 1rem 0;
+}
+.data-mgmt h4 {
+  font-family: 'Syne', sans-serif; font-weight: 700; margin-bottom: 0.5rem;
+  color: var(--red);
+}
+.btn-danger {
+  margin-top: 0.75rem; padding: 0.65rem 1.5rem;
+  background: transparent; border: 2px solid var(--red);
+  color: var(--red); border-radius: 10px; cursor: pointer;
+  font-family: 'Space Grotesk', sans-serif; font-weight: 700;
+  font-size: 0.9rem; transition: all 0.2s;
+}
+.btn-danger:hover { background: var(--red); color: white; }
+
+sup { font-size: 0.62em; vertical-align: super; font-weight: 900; }
+.frac {
+  display: inline-flex; flex-direction: column; align-items: center;
+  vertical-align: middle; font-size: 0.88em; margin: 0 0.15em; line-height: 1.2;
+}
+.frac > span:first-child {
+  border-bottom: 2px solid currentColor;
+  padding: 0 0.2em;
+}
+.frac > span:last-child { padding: 0 0.2em; }
+
+/* TOAST */
+.toast {
+  position: fixed; bottom: 2rem; left: 50%; transform: translateX(-50%) translateY(80px);
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  color: white; padding: 0.85rem 2rem; border-radius: 50px;
+  font-weight: 700; font-size: 0.95rem; z-index: 100;
+  transition: transform 0.4s cubic-bezier(0.34,1.56,0.64,1);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+  pointer-events: none;
+}
+.toast.show { transform: translateX(-50%) translateY(0); }
+
+@keyframes shake { 0%,100%{transform:translateX(0)}25%{transform:translateX(-8px)}75%{transform:translateX(8px)} }
+
+/* Hero gradients */
+.h-purple { background: linear-gradient(135deg, #2d1b69, #4a2569); }
+.h-orange { background: linear-gradient(135deg, #5c2a0a, #7a3d1a); }
+.h-yellow { background: linear-gradient(135deg, #4a3a00, #6b5500); color: #ffe; }
+.h-green  { background: linear-gradient(135deg, #0a3d1f, #1a5c30); }
+.h-teal   { background: linear-gradient(135deg, #063a3a, #0d5c5c); }
+.h-blue   { background: linear-gradient(135deg, #0a2340, #1a3d6b); }
+.h-pink   { background: linear-gradient(135deg, #4a0a2d, #6b1a47); }
+.h-red    { background: linear-gradient(135deg, #4a0a0a, #7a1a1a); }
+.h-indigo { background: linear-gradient(135deg, #1a0a4a, #2d1a7a); }
+
+/* Sidebar badge for required quiz score */
+.req-badge {
+  font-size: 0.65rem; background: rgba(247,196,106,0.15);
+  border: 1px solid rgba(247,196,106,0.3);
+  color: var(--accent4); padding: 0.1rem 0.4rem; border-radius: 4px;
+  font-weight: 700; margin-left: 0.25rem;
+}
 </style>
 </head>
 <body>
-<div class="shape"></div><div class="shape"></div><div class="shape"></div><div class="shape"></div><div class="shape"></div>
 
-<header>
-  <div class="header-emoji-row">🚀 ⚡ 🔢 ✨ 🎯</div>
-  <h1>Potenzen <span class="hi">macht Spaß!</span></h1>
-  <p>Schritt für Schritt — von Null zum Profi 💪</p>
-  <div class="stars-bar" id="starsBar">☆ ☆ ☆ ☆ ☆ ☆ ☆ ☆ ☆ ☆ ☆ ☆</div>
-</header>
+<div class="header">
+  <div class="header-top">
+    <div class="logo">Potenzen<span>.</span></div>
+    <div class="stats-bar">
+      <div class="stat-chip">🏆 Punkte <span class="val" id="pts">0</span></div>
+      <div class="stat-chip">📚 Themen <span class="val" id="chapCount">0/10</span></div>
+      <div class="stat-chip">✅ Quiz <span class="val" id="quizCount">0</span></div>
+      <div class="note-badge" id="noteBadge" data-label="Geschätzte Note">—</div>
+    </div>
+  </div>
+  <div class="progress-section">
+    <div class="progress-label">
+      <span>Gesamtfortschritt</span>
+      <span id="pctLabel">0%</span>
+    </div>
+    <div class="progress-bar-outer">
+      <div class="progress-bar-inner" id="progressBar" style="width:0%"></div>
+    </div>
+  </div>
+</div>
 
 <div class="app">
-<div class="chapter-nav">
-  <button class="cp c0 active" onclick="show(0)" id="btn0">🎯 Grundlagen</button>
-  <button class="cp c1" onclick="show(1)" id="btn1">➕➖ Vorzeichen</button>
-  <button class="cp c2" onclick="show(2)" id="btn2">🔟 Zehner</button>
-  <button class="cp c3" onclick="show(3)" id="btn3">✖️ Multiplizieren</button>
-  <button class="cp c4" onclick="show(4)" id="btn4">➗ Dividieren</button>
-  <button class="cp c5" onclick="show(5)" id="btn5">🔄 Potenz²</button>
-  <button class="cp c6" onclick="show(6)" id="btn6">🍕 Brüche</button>
-  <button class="cp c7" onclick="show(7)" id="btn7">📦 Produkt</button>
-  <button class="cp c8" onclick="show(8)" id="btn8">➖ Negativ</button>
-  <button class="cp c9" onclick="show(9)" id="btn9">📝 Aufgabe 6</button>
-  <button class="cp c10" onclick="show(10)" id="btn10">⚡ Quiz</button>
-  <button class="cp c11" onclick="show(11)" id="btn11">📋 Spickzettel</button>
+  <!-- SIDEBAR -->
+  <div class="sidebar">
+    <div class="sidebar-title">Kapitel</div>
+    <button class="nav-item active" id="nav0" onclick="showLesson(0)">
+      <span class="nav-num">1</span> Grundlagen
+      <span class="nav-stars" id="nstar0"></span>
+    </button>
+    <button class="nav-item locked" id="nav1" onclick="showLesson(1)">
+      <span class="nav-num">2</span> Vorzeichen
+      <span class="nav-lock" id="nlock1">🔒</span>
+    </button>
+    <button class="nav-item locked" id="nav2" onclick="showLesson(2)">
+      <span class="nav-num">3</span> Zehnerpotenzen
+      <span class="nav-lock" id="nlock2">🔒</span>
+    </button>
+    <button class="nav-item locked" id="nav3" onclick="showLesson(3)">
+      <span class="nav-num">4</span> Multiplizieren
+      <span class="nav-lock" id="nlock3">🔒</span>
+    </button>
+    <button class="nav-item locked" id="nav4" onclick="showLesson(4)">
+      <span class="nav-num">5</span> Dividieren
+      <span class="nav-lock" id="nlock4">🔒</span>
+    </button>
+    <button class="nav-item locked" id="nav5" onclick="showLesson(5)">
+      <span class="nav-num">6</span> Potenz²
+      <span class="nav-lock" id="nlock5">🔒</span>
+    </button>
+    <button class="nav-item locked" id="nav6" onclick="showLesson(6)">
+      <span class="nav-num">7</span> Brüche
+      <span class="nav-lock" id="nlock6">🔒</span>
+    </button>
+    <button class="nav-item locked" id="nav7" onclick="showLesson(7)">
+      <span class="nav-num">8</span> Produkt
+      <span class="nav-lock" id="nlock7">🔒</span>
+    </button>
+    <button class="nav-item locked" id="nav8" onclick="showLesson(8)">
+      <span class="nav-num">9</span> Neg. Exponenten
+      <span class="nav-lock" id="nlock8">🔒</span>
+    </button>
+    <button class="nav-item locked" id="nav9" onclick="showLesson(9)">
+      <span class="nav-num">10</span> Aufgaben
+      <span class="nav-lock" id="nlock9">🔒</span>
+    </button>
+    <button class="nav-item locked" id="nav10" onclick="showLesson(10)">
+      <span class="nav-num">★</span> Final-Quiz
+      <span class="nav-lock" id="nlock10">🔒</span>
+    </button>
+    <button class="nav-item" id="nav11" onclick="showLesson(11)">
+      <span class="nav-num">📋</span> Spickzettel
+    </button>
+  </div>
+
+  <!-- CONTENT AREA -->
+  <div class="content" id="contentArea">
+
+    <!-- LESSON 0: GRUNDLAGEN -->
+    <div class="lesson active" id="lesson0">
+      <div class="lesson-hero h-purple" data-e="🎯">
+        <div class="lesson-tag">Kapitel 1 · Grundlagen</div>
+        <h2>Was ist eine Potenz?</h2>
+        <p>Clevere Abkürzung für wiederholte Multiplikation!</p>
+      </div>
+      <div class="card">
+        <div class="card-title">💡 Die Idee</div>
+        <p style="font-size:0.95rem;font-weight:500;margin-bottom:1rem;color:var(--muted)">Statt <strong style="color:var(--text)">2 · 2 · 2 · 2 · 2</strong> zu schreiben, nutzen wir einfach <strong style="color:var(--accent)">2⁵</strong> — spart Zeit &amp; sieht cooler aus!</p>
+        <div class="formula">
+          <div class="formula-main">a<sup>n</sup> = a · a · a · … · a</div>
+          <div class="formula-sub">Basis a wird n-mal mit sich selbst multipliziert</div>
+        </div>
+        <div class="infobox info">
+          <div class="infobox-icon">📌</div>
+          <div><strong>BASIS</strong> = die große Zahl unten (was wird multipliziert?)<br><strong>EXPONENT</strong> = die kleine Zahl oben (wie oft?)<br><strong>POTENZWERT</strong> = das Ergebnis</div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-title">📝 Schritt-für-Schritt: 2⁵</div>
+        <div class="steps">
+          <div class="step"><span class="step-badge" style="background:var(--accent2)">Aufgabe</span><span class="step-main">2⁵</span><span class="step-hint">lies: „zwei hoch fünf"</span></div>
+          <div class="step"><span class="step-badge" style="background:var(--accent2)">Ausschreiben</span><span class="step-main">= 2 · 2 · 2 · 2 · 2</span><span class="step-hint">5 Faktoren!</span></div>
+          <div class="step"><span class="step-badge" style="background:var(--accent2)">Rechnen</span><span class="step-main">= 4 · 4 · 2 = 16 · 2</span></div>
+        </div>
+        <div class="result" style="margin-top:0.5rem">🎉 Ergebnis: 32</div>
+      </div>
+      <div class="card">
+        <div class="card-title">⭐ Spezialfälle</div>
+        <div class="concept-grid">
+          <div class="concept-card"><div style="font-size:1.5rem">1️⃣</div><div class="cc-p">a<sup>1</sup></div><div class="cc-a">= a</div><div class="cc-n">7¹ = 7</div></div>
+          <div class="concept-card"><div style="font-size:1.5rem">0️⃣</div><div class="cc-p">a<sup>0</sup></div><div class="cc-a">= 1</div><div class="cc-n">100⁰ = 1 immer!</div></div>
+          <div class="concept-card"><div style="font-size:1.5rem">⬛</div><div class="cc-p">a<sup>2</sup></div><div class="cc-a">„Quadrat"</div><div class="cc-n">5² = 25</div></div>
+          <div class="concept-card"><div style="font-size:1.5rem">🎲</div><div class="cc-p">a<sup>3</sup></div><div class="cc-a">„Kubik"</div><div class="cc-n">3³ = 27</div></div>
+        </div>
+      </div>
+      <!-- MINI QUIZ -->
+      <div class="card" style="border-color:rgba(124,106,247,0.3)">
+        <div class="card-title">⚡ Mini-Quiz — Zeig was du kannst!</div>
+        <div class="quiz-wrap" id="mq0"></div>
+        <button class="lesson-complete-btn" id="complete0" onclick="completeLesson(0)" disabled>
+          Kapitel abschließen &amp; Nächstes freischalten 🔓
+        </button>
+      </div>
+    </div>
+
+    <!-- LESSON 1: VORZEICHEN -->
+    <div class="lesson" id="lesson1">
+      <div class="lesson-hero h-orange" data-e="➕">
+        <div class="lesson-tag">Kapitel 2 · Vorzeichen</div>
+        <h2>Vorzeichen-Regeln</h2>
+        <p>Was passiert, wenn die Basis negativ ist?</p>
+      </div>
+      <div class="card">
+        <div class="card-title">🎨 Die goldene Regel</div>
+        <div class="split-grid">
+          <div class="split-card">
+            <div class="split-head" style="background:linear-gradient(135deg,#0a3d1f,#1a5c30)">GERADER Exponent → ➕ POSITIV</div>
+            <div class="split-body">(−2)² = +4 ✅<br>(−3)⁴ = +81 ✅<br>(−1)⁶ = +1 ✅<br><em style="color:var(--muted)">Minus × Minus = Plus!</em></div>
+          </div>
+          <div class="split-card">
+            <div class="split-head" style="background:linear-gradient(135deg,#4a0a0a,#7a1a1a)">UNGERADER Exponent → ➖ NEGATIV</div>
+            <div class="split-body">(−2)³ = −8 ✅<br>(−5)³ = −125 ✅<br>(−1)⁵ = −1 ✅<br><em style="color:var(--muted)">Ein Minus bleibt übrig!</em></div>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-title">📝 Schritt-für-Schritt: (−2)⁶</div>
+        <div class="steps">
+          <div class="step" style="border-color:var(--accent4)"><span class="step-badge" style="background:var(--accent4);color:#000">Exponent</span><span class="step-main">6 ist gerade → Ergebnis POSITIV ✅</span></div>
+          <div class="step" style="border-color:var(--accent4)"><span class="step-badge" style="background:var(--accent4);color:#000">Ausschreiben</span><span class="step-main">(−2)·(−2)·(−2)·(−2)·(−2)·(−2)</span></div>
+          <div class="step" style="border-color:var(--accent4)"><span class="step-badge" style="background:var(--accent4);color:#000">Paarweise</span><span class="step-main">(+4)·(+4)·(+4) = 16·4</span></div>
+        </div>
+        <div class="result">🎉 Ergebnis: 64</div>
+      </div>
+      <div class="infobox danger">
+        <div class="infobox-icon">🚨</div>
+        <div><strong>−2⁴ = −16</strong> → Erst 2⁴=16, dann Minus davor<br><strong>(−2)⁴ = +16</strong> → Minus gehört zur Basis, gerade → positiv<br><em>Die Klammer macht den Riesenunterschied!</em></div>
+      </div>
+      <div class="card" style="border-color:rgba(124,106,247,0.3)">
+        <div class="card-title">⚡ Mini-Quiz</div>
+        <div class="quiz-wrap" id="mq1"></div>
+        <button class="lesson-complete-btn" id="complete1" onclick="completeLesson(1)" disabled>
+          Kapitel abschließen &amp; Nächstes freischalten 🔓
+        </button>
+      </div>
+    </div>
+
+    <!-- LESSON 2: ZEHNER -->
+    <div class="lesson" id="lesson2">
+      <div class="lesson-hero h-yellow" data-e="🔟">
+        <div class="lesson-tag">Kapitel 3 · Zehnerpotenzen</div>
+        <h2>Zehnerpotenzen</h2>
+        <p>Der einfachste Trick: Nullen zählen! 🎉</p>
+      </div>
+      <div class="card">
+        <div class="formula">
+          <div class="formula-main">10ⁿ = 1 gefolgt von n Nullen</div>
+          <div class="formula-sub">Der Exponent = Anzahl der Nullen</div>
+        </div>
+        <table class="data-table">
+          <tr><th>Potenz</th><th>Wert</th><th>Name &amp; Nullen</th></tr>
+          <tr><td>10¹</td><td>10</td><td>Zehn — 1 Null</td></tr>
+          <tr><td>10²</td><td>100</td><td>Hundert — 2 Nullen</td></tr>
+          <tr><td>10³</td><td>1.000</td><td>Tausend — 3 Nullen</td></tr>
+          <tr><td>10⁶</td><td>1.000.000</td><td>Million — 6 Nullen</td></tr>
+          <tr><td>10⁹</td><td>1.000.000.000</td><td>Milliarde — 9 Nullen</td></tr>
+          <tr><td>10¹²</td><td>1.000.000.000.000</td><td>Billion — 12 Nullen</td></tr>
+        </table>
+      </div>
+      <div class="card">
+        <div class="card-title">🎯 Als Zehnerpotenz</div>
+        <div class="concept-grid">
+          <div class="concept-card"><div style="font-size:1.5rem">💰</div><div class="cc-p">1 Milliarde</div><div class="cc-a">10⁹</div></div>
+          <div class="concept-card"><div style="font-size:1.5rem">📱</div><div class="cc-p">10 Millionen</div><div class="cc-a">10⁷</div></div>
+          <div class="concept-card"><div style="font-size:1.5rem">🌍</div><div class="cc-p">10 Billionen</div><div class="cc-a">10¹³</div></div>
+          <div class="concept-card"><div style="font-size:1.5rem">🚀</div><div class="cc-p">100 Milliarden</div><div class="cc-a">10¹¹</div></div>
+        </div>
+      </div>
+      <div class="card" style="border-color:rgba(124,106,247,0.3)">
+        <div class="card-title">⚡ Mini-Quiz</div>
+        <div class="quiz-wrap" id="mq2"></div>
+        <button class="lesson-complete-btn" id="complete2" onclick="completeLesson(2)" disabled>
+          Kapitel abschließen &amp; Nächstes freischalten 🔓
+        </button>
+      </div>
+    </div>
+
+    <!-- LESSON 3: MULTIPLIZIEREN -->
+    <div class="lesson" id="lesson3">
+      <div class="lesson-hero h-green" data-e="✖️">
+        <div class="lesson-tag">Kapitel 4 · Potenzgesetz 1</div>
+        <h2>Potenzen multiplizieren</h2>
+        <p>Gleiche Basis? Exponenten addieren! ➕</p>
+      </div>
+      <div class="card">
+        <div class="formula">
+          <div class="formula-main">a<sup>n</sup> · a<sup>m</sup> = a<sup>n+m</sup></div>
+          <div class="formula-sub">Gleiche Basis → Exponenten ADDIEREN!</div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-title">🔍 Warum? 2³ · 2⁴</div>
+        <div class="steps">
+          <div class="step" style="border-color:var(--green)"><span class="step-badge" style="background:var(--green);color:#000">Ausschreiben</span><span class="step-main">(2·2·2) · (2·2·2·2)</span></div>
+          <div class="step" style="border-color:var(--green)"><span class="step-badge" style="background:var(--green);color:#000">Zusammen</span><span class="step-main">2·2·2·2·2·2·2 = 2⁷</span><span class="step-hint">3+4=7</span></div>
+        </div>
+        <div class="result">🎉 2⁷ = 128</div>
+      </div>
+      <div class="infobox danger">
+        <div class="infobox-icon">🚨</div>
+        <div><strong>Häufiger Fehler:</strong><br>2³ · 2⁴ = 2¹² ❌ — NEIN, nicht multiplizieren!<br>2³ · 2⁴ = 2⁷ ✅ — ADDIEREN! (3+4=7)</div>
+      </div>
+      <div class="card" style="border-color:rgba(124,106,247,0.3)">
+        <div class="card-title">⚡ Mini-Quiz</div>
+        <div class="quiz-wrap" id="mq3"></div>
+        <button class="lesson-complete-btn" id="complete3" onclick="completeLesson(3)" disabled>
+          Kapitel abschließen &amp; Nächstes freischalten 🔓
+        </button>
+      </div>
+    </div>
+
+    <!-- LESSON 4: DIVIDIEREN -->
+    <div class="lesson" id="lesson4">
+      <div class="lesson-hero h-teal" data-e="➗">
+        <div class="lesson-tag">Kapitel 5 · Potenzgesetz 2</div>
+        <h2>Potenzen dividieren</h2>
+        <p>Gleiche Basis teilen? Exponenten subtrahieren! ➖</p>
+      </div>
+      <div class="card">
+        <div class="formula">
+          <div class="formula-main">a<sup>n</sup> : a<sup>m</sup> = a<sup>n−m</sup></div>
+          <div class="formula-sub">Gleiche Basis → Exponenten SUBTRAHIEREN</div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-title">📝 Schritt-für-Schritt: 2⁵ : 2²</div>
+        <div class="steps">
+          <div class="step" style="border-color:var(--accent3)"><span class="step-badge" style="background:var(--accent3);color:#000">Ausschreiben</span><span class="step-main">(2·2·2·2·2) : (2·2)</span></div>
+          <div class="step" style="border-color:var(--accent3)"><span class="step-badge" style="background:var(--accent3);color:#000">Kürzen</span><span class="step-main">Zwei 2er kürzen sich → 2·2·2 = 2³</span><span class="step-hint">5−2=3</span></div>
+        </div>
+        <div class="result">🎉 2³ = 8</div>
+      </div>
+      <div class="infobox tip">
+        <div class="infobox-icon">💡</div>
+        <div><strong>Sonderfall:</strong> 5³ : 5³ = 5⁰ = 1 (weil 3−3=0!)</div>
+      </div>
+      <div class="card" style="border-color:rgba(124,106,247,0.3)">
+        <div class="card-title">⚡ Mini-Quiz</div>
+        <div class="quiz-wrap" id="mq4"></div>
+        <button class="lesson-complete-btn" id="complete4" onclick="completeLesson(4)" disabled>
+          Kapitel abschließen &amp; Nächstes freischalten 🔓
+        </button>
+      </div>
+    </div>
+
+    <!-- LESSON 5: POTENZ² -->
+    <div class="lesson" id="lesson5">
+      <div class="lesson-hero h-blue" data-e="🔄">
+        <div class="lesson-tag">Kapitel 6 · Potenzgesetz 3</div>
+        <h2>Potenz einer Potenz</h2>
+        <p>Klammer hoch etwas → Exponenten multiplizieren!</p>
+      </div>
+      <div class="card">
+        <div class="formula">
+          <div class="formula-main">(a<sup>n</sup>)<sup>m</sup> = a<sup>n·m</sup></div>
+          <div class="formula-sub">MIT Klammer → Exponenten MULTIPLIZIEREN</div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-title">📝 Schritt-für-Schritt: (2³)²</div>
+        <div class="steps">
+          <div class="step" style="border-color:var(--accent5)"><span class="step-badge" style="background:var(--accent5)">Bedeutet</span><span class="step-main">2³ · 2³ (zweimal!)</span></div>
+          <div class="step" style="border-color:var(--accent5)"><span class="step-badge" style="background:var(--accent5)">Kurz</span><span class="step-main">2<sup>3·2</sup> = 2⁶</span><span class="step-hint">3×2=6</span></div>
+        </div>
+        <div class="result">🎉 2⁶ = 64</div>
+      </div>
+      <div class="infobox warn">
+        <div class="infobox-icon">⚠️</div>
+        <div>2³ · 2⁴ = 2⁷ (ohne Klammer → ADDIEREN)<br>(2³)⁴ = 2¹² (MIT Klammer → MULTIPLIZIEREN)<br><strong>Klammer → mal | ohne Klammer → plus</strong></div>
+      </div>
+      <div class="card" style="border-color:rgba(124,106,247,0.3)">
+        <div class="card-title">⚡ Mini-Quiz</div>
+        <div class="quiz-wrap" id="mq5"></div>
+        <button class="lesson-complete-btn" id="complete5" onclick="completeLesson(5)" disabled>
+          Kapitel abschließen &amp; Nächstes freischalten 🔓
+        </button>
+      </div>
+    </div>
+
+    <!-- LESSON 6: BRÜCHE -->
+    <div class="lesson" id="lesson6">
+      <div class="lesson-hero h-pink" data-e="🍕">
+        <div class="lesson-tag">Kapitel 7 · Potenzgesetz 4</div>
+        <h2>Brüche potenzieren</h2>
+        <p>Bruch hoch n? Oben UND unten die Potenz!</p>
+      </div>
+      <div class="card">
+        <div class="formula">
+          <div class="formula-main">(<span class="frac" style="color:var(--accent);font-size:1.1rem"><span>a</span><span>b</span></span>)<sup>n</sup> = <span class="frac" style="color:var(--accent);font-size:1.1rem"><span>a<sup>n</sup></span><span>b<sup>n</sup></span></span></div>
+          <div class="formula-sub">Zähler hoch n UND Nenner hoch n — beide getrennt!</div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-title">📝 Schritt-für-Schritt: (−¾)³</div>
+        <div class="steps">
+          <div class="step" style="border-color:var(--accent2)"><span class="step-badge" style="background:var(--accent2)">Zähler</span><span class="step-main">(−3)³ = −27 (ungerade → negativ!)</span></div>
+          <div class="step" style="border-color:var(--accent2)"><span class="step-badge" style="background:var(--accent2)">Nenner</span><span class="step-main">4³ = 4·4·4 = 64</span></div>
+        </div>
+        <div class="result">🎉 Ergebnis: −<span class="frac"><span>27</span><span>64</span></span></div>
+      </div>
+      <div class="card" style="border-color:rgba(124,106,247,0.3)">
+        <div class="card-title">⚡ Mini-Quiz</div>
+        <div class="quiz-wrap" id="mq6"></div>
+        <button class="lesson-complete-btn" id="complete6" onclick="completeLesson(6)" disabled>
+          Kapitel abschließen &amp; Nächstes freischalten 🔓
+        </button>
+      </div>
+    </div>
+
+    <!-- LESSON 7: PRODUKT -->
+    <div class="lesson" id="lesson7">
+      <div class="lesson-hero h-red" data-e="📦">
+        <div class="lesson-tag">Kapitel 8 · Potenzgesetz 5</div>
+        <h2>Produkt potenzieren</h2>
+        <p>Mal-Zeichen in Klammer → jeder bekommt die Potenz!</p>
+      </div>
+      <div class="card">
+        <div class="formula">
+          <div class="formula-main">(a · b)<sup>n</sup> = a<sup>n</sup> · b<sup>n</sup></div>
+          <div class="formula-sub">Klammer mit MAL → Potenz auf ALLE Faktoren verteilen!</div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-title">📝 Schritt-für-Schritt: (2·3)⁴</div>
+        <div class="steps">
+          <div class="step" style="border-color:var(--red)"><span class="step-badge" style="background:var(--red)">Verteilen</span><span class="step-main">= 2⁴ · 3⁴</span></div>
+          <div class="step" style="border-color:var(--red)"><span class="step-badge" style="background:var(--red)">Ausrechnen</span><span class="step-main">= 16 · 81</span></div>
+        </div>
+        <div class="result">🎉 = 1.296</div>
+      </div>
+      <div class="infobox tip">
+        <div class="infobox-icon">💡</div>
+        <div><strong>Mit Variablen:</strong> (3x)² = 3² · x² = 9x²<br>Sowohl die 3 als auch x bekommen das Quadrat!</div>
+      </div>
+      <div class="card" style="border-color:rgba(124,106,247,0.3)">
+        <div class="card-title">⚡ Mini-Quiz</div>
+        <div class="quiz-wrap" id="mq7"></div>
+        <button class="lesson-complete-btn" id="complete7" onclick="completeLesson(7)" disabled>
+          Kapitel abschließen &amp; Nächstes freischalten 🔓
+        </button>
+      </div>
+    </div>
+
+    <!-- LESSON 8: NEGATIVE EXPONENTEN -->
+    <div class="lesson" id="lesson8">
+      <div class="lesson-hero h-indigo" data-e="➖">
+        <div class="lesson-tag">Kapitel 9 · Potenzgesetz 6</div>
+        <h2>Negative Exponenten</h2>
+        <p>Minus im Exponent = umdrehen (Kehrwert)!</p>
+      </div>
+      <div class="card">
+        <div class="formula">
+          <div class="formula-main">a<sup>−n</sup> = <span class="frac" style="color:var(--accent);font-size:1rem"><span>1</span><span>a<sup>n</sup></span></span></div>
+          <div class="formula-sub">Minus → 1 geteilt durch die Potenz (Kehrwert!)</div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-title">📝 Schritt-für-Schritt: 2⁻³</div>
+        <div class="steps">
+          <div class="step"><span class="step-badge">Erkennen</span><span class="step-main">Minus im Exponenten → Kehrwert!</span></div>
+          <div class="step"><span class="step-badge">Umschreiben</span><span class="step-main">= <span class="frac"><span>1</span><span>2³</span></span> = <span class="frac"><span>1</span><span>8</span></span></span></div>
+        </div>
+        <div class="result">🎉 = 0,125</div>
+      </div>
+      <div class="card">
+        <div class="card-title">🔟 Zehnerpotenzen negativ</div>
+        <table class="data-table">
+          <tr><th>Potenz</th><th>Bruch</th><th>Dezimal</th></tr>
+          <tr><td>10⁻¹</td><td>1/10</td><td>0,1</td></tr>
+          <tr><td>10⁻²</td><td>1/100</td><td>0,01</td></tr>
+          <tr><td>10⁻³</td><td>1/1.000</td><td>0,001</td></tr>
+          <tr><td>10⁻⁶</td><td>1/1.000.000</td><td>0,000001</td></tr>
+        </table>
+      </div>
+      <div class="card" style="border-color:rgba(124,106,247,0.3)">
+        <div class="card-title">⚡ Mini-Quiz</div>
+        <div class="quiz-wrap" id="mq8"></div>
+        <button class="lesson-complete-btn" id="complete8" onclick="completeLesson(8)" disabled>
+          Kapitel abschließen &amp; Nächstes freischalten 🔓
+        </button>
+      </div>
+    </div>
+
+    <!-- LESSON 9: AUFGABEN -->
+    <div class="lesson" id="lesson9">
+      <div class="lesson-hero h-green" data-e="📝">
+        <div class="lesson-tag">Übungen · Aufgabe 6</div>
+        <h2>Aufgabe 6 — Vorzeichen</h2>
+        <p>Klick auf jede Teilaufgabe für den Rechenweg!</p>
+      </div>
+      <div class="card">
+        <div id="accList"></div>
+      </div>
+      <div class="card" style="border-color:rgba(124,106,247,0.3)">
+        <div class="card-title">⚡ Mini-Quiz</div>
+        <div class="quiz-wrap" id="mq9"></div>
+        <button class="lesson-complete-btn" id="complete9" onclick="completeLesson(9)" disabled>
+          Kapitel abschließen &amp; Nächstes freischalten 🔓
+        </button>
+      </div>
+    </div>
+
+    <!-- LESSON 10: FINAL QUIZ -->
+    <div class="lesson" id="lesson10">
+      <div class="lesson-hero h-purple" data-e="⚡">
+        <div class="lesson-tag">Abschluss · Final-Quiz</div>
+        <h2>Großes Quiz</h2>
+        <p>Zeig alles was du gelernt hast! 🧠</p>
+      </div>
+      <div class="card" style="border-color:rgba(124,106,247,0.3)">
+        <div class="quiz-wrap" id="mq10"></div>
+        <button class="lesson-complete-btn" id="complete10" onclick="completeLesson(10)" disabled>
+          Quiz abschließen — Note bestätigen! 🏆
+        </button>
+      </div>
+    </div>
+
+    <!-- LESSON 11: SPICKZETTEL -->
+    <div class="lesson" id="lesson11">
+      <div class="lesson-hero h-indigo" data-e="📋">
+        <div class="lesson-tag">Zusammenfassung</div>
+        <h2>Spickzettel</h2>
+        <p>Alle Regeln auf einen Blick!</p>
+      </div>
+      <div class="card">
+        <div class="card-title">📚 Alle Gesetze</div>
+        <div class="spick-grid">
+          <div class="spick-card" style="background:linear-gradient(135deg,#2d1b69,#4a2569)"><div class="spick-label">Grundregel</div><div class="spick-formula">aⁿ = a·a·…·a</div><div class="spick-ex">2⁴ = 16</div></div>
+          <div class="spick-card" style="background:linear-gradient(135deg,#1a1a4a,#2d2d7a)"><div class="spick-label">Hoch 0</div><div class="spick-formula">a⁰ = 1</div><div class="spick-ex">100⁰ = 1 (immer!)</div></div>
+          <div class="spick-card" style="background:linear-gradient(135deg,#0a3d1f,#1a5c30)"><div class="spick-label">Multiplikation</div><div class="spick-formula">aⁿ · aᵐ = aⁿ⁺ᵐ</div><div class="spick-ex">2³·2⁴ = 2⁷ = 128</div></div>
+          <div class="spick-card" style="background:linear-gradient(135deg,#063a3a,#0d5c5c)"><div class="spick-label">Division</div><div class="spick-formula">aⁿ : aᵐ = aⁿ⁻ᵐ</div><div class="spick-ex">2⁵:2² = 2³ = 8</div></div>
+          <div class="spick-card" style="background:linear-gradient(135deg,#0a2340,#1a3d6b)"><div class="spick-label">Potenz einer Potenz</div><div class="spick-formula">(aⁿ)ᵐ = aⁿ·ᵐ</div><div class="spick-ex">(2³)⁴ = 2¹²</div></div>
+          <div class="spick-card" style="background:linear-gradient(135deg,#4a0a2d,#6b1a47)"><div class="spick-label">Produkt potenzieren</div><div class="spick-formula">(a·b)ⁿ = aⁿ·bⁿ</div><div class="spick-ex">(2·3)² = 4·9 = 36</div></div>
+          <div class="spick-card" style="background:linear-gradient(135deg,#4a0a0a,#7a1a1a)"><div class="spick-label">Bruch potenzieren</div><div class="spick-formula">(a/b)ⁿ = aⁿ/bⁿ</div><div class="spick-ex">(½)³ = 1/8</div></div>
+          <div class="spick-card" style="background:linear-gradient(135deg,#3a2a00,#5a4000)"><div class="spick-label">Negativer Exponent</div><div class="spick-formula">a⁻ⁿ = 1/aⁿ</div><div class="spick-ex">2⁻³ = 1/8</div></div>
+          <div class="spick-card" style="background:linear-gradient(135deg,#0a3d1f,#1a5c30)"><div class="spick-label">Gerade Hochzahl</div><div class="spick-formula">(−a)^gerade = +</div><div class="spick-ex">(−3)⁴ = +81 ✅</div></div>
+          <div class="spick-card" style="background:linear-gradient(135deg,#4a0a0a,#7a1a1a)"><div class="spick-label">Ungerade Hochzahl</div><div class="spick-formula">(−a)^ungerade = −</div><div class="spick-ex">(−3)³ = −27 ✅</div></div>
+        </div>
+      </div>
+      <div class="card" style="border-color:rgba(247,106,106,0.3)">
+        <div class="card-title" style="color:var(--red)">🚨 Die 3 häufigsten Fehler</div>
+        <div style="font-weight:600;line-height:2.2;font-size:0.93rem;color:var(--muted)">
+          <span style="color:var(--text)">1.</span> 2³ · 2⁴ = 2¹² ❌ → <strong style="color:var(--green)">ADDIEREN</strong>, nicht multiplizieren! 2⁷ ✅<br>
+          <span style="color:var(--text)">2.</span> −2⁴ = (−2)⁴ ❌ → <strong style="color:var(--green)">Klammer</strong> macht den Unterschied!<br>
+          <span style="color:var(--text)">3.</span> (aⁿ)ᵐ = aⁿ⁺ᵐ ❌ → MIT Klammer <strong style="color:var(--green)">MULTIPLIZIEREN</strong>! aⁿ·ᵐ ✅
+        </div>
+      </div>
+      <!-- DATA MANAGEMENT -->
+      <div class="data-mgmt">
+        <h4>🗑️ Daten löschen</h4>
+        <p style="font-size:0.85rem;color:var(--muted);font-weight:500;margin-top:0.25rem">Alle Fortschritte, Punkte und freigeschaltete Kapitel zurücksetzen.</p>
+        <button class="btn-danger" onclick="confirmReset()">⚠️ Alle Daten löschen &amp; neu starten</button>
+      </div>
+    </div>
+
+  </div><!-- end content -->
 </div>
 
-<!-- 0 GRUNDLAGEN -->
-<div class="lesson active" id="lesson0">
-  <div class="hero gp" data-e="🎯"><div class="tag">Kapitel 1</div><h2>Was ist eine Potenz?</h2><div class="sub">Eine super clevere Abkürzung für wiederholte Multiplikation!</div></div>
-  <div class="block">
-    <div class="block-title">💡 Die Idee</div>
-    <p style="font-size:1rem;font-weight:600;margin-bottom:1rem">Statt <strong>2 · 2 · 2 · 2 · 2</strong> zu schreiben, nutzen wir <strong>2⁵</strong> — spart Zeit und sieht cooler aus! 😎</p>
-    <div class="fbub"><div class="fmain">a<sup>n</sup> = a · a · a · … · a</div><div class="fwords">Die Basis a wird n-mal mit sich selbst multipliziert</div></div>
-    <div class="cl info"><div class="cl-i">📌</div><div><strong>BASIS</strong> = die große Zahl unten (was wird multipliziert?)<br><strong>EXPONENT</strong> = die kleine Zahl oben (wie oft?)<br><strong>POTENZWERT</strong> = das Ergebnis</div></div>
-  </div>
-  <div class="block">
-    <div class="block-title">📝 Schritt-für-Schritt: 2⁵</div>
-    <div class="steps">
-      <div class="sr" style="border-color:var(--pink)"><span class="sb" style="background:var(--pink)">Aufgabe</span><span class="sm">2⁵</span><span class="sh">lies: „zwei hoch fünf"</span></div>
-      <div class="sr" style="border-color:var(--pink)"><span class="sb" style="background:var(--pink)">Ausschreiben</span><span class="sm">= 2 · 2 · 2 · 2 · 2</span><span class="sh">5 Faktoren!</span></div>
-      <div class="sr" style="border-color:var(--pink)"><span class="sb" style="background:var(--pink)">Rechnen</span><span class="sm">= 4 · 4 · 2 = 16 · 2</span></div>
-      <div class="res">🎉 Ergebnis: 32</div>
-    </div>
-  </div>
-  <div class="block">
-    <div class="block-title">⭐ Spezialfälle</div>
-    <div class="cgrid">
-      <div class="mc"><div class="mc-i">1️⃣</div><div class="mc-p">a<sup>1</sup></div><div style="color:var(--orange);font-size:1.1rem;">↓</div><div class="mc-a">= a</div><div class="mc-n">z.B. 7¹ = 7</div></div>
-      <div class="mc"><div class="mc-i">0️⃣</div><div class="mc-p">a<sup>0</sup></div><div style="color:var(--orange);font-size:1.1rem;">↓</div><div class="mc-a">= 1</div><div class="mc-n">100⁰ = 1 (immer!)</div></div>
-      <div class="mc"><div class="mc-i">⬛</div><div class="mc-p">a<sup>2</sup></div><div style="color:var(--orange);font-size:1.1rem;">↓</div><div class="mc-a">„Quadrat"</div><div class="mc-n">5² = 25</div></div>
-      <div class="mc"><div class="mc-i">🎲</div><div class="mc-p">a<sup>3</sup></div><div style="color:var(--orange);font-size:1.1rem;">↓</div><div class="mc-a">„Kubik"</div><div class="mc-n">3³ = 27</div></div>
-    </div>
-  </div>
-</div>
-
-<!-- 1 VORZEICHEN -->
-<div class="lesson" id="lesson1">
-  <div class="hero go" data-e="➕"><div class="tag">Kapitel 2</div><h2>Vorzeichen-Regeln</h2><div class="sub">Was passiert, wenn die Basis negativ ist?</div></div>
-  <div class="block">
-    <div class="block-title">🎨 Die goldene Regel</div>
-    <div class="sgrid">
-      <div class="scard"><div class="stop pl">GERADER Exponent → ➕ POSITIV</div><div class="sbody">(−2)² = +4 ✅<br>(−3)⁴ = +81 ✅<br>(−1)⁶ = +1 ✅<br><em>Minus × Minus = Plus!</em></div></div>
-      <div class="scard"><div class="stop mi">UNGERADER Exponent → ➖ NEGATIV</div><div class="sbody">(−2)³ = −8 ✅<br>(−5)³ = −125 ✅<br>(−1)⁵ = −1 ✅<br><em>Ein Minus bleibt übrig!</em></div></div>
-    </div>
-  </div>
-  <div class="block">
-    <div class="block-title">📝 Schritt-für-Schritt: (−2)⁶</div>
-    <div class="steps">
-      <div class="sr" style="border-color:var(--orange)"><span class="sb" style="background:var(--orange)">Exponent</span><span class="sm">6 ist gerade → Ergebnis POSITIV! ✅</span></div>
-      <div class="sr" style="border-color:var(--orange)"><span class="sb" style="background:var(--orange)">Ausschreiben</span><span class="sm">(−2)·(−2)·(−2)·(−2)·(−2)·(−2)</span></div>
-      <div class="sr" style="border-color:var(--orange)"><span class="sb" style="background:var(--orange)">Paarweise</span><span class="sm">(+4)·(+4)·(+4) = 16·4</span></div>
-      <div class="res">🎉 Ergebnis: 64</div>
-    </div>
-  </div>
-  <div class="block">
-    <div class="block-title">⚠️ Super wichtig — Klammer oder nicht?</div>
-    <div class="cl err"><div class="cl-i">🚨</div><div><strong>−2⁴ = −16</strong> → Erst 2⁴=16, dann Minus davor<br><strong>(−2)⁴ = +16</strong> → Minus gehört zur Basis, gerade → positiv<br><br><em>Die Klammer macht den Riesenunterschied! 🎯</em></div></div>
-  </div>
-  <div class="block">
-    <div class="block-title">🔢 Dezimalzahlen: (−0,2)³</div>
-    <div class="steps">
-      <div class="sr" style="border-color:var(--orange)"><span class="sb" style="background:var(--orange)">Ausschreiben</span><span class="sm">(−0,2)·(−0,2)·(−0,2)</span></div>
-      <div class="sr" style="border-color:var(--orange)"><span class="sb" style="background:var(--orange)">Schritt 1</span><span class="sm">(+0,04)·(−0,2)</span><span class="sh">ungerade → negativ</span></div>
-      <div class="res">🎉 Ergebnis: −0,008</div>
-    </div>
-  </div>
-</div>
-
-<!-- 2 ZEHNER -->
-<div class="lesson" id="lesson2">
-  <div class="hero gy" data-e="🔟"><div class="tag">Kapitel 3</div><h2>Zehnerpotenzen</h2><div class="sub">Der einfachste Trick: Nullen zählen! 🎉</div></div>
-  <div class="block">
-    <div class="fbub"><div class="fmain">10ⁿ = 1 gefolgt von n Nullen</div><div class="fwords">Der Exponent = Anzahl der Nullen</div></div>
-    <table class="ft">
-      <tr><th>Potenz</th><th>Wert</th><th>Name &amp; Nullen</th></tr>
-      <tr><td>10¹</td><td>10</td><td>Zehn — 1 Null</td></tr>
-      <tr><td>10²</td><td>100</td><td>Hundert — 2 Nullen</td></tr>
-      <tr><td>10³</td><td>1.000</td><td>Tausend — 3 Nullen</td></tr>
-      <tr><td>10⁶</td><td>1.000.000</td><td>Million — 6 Nullen</td></tr>
-      <tr><td>10⁹</td><td>1.000.000.000</td><td>Milliarde — 9 Nullen</td></tr>
-      <tr><td>10¹²</td><td>1.000.000.000.000</td><td>Billion — 12 Nullen</td></tr>
-    </table>
-  </div>
-  <div class="block">
-    <div class="block-title">🎯 Aufgabe 5 — Als Zehnerpotenz</div>
-    <div class="cgrid">
-      <div class="mc"><div class="mc-i">💰</div><div class="mc-p">1 Milliarde</div><div style="color:var(--orange)">→</div><div class="mc-a">10⁹</div></div>
-      <div class="mc"><div class="mc-i">📱</div><div class="mc-p">10 Millionen</div><div style="color:var(--orange)">→</div><div class="mc-a">10⁷</div></div>
-      <div class="mc"><div class="mc-i">🌍</div><div class="mc-p">10 Billionen</div><div style="color:var(--orange)">→</div><div class="mc-a">10¹³</div></div>
-      <div class="mc"><div class="mc-i">🚀</div><div class="mc-p">100 Milliarden</div><div style="color:var(--orange)">→</div><div class="mc-a">10¹¹</div></div>
-      <div class="mc"><div class="mc-i">⭐</div><div class="mc-p">100 Trillionen</div><div style="color:var(--orange)">→</div><div class="mc-a">10²⁰</div></div>
-    </div>
-  </div>
-  <div class="cl tip"><div class="cl-i">🌟</div><div><strong>Im echten Leben:</strong> 1 km = 10³ m | 1 Megabyte = 10⁶ Byte | 1 Gigabyte ≈ 10⁹ Byte</div></div>
-</div>
-
-<!-- 3 MULTIPLIZIEREN -->
-<div class="lesson" id="lesson3">
-  <div class="hero gg" data-e="✖️"><div class="tag">Kapitel 4 · Potenzgesetz 1</div><h2>Potenzen multiplizieren</h2><div class="sub">Gleiche Basis? Exponenten addieren! ➕</div></div>
-  <div class="block"><div class="fbub"><div class="fmain">a<sup>n</sup> · a<sup>m</sup> = a<sup>n+m</sup></div><div class="fwords">Gleiche Basis → Exponenten ADDIEREN!</div></div></div>
-  <div class="block">
-    <div class="block-title">🔍 Warum funktioniert das? 2³ · 2⁴</div>
-    <div class="steps">
-      <div class="sr" style="border-color:var(--green)"><span class="sb" style="background:var(--green);color:#333">Ausschreiben</span><span class="sm">(2·2·2) · (2·2·2·2)</span></div>
-      <div class="sr" style="border-color:var(--green)"><span class="sb" style="background:var(--green);color:#333">Zusammen</span><span class="sm">2·2·2·2·2·2·2 = 2⁷</span><span class="sh">3+4=7</span></div>
-      <div class="res">🎉 2⁷ = 128</div>
-    </div>
-  </div>
-  <div class="cl warn"><div class="cl-i">⚠️</div><div><strong>NUR bei gleicher Basis!</strong><br>2³ · 2⁴ = 2⁷ ✅ (beide Basis 2)<br>2³ · 3⁴ = ??? ❌ (verschiedene Basen!)</div></div>
-  <div class="cl err"><div class="cl-i">🚨</div><div><strong>Häufiger Fehler:</strong><br>2³ · 2⁴ = 2¹² ❌ — NEIN, nicht multiplizieren!<br>2³ · 2⁴ = 2⁷ ✅ — ADDIEREN! (3+4=7)</div></div>
-</div>
-
-<!-- 4 DIVIDIEREN -->
-<div class="lesson" id="lesson4">
-  <div class="hero gt" data-e="➗"><div class="tag">Kapitel 5 · Potenzgesetz 2</div><h2>Potenzen dividieren</h2><div class="sub">Gleiche Basis teilen? Exponenten subtrahieren! ➖</div></div>
-  <div class="block"><div class="fbub"><div class="fmain">a<sup>n</sup> : a<sup>m</sup> = a<sup>n−m</sup></div><div class="fwords">Gleiche Basis → Exponenten SUBTRAHIEREN</div></div></div>
-  <div class="block">
-    <div class="block-title">🔍 Schritt-für-Schritt: 2⁵ : 2²</div>
-    <div class="steps">
-      <div class="sr" style="border-color:var(--teal)"><span class="sb" style="background:var(--teal)">Ausschreiben</span><span class="sm">(2·2·2·2·2) : (2·2)</span></div>
-      <div class="sr" style="border-color:var(--teal)"><span class="sb" style="background:var(--teal)">Kürzen</span><span class="sm">Zwei 2er kürzen sich → 2·2·2 = 2³</span><span class="sh">5−2=3</span></div>
-      <div class="res">🎉 2³ = 8</div>
-    </div>
-  </div>
-  <div class="cl tip"><div class="cl-i">💡</div><div><strong>Sonderfall:</strong> 5³ : 5³ = 5⁰ = 1 (weil 3−3=0!)</div></div>
-  <div class="cgrid">
-    <div class="mc"><div class="mc-i">🔢</div><div class="mc-p">10⁶ : 10⁴</div><div style="color:var(--orange)">→</div><div class="mc-a">10² = 100</div><div class="mc-n">6−4=2</div></div>
-    <div class="mc"><div class="mc-i">🔢</div><div class="mc-p">3⁵ : 3²</div><div style="color:var(--orange)">→</div><div class="mc-a">3³ = 27</div><div class="mc-n">5−2=3</div></div>
-  </div>
-</div>
-
-<!-- 5 POTENZ EINER POTENZ -->
-<div class="lesson" id="lesson5">
-  <div class="hero gb" data-e="🔄"><div class="tag">Kapitel 6 · Potenzgesetz 3</div><h2>Potenz einer Potenz</h2><div class="sub">Klammer hoch etwas → Exponenten multiplizieren! ✖️</div></div>
-  <div class="block"><div class="fbub"><div class="fmain">(a<sup>n</sup>)<sup>m</sup> = a<sup>n·m</sup></div><div class="fwords">MIT Klammer → Exponenten MULTIPLIZIEREN</div></div></div>
-  <div class="block">
-    <div class="block-title">📝 Schritt-für-Schritt: (2³)²</div>
-    <div class="steps">
-      <div class="sr" style="border-color:var(--blue)"><span class="sb" style="background:var(--blue)">Bedeutet</span><span class="sm">2³ · 2³ &nbsp;(zweimal!)</span></div>
-      <div class="sr" style="border-color:var(--blue)"><span class="sb" style="background:var(--blue)">Kurz</span><span class="sm">2<sup>3·2</sup> = 2⁶</span><span class="sh">3×2=6</span></div>
-      <div class="res">🎉 2⁶ = 64</div>
-    </div>
-  </div>
-  <div class="cl warn"><div class="cl-i">⚠️</div><div><strong>Verwechslungsgefahr!</strong><br>2³ · 2⁴ = 2⁷ &nbsp;(ohne Klammer → ADDIEREN)<br>(2³)⁴ = 2¹² &nbsp;(MIT Klammer → MULTIPLIZIEREN)<br><br><strong>Klammer → mal | ohne Klammer → plus</strong></div></div>
-</div>
-
-<!-- 6 BRÜCHE -->
-<div class="lesson" id="lesson6">
-  <div class="hero gpu" data-e="🍕"><div class="tag">Kapitel 7 · Potenzgesetz 4</div><h2>Brüche potenzieren</h2><div class="sub">Bruch hoch n? Oben UND unten die Potenz! 🔝</div></div>
-  <div class="block">
-    <div class="fbub">
-      <div class="fmain">(<span class="frac" style="color:white;font-size:1.2rem"><span>a</span><span>b</span></span>)<sup>n</sup> = <span class="frac" style="color:white;font-size:1.2rem"><span>a<sup>n</sup></span><span>b<sup>n</sup></span></span></div>
-      <div class="fwords">Zähler hoch n UND Nenner hoch n — beide getrennt!</div>
-    </div>
-  </div>
-  <div class="block">
-    <div class="block-title">📝 Schritt-für-Schritt: (−¾)³</div>
-    <div class="steps">
-      <div class="sr" style="border-color:var(--purple)"><span class="sb" style="background:var(--purple)">Formel</span><span class="sm"><span class="frac"><span>(−3)³</span><span>4³</span></span></span></div>
-      <div class="sr" style="border-color:var(--purple)"><span class="sb" style="background:var(--purple)">Zähler</span><span class="sm">(−3)³ = −27 &nbsp;(ungerade → negativ!)</span></div>
-      <div class="sr" style="border-color:var(--purple)"><span class="sb" style="background:var(--purple)">Nenner</span><span class="sm">4³ = 4·4·4 = 64</span></div>
-      <div class="res">🎉 Ergebnis: −<span class="frac"><span>27</span><span>64</span></span></div>
-    </div>
-  </div>
-  <div class="block">
-    <div class="block-title">🃏 Weitere Beispiele</div>
-    <div class="cgrid">
-      <div class="mc"><div class="mc-i">½</div><div class="mc-p">(½)⁴</div><div style="color:var(--orange)">→</div><div class="mc-a"><span class="frac"><span>1</span><span>16</span></span></div><div class="mc-n">1⁴=1, 2⁴=16</div></div>
-      <div class="mc"><div class="mc-i">⅔</div><div class="mc-p">(⅔)³</div><div style="color:var(--orange)">→</div><div class="mc-a"><span class="frac"><span>8</span><span>27</span></span></div><div class="mc-n">2³=8, 3³=27</div></div>
-      <div class="mc"><div class="mc-i">➖</div><div class="mc-p">(−½)⁷</div><div style="color:var(--orange)">→</div><div class="mc-a">−<span class="frac"><span>1</span><span>128</span></span></div><div class="mc-n">ungerade→negativ</div></div>
-      <div class="mc"><div class="mc-i">➕</div><div class="mc-p">(−⅖)⁴</div><div style="color:var(--orange)">→</div><div class="mc-a"><span class="frac"><span>16</span><span>625</span></span></div><div class="mc-n">gerade→positiv!</div></div>
-    </div>
-  </div>
-</div>
-
-<!-- 7 PRODUKT -->
-<div class="lesson" id="lesson7">
-  <div class="hero gr" data-e="📦"><div class="tag">Kapitel 8 · Potenzgesetz 5</div><h2>Produkt potenzieren</h2><div class="sub">Mal-Zeichen in der Klammer → jeder bekommt die Potenz!</div></div>
-  <div class="block"><div class="fbub"><div class="fmain">(a · b)<sup>n</sup> = a<sup>n</sup> · b<sup>n</sup></div><div class="fwords">Klammer mit MAL → Potenz auf ALLE Faktoren verteilen!</div></div></div>
-  <div class="block">
-    <div class="block-title">📝 Schritt-für-Schritt: (2·3)⁴</div>
-    <div class="steps">
-      <div class="sr" style="border-color:var(--red)"><span class="sb" style="background:var(--red)">Verteilen</span><span class="sm">= 2⁴ · 3⁴</span></div>
-      <div class="sr" style="border-color:var(--red)"><span class="sb" style="background:var(--red)">Ausrechnen</span><span class="sm">= 16 · 81</span></div>
-      <div class="res">🎉 = 1.296</div>
-    </div>
-  </div>
-  <div class="cl tip"><div class="cl-i">💡</div><div><strong>Mit Variablen:</strong><br>(3x)² = 3² · x² = 9x²<br>Sowohl die 3 als auch das x bekommen das Quadrat!</div></div>
-</div>
-
-<!-- 8 NEGATIVE EXPONENTEN -->
-<div class="lesson" id="lesson8">
-  <div class="hero go" data-e="➖"><div class="tag">Kapitel 9 · Potenzgesetz 6</div><h2>Negative Exponenten</h2><div class="sub">Minus im Exponent = umdrehen (Kehrwert)! 🔄</div></div>
-  <div class="block">
-    <div class="fbub">
-      <div class="fmain">a<sup>−n</sup> = <span class="frac" style="color:white;font-size:1.1rem"><span>1</span><span>a<sup>n</sup></span></span></div>
-      <div class="fwords">Minus → 1 geteilt durch die Potenz (Kehrwert!)</div>
-    </div>
-  </div>
-  <div class="block">
-    <div class="block-title">📝 Schritt-für-Schritt: 2⁻³</div>
-    <div class="steps">
-      <div class="sr" style="border-color:var(--orange)"><span class="sb" style="background:var(--orange)">Erkennen</span><span class="sm">Minus im Exponenten → Kehrwert!</span></div>
-      <div class="sr" style="border-color:var(--orange)"><span class="sb" style="background:var(--orange)">Umschreiben</span><span class="sm">= <span class="frac"><span>1</span><span>2³</span></span> = <span class="frac"><span>1</span><span>8</span></span></span></div>
-      <div class="res">🎉 = 0,125</div>
-    </div>
-  </div>
-  <div class="block">
-    <div class="block-title">🔟 Zehnerpotenzen negativ</div>
-    <table class="ft">
-      <tr><th>Potenz</th><th>Bruch</th><th>Dezimal</th></tr>
-      <tr><td>10⁻¹</td><td>1/10</td><td>0,1</td></tr>
-      <tr><td>10⁻²</td><td>1/100</td><td>0,01</td></tr>
-      <tr><td>10⁻³</td><td>1/1.000</td><td>0,001</td></tr>
-      <tr><td>10⁻⁶</td><td>1/1.000.000</td><td>0,000001</td></tr>
-    </table>
-    <div class="cl tip" style="margin-top:.75rem"><div class="cl-i">💡</div><div><strong>Trick:</strong> Bei 10⁻ⁿ wandert das Komma n Stellen nach links!</div></div>
-  </div>
-</div>
-
-<!-- 9 AUFGABE 6 -->
-<div class="lesson" id="lesson9">
-  <div class="hero gg" data-e="📝"><div class="tag">Übungen</div><h2>Aufgabe 6 — Lösungen</h2><div class="sub">Klick auf jede Teilaufgabe für den Rechenweg! 👆</div></div>
-  <div class="block">
-    <div class="block-title">💬 Alle Teilaufgaben</div>
-    <div class="acc"><div class="ach" onclick="tog(this)"><div class="an" style="background:var(--pink)">a</div>(−1)⁵ = ?<span class="aar">▼</span></div><div class="acb">(−1)⁵ = (−1)·(−1)·(−1)·(−1)·(−1) = (+1)·(+1)·(−1) = <strong>−1</strong><br><em>Ungerade → negativ ✅</em></div></div>
-    <div class="acc"><div class="ach" onclick="tog(this)"><div class="an" style="background:var(--orange)">b</div>(−2)⁶ = ?<span class="aar">▼</span></div><div class="acb">(−2)⁶ = 2⁶ = 2·2·2·2·2·2 = 4·4·4 = 16·4 = <strong>64</strong><br><em>Gerader Exponent → positiv ✅</em></div></div>
-    <div class="acc"><div class="ach" onclick="tog(this)"><div class="an" style="background:var(--yellow);color:#333">c</div>(−3)⁴ = ?<span class="aar">▼</span></div><div class="acb">(−3)⁴ = 3⁴ = 3·3·3·3 = 9·9 = <strong>81</strong><br><em>Gerader Exponent → positiv ✅</em></div></div>
-    <div class="acc"><div class="ach" onclick="tog(this)"><div class="an" style="background:var(--green);color:#333">d</div>(−0,2)³ = ?<span class="aar">▼</span></div><div class="acb">(−0,2)·(−0,2)·(−0,2) = (+0,04)·(−0,2) = <strong>−0,008</strong><br><em>Ungerade → negativ ✅</em></div></div>
-    <div class="acc"><div class="ach" onclick="tog(this)"><div class="an" style="background:var(--teal)">e</div>(−0,1)⁶ = ?<span class="aar">▼</span></div><div class="acb">(−0,1)⁶ = (0,1)⁶ = 10⁻⁶ = <strong>0,000001</strong><br><em>Gerader Exponent → positiv ✅</em></div></div>
-    <div class="acc"><div class="ach" onclick="tog(this)"><div class="an" style="background:var(--blue)">f</div>(−5)³ = ?<span class="aar">▼</span></div><div class="acb">(−5)·(−5)·(−5) = 25·(−5) = <strong>−125</strong><br><em>Ungerade → negativ ✅</em></div></div>
-    <div class="acc"><div class="ach" onclick="tog(this)"><div class="an" style="background:var(--purple)">g</div>(−0,01)² = ?<span class="aar">▼</span></div><div class="acb">(−0,01)² = (0,01)² = 0,01·0,01 = <strong>0,0001</strong><br><em>Gerader Exponent → positiv ✅</em></div></div>
-    <div class="acc"><div class="ach" onclick="tog(this)"><div class="an" style="background:var(--red)">h</div>(−½)⁷ = ?<span class="aar">▼</span></div><div class="acb">(−½)⁷ = −(½)⁷ = −<span class="frac"><span>1⁷</span><span>2⁷</span></span> = −<span class="frac"><span>1</span><span>128</span></span><br>(2⁷=128, ungerade→negativ)<br><strong>Ergebnis: −<span class="frac"><span>1</span><span>128</span></span></strong></div></div>
-    <div class="acc"><div class="ach" onclick="tog(this)"><div class="an" style="background:var(--pink)">i</div>(−¾)² = ?<span class="aar">▼</span></div><div class="acb"><span class="frac"><span>(−3)²</span><span>4²</span></span> = <span class="frac"><span>9</span><span>16</span></span><br>(gerader Exponent → positiv)<br><strong>Ergebnis: <span class="frac"><span>9</span><span>16</span></span></strong></div></div>
-    <div class="acc"><div class="ach" onclick="tog(this)"><div class="an" style="background:var(--orange)">j</div>(−¾)³ = ?<span class="aar">▼</span></div><div class="acb">−<span class="frac"><span>3³</span><span>4³</span></span> = −<span class="frac"><span>27</span><span>64</span></span><br>(ungerade → negativ)<br><strong>Ergebnis: −<span class="frac"><span>27</span><span>64</span></span></strong></div></div>
-    <div class="acc"><div class="ach" onclick="tog(this)"><div class="an" style="background:var(--green);color:#333">k</div>(−⅖)⁴ = ?<span class="aar">▼</span></div><div class="acb"><span class="frac"><span>2⁴</span><span>5⁴</span></span> = <span class="frac"><span>16</span><span>625</span></span><br>(2⁴=16, 5⁴=625, gerader Exponent → positiv)<br><strong>Ergebnis: <span class="frac"><span>16</span><span>625</span></span></strong></div></div>
-    <div class="acc"><div class="ach" onclick="tog(this)"><div class="an" style="background:var(--purple)">l</div>(−3/10)⁵ = ?<span class="aar">▼</span></div><div class="acb">−<span class="frac"><span>3⁵</span><span>10⁵</span></span> = −<span class="frac"><span>243</span><span>100.000</span></span><br>(3⁵=243, 10⁵=100.000, ungerade → negativ)<br><strong>Ergebnis: −0,00243</strong></div></div>
-  </div>
-</div>
-
-<!-- 10 QUIZ -->
-<div class="lesson" id="lesson10">
-  <div class="hero gp" data-e="⚡"><div class="tag">Selbst-Test</div><h2>Quiz — Kannst du's?</h2><div class="sub">Rechne und tippe dein Ergebnis! 🧠</div></div>
-  <div class="qwrap" id="qwrap"></div>
-</div>
-
-<!-- 11 SPICKZETTEL -->
-<div class="lesson" id="lesson11">
-  <div class="hero gpu" data-e="📋"><div class="tag">Zusammenfassung</div><h2>Spickzettel</h2><div class="sub">Alle Regeln auf einen Blick! 🖨️</div></div>
-  <div class="csgrid">
-    <div class="cscard gp"><div class="csl">Grundregel</div><div class="csf">aⁿ = a·a·…·a</div><div class="cse">2⁴ = 16</div></div>
-    <div class="cscard" style="background:linear-gradient(135deg,#fd9644,#fa8231)"><div class="csl">hoch 0</div><div class="csf">a⁰ = 1</div><div class="cse">100⁰ = 1 (immer!)</div></div>
-    <div class="cscard gg"><div class="csl">Multiplikation</div><div class="csf">aⁿ · aᵐ = aⁿ⁺ᵐ</div><div class="cse">2³·2⁴ = 2⁷ = 128</div></div>
-    <div class="cscard gt"><div class="csl">Division</div><div class="csf">aⁿ : aᵐ = aⁿ⁻ᵐ</div><div class="cse">2⁵:2² = 2³ = 8</div></div>
-    <div class="cscard gb"><div class="csl">Potenz einer Potenz</div><div class="csf">(aⁿ)ᵐ = aⁿ·ᵐ</div><div class="cse">(2³)⁴ = 2¹²</div></div>
-    <div class="cscard gpu"><div class="csl">Produkt potenzieren</div><div class="csf">(a·b)ⁿ = aⁿ·bⁿ</div><div class="cse">(2·3)² = 4·9 = 36</div></div>
-    <div class="cscard gr"><div class="csl">Bruch potenzieren</div><div class="csf">(a/b)ⁿ = aⁿ/bⁿ</div><div class="cse">(½)³ = 1/8</div></div>
-    <div class="cscard go"><div class="csl">Negativer Exponent</div><div class="csf">a⁻ⁿ = 1/aⁿ</div><div class="cse">2⁻³ = 1/8</div></div>
-    <div class="cscard" style="background:linear-gradient(135deg,#26de81,#20bf6b)"><div class="csl">Gerade Hochzahl</div><div class="csf">(−a)^gerade = +</div><div class="cse">(−3)⁴ = +81 ✅</div></div>
-    <div class="cscard gr"><div class="csl">Ungerade Hochzahl</div><div class="csf">(−a)^ungerade = −</div><div class="cse">(−3)³ = −27 ✅</div></div>
-  </div>
-  <div class="block" style="border:3px solid var(--red)">
-    <div class="block-title" style="color:var(--red)">🚨 Die 3 häufigsten Fehler</div>
-    <div style="font-weight:700;line-height:2.3;font-size:.95rem">
-      1. 2³ · 2⁴ = 2¹² ❌ &nbsp;→&nbsp; ADDIEREN, nicht multiplizieren! 2⁷ ✅<br>
-      2. −2⁴ = (−2)⁴ ❌ &nbsp;→&nbsp; Klammer macht den Unterschied!<br>
-      3. (aⁿ)ᵐ = aⁿ⁺ᵐ ❌ &nbsp;→&nbsp; MIT Klammer MULTIPLIZIEREN! aⁿ·ᵐ ✅
-    </div>
-  </div>
-</div>
-
-<!-- NAV -->
-<div class="nav-arrows">
-  <button class="nav-btn" onclick="prev()" id="prevBtn">← Zurück</button>
-  <div class="dots" id="dots"></div>
-  <button class="nav-btn" onclick="next()" id="nextBtn">Weiter →</button>
-</div>
-</div>
+<div class="toast" id="toast"></div>
 
 <script>
-let cur=0; const N=12;
-const dotsEl=document.getElementById('dots');
-for(let i=0;i<N;i++){const d=document.createElement('div');d.className='dot';d.onclick=()=>show(i);dotsEl.appendChild(d);}
-function show(n){
-  document.querySelectorAll('.lesson').forEach(l=>l.classList.remove('active'));
-  document.querySelectorAll('.cp').forEach(b=>b.classList.remove('active'));
-  document.getElementById('lesson'+n).classList.add('active');
-  document.getElementById('btn'+n).classList.add('active');
-  cur=n;
-  document.querySelectorAll('.dot').forEach((d,i)=>{d.className='dot'+(i===n?' ad':i<n?' dd':'');});
-  const f=Math.floor((n/N)*12);
-  document.getElementById('starsBar').textContent='★'.repeat(f)+'☆'.repeat(12-f);
-  document.getElementById('prevBtn').disabled=n===0;
-  document.getElementById('nextBtn').disabled=n===N-1;
-  window.scrollTo({top:0,behavior:'smooth'});
+// ============ STATE ============
+const STORAGE_KEY = 'potenzen_v3';
+
+function loadState() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (raw) return JSON.parse(raw);
+  } catch(e) {}
+  return {
+    unlocked: [true, false, false, false, false, false, false, false, false, false, false, true],
+    completed: Array(12).fill(false),
+    points: 0,
+    quizCorrect: 0,
+    quizAnswered: {}
+  };
 }
-function prev(){if(cur>0)show(cur-1);}
-function next(){if(cur<N-1)show(cur+1);}
-function tog(h){const b=h.nextElementSibling;b.classList.toggle('open');h.classList.toggle('iso');}
-const qd=[
-  {q:'2<sup>5</sup>',a:32,hint:'2·2·2·2·2=32'},
-  {q:'(−3)<sup>4</sup>',a:81,hint:'gerade→+, 3⁴=81'},
-  {q:'(−2)<sup>3</sup>',a:-8,hint:'ungerade→−, 2³=8'},
-  {q:'10<sup>3</sup>',a:1000,hint:'1 mit 3 Nullen'},
-  {q:'(−1)<sup>11</sup>',a:-1,hint:'ungerade→−1'},
-  {q:'3<sup>4</sup>',a:81,hint:'3·3·3·3=81'},
-  {q:'4<sup>3</sup>',a:64,hint:'4·4·4=64'},
-  {q:'(−5)<sup>3</sup>',a:-125,hint:'ungerade→−, 5³=125'},
-  {q:'(−1)<sup>100</sup>',a:1,hint:'100 gerade→+1'},
-  {q:'5<sup>3</sup>',a:125,hint:'5·5·5=125'},
+
+function saveState() {
+  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch(e) {}
+}
+
+let state = loadState();
+let curLesson = 0;
+
+// ============ QUIZ DATA ============
+const miniQuizzes = [
+  // Lesson 0: Grundlagen
+  [
+    {q:'2<sup>4</sup> = ?', a:16, hint:'2·2·2·2 = 16'},
+    {q:'3<sup>3</sup> = ?', a:27, hint:'3·3·3 = 27'},
+    {q:'5<sup>0</sup> = ?', a:1, hint:'Alles hoch 0 = 1!'},
+  ],
+  // Lesson 1: Vorzeichen
+  [
+    {q:'(−2)<sup>4</sup> = ?', a:16, hint:'Gerade → positiv, 2⁴=16'},
+    {q:'(−3)<sup>3</sup> = ?', a:-27, hint:'Ungerade → negativ, 3³=27'},
+    {q:'(−1)<sup>7</sup> = ?', a:-1, hint:'Ungerade → −1'},
+  ],
+  // Lesson 2: Zehner
+  [
+    {q:'10<sup>4</sup> = ?', a:10000, hint:'4 Nullen → 10000'},
+    {q:'10<sup>2</sup> = ?', a:100, hint:'2 Nullen → 100'},
+    {q:'10<sup>5</sup> = ?', a:100000, hint:'5 Nullen'},
+  ],
+  // Lesson 3: Multiplizieren (Exponent-Ergebnis)
+  [
+    {q:'2<sup>3</sup> · 2<sup>4</sup> = 2<sup>?</sup>', a:7, hint:'3+4=7'},
+    {q:'5<sup>2</sup> · 5<sup>3</sup> = 5<sup>?</sup>', a:5, hint:'2+3=5'},
+    {q:'3<sup>6</sup> · 3<sup>2</sup> = 3<sup>?</sup>', a:8, hint:'6+2=8'},
+  ],
+  // Lesson 4: Dividieren
+  [
+    {q:'2<sup>7</sup> : 2<sup>3</sup> = 2<sup>?</sup>', a:4, hint:'7−3=4'},
+    {q:'10<sup>6</sup> : 10<sup>4</sup> = 10<sup>?</sup>', a:2, hint:'6−4=2'},
+    {q:'5<sup>5</sup> : 5<sup>5</sup> = ?', a:1, hint:'5⁰=1'},
+  ],
+  // Lesson 5: Potenz²
+  [
+    {q:'(2<sup>3</sup>)<sup>2</sup> = 2<sup>?</sup>', a:6, hint:'3×2=6'},
+    {q:'(3<sup>4</sup>)<sup>2</sup> = 3<sup>?</sup>', a:8, hint:'4×2=8'},
+    {q:'(5<sup>2</sup>)<sup>3</sup> = 5<sup>?</sup>', a:6, hint:'2×3=6'},
+  ],
+  // Lesson 6: Brüche (×100 für ganze Zahlen)
+  [
+    {q:'(½)<sup>2</sup> · 100 = ?', a:25, hint:'(½)²=¼, ¼×100=25'},
+    {q:'(⅔)<sup>3</sup> Nenner = ?', a:27, hint:'3³=27'},
+    {q:'(¼)<sup>2</sup> · 16 = ?', a:1, hint:'(¼)²=1/16, ×16=1'},
+  ],
+  // Lesson 7: Produkt
+  [
+    {q:'(2·5)<sup>2</sup> = ?', a:100, hint:'2²·5²=4·25=100'},
+    {q:'(3·2)<sup>3</sup> = ?', a:216, hint:'3³·2³=27·8=216'},
+    {q:'(2·3)<sup>2</sup> = ?', a:36, hint:'4·9=36'},
+  ],
+  // Lesson 8: Negative Exponenten
+  [
+    {q:'2<sup>−1</sup> · 2 = ?', a:1, hint:'½ · 2 = 1'},
+    {q:'10<sup>−2</sup> · 100 = ?', a:1, hint:'0,01 · 100 = 1'},
+    {q:'3<sup>−2</sup> · 9 = ?', a:1, hint:'1/9 · 9 = 1'},
+  ],
+  // Lesson 9: Aufgabe 6
+  [
+    {q:'(−2)<sup>6</sup> = ?', a:64, hint:'Gerade→positiv, 2⁶=64'},
+    {q:'(−5)<sup>3</sup> = ?', a:-125, hint:'Ungerade→negativ, 5³=125'},
+    {q:'(−0,1)<sup>2</sup> · 10000 = ?', a:100, hint:'(0,1)²=0,01 · 10000=100'},
+  ],
+  // Lesson 10: Final Quiz (bigger!)
+  [
+    {q:'2<sup>8</sup> = ?', a:256, hint:'2⁴·2⁴=16·16'},
+    {q:'(−3)<sup>4</sup> = ?', a:81, hint:'Gerade→+, 3⁴=81'},
+    {q:'3<sup>5</sup> : 3<sup>2</sup> = 3<sup>?</sup>', a:3, hint:'5−2=3'},
+    {q:'(2<sup>4</sup>)<sup>2</sup> = 2<sup>?</sup>', a:8, hint:'4×2=8'},
+    {q:'(−1)<sup>101</sup> = ?', a:-1, hint:'Ungerade → −1'},
+    {q:'(−2)<sup>3</sup> + 10 = ?', a:2, hint:'−8+10=2'},
+    {q:'10<sup>3</sup> + 10<sup>2</sup> = ?', a:1100, hint:'1000+100=1100'},
+    {q:'2<sup>3</sup> · 2<sup>2</sup> = 2<sup>?</sup>', a:5, hint:'3+2=5'},
+  ],
 ];
-const qw=document.getElementById('qwrap');
-qd.forEach((item,i)=>{
-  qw.innerHTML+=`<div class="qcard" id="qc${i}"><div class="qq">Berechne: ${item.q} = ?</div><input class="qi" id="qi${i}" type="number" step="any" placeholder="?" onkeydown="if(event.key==='Enter')chk(${i})"><button class="bchk" onclick="chk(${i})">Prüfen ✓</button><button class="brev" onclick="rev(${i})">Lösung 💡</button><div class="qfb" id="qf${i}"></div></div>`;
-});
-function chk(i){
-  const v=parseFloat(document.getElementById('qi'+i).value);
-  const fb=document.getElementById('qf'+i);
-  const card=document.getElementById('qc'+i);
-  if(isNaN(v)){fb.textContent='Bitte eine Zahl eingeben!';fb.className='qfb no';return;}
-  if(Math.abs(v-qd[i].a)<0.0001){
-    fb.textContent='🎉 Super richtig! Weiter so!';fb.className='qfb ok';card.classList.add('ok');
+
+const accordionData = [
+  {l:'a', c:'#f76aaa', q:'(−1)⁵ = ?', e:'(−1)⁵ = (−1)·(−1)·(−1)·(−1)·(−1) = <strong>−1</strong><br><em>Ungerade → negativ ✅</em>'},
+  {l:'b', c:'#f7c46a', q:'(−2)⁶ = ?', e:'(−2)⁶ = 2⁶ = 2·2·2·2·2·2 = 4·4·4 = 16·4 = <strong>64</strong><br><em>Gerader Exponent → positiv ✅</em>'},
+  {l:'c', c:'#6af7c4', q:'(−3)⁴ = ?', e:'(−3)⁴ = 3⁴ = 3·3·3·3 = 9·9 = <strong>81</strong><br><em>Gerader Exponent → positiv ✅</em>'},
+  {l:'d', c:'#7c6af7', q:'(−0,2)³ = ?', e:'(−0,2)·(−0,2)·(−0,2) = (+0,04)·(−0,2) = <strong>−0,008</strong><br><em>Ungerade → negativ ✅</em>'},
+  {l:'e', c:'#6ab8f7', q:'(−0,1)⁶ = ?', e:'(−0,1)⁶ = (0,1)⁶ = 10⁻⁶ = <strong>0,000001</strong><br><em>Gerader Exponent → positiv ✅</em>'},
+  {l:'f', c:'#f76a6a', q:'(−5)³ = ?', e:'(−5)·(−5)·(−5) = 25·(−5) = <strong>−125</strong><br><em>Ungerade → negativ ✅</em>'},
+  {l:'g', c:'#a55eea', q:'(−0,01)² = ?', e:'(−0,01)² = (0,01)² = 0,01·0,01 = <strong>0,0001</strong><br><em>Gerader Exponent → positiv ✅</em>'},
+  {l:'h', c:'#f76aaa', q:'(−½)⁷ = ?', e:'(−½)⁷ = −(½)⁷ = −1/128<br>(2⁷=128, ungerade→negativ)<br><strong>Ergebnis: −1/128</strong>'},
+  {l:'i', c:'#6af7a0', q:'(−¾)² = ?', e:'(−3)²/4² = 9/16<br>(gerader Exponent → positiv)<br><strong>Ergebnis: 9/16</strong>'},
+  {l:'j', c:'#f7c46a', q:'(−¾)³ = ?', e:'−3³/4³ = −27/64<br>(ungerade → negativ)<br><strong>Ergebnis: −27/64</strong>'},
+  {l:'k', c:'#6af7c4', q:'(−⅖)⁴ = ?', e:'2⁴/5⁴ = 16/625<br>(2⁴=16, 5⁴=625, gerader Exponent → positiv)<br><strong>Ergebnis: 16/625</strong>'},
+  {l:'l', c:'#7c6af7', q:'(−3/10)⁵ = ?', e:'−3⁵/10⁵ = −243/100.000<br>(3⁵=243, 10⁵=100.000, ungerade → negativ)<br><strong>Ergebnis: −0,00243</strong>'},
+];
+
+// ============ BUILD ACCORDION ============
+function buildAccordion() {
+  const el = document.getElementById('accList');
+  if (!el || el.children.length > 0) return;
+  el.innerHTML = accordionData.map((d,i) =>
+    `<div class="acc-item" id="acc${i}">
+      <div class="acc-head" onclick="togAcc(${i})">
+        <div class="acc-letter" style="background:${d.c}">${d.l}</div>
+        ${d.q}
+        <span class="acc-arrow">▼</span>
+      </div>
+      <div class="acc-body" id="accb${i}">${d.e}</div>
+    </div>`
+  ).join('');
+}
+
+function togAcc(i) {
+  const head = document.querySelector(`#acc${i} .acc-head`);
+  const body = document.getElementById('accb'+i);
+  head.classList.toggle('open');
+  body.classList.toggle('open');
+}
+
+// ============ BUILD MINI QUIZZES ============
+function buildQuiz(lessonIdx) {
+  const wrap = document.getElementById('mq'+lessonIdx);
+  if (!wrap || wrap.children.length > 0) return;
+  const qs = miniQuizzes[lessonIdx];
+  const need = lessonIdx === 10 ? Math.ceil(qs.length * 0.75) : qs.length; // need 75% for final
+  wrap.innerHTML = qs.map((item, qi) => {
+    const key = `${lessonIdx}_${qi}`;
+    const already = state.quizAnswered[key];
+    return `<div class="quiz-card${already?' ok':''}" id="qcard_${lessonIdx}_${qi}">
+      <div class="quiz-q">Berechne: ${item.q} = ?</div>
+      <div class="quiz-input-row">
+        <input class="quiz-input" id="qi_${lessonIdx}_${qi}" type="number" step="any" placeholder="?" ${already?'disabled':''} onkeydown="if(event.key==='Enter')checkQ(${lessonIdx},${qi})">
+        <button class="btn-check" onclick="checkQ(${lessonIdx},${qi})" ${already?'disabled':''}>Prüfen ✓</button>
+        <button class="btn-hint" onclick="showHint(${lessonIdx},${qi})">Tipp 💡</button>
+      </div>
+      <div class="quiz-fb ${already?'ok':''}" id="qfb_${lessonIdx}_${qi}">${already?'✅ Bereits richtig beantwortet!':''}</div>
+    </div>`;
+  }).join('');
+  updateCompleteBtn(lessonIdx);
+}
+
+function checkQ(lesson, qi) {
+  const key = `${lesson}_${qi}`;
+  if (state.quizAnswered[key]) return;
+  const inp = document.getElementById(`qi_${lesson}_${qi}`);
+  const fb = document.getElementById(`qfb_${lesson}_${qi}`);
+  const card = document.getElementById(`qcard_${lesson}_${qi}`);
+  const val = parseFloat(inp.value);
+  const correct = miniQuizzes[lesson][qi].a;
+  if (isNaN(val)) { fb.textContent='Bitte eine Zahl eingeben!'; fb.className='quiz-fb no'; return; }
+  if (Math.abs(val - correct) < 0.0001) {
+    fb.textContent = '🎉 Super richtig! +10 Punkte!';
+    fb.className = 'quiz-fb ok';
+    card.classList.add('ok');
+    inp.disabled = true;
+    card.querySelector('.btn-check').disabled = true;
+    state.quizAnswered[key] = true;
+    state.points += 10;
+    state.quizCorrect++;
+    saveState();
+    updateStats();
+    updateCompleteBtn(lesson);
+    showToast('🎉 Richtig! +10 Punkte');
   } else {
-    fb.textContent='❌ Leider falsch — nochmal versuchen!';fb.className='qfb no';
-    card.style.animation='shake .4s';setTimeout(()=>card.style.animation='',400);
+    fb.textContent = '❌ Leider falsch — nochmal versuchen!';
+    fb.className = 'quiz-fb no';
+    card.style.animation = 'shake 0.4s';
+    setTimeout(() => card.style.animation = '', 400);
   }
 }
-function rev(i){const fb=document.getElementById('qf'+i);fb.textContent='💡 Antwort: '+qd[i].a+' ('+qd[i].hint+')';fb.className='qfb rv';}
-show(0);
+
+function showHint(lesson, qi) {
+  const fb = document.getElementById(`qfb_${lesson}_${qi}`);
+  fb.textContent = '💡 Tipp: ' + miniQuizzes[lesson][qi].hint;
+  fb.className = 'quiz-fb hint';
+}
+
+function updateCompleteBtn(lesson) {
+  const btn = document.getElementById('complete'+lesson);
+  if (!btn) return;
+  const qs = miniQuizzes[lesson];
+  if (lesson === 10) {
+    const correct = qs.filter((_,i) => state.quizAnswered[`${lesson}_${i}`]).length;
+    btn.disabled = correct < Math.ceil(qs.length * 0.75);
+    btn.textContent = `Quiz abschließen (${correct}/${qs.length} richtig) 🏆`;
+  } else {
+    const allDone = qs.every((_,i) => state.quizAnswered[`${lesson}_${i}`]);
+    btn.disabled = !allDone;
+  }
+}
+
+// ============ COMPLETE LESSON ============
+function completeLesson(lesson) {
+  if (state.completed[lesson]) return;
+  state.completed[lesson] = true;
+  state.points += 50;
+  // Unlock next
+  const next = lesson + 1;
+  if (next < 12) {
+    state.unlocked[next] = true;
+    showToast(`🔓 Kapitel ${next+1} freigeschaltet! +50 Punkte`);
+  } else {
+    showToast('🏆 Alle Kapitel abgeschlossen! Mega!');
+  }
+  saveState();
+  updateStats();
+  updateNav();
+  if (next < 12) {
+    setTimeout(() => showLesson(next), 800);
+  }
+}
+
+// ============ NAVIGATION ============
+function showLesson(n) {
+  if (!state.unlocked[n]) {
+    showToast('🔒 Schließ zuerst das vorherige Kapitel ab!');
+    return;
+  }
+  document.querySelectorAll('.lesson').forEach(l => l.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(b => b.classList.remove('active'));
+  document.getElementById('lesson'+n).classList.add('active');
+  document.getElementById('nav'+n).classList.add('active');
+  curLesson = n;
+  buildQuiz(n);
+  if (n === 9) buildAccordion();
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+
+function updateNav() {
+  for (let i = 0; i < 12; i++) {
+    const nav = document.getElementById('nav'+i);
+    const lock = document.getElementById('nlock'+i);
+    if (!nav) continue;
+    if (state.unlocked[i]) {
+      nav.classList.remove('locked');
+      if (lock) lock.remove();
+    }
+    if (state.completed[i]) {
+      nav.classList.add('done');
+      const num = nav.querySelector('.nav-num');
+      if (num) num.textContent = '✓';
+    }
+  }
+}
+
+// ============ STATS / NOTE ============
+function updateStats() {
+  document.getElementById('pts').textContent = state.points;
+  const done = state.completed.filter(Boolean).length - (state.completed[10]?0:0);
+  const total = 10;
+  const completedMain = state.completed.slice(0,10).filter(Boolean).length;
+  document.getElementById('chapCount').textContent = completedMain + '/' + total;
+  document.getElementById('quizCount').textContent = state.quizCorrect;
+
+  // Progress: based on completed lessons (0-10) + quizzes answered
+  const totalQuizzes = miniQuizzes.slice(0,11).flat().length;
+  const answeredQ = Object.keys(state.quizAnswered).length;
+  const lessonPct = (completedMain / 10) * 70;
+  const quizPct = (answeredQ / totalQuizzes) * 30;
+  const pct = Math.min(100, Math.round(lessonPct + quizPct));
+  document.getElementById('progressBar').style.width = pct + '%';
+  document.getElementById('pctLabel').textContent = pct + '%';
+
+  // Note estimate
+  const badge = document.getElementById('noteBadge');
+  let note, color, bg;
+  if (pct >= 90) { note = '1'; color = '#6af7a0'; bg = 'rgba(106,247,160,0.15)'; }
+  else if (pct >= 75) { note = '2'; color = '#6ab8f7'; bg = 'rgba(106,184,247,0.15)'; }
+  else if (pct >= 60) { note = '3'; color = '#f7c46a'; bg = 'rgba(247,196,106,0.15)'; }
+  else if (pct >= 45) { note = '4'; color = '#f79c6a'; bg = 'rgba(247,156,106,0.15)'; }
+  else if (pct >= 30) { note = '5'; color = '#f76a6a'; bg = 'rgba(247,106,106,0.15)'; }
+  else { note = '?'; color = 'var(--muted)'; bg = 'var(--surface2)'; }
+  badge.textContent = note;
+  badge.style.color = color;
+  badge.style.background = bg;
+  badge.style.borderColor = color;
+  badge.setAttribute('data-label', `Note ${note} (${pct}% Fortschritt)`);
+}
+
+// ============ TOAST ============
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2500);
+}
+
+// ============ RESET ============
+function confirmReset() {
+  if (confirm('Wirklich alle Daten löschen? Das kann nicht rückgängig gemacht werden!')) {
+    localStorage.removeItem(STORAGE_KEY);
+    state = loadState();
+    showToast('✅ Alle Daten gelöscht!');
+    setTimeout(() => location.reload(), 800);
+  }
+}
+
+// ============ INIT ============
+function init() {
+  updateNav();
+  updateStats();
+  buildQuiz(0); // build first lesson quiz immediately
+  // Re-open to current completed state
+}
+
+init();
 </script>
 </body>
 </html>
