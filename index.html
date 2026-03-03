@@ -3,1493 +3,966 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Potenzen Meister 🚀</title>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Syne:wght@700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<title>Potenzen Meister</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
 :root {
-  --bg: #0a0a12;
-  --surface: #13131f;
-  --surface2: #1c1c2e;
-  --border: rgba(255,255,255,0.08);
-  --text: #f0f0ff;
-  --muted: #6b6b8a;
-  --accent: #7c6af7;
-  --accent2: #f76aaa;
-  --accent3: #6af7c4;
-  --accent4: #f7c46a;
-  --accent5: #6ab8f7;
-  --red: #f76a6a;
-  --green: #6af7a0;
+  --bg: #0d0d14;
+  --s1: #16161f;
+  --s2: #1e1e2a;
+  --s3: #26263a;
+  --border: rgba(255,255,255,0.07);
+  --text: #f0f0fa;
+  --muted: #5a5a78;
+  --p: #8b7cf8;
+  --p2: #f472b6;
+  --g: #34d399;
+  --r: #f87171;
+  --y: #fbbf24;
+  --b: #60a5fa;
+  --radius: 16px;
 }
-* { margin:0; padding:0; box-sizing:border-box; }
-html { scroll-behavior:smooth; }
-body {
-  font-family: 'Space Grotesk', sans-serif;
-  background: var(--bg);
-  color: var(--text);
-  min-height: 100vh;
-  overflow-x: hidden;
-}
-body::before {
-  content: '';
-  position: fixed; inset: 0;
-  background-image:
-    linear-gradient(rgba(124,106,247,0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(124,106,247,0.03) 1px, transparent 1px);
-  background-size: 60px 60px;
-  pointer-events: none; z-index: 0;
-}
-.header {
-  position: relative; z-index: 10;
-  padding: 2.5rem 2rem 2rem;
-  border-bottom: 1px solid var(--border);
-  background: linear-gradient(180deg, rgba(124,106,247,0.08) 0%, transparent 100%);
-}
-.header-top {
-  display: flex; align-items: center; justify-content: space-between;
-  flex-wrap: wrap; gap: 1rem; max-width: 1100px; margin: 0 auto;
-}
-.logo {
-  font-family: 'Syne', sans-serif;
-  font-size: 1.8rem; font-weight: 800;
-  background: linear-gradient(135deg, #7c6af7, #f76aaa);
-  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-  background-clip: text;
-  letter-spacing: -0.03em;
-}
-.logo span { -webkit-text-fill-color: var(--text); }
-.stats-bar {
-  display: flex; gap: 1.5rem; flex-wrap: wrap; align-items: center;
-}
-.stat-chip {
-  display: flex; align-items: center; gap: 0.5rem;
-  background: var(--surface2);
-  border: 1px solid var(--border);
-  border-radius: 50px; padding: 0.4rem 1rem;
-  font-size: 0.85rem; font-weight: 600;
-}
-.stat-chip .val {
-  font-family: 'JetBrains Mono', monospace;
-  color: var(--accent3); font-size: 1rem;
-}
-.note-badge {
-  font-family: 'Syne', sans-serif; font-size: 2rem; font-weight: 800;
-  width: 56px; height: 56px; border-radius: 14px;
-  display: flex; align-items: center; justify-content: center;
-  border: 2px solid; transition: all 0.3s;
-  cursor: help; position: relative;
-}
-.note-badge::after {
-  content: attr(data-label);
-  position: absolute; top: 110%; left: 50%; transform: translateX(-50%);
-  background: var(--surface2); border: 1px solid var(--border);
-  padding: 0.3rem 0.7rem; border-radius: 8px; font-size: 0.7rem;
-  font-family: 'Space Grotesk', sans-serif; white-space: nowrap;
-  opacity: 0; pointer-events: none; transition: opacity 0.2s;
-}
-.note-badge:hover::after { opacity: 1; }
-.progress-section {
-  max-width: 1100px; margin: 1.5rem auto 0;
-  padding: 0 2rem;
-}
-.progress-label {
-  display: flex; justify-content: space-between;
-  font-size: 0.8rem; color: var(--muted); margin-bottom: 0.5rem;
-}
-.progress-bar-outer {
-  height: 6px; background: var(--surface2);
-  border-radius: 3px; overflow: hidden;
-}
-.progress-bar-inner {
-  height: 100%;
-  background: linear-gradient(90deg, var(--accent), var(--accent2));
-  border-radius: 3px;
-  transition: width 0.6s cubic-bezier(0.34,1.56,0.64,1);
-}
-.app {
-  max-width: 1100px; margin: 0 auto;
-  padding: 2rem; position: relative; z-index: 1;
-  display: grid; grid-template-columns: 260px 1fr;
-  gap: 2rem;
-}
-@media(max-width:768px) {
-  .app { grid-template-columns: 1fr; }
-  .sidebar { display: flex; flex-wrap: wrap; gap: 0.5rem; }
-}
-.sidebar {
-  display: flex; flex-direction: column; gap: 0.4rem;
-}
-.sidebar-title {
-  font-size: 0.7rem; font-weight: 700; letter-spacing: 0.15em;
-  text-transform: uppercase; color: var(--muted);
-  margin-bottom: 0.5rem; padding: 0 0.5rem;
-}
-.nav-item {
-  display: flex; align-items: center; gap: 0.75rem;
-  padding: 0.65rem 0.85rem; border-radius: 12px;
-  cursor: pointer; transition: all 0.2s;
-  border: 1px solid transparent; position: relative;
-  background: transparent;
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: 0.9rem; font-weight: 500; color: var(--muted);
-  text-align: left; width: 100%;
-}
-.nav-item:hover:not(.locked) { background: var(--surface2); color: var(--text); }
-.nav-item.active {
-  background: var(--surface2); color: var(--text);
-  border-color: var(--border);
-}
-.nav-item.active::before {
-  content: '';
-  position: absolute; left: 0; top: 50%; transform: translateY(-50%);
-  width: 3px; height: 60%; border-radius: 2px;
-  background: var(--accent);
-}
-.nav-item.locked {
-  opacity: 0.35; cursor: not-allowed;
-}
-.nav-num {
-  width: 26px; height: 26px; border-radius: 8px;
-  background: var(--surface2); display: flex; align-items: center; justify-content: center;
-  font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; font-weight: 700;
-  flex-shrink: 0; transition: all 0.3s;
-}
-.nav-item.active .nav-num { background: var(--accent); color: white; }
-.nav-item.done .nav-num { background: var(--green); color: #0a2a1a; }
-.nav-lock { margin-left: auto; font-size: 0.8rem; }
-.nav-stars { margin-left: auto; font-size: 0.65rem; letter-spacing: -0.05em; }
-.content { min-width: 0; }
-.lesson { display: none; }
-.lesson.active {
-  display: block;
-  animation: slideIn 0.35s cubic-bezier(0.34,1.1,0.64,1);
-}
-@keyframes slideIn {
-  from { opacity: 0; transform: translateY(16px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-.lesson-hero {
-  border-radius: 20px; padding: 2rem 2.5rem;
-  margin-bottom: 1.5rem; position: relative; overflow: hidden;
-}
-.lesson-hero::after {
-  content: attr(data-e);
-  position: absolute; right: 2rem; top: 50%; transform: translateY(-50%);
-  font-size: 5rem; opacity: 0.12; line-height: 1;
-  pointer-events: none;
-}
-.lesson-tag {
-  font-size: 0.65rem; font-weight: 700; letter-spacing: 0.2em;
-  text-transform: uppercase; opacity: 0.7; margin-bottom: 0.5rem;
-}
-.lesson-hero h2 {
-  font-family: 'Syne', sans-serif; font-size: 2rem;
-  font-weight: 800; line-height: 1.1; margin-bottom: 0.4rem;
-}
-.lesson-hero p { font-size: 1rem; opacity: 0.85; font-weight: 500; max-width: 65%; }
-.card {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 16px; padding: 1.5rem;
-  margin-bottom: 1rem;
-}
-.card-title {
-  font-family: 'Syne', sans-serif; font-weight: 700;
-  font-size: 1.05rem; margin-bottom: 1rem;
-  display: flex; align-items: center; gap: 0.5rem;
-}
-.formula {
-  background: linear-gradient(135deg, rgba(124,106,247,0.15), rgba(247,106,170,0.15));
-  border: 1px solid rgba(124,106,247,0.3);
-  border-radius: 14px; padding: 1.25rem 1.75rem;
-  text-align: center; margin: 0.75rem 0;
-}
-.formula-main {
-  font-family: 'Syne', sans-serif; font-size: 1.8rem;
-  font-weight: 800; margin-bottom: 0.3rem;
-  color: var(--accent);
-}
-.formula-sub { font-size: 0.9rem; color: var(--muted); font-weight: 500; }
-.steps { display: flex; flex-direction: column; gap: 0.5rem; }
-.step {
-  display: flex; align-items: center; gap: 0.75rem;
-  padding: 0.75rem 1rem;
-  background: var(--surface2); border-radius: 12px;
-  border-left: 3px solid var(--accent);
-}
-.step-badge {
-  font-size: 0.65rem; font-weight: 800; letter-spacing: 0.1em;
-  text-transform: uppercase; white-space: nowrap;
-  padding: 0.2rem 0.6rem; border-radius: 6px;
-  background: var(--accent); color: white; flex-shrink: 0;
-}
-.step-main { font-weight: 700; font-size: 1rem; }
-.step-hint { font-size: 0.78rem; color: var(--muted); margin-left: auto; }
-.result {
-  background: linear-gradient(135deg, rgba(106,247,160,0.15), rgba(106,247,196,0.1));
-  border: 1px solid rgba(106,247,160,0.25);
-  border-radius: 12px; padding: 0.85rem 1.25rem;
-  font-family: 'Syne', sans-serif; font-size: 1.3rem;
-  text-align: center; color: var(--green); font-weight: 700;
-}
-.infobox {
-  border-radius: 12px; padding: 1rem 1.25rem;
-  margin: 0.75rem 0; display: flex; gap: 0.75rem;
-  font-size: 0.9rem; font-weight: 600; line-height: 1.6;
-}
-.infobox.warn { background: rgba(247,196,106,0.1); border: 1px solid rgba(247,196,106,0.3); }
-.infobox.tip { background: rgba(106,247,160,0.08); border: 1px solid rgba(106,247,160,0.25); }
-.infobox.info { background: rgba(106,184,247,0.08); border: 1px solid rgba(106,184,247,0.25); }
-.infobox.danger { background: rgba(247,106,106,0.1); border: 1px solid rgba(247,106,106,0.3); }
-.infobox-icon { font-size: 1.3rem; flex-shrink: 0; margin-top: 0.05rem; }
-.concept-grid {
-  display: grid; grid-template-columns: repeat(auto-fill, minmax(155px,1fr));
-  gap: 0.75rem; margin: 1rem 0;
-}
-.concept-card {
-  background: var(--surface2); border: 1px solid var(--border);
-  border-radius: 14px; padding: 1rem; text-align: center;
-  transition: all 0.2s;
-}
-.concept-card:hover { transform: translateY(-3px); border-color: var(--accent); }
-.concept-card .cc-p { font-weight: 800; font-size: 1rem; margin: 0.3rem 0; }
-.concept-card .cc-a { color: var(--accent); font-family: 'JetBrains Mono', monospace; font-size: 1.05rem; font-weight: 700; }
-.concept-card .cc-n { font-size: 0.72rem; color: var(--muted); margin-top: 0.25rem; }
-.data-table {
-  width: 100%; border-collapse: separate; border-spacing: 0;
-  border-radius: 12px; overflow: hidden; margin: 1rem 0;
-  border: 1px solid var(--border);
-}
-.data-table th {
-  background: linear-gradient(135deg, var(--accent), var(--accent2));
-  color: white; padding: 0.65rem 1rem;
-  font-family: 'Syne', sans-serif; font-size: 0.9rem; text-align: left;
-}
-.data-table td {
-  background: var(--surface); padding: 0.6rem 1rem;
-  font-weight: 600; border-bottom: 1px solid var(--border);
-  font-size: 0.9rem;
-}
-.data-table tr:last-child td { border-bottom: none; }
-.data-table tr:hover td { background: var(--surface2); }
-.data-table td:nth-child(2) { color: var(--accent); font-family: 'JetBrains Mono', monospace; }
-.data-table td:nth-child(3) { color: var(--accent4); }
-.acc-item {
-  background: var(--surface); border: 1px solid var(--border);
-  border-radius: 12px; margin-bottom: 0.5rem; overflow: hidden;
-}
-.acc-head {
-  display: flex; align-items: center; gap: 0.85rem;
-  padding: 0.9rem 1.25rem; cursor: pointer;
-  font-weight: 700; font-size: 0.95rem;
-  user-select: none;
-}
-.acc-head:hover { background: var(--surface2); }
-.acc-letter {
-  width: 32px; height: 32px; border-radius: 8px;
-  display: flex; align-items: center; justify-content: center;
-  font-family: 'Syne', sans-serif; font-weight: 800; font-size: 0.9rem;
-  color: white; flex-shrink: 0;
-}
-.acc-arrow { margin-left: auto; transition: transform 0.2s; color: var(--muted); }
-.acc-head.open .acc-arrow { transform: rotate(180deg); }
-.acc-body {
-  display: none; padding: 0 1.25rem 1rem;
-  font-size: 0.9rem; font-weight: 500; line-height: 1.7;
-  border-top: 1px solid var(--border);
-}
-.acc-body.open { display: block; }
-.spick-grid {
-  display: grid; grid-template-columns: repeat(auto-fill,minmax(200px,1fr));
-  gap: 0.85rem; margin: 1rem 0;
-}
-.spick-card {
-  border-radius: 14px; padding: 1rem 1.25rem;
-  border: 1px solid rgba(255,255,255,0.1);
-  transition: transform 0.2s;
-}
-.spick-card:hover { transform: translateY(-3px); }
-.spick-label {
-  font-size: 0.62rem; font-weight: 800; letter-spacing: 0.12em;
-  text-transform: uppercase; opacity: 0.7; margin-bottom: 0.35rem;
-}
-.spick-formula {
-  font-family: 'JetBrains Mono', monospace; font-weight: 700;
-  font-size: 1.1rem; margin-bottom: 0.3rem; color: white;
-}
-.spick-ex { font-size: 0.78rem; opacity: 0.75; font-weight: 600; }
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden}
+body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse 80% 50% at 50% -20%,rgba(139,124,248,0.12),transparent);pointer-events:none;z-index:0}
 
-/* QUIZ */
-.quiz-wrap { display: flex; flex-direction: column; gap: 1rem; }
-.quiz-card {
-  background: var(--surface); border: 1px solid var(--border);
-  border-radius: 16px; padding: 1.5rem; transition: border-color 0.3s;
-}
-.quiz-card.ok { border-color: rgba(106,247,160,0.5); }
-.quiz-q {
-  font-family: 'Syne', sans-serif; font-size: 1.5rem;
-  font-weight: 800; margin-bottom: 1rem; color: var(--text);
-}
-.quiz-input-row { display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; }
-.quiz-input {
-  font-family: 'JetBrains Mono', monospace; font-size: 1.1rem;
-  font-weight: 700; border: 2px solid var(--border);
-  border-radius: 10px; padding: 0.45rem 0.9rem;
-  width: 130px; outline: none; background: var(--surface2);
-  color: var(--text); transition: border-color 0.2s;
-}
-.quiz-input:focus { border-color: var(--accent); }
-.btn-check, .btn-hint, .btn-new {
-  font-family: 'Space Grotesk', sans-serif; font-weight: 700;
-  font-size: 0.85rem; padding: 0.45rem 1.1rem;
-  border: none; border-radius: 10px; cursor: pointer; transition: all 0.2s;
-}
-.btn-check {
-  background: linear-gradient(135deg, var(--accent), var(--accent2));
-  color: white;
-}
-.btn-check:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(124,106,247,0.4); }
-.btn-hint { background: var(--surface2); color: var(--muted); border: 1px solid var(--border); }
-.btn-hint:hover { color: var(--text); }
-.btn-new { background: var(--surface2); color: var(--accent3); border: 1px solid rgba(106,247,196,0.3); }
-.btn-new:hover { background: rgba(106,247,196,0.1); }
-.quiz-fb {
-  margin-top: 0.75rem; font-weight: 700; font-size: 0.95rem;
-  min-height: 1.4rem;
-}
-.quiz-fb.ok { color: var(--green); }
-.quiz-fb.no { color: var(--red); }
-.quiz-fb.hint { color: var(--accent5); }
+/* HEADER */
+.hdr{position:relative;z-index:10;padding:1.5rem 2rem;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;background:rgba(13,13,20,0.95);backdrop-filter:blur(20px);position:sticky;top:0}
+.logo{font-size:1.4rem;font-weight:900;background:linear-gradient(135deg,var(--p),var(--p2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;letter-spacing:-0.03em}
+.hdr-right{display:flex;align-items:center;gap:0.75rem;flex-wrap:wrap}
+.chip{display:flex;align-items:center;gap:0.4rem;background:var(--s2);border:1px solid var(--border);border-radius:50px;padding:0.35rem 0.85rem;font-size:0.8rem;font-weight:700}
+.chip .v{font-family:'JetBrains Mono',monospace;color:var(--g);font-size:0.9rem}
+.note-chip{padding:0.35rem 0.85rem;border-radius:50px;font-size:0.85rem;font-weight:800;border:2px solid;transition:.3s}
 
-/* Quiz progress bar */
-.quiz-progress {
-  display: flex; align-items: center; gap: 0.75rem;
-  margin-bottom: 1rem; font-size: 0.85rem; color: var(--muted); font-weight: 600;
-}
-.quiz-dots { display: flex; gap: 0.35rem; }
-.quiz-dot {
-  width: 10px; height: 10px; border-radius: 50%;
-  background: var(--surface2); border: 1px solid var(--border);
-  transition: all 0.3s;
-}
-.quiz-dot.done { background: var(--green); border-color: var(--green); }
-.quiz-dot.active { background: var(--accent); border-color: var(--accent); }
+/* PROGRESS */
+.prog-bar-wrap{position:sticky;top:65px;z-index:9;background:var(--bg);padding:0.6rem 2rem;border-bottom:1px solid var(--border)}
+.prog-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:1rem}
+.prog-track{flex:1;height:5px;background:var(--s3);border-radius:3px;overflow:hidden}
+.prog-fill{height:100%;background:linear-gradient(90deg,var(--p),var(--p2));border-radius:3px;transition:width .6s cubic-bezier(.34,1.56,.64,1)}
+.prog-lbl{font-size:0.75rem;font-weight:700;color:var(--muted);white-space:nowrap}
 
-.lesson-complete-btn {
-  margin-top: 1.5rem; width: 100%; padding: 1rem;
-  font-family: 'Syne', sans-serif; font-size: 1.1rem; font-weight: 800;
-  background: linear-gradient(135deg, var(--accent), var(--accent2));
-  color: white; border: none; border-radius: 14px;
-  cursor: pointer; transition: all 0.25s; letter-spacing: 0.02em;
-}
-.lesson-complete-btn:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 10px 30px rgba(124,106,247,0.4);
-}
-.lesson-complete-btn:disabled {
-  opacity: 0.5; cursor: not-allowed; transform: none; box-shadow: none;
-}
-.split-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 1rem 0; }
-.split-card { border-radius: 16px; overflow: hidden; }
-.split-head { padding: 0.85rem 1.25rem; font-family: 'Syne', sans-serif; font-weight: 700; color: white; font-size: 1rem; }
-.split-body { background: var(--surface2); padding: 1rem 1.25rem; font-size: 0.88rem; font-weight: 600; line-height: 2; }
-@media(max-width:500px) { .split-grid { grid-template-columns: 1fr; } }
-.data-mgmt {
-  background: var(--surface); border: 1px solid rgba(247,106,106,0.3);
-  border-radius: 16px; padding: 1.5rem; margin: 1rem 0;
-}
-.data-mgmt h4 {
-  font-family: 'Syne', sans-serif; font-weight: 700; margin-bottom: 0.5rem;
-  color: var(--red);
-}
-.btn-danger {
-  margin-top: 0.75rem; padding: 0.65rem 1.5rem;
-  background: transparent; border: 2px solid var(--red);
-  color: var(--red); border-radius: 10px; cursor: pointer;
-  font-family: 'Space Grotesk', sans-serif; font-weight: 700;
-  font-size: 0.9rem; transition: all 0.2s;
-}
-.btn-danger:hover { background: var(--red); color: white; }
-sup { font-size: 0.62em; vertical-align: super; font-weight: 900; }
-.frac {
-  display: inline-flex; flex-direction: column; align-items: center;
-  vertical-align: middle; font-size: 0.88em; margin: 0 0.15em; line-height: 1.2;
-}
-.frac > span:first-child {
-  border-bottom: 2px solid currentColor;
-  padding: 0 0.2em;
-}
-.frac > span:last-child { padding: 0 0.2em; }
-.toast {
-  position: fixed; bottom: 2rem; left: 50%; transform: translateX(-50%) translateY(80px);
-  background: linear-gradient(135deg, var(--accent), var(--accent2));
-  color: white; padding: 0.85rem 2rem; border-radius: 50px;
-  font-weight: 700; font-size: 0.95rem; z-index: 100;
-  transition: transform 0.4s cubic-bezier(0.34,1.56,0.64,1);
-  box-shadow: 0 10px 30px rgba(0,0,0,0.4);
-  pointer-events: none;
-}
-.toast.show { transform: translateX(-50%) translateY(0); }
-@keyframes shake { 0%,100%{transform:translateX(0)}25%{transform:translateX(-8px)}75%{transform:translateX(8px)} }
-.h-purple { background: linear-gradient(135deg, #2d1b69, #4a2569); }
-.h-orange { background: linear-gradient(135deg, #5c2a0a, #7a3d1a); }
-.h-yellow { background: linear-gradient(135deg, #4a3a00, #6b5500); color: #ffe; }
-.h-green  { background: linear-gradient(135deg, #0a3d1f, #1a5c30); }
-.h-teal   { background: linear-gradient(135deg, #063a3a, #0d5c5c); }
-.h-blue   { background: linear-gradient(135deg, #0a2340, #1a3d6b); }
-.h-pink   { background: linear-gradient(135deg, #4a0a2d, #6b1a47); }
-.h-red    { background: linear-gradient(135deg, #4a0a0a, #7a1a1a); }
-.h-indigo { background: linear-gradient(135deg, #1a0a4a, #2d1a7a); }
+/* LAYOUT */
+.app{max-width:1100px;margin:0 auto;padding:2rem;display:grid;grid-template-columns:220px 1fr;gap:2rem;position:relative;z-index:1}
+@media(max-width:700px){.app{grid-template-columns:1fr;padding:1rem}}
+
+/* SIDEBAR */
+.sidebar{display:flex;flex-direction:column;gap:0.25rem;position:sticky;top:120px;align-self:start;height:fit-content}
+@media(max-width:700px){.sidebar{position:static;display:flex;flex-direction:row;flex-wrap:wrap;gap:0.4rem}}
+.nav-btn{display:flex;align-items:center;gap:0.6rem;width:100%;padding:0.6rem 0.75rem;border-radius:12px;border:1px solid transparent;background:transparent;color:var(--muted);font-size:0.85rem;font-weight:600;cursor:pointer;transition:.15s;text-align:left;font-family:inherit}
+.nav-btn:hover:not(.locked){background:var(--s2);color:var(--text)}
+.nav-btn.active{background:var(--s2);color:var(--text);border-color:var(--border)}
+.nav-btn.active::before{content:'';position:absolute;left:-1px}
+.nav-btn.done .nnum{background:var(--g)!important;color:#052e16}
+.nav-btn.locked{opacity:.3;cursor:not-allowed}
+.nnum{width:22px;height:22px;border-radius:6px;background:var(--s3);font-family:'JetBrains Mono',monospace;font-size:0.7rem;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:.2s}
+.nav-btn.active .nnum{background:var(--p);color:#fff}
+.ntxt{font-size:0.82rem}
+
+/* CONTENT */
+.content{min-width:0}
+.lesson{display:none}
+.lesson.active{display:block;animation:fadeUp .35s ease}
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+
+/* HERO */
+.hero{border-radius:20px;padding:2rem 2.5rem;margin-bottom:1.5rem;position:relative;overflow:hidden}
+.hero-tag{font-size:0.65rem;font-weight:800;letter-spacing:.2em;text-transform:uppercase;opacity:.65;margin-bottom:.4rem}
+.hero h2{font-size:1.9rem;font-weight:900;line-height:1.1;margin-bottom:.35rem;letter-spacing:-.03em}
+.hero p{font-size:.95rem;opacity:.8;font-weight:500;max-width:60%}
+.hero-icon{position:absolute;right:2rem;top:50%;transform:translateY(-50%);font-size:5rem;opacity:.1;pointer-events:none}
+
+/* CARD */
+.card{background:var(--s1);border:1px solid var(--border);border-radius:var(--radius);padding:1.5rem;margin-bottom:1rem}
+.ctitle{font-weight:800;font-size:1rem;margin-bottom:1rem;display:flex;align-items:center;gap:.5rem}
+
+/* FORMULA BOX */
+.fbox{background:linear-gradient(135deg,rgba(139,124,248,.12),rgba(244,114,182,.1));border:1px solid rgba(139,124,248,.25);border-radius:14px;padding:1.25rem 1.75rem;text-align:center;margin:.75rem 0}
+.fbox-main{font-size:1.7rem;font-weight:900;letter-spacing:-.02em;color:var(--p);margin-bottom:.25rem;font-family:'JetBrains Mono',monospace}
+.fbox-sub{font-size:.85rem;color:var(--muted);font-weight:600}
+
+/* STEPS */
+.steps{display:flex;flex-direction:column;gap:.4rem}
+.step{display:flex;align-items:center;gap:.75rem;padding:.7rem 1rem;background:var(--s2);border-radius:10px;border-left:3px solid var(--p)}
+.step-badge{font-size:.62rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;padding:.2rem .55rem;border-radius:5px;background:var(--p);color:#fff;flex-shrink:0;white-space:nowrap}
+.step-text{font-weight:700;font-size:.95rem}
+.step-hint{font-size:.75rem;color:var(--muted);margin-left:auto;white-space:nowrap}
+.result-box{background:rgba(52,211,153,.1);border:1px solid rgba(52,211,153,.25);border-radius:10px;padding:.8rem 1.25rem;text-align:center;font-weight:800;color:var(--g);font-size:1.25rem;margin-top:.5rem}
+
+/* INFOBOX */
+.info{display:flex;gap:.75rem;padding:1rem 1.25rem;border-radius:12px;font-size:.88rem;font-weight:600;line-height:1.65;margin:.75rem 0}
+.info.tip{background:rgba(52,211,153,.07);border:1px solid rgba(52,211,153,.2)}
+.info.warn{background:rgba(251,191,36,.08);border:1px solid rgba(251,191,36,.25)}
+.info.danger{background:rgba(248,113,113,.08);border:1px solid rgba(248,113,113,.25)}
+.info-icon{font-size:1.2rem;flex-shrink:0}
+
+/* CONCEPT GRID */
+.cgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:.6rem;margin:.75rem 0}
+.cc{background:var(--s2);border:1px solid var(--border);border-radius:12px;padding:.85rem;text-align:center;transition:.2s}
+.cc:hover{border-color:var(--p);transform:translateY(-2px)}
+.cc-icon{font-size:1.3rem;margin-bottom:.25rem}
+.cc-formula{font-weight:900;font-size:.95rem;margin:.15rem 0}
+.cc-ans{color:var(--p);font-family:'JetBrains Mono',monospace;font-weight:700;font-size:1rem}
+.cc-note{font-size:.68rem;color:var(--muted);margin-top:.2rem}
+
+/* TABLE */
+.dtable{width:100%;border-collapse:separate;border-spacing:0;border-radius:12px;overflow:hidden;border:1px solid var(--border);margin:.75rem 0}
+.dtable th{background:linear-gradient(135deg,var(--p),var(--p2));color:#fff;padding:.6rem 1rem;font-size:.85rem;text-align:left;font-weight:700}
+.dtable td{background:var(--s1);padding:.55rem 1rem;font-weight:600;border-bottom:1px solid var(--border);font-size:.88rem}
+.dtable tr:last-child td{border-bottom:none}
+.dtable tr:hover td{background:var(--s2)}
+.dtable td:nth-child(2){color:var(--p);font-family:'JetBrains Mono',monospace}
+.dtable td:nth-child(3){color:var(--y)}
+
+/* SPLIT */
+.split{display:grid;grid-template-columns:1fr 1fr;gap:.75rem;margin:.75rem 0}
+.split-card{border-radius:12px;overflow:hidden}
+.split-head{padding:.75rem 1rem;font-weight:800;color:#fff;font-size:.9rem}
+.split-body{background:var(--s2);padding:.85rem 1rem;font-size:.85rem;font-weight:600;line-height:2}
+@media(max-width:500px){.split{grid-template-columns:1fr}}
+
+/* ACCORDION */
+.acc{background:var(--s1);border:1px solid var(--border);border-radius:12px;margin-bottom:.4rem;overflow:hidden}
+.acc-head{display:flex;align-items:center;gap:.75rem;padding:.85rem 1.1rem;cursor:pointer;font-weight:700;font-size:.9rem;user-select:none;transition:.15s}
+.acc-head:hover{background:var(--s2)}
+.acc-dot{width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.85rem;color:#fff;flex-shrink:0}
+.acc-arr{margin-left:auto;color:var(--muted);transition:transform .2s;font-size:.8rem}
+.acc-head.open .acc-arr{transform:rotate(180deg)}
+.acc-body{display:none;padding:.75rem 1.1rem 1rem;font-size:.88rem;font-weight:500;line-height:1.75;border-top:1px solid var(--border)}
+.acc-body.open{display:block}
+
+/* SPICKZETTEL */
+.spick-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:.75rem;margin:.75rem 0}
+.spick{border-radius:14px;padding:.9rem 1.1rem;border:1px solid rgba(255,255,255,.07);transition:.2s}
+.spick:hover{transform:translateY(-2px)}
+.spick-lbl{font-size:.58rem;font-weight:800;letter-spacing:.15em;text-transform:uppercase;opacity:.6;margin-bottom:.3rem}
+.spick-f{font-family:'JetBrains Mono',monospace;font-weight:700;font-size:1.05rem;margin-bottom:.25rem;color:#fff}
+.spick-ex{font-size:.75rem;opacity:.7;font-weight:600}
+
+/* ======================== */
+/* DIFFICULTY + QUIZ SYSTEM */
+/* ======================== */
+
+/* Difficulty selector */
+.diff-select{display:flex;gap:.5rem;margin-bottom:1.25rem;flex-wrap:wrap}
+.diff-btn{padding:.45rem 1.1rem;border-radius:50px;font-size:.82rem;font-weight:700;border:2px solid var(--border);background:var(--s2);color:var(--muted);cursor:pointer;transition:.15s;font-family:inherit}
+.diff-btn.active{color:#fff;border-color:transparent}
+.diff-btn.d-easy.active{background:linear-gradient(135deg,#059669,#34d399);border-color:transparent}
+.diff-btn.d-med.active{background:linear-gradient(135deg,#d97706,#fbbf24);border-color:transparent}
+.diff-btn.d-hard.active{background:linear-gradient(135deg,#dc2626,#f87171);border-color:transparent}
+
+/* Quiz card */
+.qcard{background:var(--s2);border:2px solid var(--border);border-radius:16px;padding:1.5rem;transition:border-color .3s}
+.qcard.correct{border-color:rgba(52,211,153,.5);background:rgba(52,211,153,.04)}
+.qcard.wrong{border-color:rgba(248,113,113,.5)}
+
+/* Question display */
+.q-display{font-size:2.2rem;font-weight:900;letter-spacing:-.03em;margin-bottom:1.25rem;font-family:'JetBrains Mono',monospace;line-height:1.3}
+.q-display sup{font-size:.55em;vertical-align:super}
+
+/* Answer options (multiple choice) */
+.mc-grid{display:grid;grid-template-columns:1fr 1fr;gap:.6rem;margin-bottom:1rem}
+.mc-btn{padding:.9rem 1rem;border-radius:12px;border:2px solid var(--border);background:var(--s1);color:var(--text);font-size:1rem;font-weight:700;cursor:pointer;transition:.15s;font-family:'JetBrains Mono',monospace;text-align:center}
+.mc-btn:hover:not(:disabled){border-color:var(--p);background:rgba(139,124,248,.1)}
+.mc-btn.correct-ans{border-color:var(--g)!important;background:rgba(52,211,153,.15)!important;color:var(--g)}
+.mc-btn.wrong-ans{border-color:var(--r)!important;background:rgba(248,113,113,.1)!important;color:var(--r)}
+.mc-btn:disabled{cursor:default}
+
+/* Input mode */
+.inp-row{display:flex;gap:.5rem;align-items:stretch;flex-wrap:wrap;margin-bottom:.75rem}
+.q-inp{flex:1;min-width:120px;font-family:'JetBrains Mono',monospace;font-size:1.1rem;font-weight:700;border:2px solid var(--border);border-radius:10px;padding:.6rem 1rem;background:var(--s1);color:var(--text);outline:none;transition:border-color .2s}
+.q-inp:focus{border-color:var(--p)}
+.btn-check{padding:.6rem 1.25rem;border-radius:10px;background:linear-gradient(135deg,var(--p),var(--p2));color:#fff;border:none;font-weight:700;font-size:.88rem;cursor:pointer;transition:.2s;font-family:inherit;white-space:nowrap}
+.btn-check:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(139,124,248,.35)}
+.btn-hint{padding:.6rem 1rem;border-radius:10px;background:var(--s1);border:1px solid var(--border);color:var(--muted);font-weight:700;font-size:.85rem;cursor:pointer;font-family:inherit;transition:.15s}
+.btn-hint:hover{color:var(--text)}
+
+/* Feedback */
+.qfb{min-height:1.5rem;font-weight:700;font-size:.9rem;padding:.5rem 0}
+.qfb.ok{color:var(--g)}
+.qfb.no{color:var(--r)}
+.qfb.hint{color:var(--b)}
+
+/* Quiz progress dots */
+.q-dots{display:flex;gap:.35rem;margin-bottom:1rem;flex-wrap:wrap;align-items:center}
+.q-dot{width:10px;height:10px;border-radius:50%;background:var(--s3);border:1px solid var(--border);transition:.25s}
+.q-dot.done{background:var(--g);border-color:var(--g)}
+.q-dot.active{background:var(--p);border-color:var(--p)}
+.q-stat{font-size:.8rem;font-weight:700;color:var(--muted);margin-left:auto}
+
+/* Complete button */
+.complete-btn{width:100%;margin-top:1.25rem;padding:1rem;border-radius:14px;background:linear-gradient(135deg,var(--p),var(--p2));color:#fff;border:none;font-size:1rem;font-weight:800;cursor:pointer;transition:.25s;letter-spacing:.01em;font-family:inherit}
+.complete-btn:hover:not(:disabled){transform:translateY(-3px);box-shadow:0 12px 30px rgba(139,124,248,.35)}
+.complete-btn:disabled{opacity:.45;cursor:not-allowed;transform:none;box-shadow:none}
+
+/* Final-Quiz score card */
+.score-card{border-radius:20px;padding:2.5rem;text-align:center;background:linear-gradient(135deg,rgba(139,124,248,.15),rgba(244,114,182,.1));border:1px solid rgba(139,124,248,.3);margin-bottom:1rem}
+.score-note{font-size:5rem;font-weight:900;line-height:1}
+.score-sub{font-size:1rem;color:var(--muted);font-weight:600;margin-top:.5rem}
+.score-pct{font-size:1.8rem;font-weight:900;color:var(--p);margin:.5rem 0}
+
+/* Data management */
+.danger-zone{background:var(--s1);border:1px solid rgba(248,113,113,.25);border-radius:14px;padding:1.25rem 1.5rem;margin:1rem 0}
+.danger-zone h4{color:var(--r);font-weight:800;margin-bottom:.35rem}
+.btn-danger{margin-top:.6rem;padding:.55rem 1.25rem;background:transparent;border:2px solid var(--r);color:var(--r);border-radius:10px;cursor:pointer;font-weight:700;font-size:.85rem;transition:.2s;font-family:inherit}
+.btn-danger:hover{background:var(--r);color:#fff}
+
+/* Toast */
+.toast{position:fixed;bottom:2rem;left:50%;transform:translateX(-50%) translateY(80px);background:linear-gradient(135deg,var(--p),var(--p2));color:#fff;padding:.75rem 1.75rem;border-radius:50px;font-weight:700;font-size:.9rem;z-index:1000;transition:transform .4s cubic-bezier(.34,1.56,.64,1);box-shadow:0 10px 30px rgba(0,0,0,.4);pointer-events:none}
+.toast.show{transform:translateX(-50%) translateY(0)}
+
+/* Colors */
+.bg-purple{background:linear-gradient(135deg,#1a0a4a,#2d1b6b)}
+.bg-orange{background:linear-gradient(135deg,#431407,#7c2d12)}
+.bg-yellow{background:linear-gradient(135deg,#3d2b00,#6b4d00)}
+.bg-green{background:linear-gradient(135deg,#052e16,#14532d)}
+.bg-teal{background:linear-gradient(135deg,#042f2e,#0f4c45)}
+.bg-blue{background:linear-gradient(135deg,#0c1a3a,#1e3a6b)}
+.bg-pink{background:linear-gradient(135deg,#3a0a2d,#6b1a47)}
+.bg-red{background:linear-gradient(135deg,#3a0a0a,#6b1a1a)}
+.bg-indigo{background:linear-gradient(135deg,#1e1b4b,#312e81)}
+
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}
+sup{font-size:.58em;vertical-align:super;font-weight:900}
+.frac{display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;font-size:.9em;margin:0 .15em;line-height:1.2}
+.frac>span:first-child{border-bottom:2px solid currentColor;padding:0 .2em}
+.frac>span:last-child{padding:0 .2em}
 </style>
 </head>
 <body>
 
-<div class="header">
-  <div class="header-top">
-    <div class="logo">Potenzen<span>.</span></div>
-    <div class="stats-bar">
-      <div class="stat-chip">🏆 Punkte <span class="val" id="pts">0</span></div>
-      <div class="stat-chip">📚 Themen <span class="val" id="chapCount">0/10</span></div>
-      <div class="stat-chip">✅ Quiz <span class="val" id="quizCount">0</span></div>
-      <div class="note-badge" id="noteBadge" data-label="Geschätzte Note">—</div>
-    </div>
+<!-- HEADER -->
+<header class="hdr">
+  <div class="logo">Potenzen ⚡</div>
+  <div class="hdr-right">
+    <div class="chip">🏆 <span class="v" id="pts">0</span> Punkte</div>
+    <div class="chip">📚 <span class="v" id="chapCount">0/10</span></div>
+    <div class="chip">✅ <span class="v" id="qCount">0</span> Quiz</div>
+    <div class="note-chip" id="noteBadge">—</div>
   </div>
-  <div class="progress-section">
-    <div class="progress-label">
-      <span>Gesamtfortschritt</span>
-      <span id="pctLabel">0%</span>
-    </div>
-    <div class="progress-bar-outer">
-      <div class="progress-bar-inner" id="progressBar" style="width:0%"></div>
-    </div>
+</header>
+<div class="prog-bar-wrap">
+  <div class="prog-inner">
+    <div class="prog-track"><div class="prog-fill" id="progFill" style="width:0%"></div></div>
+    <div class="prog-lbl" id="progLbl">0%</div>
   </div>
 </div>
 
 <div class="app">
-  <div class="sidebar">
-    <div class="sidebar-title">Kapitel</div>
-    <button class="nav-item active" id="nav0" onclick="showLesson(0)">
-      <span class="nav-num">1</span> Grundlagen
-      <span class="nav-stars" id="nstar0"></span>
-    </button>
-    <button class="nav-item locked" id="nav1" onclick="showLesson(1)">
-      <span class="nav-num">2</span> Vorzeichen
-      <span class="nav-lock" id="nlock1">🔒</span>
-    </button>
-    <button class="nav-item locked" id="nav2" onclick="showLesson(2)">
-      <span class="nav-num">3</span> Zehnerpotenzen
-      <span class="nav-lock" id="nlock2">🔒</span>
-    </button>
-    <button class="nav-item locked" id="nav3" onclick="showLesson(3)">
-      <span class="nav-num">4</span> Multiplizieren
-      <span class="nav-lock" id="nlock3">🔒</span>
-    </button>
-    <button class="nav-item locked" id="nav4" onclick="showLesson(4)">
-      <span class="nav-num">5</span> Dividieren
-      <span class="nav-lock" id="nlock4">🔒</span>
-    </button>
-    <button class="nav-item locked" id="nav5" onclick="showLesson(5)">
-      <span class="nav-num">6</span> Potenz²
-      <span class="nav-lock" id="nlock5">🔒</span>
-    </button>
-    <button class="nav-item locked" id="nav6" onclick="showLesson(6)">
-      <span class="nav-num">7</span> Brüche
-      <span class="nav-lock" id="nlock6">🔒</span>
-    </button>
-    <button class="nav-item locked" id="nav7" onclick="showLesson(7)">
-      <span class="nav-num">8</span> Produkt
-      <span class="nav-lock" id="nlock7">🔒</span>
-    </button>
-    <button class="nav-item locked" id="nav8" onclick="showLesson(8)">
-      <span class="nav-num">9</span> Neg. Exponenten
-      <span class="nav-lock" id="nlock8">🔒</span>
-    </button>
-    <button class="nav-item locked" id="nav9" onclick="showLesson(9)">
-      <span class="nav-num">10</span> Aufgaben
-      <span class="nav-lock" id="nlock9">🔒</span>
-    </button>
-    <button class="nav-item locked" id="nav10" onclick="showLesson(10)">
-      <span class="nav-num">★</span> Final-Quiz
-      <span class="nav-lock" id="nlock10">🔒</span>
-    </button>
-    <button class="nav-item" id="nav11" onclick="showLesson(11)">
-      <span class="nav-num">📋</span> Spickzettel
-    </button>
-  </div>
+  <!-- SIDEBAR -->
+  <nav class="sidebar">
+    <button class="nav-btn active" id="nav0" onclick="go(0)"><span class="nnum">1</span><span class="ntxt">Grundlagen</span></button>
+    <button class="nav-btn locked" id="nav1" onclick="go(1)"><span class="nnum">2</span><span class="ntxt">Vorzeichen</span></button>
+    <button class="nav-btn locked" id="nav2" onclick="go(2)"><span class="nnum">3</span><span class="ntxt">Zehnerpotenzen</span></button>
+    <button class="nav-btn locked" id="nav3" onclick="go(3)"><span class="nnum">4</span><span class="ntxt">Multiplizieren</span></button>
+    <button class="nav-btn locked" id="nav4" onclick="go(4)"><span class="nnum">5</span><span class="ntxt">Dividieren</span></button>
+    <button class="nav-btn locked" id="nav5" onclick="go(5)"><span class="nnum">6</span><span class="ntxt">Potenz²</span></button>
+    <button class="nav-btn locked" id="nav6" onclick="go(6)"><span class="nnum">7</span><span class="ntxt">Brüche</span></button>
+    <button class="nav-btn locked" id="nav7" onclick="go(7)"><span class="nnum">8</span><span class="ntxt">Produkt</span></button>
+    <button class="nav-btn locked" id="nav8" onclick="go(8)"><span class="nnum">9</span><span class="ntxt">Neg. Exponenten</span></button>
+    <button class="nav-btn locked" id="nav9" onclick="go(9)"><span class="nnum">10</span><span class="ntxt">Aufgaben</span></button>
+    <button class="nav-btn locked" id="nav10" onclick="go(10)"><span class="nnum">★</span><span class="ntxt">Final-Quiz</span></button>
+    <button class="nav-btn" id="nav11" onclick="go(11)"><span class="nnum">📋</span><span class="ntxt">Spickzettel</span></button>
+  </nav>
 
   <div class="content" id="contentArea">
 
-    <!-- LESSON 0: GRUNDLAGEN -->
+    <!-- L0: GRUNDLAGEN -->
     <div class="lesson active" id="lesson0">
-      <div class="lesson-hero h-purple" data-e="🎯">
-        <div class="lesson-tag">Kapitel 1 · Grundlagen</div>
-        <h2>Was ist eine Potenz?</h2>
-        <p>Clevere Abkürzung für wiederholte Multiplikation!</p>
+      <div class="hero bg-purple"><div class="hero-tag">Kapitel 1 · Grundlagen</div><h2>Was ist eine Potenz?</h2><p>Clevere Abkürzung für wiederholte Multiplikation!</p><div class="hero-icon">🎯</div></div>
+      <div class="card">
+        <div class="ctitle">💡 Die Idee</div>
+        <p style="font-size:.9rem;font-weight:500;color:var(--muted);margin-bottom:.75rem">Statt <strong style="color:var(--text)">2 · 2 · 2 · 2 · 2</strong> schreiben wir einfach <strong style="color:var(--p)">2⁵</strong></p>
+        <div class="fbox"><div class="fbox-main">a<sup>n</sup> = a · a · a · … · a</div><div class="fbox-sub">Basis a wird n-mal multipliziert</div></div>
+        <div class="info tip"><div class="info-icon">📌</div><div><strong>BASIS</strong> = die große Zahl unten<br><strong>EXPONENT</strong> = die kleine Zahl oben (wie oft?)<br><strong>POTENZWERT</strong> = das Ergebnis</div></div>
       </div>
       <div class="card">
-        <div class="card-title">💡 Die Idee</div>
-        <p style="font-size:0.95rem;font-weight:500;margin-bottom:1rem;color:var(--muted)">Statt <strong style="color:var(--text)">2 · 2 · 2 · 2 · 2</strong> zu schreiben, nutzen wir einfach <strong style="color:var(--accent)">2⁵</strong> — spart Zeit &amp; sieht cooler aus!</p>
-        <div class="formula">
-          <div class="formula-main">a<sup>n</sup> = a · a · a · … · a</div>
-          <div class="formula-sub">Basis a wird n-mal mit sich selbst multipliziert</div>
-        </div>
-        <div class="infobox info">
-          <div class="infobox-icon">📌</div>
-          <div><strong>BASIS</strong> = die große Zahl unten (was wird multipliziert?)<br><strong>EXPONENT</strong> = die kleine Zahl oben (wie oft?)<br><strong>POTENZWERT</strong> = das Ergebnis</div>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-title">📝 Schritt-für-Schritt: 2⁵</div>
+        <div class="ctitle">📝 Beispiel: 2⁵</div>
         <div class="steps">
-          <div class="step"><span class="step-badge" style="background:var(--accent2)">Aufgabe</span><span class="step-main">2⁵</span><span class="step-hint">lies: „zwei hoch fünf"</span></div>
-          <div class="step"><span class="step-badge" style="background:var(--accent2)">Ausschreiben</span><span class="step-main">= 2 · 2 · 2 · 2 · 2</span><span class="step-hint">5 Faktoren!</span></div>
-          <div class="step"><span class="step-badge" style="background:var(--accent2)">Rechnen</span><span class="step-main">= 4 · 4 · 2 = 16 · 2</span></div>
+          <div class="step"><span class="step-badge">Aufgabe</span><span class="step-text">2⁵ — „zwei hoch fünf"</span></div>
+          <div class="step"><span class="step-badge">Ausschreiben</span><span class="step-text">= 2 · 2 · 2 · 2 · 2</span><span class="step-hint">5 Faktoren</span></div>
+          <div class="step"><span class="step-badge">Rechnen</span><span class="step-text">= 4 · 4 · 2 = 32</span></div>
         </div>
-        <div class="result" style="margin-top:0.5rem">🎉 Ergebnis: 32</div>
+        <div class="result-box">🎉 2⁵ = 32</div>
       </div>
       <div class="card">
-        <div class="card-title">⭐ Spezialfälle</div>
-        <div class="concept-grid">
-          <div class="concept-card"><div style="font-size:1.5rem">1️⃣</div><div class="cc-p">a<sup>1</sup></div><div class="cc-a">= a</div><div class="cc-n">7¹ = 7</div></div>
-          <div class="concept-card"><div style="font-size:1.5rem">0️⃣</div><div class="cc-p">a<sup>0</sup></div><div class="cc-a">= 1</div><div class="cc-n">100⁰ = 1 immer!</div></div>
-          <div class="concept-card"><div style="font-size:1.5rem">⬛</div><div class="cc-p">a<sup>2</sup></div><div class="cc-a">„Quadrat"</div><div class="cc-n">5² = 25</div></div>
-          <div class="concept-card"><div style="font-size:1.5rem">🎲</div><div class="cc-p">a<sup>3</sup></div><div class="cc-a">„Kubik"</div><div class="cc-n">3³ = 27</div></div>
+        <div class="ctitle">⭐ Spezialfälle — merke dir diese!</div>
+        <div class="cgrid">
+          <div class="cc"><div class="cc-icon">1️⃣</div><div class="cc-formula">a<sup>1</sup></div><div class="cc-ans">= a</div><div class="cc-note">z.B. 7¹ = 7</div></div>
+          <div class="cc"><div class="cc-icon">0️⃣</div><div class="cc-formula">a<sup>0</sup></div><div class="cc-ans">= 1</div><div class="cc-note">IMMER! 100⁰ = 1</div></div>
+          <div class="cc"><div class="cc-icon">⬛</div><div class="cc-formula">a<sup>2</sup></div><div class="cc-ans">„Quadrat"</div><div class="cc-note">5² = 25</div></div>
+          <div class="cc"><div class="cc-icon">🎲</div><div class="cc-formula">a<sup>3</sup></div><div class="cc-ans">„Kubik"</div><div class="cc-note">3³ = 27</div></div>
         </div>
       </div>
-      <div class="card" style="border-color:rgba(124,106,247,0.3)">
-        <div class="card-title">⚡ Mini-Quiz — Zeig was du kannst!</div>
-        <div class="quiz-wrap" id="mq0"></div>
-        <button class="lesson-complete-btn" id="complete0" onclick="completeLesson(0)" disabled>
-          Kapitel abschließen &amp; Nächstes freischalten 🔓
-        </button>
+      <div class="card" style="border-color:rgba(139,124,248,.3)">
+        <div class="ctitle">⚡ Quiz — wähl deinen Level!</div>
+        <div id="qarea0"></div>
+        <button class="complete-btn" id="cbtn0" onclick="completeLesson(0)" disabled>Kapitel abschließen & nächstes freischalten 🔓</button>
       </div>
     </div>
 
-    <!-- LESSON 1: VORZEICHEN -->
+    <!-- L1: VORZEICHEN -->
     <div class="lesson" id="lesson1">
-      <div class="lesson-hero h-orange" data-e="➕">
-        <div class="lesson-tag">Kapitel 2 · Vorzeichen</div>
-        <h2>Vorzeichen-Regeln</h2>
-        <p>Was passiert, wenn die Basis negativ ist?</p>
-      </div>
+      <div class="hero bg-orange"><div class="hero-tag">Kapitel 2 · Vorzeichen</div><h2>Vorzeichen-Regeln</h2><p>Was passiert wenn die Basis negativ ist?</p><div class="hero-icon">➕</div></div>
       <div class="card">
-        <div class="card-title">🎨 Die goldene Regel</div>
-        <div class="split-grid">
-          <div class="split-card">
-            <div class="split-head" style="background:linear-gradient(135deg,#0a3d1f,#1a5c30)">GERADER Exponent → ➕ POSITIV</div>
-            <div class="split-body">(−2)² = +4 ✅<br>(−3)⁴ = +81 ✅<br>(−1)⁶ = +1 ✅<br><em style="color:var(--muted)">Minus × Minus = Plus!</em></div>
-          </div>
-          <div class="split-card">
-            <div class="split-head" style="background:linear-gradient(135deg,#4a0a0a,#7a1a1a)">UNGERADER Exponent → ➖ NEGATIV</div>
-            <div class="split-body">(−2)³ = −8 ✅<br>(−5)³ = −125 ✅<br>(−1)⁵ = −1 ✅<br><em style="color:var(--muted)">Ein Minus bleibt übrig!</em></div>
-          </div>
+        <div class="ctitle">🎨 Die goldene Regel</div>
+        <div class="split">
+          <div class="split-card"><div class="split-head" style="background:linear-gradient(135deg,#052e16,#14532d)">GERADER Exponent → ➕ POSITIV</div><div class="split-body">(−2)² = +4 ✅<br>(−3)⁴ = +81 ✅<br>(−1)⁶ = +1 ✅<br><em style="color:var(--muted)">Minus × Minus = Plus!</em></div></div>
+          <div class="split-card"><div class="split-head" style="background:linear-gradient(135deg,#3a0a0a,#6b1a1a)">UNGERADER Exponent → ➖ NEGATIV</div><div class="split-body">(−2)³ = −8 ✅<br>(−5)³ = −125 ✅<br>(−1)⁵ = −1 ✅<br><em style="color:var(--muted)">Ein Minus bleibt übrig!</em></div></div>
         </div>
       </div>
-      <div class="card">
-        <div class="card-title">📝 Schritt-für-Schritt: (−2)⁶</div>
-        <div class="steps">
-          <div class="step" style="border-color:var(--accent4)"><span class="step-badge" style="background:var(--accent4);color:#000">Exponent</span><span class="step-main">6 ist gerade → Ergebnis POSITIV ✅</span></div>
-          <div class="step" style="border-color:var(--accent4)"><span class="step-badge" style="background:var(--accent4);color:#000">Ausschreiben</span><span class="step-main">(−2)·(−2)·(−2)·(−2)·(−2)·(−2)</span></div>
-          <div class="step" style="border-color:var(--accent4)"><span class="step-badge" style="background:var(--accent4);color:#000">Paarweise</span><span class="step-main">(+4)·(+4)·(+4) = 16·4</span></div>
-        </div>
-        <div class="result">🎉 Ergebnis: 64</div>
-      </div>
-      <div class="infobox danger">
-        <div class="infobox-icon">🚨</div>
-        <div><strong>−2⁴ = −16</strong> → Erst 2⁴=16, dann Minus davor<br><strong>(−2)⁴ = +16</strong> → Minus gehört zur Basis, gerade → positiv<br><em>Die Klammer macht den Riesenunterschied!</em></div>
-      </div>
-      <div class="card" style="border-color:rgba(124,106,247,0.3)">
-        <div class="card-title">⚡ Mini-Quiz</div>
-        <div class="quiz-wrap" id="mq1"></div>
-        <button class="lesson-complete-btn" id="complete1" onclick="completeLesson(1)" disabled>
-          Kapitel abschließen &amp; Nächstes freischalten 🔓
-        </button>
-      </div>
+      <div class="info danger"><div class="info-icon">🚨</div><div><strong>−2⁴ = −16</strong> → erst 2⁴=16, dann Minus davor<br><strong>(−2)⁴ = +16</strong> → Minus gehört zur Basis, gerade → positiv<br><em>Die Klammer macht den Unterschied!</em></div></div>
+      <div class="card" style="border-color:rgba(139,124,248,.3)"><div class="ctitle">⚡ Quiz</div><div id="qarea1"></div><button class="complete-btn" id="cbtn1" onclick="completeLesson(1)" disabled>Kapitel abschließen 🔓</button></div>
     </div>
 
-    <!-- LESSON 2: ZEHNER -->
+    <!-- L2: ZEHNER -->
     <div class="lesson" id="lesson2">
-      <div class="lesson-hero h-yellow" data-e="🔟">
-        <div class="lesson-tag">Kapitel 3 · Zehnerpotenzen</div>
-        <h2>Zehnerpotenzen</h2>
-        <p>Der einfachste Trick: Nullen zählen! 🎉</p>
-      </div>
+      <div class="hero bg-yellow"><div class="hero-tag">Kapitel 3 · Zehnerpotenzen</div><h2>Zehnerpotenzen</h2><p>Nullen zählen = fertig! 🎉</p><div class="hero-icon">🔟</div></div>
       <div class="card">
-        <div class="formula">
-          <div class="formula-main">10ⁿ = 1 gefolgt von n Nullen</div>
-          <div class="formula-sub">Der Exponent = Anzahl der Nullen</div>
-        </div>
-        <table class="data-table">
-          <tr><th>Potenz</th><th>Wert</th><th>Name &amp; Nullen</th></tr>
-          <tr><td>10¹</td><td>10</td><td>Zehn — 1 Null</td></tr>
-          <tr><td>10²</td><td>100</td><td>Hundert — 2 Nullen</td></tr>
-          <tr><td>10³</td><td>1.000</td><td>Tausend — 3 Nullen</td></tr>
-          <tr><td>10⁶</td><td>1.000.000</td><td>Million — 6 Nullen</td></tr>
-          <tr><td>10⁹</td><td>1.000.000.000</td><td>Milliarde — 9 Nullen</td></tr>
-          <tr><td>10¹²</td><td>1.000.000.000.000</td><td>Billion — 12 Nullen</td></tr>
+        <div class="fbox"><div class="fbox-main">10<sup>n</sup> = 1 gefolgt von n Nullen</div><div class="fbox-sub">Exponent = Anzahl der Nullen</div></div>
+        <table class="dtable"><tr><th>Potenz</th><th>Wert</th><th>Name</th></tr>
+          <tr><td>10¹</td><td>10</td><td>Zehn</td></tr>
+          <tr><td>10²</td><td>100</td><td>Hundert</td></tr>
+          <tr><td>10³</td><td>1.000</td><td>Tausend</td></tr>
+          <tr><td>10⁶</td><td>1.000.000</td><td>Million</td></tr>
+          <tr><td>10⁹</td><td>1.000.000.000</td><td>Milliarde</td></tr>
         </table>
       </div>
-      <div class="card" style="border-color:rgba(124,106,247,0.3)">
-        <div class="card-title">⚡ Mini-Quiz</div>
-        <div class="quiz-wrap" id="mq2"></div>
-        <button class="lesson-complete-btn" id="complete2" onclick="completeLesson(2)" disabled>
-          Kapitel abschließen &amp; Nächstes freischalten 🔓
-        </button>
-      </div>
+      <div class="card" style="border-color:rgba(139,124,248,.3)"><div class="ctitle">⚡ Quiz</div><div id="qarea2"></div><button class="complete-btn" id="cbtn2" onclick="completeLesson(2)" disabled>Kapitel abschließen 🔓</button></div>
     </div>
 
-    <!-- LESSON 3: MULTIPLIZIEREN -->
+    <!-- L3: MULTIPLIZIEREN -->
     <div class="lesson" id="lesson3">
-      <div class="lesson-hero h-green" data-e="✖️">
-        <div class="lesson-tag">Kapitel 4 · Potenzgesetz 1</div>
-        <h2>Potenzen multiplizieren</h2>
-        <p>Gleiche Basis? Exponenten addieren! ➕</p>
-      </div>
+      <div class="hero bg-green"><div class="hero-tag">Kapitel 4 · Potenzgesetz 1</div><h2>Potenzen multiplizieren</h2><p>Gleiche Basis? Exponenten addieren!</p><div class="hero-icon">✖️</div></div>
       <div class="card">
-        <div class="formula">
-          <div class="formula-main">a<sup>n</sup> · a<sup>m</sup> = a<sup>n+m</sup></div>
-          <div class="formula-sub">Gleiche Basis → Exponenten ADDIEREN!</div>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-title">🔍 Warum? 2³ · 2⁴</div>
+        <div class="fbox"><div class="fbox-main">a<sup>n</sup> · a<sup>m</sup> = a<sup>n+m</sup></div><div class="fbox-sub">Gleiche Basis → Exponenten ADDIEREN</div></div>
         <div class="steps">
-          <div class="step" style="border-color:var(--green)"><span class="step-badge" style="background:var(--green);color:#000">Ausschreiben</span><span class="step-main">(2·2·2) · (2·2·2·2)</span></div>
-          <div class="step" style="border-color:var(--green)"><span class="step-badge" style="background:var(--green);color:#000">Zusammen</span><span class="step-main">2·2·2·2·2·2·2 = 2⁷</span><span class="step-hint">3+4=7</span></div>
+          <div class="step" style="border-color:var(--g)"><span class="step-badge" style="background:var(--g);color:#052e16">Beispiel</span><span class="step-text">2³ · 2⁴</span></div>
+          <div class="step" style="border-color:var(--g)"><span class="step-badge" style="background:var(--g);color:#052e16">Ausschreiben</span><span class="step-text">(2·2·2) · (2·2·2·2)</span></div>
+          <div class="step" style="border-color:var(--g)"><span class="step-badge" style="background:var(--g);color:#052e16">Zusammen</span><span class="step-text">= 2⁷</span><span class="step-hint">3+4=7</span></div>
         </div>
-        <div class="result">🎉 2⁷ = 128</div>
+        <div class="result-box">2⁷ = 128</div>
+        <div class="info danger" style="margin-top:.75rem"><div class="info-icon">🚨</div><div>2³ · 2⁴ = 2<strong>12</strong> ❌ NEIN!<br>2³ · 2⁴ = 2<strong>7</strong> ✅ Exponenten ADDIEREN!</div></div>
       </div>
-      <div class="infobox danger">
-        <div class="infobox-icon">🚨</div>
-        <div><strong>Häufiger Fehler:</strong><br>2³ · 2⁴ = 2¹² ❌ — NEIN, nicht multiplizieren!<br>2³ · 2⁴ = 2⁷ ✅ — ADDIEREN! (3+4=7)</div>
-      </div>
-      <div class="card" style="border-color:rgba(124,106,247,0.3)">
-        <div class="card-title">⚡ Mini-Quiz</div>
-        <div class="quiz-wrap" id="mq3"></div>
-        <button class="lesson-complete-btn" id="complete3" onclick="completeLesson(3)" disabled>
-          Kapitel abschließen &amp; Nächstes freischalten 🔓
-        </button>
-      </div>
+      <div class="card" style="border-color:rgba(139,124,248,.3)"><div class="ctitle">⚡ Quiz</div><div id="qarea3"></div><button class="complete-btn" id="cbtn3" onclick="completeLesson(3)" disabled>Kapitel abschließen 🔓</button></div>
     </div>
 
-    <!-- LESSON 4: DIVIDIEREN -->
+    <!-- L4: DIVIDIEREN -->
     <div class="lesson" id="lesson4">
-      <div class="lesson-hero h-teal" data-e="➗">
-        <div class="lesson-tag">Kapitel 5 · Potenzgesetz 2</div>
-        <h2>Potenzen dividieren</h2>
-        <p>Gleiche Basis teilen? Exponenten subtrahieren! ➖</p>
-      </div>
+      <div class="hero bg-teal"><div class="hero-tag">Kapitel 5 · Potenzgesetz 2</div><h2>Potenzen dividieren</h2><p>Gleiche Basis teilen? Exponenten subtrahieren!</p><div class="hero-icon">➗</div></div>
       <div class="card">
-        <div class="formula">
-          <div class="formula-main">a<sup>n</sup> : a<sup>m</sup> = a<sup>n−m</sup></div>
-          <div class="formula-sub">Gleiche Basis → Exponenten SUBTRAHIEREN</div>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-title">📝 Schritt-für-Schritt: 2⁵ : 2²</div>
+        <div class="fbox"><div class="fbox-main">a<sup>n</sup> : a<sup>m</sup> = a<sup>n−m</sup></div><div class="fbox-sub">Gleiche Basis → Exponenten SUBTRAHIEREN</div></div>
         <div class="steps">
-          <div class="step" style="border-color:var(--accent3)"><span class="step-badge" style="background:var(--accent3);color:#000">Ausschreiben</span><span class="step-main">(2·2·2·2·2) : (2·2)</span></div>
-          <div class="step" style="border-color:var(--accent3)"><span class="step-badge" style="background:var(--accent3);color:#000">Kürzen</span><span class="step-main">Zwei 2er kürzen sich → 2·2·2 = 2³</span><span class="step-hint">5−2=3</span></div>
+          <div class="step" style="border-color:var(--g)"><span class="step-badge" style="background:var(--g);color:#052e16">Beispiel</span><span class="step-text">2⁵ : 2²</span></div>
+          <div class="step" style="border-color:var(--g)"><span class="step-badge" style="background:var(--g);color:#052e16">Ausschreiben</span><span class="step-text">(2·2·2·2·2) ÷ (2·2)</span></div>
+          <div class="step" style="border-color:var(--g)"><span class="step-badge" style="background:var(--g);color:#052e16">Kürzen</span><span class="step-text">= 2·2·2 = 2³</span><span class="step-hint">5−2=3</span></div>
         </div>
-        <div class="result">🎉 2³ = 8</div>
+        <div class="result-box">2³ = 8</div>
+        <div class="info tip"><div class="info-icon">💡</div><div><strong>Sonderfall:</strong> 5³ : 5³ = 5⁰ = 1 (3−3=0!)</div></div>
       </div>
-      <div class="infobox tip">
-        <div class="infobox-icon">💡</div>
-        <div><strong>Sonderfall:</strong> 5³ : 5³ = 5⁰ = 1 (weil 3−3=0!)</div>
-      </div>
-      <div class="card" style="border-color:rgba(124,106,247,0.3)">
-        <div class="card-title">⚡ Mini-Quiz</div>
-        <div class="quiz-wrap" id="mq4"></div>
-        <button class="lesson-complete-btn" id="complete4" onclick="completeLesson(4)" disabled>
-          Kapitel abschließen &amp; Nächstes freischalten 🔓
-        </button>
-      </div>
+      <div class="card" style="border-color:rgba(139,124,248,.3)"><div class="ctitle">⚡ Quiz</div><div id="qarea4"></div><button class="complete-btn" id="cbtn4" onclick="completeLesson(4)" disabled>Kapitel abschließen 🔓</button></div>
     </div>
 
-    <!-- LESSON 5: POTENZ² -->
+    <!-- L5: POTENZ² -->
     <div class="lesson" id="lesson5">
-      <div class="lesson-hero h-blue" data-e="🔄">
-        <div class="lesson-tag">Kapitel 6 · Potenzgesetz 3</div>
-        <h2>Potenz einer Potenz</h2>
-        <p>Klammer hoch etwas → Exponenten multiplizieren!</p>
-      </div>
+      <div class="hero bg-blue"><div class="hero-tag">Kapitel 6 · Potenzgesetz 3</div><h2>Potenz einer Potenz</h2><p>Klammer hoch etwas → Exponenten multiplizieren!</p><div class="hero-icon">🔄</div></div>
       <div class="card">
-        <div class="formula">
-          <div class="formula-main">(a<sup>n</sup>)<sup>m</sup> = a<sup>n·m</sup></div>
-          <div class="formula-sub">MIT Klammer → Exponenten MULTIPLIZIEREN</div>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-title">📝 Schritt-für-Schritt: (2³)²</div>
+        <div class="fbox"><div class="fbox-main">(a<sup>n</sup>)<sup>m</sup> = a<sup>n·m</sup></div><div class="fbox-sub">MIT Klammer → Exponenten MULTIPLIZIEREN</div></div>
         <div class="steps">
-          <div class="step" style="border-color:var(--accent5)"><span class="step-badge" style="background:var(--accent5)">Bedeutet</span><span class="step-main">2³ · 2³ (zweimal!)</span></div>
-          <div class="step" style="border-color:var(--accent5)"><span class="step-badge" style="background:var(--accent5)">Kurz</span><span class="step-main">2<sup>3·2</sup> = 2⁶</span><span class="step-hint">3×2=6</span></div>
+          <div class="step" style="border-color:var(--b)"><span class="step-badge" style="background:var(--b)">Beispiel</span><span class="step-text">(2³)²</span></div>
+          <div class="step" style="border-color:var(--b)"><span class="step-badge" style="background:var(--b)">Bedeutet</span><span class="step-text">2³ · 2³ (zweimal)</span></div>
+          <div class="step" style="border-color:var(--b)"><span class="step-badge" style="background:var(--b)">Kurz</span><span class="step-text">= 2^(3·2) = 2⁶</span><span class="step-hint">3×2=6</span></div>
         </div>
-        <div class="result">🎉 2⁶ = 64</div>
+        <div class="result-box">2⁶ = 64</div>
+        <div class="info warn"><div class="info-icon">⚠️</div><div>2³·2⁴ = 2⁷ (ohne Klammer → ADDIEREN)<br>(2³)⁴ = 2¹² (MIT Klammer → MULTIPLIZIEREN)<br><strong>Klammer = ×  |  kein Klammer = +</strong></div></div>
       </div>
-      <div class="infobox warn">
-        <div class="infobox-icon">⚠️</div>
-        <div>2³ · 2⁴ = 2⁷ (ohne Klammer → ADDIEREN)<br>(2³)⁴ = 2¹² (MIT Klammer → MULTIPLIZIEREN)<br><strong>Klammer → mal | ohne Klammer → plus</strong></div>
-      </div>
-      <div class="card" style="border-color:rgba(124,106,247,0.3)">
-        <div class="card-title">⚡ Mini-Quiz</div>
-        <div class="quiz-wrap" id="mq5"></div>
-        <button class="lesson-complete-btn" id="complete5" onclick="completeLesson(5)" disabled>
-          Kapitel abschließen &amp; Nächstes freischalten 🔓
-        </button>
-      </div>
+      <div class="card" style="border-color:rgba(139,124,248,.3)"><div class="ctitle">⚡ Quiz</div><div id="qarea5"></div><button class="complete-btn" id="cbtn5" onclick="completeLesson(5)" disabled>Kapitel abschließen 🔓</button></div>
     </div>
 
-    <!-- LESSON 6: BRÜCHE -->
+    <!-- L6: BRÜCHE -->
     <div class="lesson" id="lesson6">
-      <div class="lesson-hero h-pink" data-e="🍕">
-        <div class="lesson-tag">Kapitel 7 · Potenzgesetz 4</div>
-        <h2>Brüche potenzieren</h2>
-        <p>Bruch hoch n? Oben UND unten die Potenz!</p>
-      </div>
+      <div class="hero bg-pink"><div class="hero-tag">Kapitel 7 · Potenzgesetz 4</div><h2>Brüche potenzieren</h2><p>Oben UND unten die Potenz anwenden!</p><div class="hero-icon">🍕</div></div>
       <div class="card">
-        <div class="formula">
-          <div class="formula-main">(<span class="frac" style="color:var(--accent);font-size:1.1rem"><span>a</span><span>b</span></span>)<sup>n</sup> = <span class="frac" style="color:var(--accent);font-size:1.1rem"><span>a<sup>n</sup></span><span>b<sup>n</sup></span></span></div>
-          <div class="formula-sub">Zähler hoch n UND Nenner hoch n — beide getrennt!</div>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-title">📝 Schritt-für-Schritt: (−¾)³</div>
+        <div class="fbox"><div class="fbox-main">(<span class="frac" style="color:var(--p);font-size:1rem"><span>a</span><span>b</span></span>)<sup>n</sup> = <span class="frac" style="color:var(--p);font-size:1rem"><span>a<sup>n</sup></span><span>b<sup>n</sup></span></span></div><div class="fbox-sub">Zähler UND Nenner einzeln potenzieren!</div></div>
         <div class="steps">
-          <div class="step" style="border-color:var(--accent2)"><span class="step-badge" style="background:var(--accent2)">Zähler</span><span class="step-main">(−3)³ = −27 (ungerade → negativ!)</span></div>
-          <div class="step" style="border-color:var(--accent2)"><span class="step-badge" style="background:var(--accent2)">Nenner</span><span class="step-main">4³ = 4·4·4 = 64</span></div>
+          <div class="step" style="border-color:var(--p2)"><span class="step-badge" style="background:var(--p2)">Beispiel</span><span class="step-text">(−¾)³</span></div>
+          <div class="step" style="border-color:var(--p2)"><span class="step-badge" style="background:var(--p2)">Zähler</span><span class="step-text">(−3)³ = −27 (ungerade → negativ!)</span></div>
+          <div class="step" style="border-color:var(--p2)"><span class="step-badge" style="background:var(--p2)">Nenner</span><span class="step-text">4³ = 64</span></div>
         </div>
-        <div class="result">🎉 Ergebnis: −27/64</div>
+        <div class="result-box">−27/64</div>
       </div>
-      <div class="card" style="border-color:rgba(124,106,247,0.3)">
-        <div class="card-title">⚡ Mini-Quiz</div>
-        <div class="quiz-wrap" id="mq6"></div>
-        <button class="lesson-complete-btn" id="complete6" onclick="completeLesson(6)" disabled>
-          Kapitel abschließen &amp; Nächstes freischalten 🔓
-        </button>
-      </div>
+      <div class="card" style="border-color:rgba(139,124,248,.3)"><div class="ctitle">⚡ Quiz</div><div id="qarea6"></div><button class="complete-btn" id="cbtn6" onclick="completeLesson(6)" disabled>Kapitel abschließen 🔓</button></div>
     </div>
 
-    <!-- LESSON 7: PRODUKT -->
+    <!-- L7: PRODUKT -->
     <div class="lesson" id="lesson7">
-      <div class="lesson-hero h-red" data-e="📦">
-        <div class="lesson-tag">Kapitel 8 · Potenzgesetz 5</div>
-        <h2>Produkt potenzieren</h2>
-        <p>Mal-Zeichen in Klammer → jeder bekommt die Potenz!</p>
-      </div>
+      <div class="hero bg-red"><div class="hero-tag">Kapitel 8 · Potenzgesetz 5</div><h2>Produkt potenzieren</h2><p>Jeder Faktor bekommt die Potenz!</p><div class="hero-icon">📦</div></div>
       <div class="card">
-        <div class="formula">
-          <div class="formula-main">(a · b)<sup>n</sup> = a<sup>n</sup> · b<sup>n</sup></div>
-          <div class="formula-sub">Klammer mit MAL → Potenz auf ALLE Faktoren verteilen!</div>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-title">📝 Schritt-für-Schritt: (2·3)⁴</div>
+        <div class="fbox"><div class="fbox-main">(a · b)<sup>n</sup> = a<sup>n</sup> · b<sup>n</sup></div><div class="fbox-sub">Potenz auf alle Faktoren verteilen!</div></div>
         <div class="steps">
-          <div class="step" style="border-color:var(--red)"><span class="step-badge" style="background:var(--red)">Verteilen</span><span class="step-main">= 2⁴ · 3⁴</span></div>
-          <div class="step" style="border-color:var(--red)"><span class="step-badge" style="background:var(--red)">Ausrechnen</span><span class="step-main">= 16 · 81</span></div>
+          <div class="step" style="border-color:var(--r)"><span class="step-badge" style="background:var(--r)">Beispiel</span><span class="step-text">(2·3)⁴</span></div>
+          <div class="step" style="border-color:var(--r)"><span class="step-badge" style="background:var(--r)">Verteilen</span><span class="step-text">= 2⁴ · 3⁴</span></div>
+          <div class="step" style="border-color:var(--r)"><span class="step-badge" style="background:var(--r)">Rechnen</span><span class="step-text">= 16 · 81</span></div>
         </div>
-        <div class="result">🎉 = 1.296</div>
+        <div class="result-box">= 1.296</div>
       </div>
-      <div class="card" style="border-color:rgba(124,106,247,0.3)">
-        <div class="card-title">⚡ Mini-Quiz</div>
-        <div class="quiz-wrap" id="mq7"></div>
-        <button class="lesson-complete-btn" id="complete7" onclick="completeLesson(7)" disabled>
-          Kapitel abschließen &amp; Nächstes freischalten 🔓
-        </button>
-      </div>
+      <div class="card" style="border-color:rgba(139,124,248,.3)"><div class="ctitle">⚡ Quiz</div><div id="qarea7"></div><button class="complete-btn" id="cbtn7" onclick="completeLesson(7)" disabled>Kapitel abschließen 🔓</button></div>
     </div>
 
-    <!-- LESSON 8: NEGATIVE EXPONENTEN -->
+    <!-- L8: NEG. EXPONENTEN -->
     <div class="lesson" id="lesson8">
-      <div class="lesson-hero h-indigo" data-e="➖">
-        <div class="lesson-tag">Kapitel 9 · Potenzgesetz 6</div>
-        <h2>Negative Exponenten</h2>
-        <p>Minus im Exponent = umdrehen (Kehrwert)!</p>
-      </div>
+      <div class="hero bg-indigo"><div class="hero-tag">Kapitel 9 · Potenzgesetz 6</div><h2>Negative Exponenten</h2><p>Minus im Exponent = Kehrwert!</p><div class="hero-icon">➖</div></div>
       <div class="card">
-        <div class="formula">
-          <div class="formula-main">a<sup>−n</sup> = 1/a<sup>n</sup></div>
-          <div class="formula-sub">Minus → 1 geteilt durch die Potenz (Kehrwert!)</div>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-title">📝 Schritt-für-Schritt: 2⁻³</div>
+        <div class="fbox"><div class="fbox-main">a<sup>−n</sup> = 1/a<sup>n</sup></div><div class="fbox-sub">Minus → Kehrwert bilden!</div></div>
         <div class="steps">
-          <div class="step"><span class="step-badge">Erkennen</span><span class="step-main">Minus im Exponenten → Kehrwert!</span></div>
-          <div class="step"><span class="step-badge">Umschreiben</span><span class="step-main">= 1/2³ = 1/8</span></div>
+          <div class="step"><span class="step-badge">Beispiel</span><span class="step-text">2⁻³</span></div>
+          <div class="step"><span class="step-badge">Kehrwert</span><span class="step-text">= 1/2³ = 1/8</span></div>
         </div>
-        <div class="result">🎉 = 0,125</div>
-      </div>
-      <div class="card">
-        <div class="card-title">🔟 Zehnerpotenzen negativ</div>
-        <table class="data-table">
-          <tr><th>Potenz</th><th>Bruch</th><th>Dezimal</th></tr>
+        <div class="result-box">= 0,125</div>
+        <table class="dtable" style="margin-top:1rem"><tr><th>Potenz</th><th>Bruch</th><th>Dezimal</th></tr>
           <tr><td>10⁻¹</td><td>1/10</td><td>0,1</td></tr>
           <tr><td>10⁻²</td><td>1/100</td><td>0,01</td></tr>
           <tr><td>10⁻³</td><td>1/1.000</td><td>0,001</td></tr>
-          <tr><td>10⁻⁶</td><td>1/1.000.000</td><td>0,000001</td></tr>
         </table>
       </div>
-      <div class="card" style="border-color:rgba(124,106,247,0.3)">
-        <div class="card-title">⚡ Mini-Quiz</div>
-        <div class="quiz-wrap" id="mq8"></div>
-        <button class="lesson-complete-btn" id="complete8" onclick="completeLesson(8)" disabled>
-          Kapitel abschließen &amp; Nächstes freischalten 🔓
-        </button>
-      </div>
+      <div class="card" style="border-color:rgba(139,124,248,.3)"><div class="ctitle">⚡ Quiz</div><div id="qarea8"></div><button class="complete-btn" id="cbtn8" onclick="completeLesson(8)" disabled>Kapitel abschließen 🔓</button></div>
     </div>
 
-    <!-- LESSON 9: AUFGABEN -->
+    <!-- L9: AUFGABEN -->
     <div class="lesson" id="lesson9">
-      <div class="lesson-hero h-green" data-e="📝">
-        <div class="lesson-tag">Übungen · Aufgabe 6</div>
-        <h2>Aufgabe 6 — Vorzeichen</h2>
-        <p>Klick auf jede Teilaufgabe für den Rechenweg!</p>
-      </div>
-      <div class="card">
-        <div id="accList"></div>
-      </div>
-      <div class="card" style="border-color:rgba(124,106,247,0.3)">
-        <div class="card-title">⚡ Mini-Quiz</div>
-        <div class="quiz-wrap" id="mq9"></div>
-        <button class="lesson-complete-btn" id="complete9" onclick="completeLesson(9)" disabled>
-          Kapitel abschließen &amp; Nächstes freischalten 🔓
-        </button>
-      </div>
+      <div class="hero bg-green"><div class="hero-tag">Übungen · Aufgabe 6</div><h2>Aufgabe 6 — Vorzeichen</h2><p>Klick auf jede Teilaufgabe!</p><div class="hero-icon">📝</div></div>
+      <div class="card"><div id="accList"></div></div>
+      <div class="card" style="border-color:rgba(139,124,248,.3)"><div class="ctitle">⚡ Quiz</div><div id="qarea9"></div><button class="complete-btn" id="cbtn9" onclick="completeLesson(9)" disabled>Kapitel abschließen 🔓</button></div>
     </div>
 
-    <!-- LESSON 10: FINAL QUIZ -->
+    <!-- L10: FINAL QUIZ -->
     <div class="lesson" id="lesson10">
-      <div class="lesson-hero h-purple" data-e="⚡">
-        <div class="lesson-tag">Abschluss · Final-Quiz</div>
-        <h2>Großes Quiz</h2>
-        <p>Zeig alles was du gelernt hast! 🧠</p>
+      <div class="hero bg-purple"><div class="hero-tag">Abschluss · Final-Quiz</div><h2>Die große Prüfung</h2><p>Zeig alles was du gelernt hast! Wähle deinen Level!</p><div class="hero-icon">⚡</div></div>
+      <div id="finalScoreCard" style="display:none" class="score-card">
+        <div class="score-note" id="finalNote">—</div>
+        <div class="score-pct" id="finalPct"></div>
+        <div class="score-sub" id="finalSub"></div>
       </div>
-      <div class="card" style="border-color:rgba(124,106,247,0.3)">
-        <div class="quiz-wrap" id="mq10"></div>
-        <button class="lesson-complete-btn" id="complete10" onclick="completeLesson(10)" disabled>
-          Quiz abschließen — Note bestätigen! 🏆
-        </button>
-      </div>
+      <div class="card" style="border-color:rgba(139,124,248,.3)"><div id="qarea10"></div><button class="complete-btn" id="cbtn10" onclick="completeLesson(10)" disabled>Quiz abschließen — Note bestätigen! 🏆</button></div>
     </div>
 
-    <!-- LESSON 11: SPICKZETTEL -->
+    <!-- L11: SPICKZETTEL -->
     <div class="lesson" id="lesson11">
-      <div class="lesson-hero h-indigo" data-e="📋">
-        <div class="lesson-tag">Zusammenfassung</div>
-        <h2>Spickzettel</h2>
-        <p>Alle Regeln auf einen Blick!</p>
-      </div>
+      <div class="hero bg-indigo"><div class="hero-tag">Zusammenfassung</div><h2>Spickzettel</h2><p>Alle Regeln auf einen Blick!</p><div class="hero-icon">📋</div></div>
       <div class="card">
-        <div class="card-title">📚 Alle Gesetze</div>
+        <div class="ctitle">📚 Alle Gesetze</div>
         <div class="spick-grid">
-          <div class="spick-card" style="background:linear-gradient(135deg,#2d1b69,#4a2569)"><div class="spick-label">Grundregel</div><div class="spick-formula">aⁿ = a·a·…·a</div><div class="spick-ex">2⁴ = 16</div></div>
-          <div class="spick-card" style="background:linear-gradient(135deg,#1a1a4a,#2d2d7a)"><div class="spick-label">Hoch 0</div><div class="spick-formula">a⁰ = 1</div><div class="spick-ex">100⁰ = 1 (immer!)</div></div>
-          <div class="spick-card" style="background:linear-gradient(135deg,#0a3d1f,#1a5c30)"><div class="spick-label">Multiplikation</div><div class="spick-formula">aⁿ · aᵐ = aⁿ⁺ᵐ</div><div class="spick-ex">2³·2⁴ = 2⁷ = 128</div></div>
-          <div class="spick-card" style="background:linear-gradient(135deg,#063a3a,#0d5c5c)"><div class="spick-label">Division</div><div class="spick-formula">aⁿ : aᵐ = aⁿ⁻ᵐ</div><div class="spick-ex">2⁵:2² = 2³ = 8</div></div>
-          <div class="spick-card" style="background:linear-gradient(135deg,#0a2340,#1a3d6b)"><div class="spick-label">Potenz einer Potenz</div><div class="spick-formula">(aⁿ)ᵐ = aⁿ·ᵐ</div><div class="spick-ex">(2³)⁴ = 2¹²</div></div>
-          <div class="spick-card" style="background:linear-gradient(135deg,#4a0a2d,#6b1a47)"><div class="spick-label">Produkt potenzieren</div><div class="spick-formula">(a·b)ⁿ = aⁿ·bⁿ</div><div class="spick-ex">(2·3)² = 4·9 = 36</div></div>
-          <div class="spick-card" style="background:linear-gradient(135deg,#4a0a0a,#7a1a1a)"><div class="spick-label">Bruch potenzieren</div><div class="spick-formula">(a/b)ⁿ = aⁿ/bⁿ</div><div class="spick-ex">(½)³ = 1/8</div></div>
-          <div class="spick-card" style="background:linear-gradient(135deg,#3a2a00,#5a4000)"><div class="spick-label">Negativer Exponent</div><div class="spick-formula">a⁻ⁿ = 1/aⁿ</div><div class="spick-ex">2⁻³ = 1/8</div></div>
-          <div class="spick-card" style="background:linear-gradient(135deg,#0a3d1f,#1a5c30)"><div class="spick-label">Gerade Hochzahl</div><div class="spick-formula">(−a)^gerade = +</div><div class="spick-ex">(−3)⁴ = +81 ✅</div></div>
-          <div class="spick-card" style="background:linear-gradient(135deg,#4a0a0a,#7a1a1a)"><div class="spick-label">Ungerade Hochzahl</div><div class="spick-formula">(−a)^ungerade = −</div><div class="spick-ex">(−3)³ = −27 ✅</div></div>
+          <div class="spick" style="background:linear-gradient(135deg,#1a0a4a,#2d1b6b)"><div class="spick-lbl">Grundregel</div><div class="spick-f">aⁿ = a·a·…·a</div><div class="spick-ex">2⁴ = 16</div></div>
+          <div class="spick" style="background:linear-gradient(135deg,#1a1a4a,#2d2d7a)"><div class="spick-lbl">Hoch 0</div><div class="spick-f">a⁰ = 1</div><div class="spick-ex">100⁰ = 1 (immer!)</div></div>
+          <div class="spick" style="background:linear-gradient(135deg,#052e16,#14532d)"><div class="spick-lbl">Multiplikation</div><div class="spick-f">aⁿ · aᵐ = aⁿ⁺ᵐ</div><div class="spick-ex">2³·2⁴ = 2⁷</div></div>
+          <div class="spick" style="background:linear-gradient(135deg,#042f2e,#0f4c45)"><div class="spick-lbl">Division</div><div class="spick-f">aⁿ : aᵐ = aⁿ⁻ᵐ</div><div class="spick-ex">2⁵:2² = 2³</div></div>
+          <div class="spick" style="background:linear-gradient(135deg,#0c1a3a,#1e3a6b)"><div class="spick-lbl">Potenz einer Potenz</div><div class="spick-f">(aⁿ)ᵐ = aⁿ·ᵐ</div><div class="spick-ex">(2³)⁴ = 2¹²</div></div>
+          <div class="spick" style="background:linear-gradient(135deg,#3a0a2d,#6b1a47)"><div class="spick-lbl">Produkt potenzieren</div><div class="spick-f">(a·b)ⁿ = aⁿ·bⁿ</div><div class="spick-ex">(2·3)² = 36</div></div>
+          <div class="spick" style="background:linear-gradient(135deg,#3a0a0a,#6b1a1a)"><div class="spick-lbl">Bruch potenzieren</div><div class="spick-f">(a/b)ⁿ = aⁿ/bⁿ</div><div class="spick-ex">(½)³ = 1/8</div></div>
+          <div class="spick" style="background:linear-gradient(135deg,#3d2b00,#6b4d00)"><div class="spick-lbl">Negativer Exponent</div><div class="spick-f">a⁻ⁿ = 1/aⁿ</div><div class="spick-ex">2⁻³ = 1/8</div></div>
+          <div class="spick" style="background:linear-gradient(135deg,#052e16,#14532d)"><div class="spick-lbl">Gerade Hochzahl</div><div class="spick-f">(−a)^gerade = +</div><div class="spick-ex">(−3)⁴ = +81</div></div>
+          <div class="spick" style="background:linear-gradient(135deg,#3a0a0a,#6b1a1a)"><div class="spick-lbl">Ungerade Hochzahl</div><div class="spick-f">(−a)^ungerade = −</div><div class="spick-ex">(−3)³ = −27</div></div>
         </div>
       </div>
-      <div class="card" style="border-color:rgba(247,106,106,0.3)">
-        <div class="card-title" style="color:var(--red)">🚨 Die 3 häufigsten Fehler</div>
-        <div style="font-weight:600;line-height:2.2;font-size:0.93rem;color:var(--muted)">
-          <span style="color:var(--text)">1.</span> 2³ · 2⁴ = 2¹² ❌ → <strong style="color:var(--green)">ADDIEREN</strong>, nicht multiplizieren! 2⁷ ✅<br>
-          <span style="color:var(--text)">2.</span> −2⁴ = (−2)⁴ ❌ → <strong style="color:var(--green)">Klammer</strong> macht den Unterschied!<br>
-          <span style="color:var(--text)">3.</span> (aⁿ)ᵐ = aⁿ⁺ᵐ ❌ → MIT Klammer <strong style="color:var(--green)">MULTIPLIZIEREN</strong>! aⁿ·ᵐ ✅
+      <div class="card" style="border-color:rgba(248,113,113,.25)">
+        <div class="ctitle" style="color:var(--r)">🚨 Die 3 häufigsten Fehler</div>
+        <div style="font-size:.9rem;font-weight:600;line-height:2.3;color:var(--muted)">
+          <span style="color:var(--text)">1.</span> 2³ · 2⁴ = 2¹² ❌ → <strong style="color:var(--g)">ADDIEREN!</strong> Richtig: 2⁷ ✅<br>
+          <span style="color:var(--text)">2.</span> −2⁴ = (−2)⁴ ❌ → <strong style="color:var(--g)">Klammer macht den Unterschied!</strong><br>
+          <span style="color:var(--text)">3.</span> (aⁿ)ᵐ = aⁿ⁺ᵐ ❌ → MIT Klammer <strong style="color:var(--g)">MULTIPLIZIEREN!</strong> aⁿ·ᵐ ✅
         </div>
       </div>
-      <div class="data-mgmt">
+      <div class="danger-zone">
         <h4>🗑️ Daten löschen</h4>
-        <p style="font-size:0.85rem;color:var(--muted);font-weight:500;margin-top:0.25rem">Alle Fortschritte, Punkte und freigeschaltete Kapitel zurücksetzen.</p>
-        <button class="btn-danger" onclick="confirmReset()">⚠️ Alle Daten löschen &amp; neu starten</button>
+        <p style="font-size:.82rem;color:var(--muted);font-weight:500;margin-top:.2rem">Alle Fortschritte zurücksetzen.</p>
+        <button class="btn-danger" onclick="doReset()">⚠️ Alles löschen & neu starten</button>
       </div>
     </div>
 
-  </div>
-</div>
+  </div><!-- /content -->
+</div><!-- /app -->
 
 <div class="toast" id="toast"></div>
 
 <script>
-// ============ STATE ============
-const STORAGE_KEY = 'potenzen_v4';
-
+// ═══════════════════════════════════════════
+// STATE
+// ═══════════════════════════════════════════
+const SK = 'potenzen_v5';
 function loadState() {
-  try {
-    const raw = localStorage.getItem(STORAGE_KEY);
-    if (raw) return JSON.parse(raw);
-  } catch(e) {}
-  return {
-    unlocked: [true, false, false, false, false, false, false, false, false, false, false, true],
-    completed: Array(12).fill(false),
-    points: 0,
-    quizCorrect: 0,
-    // Per-lesson: how many have been answered correctly this session
-    lessonCorrect: Array(12).fill(0),
-    lessonNeeded: [3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 6, 0], // how many correct needed to unlock
-  };
+  try { const r = localStorage.getItem(SK); if(r) return JSON.parse(r); } catch(e){}
+  return { unlocked:[true,false,false,false,false,false,false,false,false,false,false,true], completed:Array(12).fill(false), points:0, quizCorrect:0 };
+}
+function save() { try{ localStorage.setItem(SK,JSON.stringify(st)); }catch(e){} }
+let st = loadState();
+
+// Difficulty per lesson this session
+const lessonDiff = {}; // 'easy'|'med'|'hard'
+// Which questions were answered correctly this session
+const correct = {}; // key: `${lesson}_${qi}` -> true
+// Generated questions per lesson per difficulty
+const genQ = {}; // key: `${lesson}_${diff}` -> [{qText, answer, hint, opts(for MC)}]
+
+function rnd(a,b){return Math.floor(Math.random()*(b-a+1))+a;}
+function pick(arr){return arr[Math.floor(Math.random()*arr.length)];}
+function pow(b,e){return Math.round(Math.pow(b,e)*1000000)/1000000;}
+
+// ═══════════════════════════════════════════
+// QUESTION GENERATORS
+// Each returns {qText (HTML), answer (number), hint, opts:[4 numbers] for MC}
+// qText uses plain text with ^ for exponent display (we render as sup)
+// Difficulty: easy=MC 4 choices, med=MC but harder numbers, hard=type-in
+// ═══════════════════════════════════════════
+
+// Helper: make 4 MC options including correct answer
+function makeOpts(ans, spread=3, isFloat=false) {
+  const opts = new Set([ans]);
+  let tries = 0;
+  while(opts.size < 4 && tries < 100) {
+    tries++;
+    let d = rnd(1, spread);
+    if(isFloat) d = d * 0.1;
+    const candidates = [ans+d, ans-d, ans+d*2, ans-d*2, ans+1, ans-1, Math.abs(ans)+d, -Math.abs(ans)];
+    const c = pick(candidates);
+    if(c !== ans) opts.add(c);
+  }
+  return shuffle([...opts].slice(0,4));
+}
+function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+
+// Format answer for display
+function fmtAns(n) {
+  if(Number.isInteger(n)) return String(n);
+  return String(Math.round(n*1000)/1000).replace('.',',');
 }
 
-function saveState() {
-  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch(e) {}
-}
+// Render q text: replaces ^n with <sup>n</sup>
+function renderQ(s){ return s.replace(/\^(-?\d+)/g,'<sup>$1</sup>'); }
 
-let state = loadState();
-let curLesson = 0;
-
-// Per-session: generated questions (regenerated each page load)
-const sessionQuestions = {};
-
-// ============ QUESTION GENERATORS ============
-// Each generator returns {qHTML, answer, hintText}
-
-function rnd(min, max) { return Math.floor(Math.random() * (max - min + 1)) + min; }
-function pick(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
-
-const generators = {
-
-  // Lesson 0: Grundlagen — basic powers
-  0: [
-    () => {
-      const bases = [2,3,4,5,6,7,8,9,10];
-      const b = pick(bases); const e = rnd(2, 4);
-      const ans = Math.pow(b, e);
-      const sup = n => `<sup>${n}</sup>`;
-      return { qHTML: `${b}${sup(e)} = ?`, answer: ans, hintText: `${b} × ${b} ${e>2?'× '.repeat(e-2).trim():''} = ${ans}`.replace('×  =','= ') };
-    },
-    () => {
-      const b = rnd(2, 12);
-      return { qHTML: `${b}<sup>0</sup> = ?`, answer: 1, hintText: 'Alles hoch 0 = 1!' };
-    },
-    () => {
-      const b = rnd(2, 15);
-      return { qHTML: `${b}<sup>1</sup> = ?`, answer: b, hintText: `Alles hoch 1 = sich selbst = ${b}` };
-    },
-    () => {
-      const b = pick([2,3,4,5,6,7,8,9,10]);
-      const ans = b * b;
-      return { qHTML: `${b}<sup>2</sup> = ?`, answer: ans, hintText: `${b} × ${b} = ${ans}` };
-    },
-    () => {
-      const b = pick([2,3,4,5]);
-      const ans = b*b*b;
-      return { qHTML: `${b}<sup>3</sup> = ?`, answer: ans, hintText: `${b}×${b}×${b} = ${ans}` };
-    },
-  ],
-
-  // Lesson 1: Vorzeichen
-  1: [
-    () => {
-      const b = rnd(1, 6);
-      const e = pick([2,4,6]);
-      const ans = Math.pow(b, e);
-      return { qHTML: `(−${b})<sup>${e}</sup> = ?`, answer: ans, hintText: `Gerade Hochzahl → positiv, ${b}^${e} = ${ans}` };
-    },
-    () => {
-      const b = rnd(1, 5);
-      const e = pick([3,5,7]);
-      const ans = -Math.pow(b, e);
-      return { qHTML: `(−${b})<sup>${e}</sup> = ?`, answer: ans, hintText: `Ungerade Hochzahl → negativ, −${b}^${e} = ${ans}` };
-    },
-    () => {
-      const e = pick([2,3,4,5,6,7]);
-      const ans = e % 2 === 0 ? 1 : -1;
-      return { qHTML: `(−1)<sup>${e}</sup> = ?`, answer: ans, hintText: e%2===0 ? 'Gerade → +1' : 'Ungerade → −1' };
-    },
-    () => {
-      const b = rnd(2, 5); const e = pick([2,4]);
-      const ans = Math.pow(b, e);
-      return { qHTML: `(−${b})<sup>${e}</sup> = ?`, answer: ans, hintText: `Gerade → positiv! ${b}^${e}=${ans}` };
-    },
-  ],
-
-  // Lesson 2: Zehnerpotenzen
-  2: [
-    () => {
-      const e = rnd(1, 6);
-      const ans = Math.pow(10, e);
-      return { qHTML: `10<sup>${e}</sup> = ?`, answer: ans, hintText: `${e} Nullen → ${ans}` };
-    },
-    () => {
-      const e = rnd(1, 5);
-      const ans = Math.pow(10, e);
-      return { qHTML: `10<sup>${e}</sup> = ?`, answer: ans, hintText: `Zehnerpotenz: 1 + ${e} Nullen = ${ans}` };
-    },
-    () => {
-      const e = rnd(2, 7);
-      const ans = Math.pow(10, e);
-      return { qHTML: `10<sup>${e}</sup> = ?`, answer: ans, hintText: `${e} Nullen nach der 1` };
-    },
-  ],
-
-  // Lesson 3: Multiplizieren (ask for resulting exponent)
-  3: [
-    () => {
-      const bases = [2,3,5,7,10];
-      const b = pick(bases);
-      const n = rnd(1,6); const m = rnd(1,6);
-      return { qHTML: `${b}<sup>${n}</sup> · ${b}<sup>${m}</sup> = ${b}<sup>?</sup>`, answer: n+m, hintText: `${n}+${m}=${n+m}` };
-    },
-    () => {
-      const b = pick([2,3,5]);
-      const n = rnd(2,8); const m = rnd(1,5);
-      return { qHTML: `${b}<sup>${n}</sup> · ${b}<sup>${m}</sup> = ${b}<sup>?</sup>`, answer: n+m, hintText: `Gleiche Basis → addieren: ${n}+${m}=${n+m}` };
-    },
-    () => {
-      const b = pick([2,3,4,5]);
-      const n = rnd(1,5); const m = rnd(1,5);
-      return { qHTML: `${b}<sup>${n}</sup> · ${b}<sup>${m}</sup> = ${b}<sup>?</sup>`, answer: n+m, hintText: `${n}+${m}=${n+m}` };
-    },
-  ],
-
-  // Lesson 4: Dividieren
-  4: [
-    () => {
-      const b = pick([2,3,5,10]);
-      const m = rnd(1,4); const n = m + rnd(1,5);
-      return { qHTML: `${b}<sup>${n}</sup> : ${b}<sup>${m}</sup> = ${b}<sup>?</sup>`, answer: n-m, hintText: `${n}−${m}=${n-m}` };
-    },
-    () => {
-      const b = pick([2,3,5]);
-      const e = rnd(2,6);
-      return { qHTML: `${b}<sup>${e}</sup> : ${b}<sup>${e}</sup> = ?`, answer: 1, hintText: `${e}−${e}=0, ${b}⁰=1` };
-    },
-    () => {
-      const b = pick([2,3,5,10]);
-      const m = rnd(1,3); const n = m + rnd(2,6);
-      return { qHTML: `${b}<sup>${n}</sup> : ${b}<sup>${m}</sup> = ${b}<sup>?</sup>`, answer: n-m, hintText: `Subtrahieren: ${n}−${m}=${n-m}` };
-    },
-  ],
-
-  // Lesson 5: Potenz² — ask for resulting exponent
-  5: [
-    () => {
-      const b = pick([2,3,5]);
-      const n = rnd(2,5); const m = rnd(2,4);
-      return { qHTML: `(${b}<sup>${n}</sup>)<sup>${m}</sup> = ${b}<sup>?</sup>`, answer: n*m, hintText: `Mit Klammer → multiplizieren: ${n}×${m}=${n*m}` };
-    },
-    () => {
-      const b = pick([2,3,4,5]);
-      const n = rnd(2,4); const m = rnd(2,3);
-      return { qHTML: `(${b}<sup>${n}</sup>)<sup>${m}</sup> = ${b}<sup>?</sup>`, answer: n*m, hintText: `${n}×${m}=${n*m}` };
-    },
-    () => {
-      const b = pick([2,3,5,10]);
-      const n = rnd(1,5); const m = rnd(2,4);
-      return { qHTML: `(${b}<sup>${n}</sup>)<sup>${m}</sup> = ${b}<sup>?</sup>`, answer: n*m, hintText: `Klammer → ×: ${n}×${m}=${n*m}` };
-    },
-  ],
-
-  // Lesson 6: Brüche (give the denominator or multiply out to avoid fractions)
-  6: [
-    () => {
-      const nums = [1,1,2,3]; const dens = [2,3,4,5];
-      const ni = rnd(0,3);
-      const num = nums[ni], den = dens[ni];
-      const e = pick([2,3]);
-      const ansNum = Math.pow(num, e);
-      const ansDen = Math.pow(den, e);
-      // Ask: what is the denominator?
-      return { qHTML: `(${num}/${den})<sup>${e}</sup> — Nenner = ?`, answer: ansDen, hintText: `${den}^${e} = ${ansDen}` };
-    },
-    () => {
-      // (1/2)^2 × 4 = 1
-      const e = 2;
-      return { qHTML: `(½)<sup>2</sup> · 4 = ?`, answer: 1, hintText: '(½)²=¼, ¼×4=1' };
-    },
-    () => {
-      const den = pick([2,4,5]);
-      const e = 2;
-      const ansDen = den*den;
-      return { qHTML: `(1/${den})<sup>2</sup> · ${ansDen} = ?`, answer: 1, hintText: `(1/${den})²=1/${ansDen}, ×${ansDen}=1` };
-    },
-    () => {
-      const b = pick([2,3]);
-      const den = pick([3,4,5]);
-      const e = 2;
-      const ans = Math.pow(b,e) * Math.pow(den,e);
-      // ask: (b/den)^2 × den^2 = b^2
-      return { qHTML: `(${b}/${den})<sup>2</sup> · ${den*den} = ?`, answer: b*b, hintText: `(${b}/${den})²=${b*b}/${den*den}, ×${den*den}=${b*b}` };
-    },
-  ],
-
-  // Lesson 7: Produkt potenzieren
-  7: [
-    () => {
-      const a = pick([2,3,4,5]); const b = pick([2,3,4,5]); const e = pick([2,3]);
-      const ans = Math.pow(a*b, e);
-      return { qHTML: `(${a}·${b})<sup>${e}</sup> = ?`, answer: ans, hintText: `${a}^${e}·${b}^${e}=${Math.pow(a,e)}·${Math.pow(b,e)}=${ans}` };
-    },
-    () => {
-      const a = pick([2,3,5]); const b = pick([2,3,4]); const e = 2;
-      const ans = Math.pow(a,2)*Math.pow(b,2);
-      return { qHTML: `(${a}·${b})<sup>2</sup> = ?`, answer: ans, hintText: `${a}²·${b}²=${a*a}·${b*b}=${ans}` };
-    },
-    () => {
-      const a = pick([2,3]); const b = pick([4,5]); const e = 2;
-      const ans = Math.pow(a*b,2);
-      return { qHTML: `(${a}·${b})<sup>2</sup> = ?`, answer: ans, hintText: `(${a*b})²=${ans}` };
-    },
-  ],
-
-  // Lesson 8: Negative Exponenten (multiply by power to get whole number)
-  8: [
-    () => {
-      const b = pick([2,4,5,10]); const e = pick([1,2,3]);
-      const pow = Math.pow(b,e);
-      return { qHTML: `${b}<sup>−${e}</sup> · ${pow} = ?`, answer: 1, hintText: `1/${pow} · ${pow} = 1` };
-    },
-    () => {
-      const e = rnd(1,3);
-      const pow = Math.pow(10,e);
-      return { qHTML: `10<sup>−${e}</sup> · ${pow} = ?`, answer: 1, hintText: `0,${'0'.repeat(e-1)}1 · ${pow} = 1` };
-    },
-    () => {
-      const b = pick([2,3,5]); const e = pick([1,2]);
-      const pow = Math.pow(b,e);
-      return { qHTML: `${b}<sup>−${e}</sup> · ${pow} = ?`, answer: 1, hintText: `Kehrwert · sich selbst = 1` };
-    },
-  ],
-
-  // Lesson 9: Aufgabe 6 — Vorzeichen mixed
-  9: [
-    () => {
-      const b = rnd(2,6); const e = pick([2,4,6]);
-      const ans = Math.pow(b,e);
-      return { qHTML: `(−${b})<sup>${e}</sup> = ?`, answer: ans, hintText: `Gerade → positiv, ${b}^${e}=${ans}` };
-    },
-    () => {
-      const b = rnd(2,5); const e = pick([3,5]);
-      const ans = -Math.pow(b,e);
-      return { qHTML: `(−${b})<sup>${e}</sup> = ?`, answer: ans, hintText: `Ungerade → negativ, −${b}^${e}=${ans}` };
-    },
-    () => {
-      const e = pick([2,4]);
-      return { qHTML: `(−0,1)<sup>${e}</sup> · 10000 = ?`, answer: Math.pow(0.1,e)*10000, hintText: `(0,1)^${e}·10000` };
-    },
-    () => {
-      const b = rnd(1,4); const e = pick([2,4]);
-      const ans = Math.pow(b,e);
-      return { qHTML: `(−${b})<sup>${e}</sup> = ?`, answer: ans, hintText: `Gerade → positiv` };
-    },
-  ],
-
-  // Lesson 10: Final — mix of all topics
-  10: [
-    // basic
-    () => { const b=pick([2,3,4,5]); const e=rnd(2,5); const a=Math.pow(b,e); return {qHTML:`${b}<sup>${e}</sup> = ?`, answer:a, hintText:`${b} hoch ${e}`}; },
-    // vorzeichen
-    () => { const b=rnd(1,5); const e=pick([2,4]); const a=Math.pow(b,e); return {qHTML:`(−${b})<sup>${e}</sup> = ?`, answer:a, hintText:`Gerade → positiv`}; },
-    () => { const b=rnd(2,4); const e=pick([3,5]); const a=-Math.pow(b,e); return {qHTML:`(−${b})<sup>${e}</sup> = ?`, answer:a, hintText:`Ungerade → negativ`}; },
-    // mult
-    () => { const b=pick([2,3,5]); const n=rnd(2,5); const m=rnd(1,4); return {qHTML:`${b}<sup>${n}</sup>·${b}<sup>${m}</sup> = ${b}<sup>?</sup>`, answer:n+m, hintText:`${n}+${m}=${n+m}`}; },
-    // div
-    () => { const b=pick([2,3,5]); const m=rnd(1,3); const n=m+rnd(2,5); return {qHTML:`${b}<sup>${n}</sup>:${b}<sup>${m}</sup> = ${b}<sup>?</sup>`, answer:n-m, hintText:`${n}−${m}=${n-m}`}; },
-    // potenz²
-    () => { const b=pick([2,3,5]); const n=rnd(2,4); const m=rnd(2,3); return {qHTML:`(${b}<sup>${n}</sup>)<sup>${m}</sup> = ${b}<sup>?</sup>`, answer:n*m, hintText:`${n}×${m}=${n*m}`}; },
-    // neg exponent
-    () => { const b=pick([2,5,10]); const e=pick([1,2]); const pow=Math.pow(b,e); return {qHTML:`${b}<sup>−${e}</sup>·${pow} = ?`, answer:1, hintText:`Kehrwert·selbst=1`}; },
-    // zehnerpotenz
-    () => { const e=rnd(1,5); const a=Math.pow(10,e); return {qHTML:`10<sup>${e}</sup> = ?`, answer:a, hintText:`${e} Nullen`}; },
-    // hoch 0
-    () => { const b=rnd(2,99); return {qHTML:`${b}<sup>0</sup> = ?`, answer:1, hintText:'Alles hoch 0 = 1!'}; },
-    // combination
-    () => { const b=pick([2,3]); const e=rnd(2,4); const ans=-Math.pow(b,e)+Math.pow(10,2); return {qHTML:`(−${b})<sup>${e%2===0?e:e+1}</sup> + 100 = ?`, answer:Math.pow(b, e%2===0?e:e+1)+100, hintText:`Gerade→positiv, dann +100`}; },
-  ],
+// GENERATORS per lesson
+const GENS = {
+  0: { // Grundlagen
+    easy:[ 
+      ()=>{const b=pick([2,3,4,5,6,7,8,9,10]);const e=2;const a=pow(b,e);return{q:`${b}^${e} = ?`,a,hint:`${b}×${b}=${a}`};},
+      ()=>{const b=rnd(2,15);return{q:`${b}^0 = ?`,a:1,hint:'Alles hoch 0 = 1!'};},
+      ()=>{const b=rnd(2,12);return{q:`${b}^1 = ?`,a:b,hint:`Hoch 1 = sich selbst`};},
+      ()=>{const b=pick([2,3,4,5]);const a=pow(b,3);return{q:`${b}^3 = ?`,a,hint:`${b}×${b}×${b}=${a}`};},
+    ],
+    med:[
+      ()=>{const b=pick([2,3,4,5,6]);const e=rnd(3,5);const a=pow(b,e);return{q:`${b}^${e} = ?`,a,hint:`${b} hoch ${e}`};},
+      ()=>{const b=rnd(2,20);return{q:`${b}^0 = ?`,a:1,hint:'Immer 1!'};},
+      ()=>{const b=pick([2,3,4,5,6,7]);const e=2;const a=pow(b,e);return{q:`${b}^${e} = ?`,a,hint:`${b}×${b}`};},
+    ],
+    hard:[
+      ()=>{const b=pick([2,3,4,5,6,7,8]);const e=rnd(2,6);const a=pow(b,e);return{q:`${b}^${e} = ?`,a,hint:`${b} hoch ${e} ausrechnen`};},
+      ()=>{const b=rnd(2,20);return{q:`${b}^0 = ?`,a:1,hint:'Immer 1!'};},
+      ()=>{const b=rnd(2,15);return{q:`${b}^1 = ?`,a:b,hint:`Hoch 1 = sich selbst`};},
+    ],
+  },
+  1: { // Vorzeichen
+    easy:[
+      ()=>{const b=pick([1,2,3]);const e=pick([2,4]);const a=pow(b,e);return{q:`(−${b})^${e} = ?`,a,hint:`Gerade → positiv: ${b}^${e}=${a}`};},
+      ()=>{const b=pick([1,2,3]);const e=pick([3]);const a=-pow(b,e);return{q:`(−${b})^${e} = ?`,a,hint:`Ungerade → negativ: −${b}^${e}=${a}`};},
+      ()=>{const e=pick([2,4,6]);return{q:`(−1)^${e} = ?`,a:1,hint:'Gerade → +1'};},
+      ()=>{const e=pick([3,5]);return{q:`(−1)^${e} = ?`,a:-1,hint:'Ungerade → −1'};},
+    ],
+    med:[
+      ()=>{const b=pick([2,3,4,5]);const e=pick([2,4]);const a=pow(b,e);return{q:`(−${b})^${e} = ?`,a,hint:`Gerade → positiv`};},
+      ()=>{const b=pick([2,3,4]);const e=pick([3,5]);const a=-pow(b,e);return{q:`(−${b})^${e} = ?`,a,hint:`Ungerade → negativ`};},
+    ],
+    hard:[
+      ()=>{const b=pick([2,3,4,5,6]);const e=pick([2,4,6]);const a=pow(b,e);return{q:`(−${b})^${e} = ?`,a,hint:`Gerade → positiv, ${b}^${e}`};},
+      ()=>{const b=pick([2,3,4,5]);const e=pick([3,5,7]);const a=-pow(b,e);return{q:`(−${b})^${e} = ?`,a,hint:`Ungerade → negativ`};},
+    ],
+  },
+  2: { // Zehnerpotenzen
+    easy:[
+      ()=>{const e=pick([1,2,3]);const a=pow(10,e);return{q:`10^${e} = ?`,a,hint:`${e} Nullen → ${a}`};},
+      ()=>{return{q:`10^2 = ?`,a:100,hint:'2 Nullen → 100'};},
+    ],
+    med:[
+      ()=>{const e=rnd(1,5);const a=pow(10,e);return{q:`10^${e} = ?`,a,hint:`${e} Nullen`};},
+    ],
+    hard:[
+      ()=>{const e=rnd(1,7);const a=pow(10,e);return{q:`10^${e} = ?`,a,hint:`${e} Nullen nach der 1`};},
+    ],
+  },
+  3: { // Mult — ask for exponent
+    easy:[
+      ()=>{const b=pick([2,3,5]);const n=rnd(1,3);const m=rnd(1,3);return{q:`${b}^${n} · ${b}^${m} = ${b}^?`,a:n+m,hint:`${n}+${m}=${n+m}`};},
+    ],
+    med:[
+      ()=>{const b=pick([2,3,5,10]);const n=rnd(2,5);const m=rnd(2,5);return{q:`${b}^${n} · ${b}^${m} = ${b}^?`,a:n+m,hint:`Addieren: ${n}+${m}=${n+m}`};},
+    ],
+    hard:[
+      ()=>{const b=pick([2,3,5,7]);const n=rnd(3,8);const m=rnd(3,8);return{q:`${b}^${n} · ${b}^${m} = ${b}^?`,a:n+m,hint:`${n}+${m}=${n+m}`};},
+    ],
+  },
+  4: { // Div — ask for exponent
+    easy:[
+      ()=>{const b=pick([2,3,5]);const m=rnd(1,3);const n=m+rnd(1,3);return{q:`${b}^${n} : ${b}^${m} = ${b}^?`,a:n-m,hint:`${n}−${m}=${n-m}`};},
+      ()=>{const b=pick([2,3,5]);const e=rnd(2,5);return{q:`${b}^${e} : ${b}^${e} = ?`,a:1,hint:`${e}−${e}=0, ${b}^0=1`};},
+    ],
+    med:[
+      ()=>{const b=pick([2,3,5,10]);const m=rnd(1,4);const n=m+rnd(2,5);return{q:`${b}^${n} : ${b}^${m} = ${b}^?`,a:n-m,hint:`${n}−${m}=${n-m}`};},
+    ],
+    hard:[
+      ()=>{const b=pick([2,3,5,7]);const m=rnd(2,6);const n=m+rnd(3,7);return{q:`${b}^${n} : ${b}^${m} = ${b}^?`,a:n-m,hint:`Subtrahieren`};},
+    ],
+  },
+  5: { // Potenz² — ask for exponent
+    easy:[
+      ()=>{const b=pick([2,3]);const n=rnd(2,3);const m=2;return{q:`(${b}^${n})^${m} = ${b}^?`,a:n*m,hint:`Mit Klammer → multiplizieren: ${n}×${m}=${n*m}`};},
+    ],
+    med:[
+      ()=>{const b=pick([2,3,5]);const n=rnd(2,4);const m=rnd(2,3);return{q:`(${b}^${n})^${m} = ${b}^?`,a:n*m,hint:`${n}×${m}=${n*m}`};},
+    ],
+    hard:[
+      ()=>{const b=pick([2,3,5,10]);const n=rnd(2,6);const m=rnd(2,4);return{q:`(${b}^${n})^${m} = ${b}^?`,a:n*m,hint:`Klammer → ×: ${n}×${m}=${n*m}`};},
+    ],
+  },
+  6: { // Brüche — ask for denominator
+    easy:[
+      ()=>{const den=pick([2,3,4]);const e=2;const a=pow(den,e);return{q:`(1/${den})^${e}: Nenner = ?`,a,hint:`${den}^${e}=${a}`};},
+      ()=>{return{q:`(1/2)^2 = 1/?`,a:4,hint:'2^2=4'};},
+    ],
+    med:[
+      ()=>{const den=pick([2,3,4,5]);const e=pick([2,3]);const a=pow(den,e);return{q:`(1/${den})^${e}: Nenner = ?`,a,hint:`${den}^${e}=${a}`};},
+    ],
+    hard:[
+      ()=>{const num=pick([2,3]);const den=pick([3,4,5]);const e=pick([2,3]);const an=pow(num,e);const ad=pow(den,e);return{q:`(${num}/${den})^${e}: Nenner = ?`,a:ad,hint:`${den}^${e}=${ad}`};},
+    ],
+  },
+  7: { // Produkt
+    easy:[
+      ()=>{const a=pick([2,3]);const b=pick([2,3]);const e=2;const ans=pow(a*b,e);return{q:`(${a}·${b})^${e} = ?`,a:ans,hint:`${a*b}^${e}=${ans}`};},
+    ],
+    med:[
+      ()=>{const a=pick([2,3,4]);const b=pick([2,3,4]);const e=2;const ans=pow(a*b,e);return{q:`(${a}·${b})^${e} = ?`,a:ans,hint:`${a}^2·${b}^2=${pow(a,2)}·${pow(b,2)}=${ans}`};},
+    ],
+    hard:[
+      ()=>{const a=pick([2,3,4,5]);const b=pick([2,3,4,5]);const e=pick([2,3]);const ans=pow(a*b,e);return{q:`(${a}·${b})^${e} = ?`,a:ans,hint:`(${a*b})^${e}=${ans}`};},
+    ],
+  },
+  8: { // Neg Exponent
+    easy:[
+      ()=>{const b=pick([2,5,10]);const e=1;const p=pow(b,e);return{q:`${b}^−${e} · ${p} = ?`,a:1,hint:`1/${p} · ${p} = 1`};},
+      ()=>{return{q:`10^−1 · 10 = ?`,a:1,hint:'0,1 · 10 = 1'};},
+    ],
+    med:[
+      ()=>{const b=pick([2,4,5,10]);const e=pick([1,2]);const p=pow(b,e);return{q:`${b}^−${e} · ${p} = ?`,a:1,hint:`Kehrwert · sich selbst = 1`};},
+    ],
+    hard:[
+      ()=>{const b=pick([2,3,5,10]);const e=pick([1,2,3]);const p=pow(b,e);return{q:`${b}^−${e} · ${p} = ?`,a:1,hint:`1/${p} · ${p} = 1`};},
+    ],
+  },
+  9: { // Aufgaben — vorzeichen mix
+    easy:[
+      ()=>{const b=rnd(1,3);const e=pick([2,4]);const a=pow(b,e);return{q:`(−${b})^${e} = ?`,a,hint:`Gerade → positiv`};},
+      ()=>{const b=rnd(1,3);const e=pick([3]);const a=-pow(b,e);return{q:`(−${b})^${e} = ?`,a,hint:`Ungerade → negativ`};},
+    ],
+    med:[
+      ()=>{const b=rnd(2,5);const e=pick([2,4]);const a=pow(b,e);return{q:`(−${b})^${e} = ?`,a,hint:`Gerade → positiv`};},
+      ()=>{const b=rnd(2,4);const e=pick([3,5]);const a=-pow(b,e);return{q:`(−${b})^${e} = ?`,a,hint:`Ungerade → negativ`};},
+    ],
+    hard:[
+      ()=>{const b=rnd(2,6);const e=pick([2,4,6]);const a=pow(b,e);return{q:`(−${b})^${e} = ?`,a,hint:`Gerade → positiv`};},
+      ()=>{const b=rnd(2,5);const e=pick([3,5,7]);const a=-pow(b,e);return{q:`(−${b})^${e} = ?`,a,hint:`Ungerade → negativ`};},
+    ],
+  },
+  10: { // Final — gemischt
+    easy:[
+      ()=>{const b=pick([2,3,4,5]);const e=2;const a=pow(b,e);return{q:`${b}^${e} = ?`,a,hint:`${b}×${b}`};},
+      ()=>{const b=rnd(2,15);return{q:`${b}^0 = ?`,a:1,hint:'Immer 1!'};},
+      ()=>{const b=pick([1,2,3]);const e=pick([2,4]);const a=pow(b,e);return{q:`(−${b})^${e} = ?`,a,hint:'Gerade → positiv'};},
+      ()=>{const b=pick([2,3,5]);const n=rnd(1,4);const m=rnd(1,4);return{q:`${b}^${n} · ${b}^${m} = ${b}^?`,a:n+m,hint:`${n}+${m}=${n+m}`};},
+      ()=>{const b=pick([2,3,5]);const m=rnd(1,3);const n=m+rnd(1,4);return{q:`${b}^${n} : ${b}^${m} = ${b}^?`,a:n-m,hint:`${n}−${m}=${n-m}`};},
+    ],
+    med:[
+      ()=>{const b=pick([2,3,4,5]);const e=rnd(3,5);const a=pow(b,e);return{q:`${b}^${e} = ?`,a,hint:`${b} hoch ${e}`};},
+      ()=>{const b=pick([2,3,4,5]);const e=pick([2,4]);const a=pow(b,e);return{q:`(−${b})^${e} = ?`,a,hint:'Gerade → positiv'};},
+      ()=>{const b=pick([2,3,5,10]);const n=rnd(2,5);const m=rnd(2,5);return{q:`${b}^${n} · ${b}^${m} = ${b}^?`,a:n+m,hint:`${n}+${m}=${n+m}`};},
+      ()=>{const b=pick([2,3,5]);const m=rnd(1,4);const n=m+rnd(2,5);return{q:`${b}^${n} : ${b}^${m} = ${b}^?`,a:n-m,hint:`${n}−${m}=${n-m}`};},
+      ()=>{const b=pick([2,3,5]);const n=rnd(2,4);const m=rnd(2,3);return{q:`(${b}^${n})^${m} = ${b}^?`,a:n*m,hint:`${n}×${m}=${n*m}`};},
+      ()=>{const e=rnd(1,5);const a=pow(10,e);return{q:`10^${e} = ?`,a,hint:`${e} Nullen`};},
+    ],
+    hard:[
+      ()=>{const b=pick([2,3,4,5,6,7]);const e=rnd(2,6);const a=pow(b,e);return{q:`${b}^${e} = ?`,a,hint:`${b} hoch ${e}`};},
+      ()=>{const b=pick([2,3,4,5]);const e=pick([3,5,7]);const a=-pow(b,e);return{q:`(−${b})^${e} = ?`,a,hint:'Ungerade → negativ'};},
+      ()=>{const b=pick([2,3,5,7]);const n=rnd(4,8);const m=rnd(3,7);return{q:`${b}^${n} · ${b}^${m} = ${b}^?`,a:n+m,hint:`${n}+${m}=${n+m}`};},
+      ()=>{const b=pick([2,3,5,7]);const m=rnd(3,6);const n=m+rnd(4,7);return{q:`${b}^${n} : ${b}^${m} = ${b}^?`,a:n-m,hint:`${n}−${m}=${n-m}`};},
+      ()=>{const b=pick([2,3,5]);const n=rnd(3,6);const m=rnd(2,4);return{q:`(${b}^${n})^${m} = ${b}^?`,a:n*m,hint:`${n}×${m}=${n*m}`};},
+      ()=>{const b=pick([2,3,5]);const e=rnd(2,4);const a=-pow(b,e);return{q:`(−${b})^${(e%2===0?e+1:e)} = ?`,a:-pow(b,(e%2===0?e+1:e)),hint:'Ungerade → negativ'};},
+    ],
+  },
 };
 
-// Accordion data (fixed, from original)
-const accordionData = [
-  {l:'a', c:'#f76aaa', q:'(−1)⁵ = ?', e:'(−1)⁵ = (−1)·(−1)·(−1)·(−1)·(−1) = <strong>−1</strong><br><em>Ungerade → negativ ✅</em>'},
-  {l:'b', c:'#f7c46a', q:'(−2)⁶ = ?', e:'(−2)⁶ = 2⁶ = 2·2·2·2·2·2 = 4·4·4 = 16·4 = <strong>64</strong><br><em>Gerader Exponent → positiv ✅</em>'},
-  {l:'c', c:'#6af7c4', q:'(−3)⁴ = ?', e:'(−3)⁴ = 3⁴ = 3·3·3·3 = 9·9 = <strong>81</strong><br><em>Gerader Exponent → positiv ✅</em>'},
-  {l:'d', c:'#7c6af7', q:'(−0,2)³ = ?', e:'(−0,2)·(−0,2)·(−0,2) = (+0,04)·(−0,2) = <strong>−0,008</strong><br><em>Ungerade → negativ ✅</em>'},
-  {l:'e', c:'#6ab8f7', q:'(−0,1)⁶ = ?', e:'(−0,1)⁶ = (0,1)⁶ = 10⁻⁶ = <strong>0,000001</strong><br><em>Gerader Exponent → positiv ✅</em>'},
-  {l:'f', c:'#f76a6a', q:'(−5)³ = ?', e:'(−5)·(−5)·(−5) = 25·(−5) = <strong>−125</strong><br><em>Ungerade → negativ ✅</em>'},
-  {l:'g', c:'#a55eea', q:'(−0,01)² = ?', e:'(−0,01)² = (0,01)² = 0,01·0,01 = <strong>0,0001</strong><br><em>Gerader Exponent → positiv ✅</em>'},
-  {l:'h', c:'#f76aaa', q:'(−½)⁷ = ?', e:'(−½)⁷ = −(½)⁷ = −1/128<br>(2⁷=128, ungerade→negativ)<br><strong>Ergebnis: −1/128</strong>'},
-  {l:'i', c:'#6af7a0', q:'(−¾)² = ?', e:'(−3)²/4² = 9/16<br>(gerader Exponent → positiv)<br><strong>Ergebnis: 9/16</strong>'},
-  {l:'j', c:'#f7c46a', q:'(−¾)³ = ?', e:'−3³/4³ = −27/64<br>(ungerade → negativ)<br><strong>Ergebnis: −27/64</strong>'},
-  {l:'k', c:'#6af7c4', q:'(−⅖)⁴ = ?', e:'2⁴/5⁴ = 16/625<br>(2⁴=16, 5⁴=625, gerader Exponent → positiv)<br><strong>Ergebnis: 16/625</strong>'},
-  {l:'l', c:'#7c6af7', q:'(−3/10)⁵ = ?', e:'−3⁵/10⁵ = −243/100.000<br>(3⁵=243, 10⁵=100.000, ungerade → negativ)<br><strong>Ergebnis: −0,00243</strong>'},
-];
-
-// ============ GENERATE SESSION QUESTIONS ============
-// Called once per lesson per page load
-function generateQuestions(lessonIdx) {
-  if (sessionQuestions[lessonIdx]) return;
-  const pool = generators[lessonIdx];
-  if (!pool) { sessionQuestions[lessonIdx] = []; return; }
-
-  const count = lessonIdx === 10 ? 8 : 3;
+// Generate questions for a lesson + difficulty
+function getQuestions(lesson, diff) {
+  const key = `${lesson}_${diff}`;
+  if(genQ[key]) return genQ[key];
+  const pool = GENS[lesson][diff] || GENS[lesson].easy;
+  const count = lesson===10 ? 8 : 4;
   const qs = [];
-  const used = new Set();
-
-  // Generate questions - try multiple times to get variety
-  let attempts = 0;
-  while (qs.length < count && attempts < 200) {
-    attempts++;
-    const gen = pool[Math.floor(Math.random() * pool.length)];
-    const q = gen();
-    // Deduplicate by qHTML
-    if (!used.has(q.qHTML)) {
-      used.add(q.qHTML);
-      qs.push(q);
-    }
+  const seen = new Set();
+  let tries=0;
+  while(qs.length<count && tries<300) {
+    tries++;
+    const g = pool[Math.floor(Math.random()*pool.length)];
+    const q = g();
+    if(seen.has(q.q)) continue;
+    seen.add(q.q);
+    // Build MC options
+    const spread = q.a > 100 ? 20 : q.a > 20 ? 5 : 3;
+    q.opts = makeOpts(q.a, spread);
+    qs.push(q);
   }
-  sessionQuestions[lessonIdx] = qs;
+  genQ[key] = qs;
+  return qs;
 }
 
-// ============ BUILD ACCORDION ============
-function buildAccordion() {
-  const el = document.getElementById('accList');
-  if (!el || el.children.length > 0) return;
-  el.innerHTML = accordionData.map((d,i) =>
-    `<div class="acc-item" id="acc${i}">
-      <div class="acc-head" onclick="togAcc(${i})">
-        <div class="acc-letter" style="background:${d.c}">${d.l}</div>
-        ${d.q}
-        <span class="acc-arrow">▼</span>
-      </div>
-      <div class="acc-body" id="accb${i}">${d.e}</div>
-    </div>`
-  ).join('');
+// ═══════════════════════════════════════════
+// BUILD QUIZ UI
+// ═══════════════════════════════════════════
+function buildQuiz(lesson, diff) {
+  diff = diff || lessonDiff[lesson] || 'easy';
+  lessonDiff[lesson] = diff;
+  // Clear old correct for this lesson
+  for(const k in correct) { if(k.startsWith(lesson+'_')) delete correct[k]; }
+
+  const wrap = document.getElementById('qarea'+lesson);
+  if(!wrap) return;
+  const qs = getQuestions(lesson, diff);
+  const isHard = diff==='hard';
+  const count = qs.length;
+  const need = lesson===10 ? Math.ceil(count*0.75) : count;
+
+  // Dots
+  const dots = qs.map((_,i)=>`<div class="q-dot" id="dot_${lesson}_${i}"></div>`).join('');
+  let html = `<div class="diff-select">
+    <button class="diff-btn d-easy${diff==='easy'?' active':''}" onclick="rebuildQuiz(${lesson},'easy')">😊 Leicht</button>
+    <button class="diff-btn d-med${diff==='med'?' active':''}" onclick="rebuildQuiz(${lesson},'med')">🔥 Mittel</button>
+    <button class="diff-btn d-hard${diff==='hard'?' active':''}" onclick="rebuildQuiz(${lesson},'hard')">💀 Schwer (Eingabe)</button>
+  </div>
+  <div class="q-dots">${dots}<span class="q-stat" id="qstat_${lesson}">0/${count} richtig</span></div>`;
+
+  qs.forEach((q,qi)=>{
+    html += `<div class="qcard" id="qc_${lesson}_${qi}" style="margin-bottom:.75rem">
+      <div class="q-display">${renderQ(q.q)}</div>`;
+    if(!isHard) {
+      html += `<div class="mc-grid">` + q.opts.map(opt=>
+        `<button class="mc-btn" id="mc_${lesson}_${qi}_${opt}" onclick="checkMC(${lesson},${qi},${opt})">${fmtAns(opt)}</button>`
+      ).join('') + `</div>`;
+    } else {
+      html += `<div class="inp-row">
+        <input class="q-inp" id="inp_${lesson}_${qi}" type="number" step="any" placeholder="Antwort eingeben…"
+          onkeydown="if(event.key==='Enter')checkInp(${lesson},${qi})">
+        <button class="btn-check" onclick="checkInp(${lesson},${qi})">Prüfen ✓</button>
+        <button class="btn-hint" onclick="showHint(${lesson},${qi})">Tipp 💡</button>
+      </div>`;
+    }
+    html += `<div class="qfb" id="qfb_${lesson}_${qi}"></div></div>`;
+  });
+
+  wrap.innerHTML = html;
+  updateBtn(lesson);
 }
 
-function togAcc(i) {
-  const head = document.querySelector(`#acc${i} .acc-head`);
-  const body = document.getElementById('accb'+i);
-  head.classList.toggle('open');
-  body.classList.toggle('open');
+function rebuildQuiz(lesson, diff) {
+  // Clear generated questions so new ones get made
+  delete genQ[`${lesson}_${diff}`];
+  buildQuiz(lesson, diff);
 }
 
-// ============ BUILD QUIZ ============
-function buildQuiz(lessonIdx) {
-  const wrap = document.getElementById('mq'+lessonIdx);
-  if (!wrap) return;
-  // Always (re)build — questions are generated fresh each page load
-  if (wrap.children.length > 0) return;
-
-  generateQuestions(lessonIdx);
-  const qs = sessionQuestions[lessonIdx];
-  if (!qs || qs.length === 0) return;
-
-  const needCount = lessonIdx === 10 ? Math.ceil(qs.length * 0.75) : qs.length;
-
-  // Progress indicator
-  const dots = qs.map((_,i) => `<div class="quiz-dot" id="dot_${lessonIdx}_${i}"></div>`).join('');
-  const progressHTML = `<div class="quiz-progress">
-    <div class="quiz-dots">${dots}</div>
-    <span id="qprog_${lessonIdx}">0 / ${qs.length} richtig</span>
-    ${lessonIdx===10?`<span style="color:var(--accent4);margin-left:auto">Brauche ${needCount} von ${qs.length}</span>`:''}
-  </div>`;
-
-  wrap.innerHTML = progressHTML + qs.map((item, qi) => {
-    return `<div class="quiz-card" id="qcard_${lessonIdx}_${qi}">
-      <div class="quiz-q">Berechne: ${item.qHTML}</div>
-      <div class="quiz-input-row">
-        <input class="quiz-input" id="qi_${lessonIdx}_${qi}" type="number" step="any" placeholder="?"
-          onkeydown="if(event.key==='Enter')checkQ(${lessonIdx},${qi})">
-        <button class="btn-check" onclick="checkQ(${lessonIdx},${qi})">Prüfen ✓</button>
-        <button class="btn-hint" onclick="showHint(${lessonIdx},${qi})">Tipp 💡</button>
-      </div>
-      <div class="quiz-fb" id="qfb_${lessonIdx}_${qi}"></div>
-    </div>`;
-  }).join('');
-
-  updateCompleteBtn(lessonIdx);
+function markCorrect(lesson, qi) {
+  if(correct[`${lesson}_${qi}`]) return;
+  correct[`${lesson}_${qi}`] = true;
+  st.points += 10; st.quizCorrect++;
+  save(); updateStats();
+  const dot = document.getElementById(`dot_${lesson}_${qi}`);
+  if(dot){dot.classList.add('done');dot.classList.remove('active');}
+  const qs = getQuestions(lesson, lessonDiff[lesson]||'easy');
+  const cnt = qs.filter((_,i)=>correct[`${lesson}_${i}`]).length;
+  const stat = document.getElementById(`qstat_${lesson}`);
+  if(stat) stat.textContent = `${cnt}/${qs.length} richtig`;
+  updateBtn(lesson);
+  showToast('🎉 Richtig! +10 Punkte');
+  // Final quiz score
+  if(lesson===10) updateFinalScore();
 }
 
-// Track correct per lesson (session only — no localStorage for individual answers)
-const sessionCorrect = {};
-
-function checkQ(lesson, qi) {
-  const key = `${lesson}_${qi}`;
-  if (sessionCorrect[key]) return; // already correct
-  const inp = document.getElementById(`qi_${lesson}_${qi}`);
+function checkMC(lesson, qi, chosen) {
+  if(correct[`${lesson}_${qi}`]) return;
+  const q = getQuestions(lesson, lessonDiff[lesson]||'easy')[qi];
+  const card = document.getElementById(`qc_${lesson}_${qi}`);
   const fb = document.getElementById(`qfb_${lesson}_${qi}`);
-  const card = document.getElementById(`qcard_${lesson}_${qi}`);
-  const val = parseFloat(inp.value.replace(',', '.'));
-  const correct = sessionQuestions[lesson][qi].answer;
-
-  if (isNaN(val)) { fb.textContent='Bitte eine Zahl eingeben!'; fb.className='quiz-fb no'; return; }
-  if (Math.abs(val - correct) < 0.0001) {
-    fb.textContent = '🎉 Super richtig! +10 Punkte!';
-    fb.className = 'quiz-fb ok';
-    card.classList.add('ok');
-    inp.disabled = true;
-    card.querySelector('.btn-check').disabled = true;
-    sessionCorrect[key] = true;
-    state.points += 10;
-    state.quizCorrect++;
-    state.lessonCorrect[lesson] = (state.lessonCorrect[lesson] || 0) + 1;
-    saveState();
-    updateStats();
-    updateQuizProgress(lesson);
-    updateCompleteBtn(lesson);
-    showToast('🎉 Richtig! +10 Punkte');
-    // update dot
-    const dot = document.getElementById(`dot_${lesson}_${qi}`);
-    if (dot) dot.classList.add('done');
+  // Disable all buttons
+  card.querySelectorAll('.mc-btn').forEach(b=>b.disabled=true);
+  if(Math.abs(chosen - q.a) < 0.001) {
+    card.querySelector(`#mc_${lesson}_${qi}_${chosen}`).classList.add('correct-ans');
+    card.classList.add('correct');
+    fb.textContent='🎉 Richtig!'; fb.className='qfb ok';
+    markCorrect(lesson,qi);
   } else {
-    fb.textContent = '❌ Leider falsch — nochmal versuchen!';
-    fb.className = 'quiz-fb no';
-    card.style.animation = 'shake 0.4s';
-    setTimeout(() => card.style.animation = '', 400);
+    card.querySelector(`#mc_${lesson}_${qi}_${chosen}`).classList.add('wrong-ans');
+    // Show correct
+    const corrBtn = document.getElementById(`mc_${lesson}_${qi}_${q.a}`);
+    if(corrBtn) corrBtn.classList.add('correct-ans');
+    card.classList.add('wrong');
+    fb.innerHTML=`❌ Falsch! Richtig wäre: <strong>${fmtAns(q.a)}</strong> — ${q.hint}`; fb.className='qfb no';
+    // Allow retry after 2s
+    setTimeout(()=>{
+      card.querySelectorAll('.mc-btn').forEach(b=>{b.disabled=false;b.classList.remove('wrong-ans','correct-ans');});
+      card.classList.remove('wrong'); fb.textContent=''; fb.className='qfb';
+    },2000);
+  }
+}
+
+function checkInp(lesson, qi) {
+  if(correct[`${lesson}_${qi}`]) return;
+  const inp = document.getElementById(`inp_${lesson}_${qi}`);
+  const fb = document.getElementById(`qfb_${lesson}_${qi}`);
+  const card = document.getElementById(`qc_${lesson}_${qi}`);
+  const q = getQuestions(lesson, lessonDiff[lesson]||'easy')[qi];
+  const val = parseFloat(inp.value.replace(',','.'));
+  if(isNaN(val)){fb.textContent='Bitte eine Zahl eingeben!';fb.className='qfb no';return;}
+  if(Math.abs(val-q.a)<0.01){
+    fb.textContent='🎉 Richtig! +10 Punkte'; fb.className='qfb ok';
+    card.classList.add('correct'); inp.disabled=true;
+    markCorrect(lesson,qi);
+  } else {
+    fb.textContent='❌ Leider falsch — nochmal!'; fb.className='qfb no';
+    card.style.animation='shake .4s'; setTimeout(()=>card.style.animation='',400);
   }
 }
 
 function showHint(lesson, qi) {
+  const q = getQuestions(lesson, lessonDiff[lesson]||'easy')[qi];
   const fb = document.getElementById(`qfb_${lesson}_${qi}`);
-  fb.textContent = '💡 Tipp: ' + sessionQuestions[lesson][qi].hintText;
-  fb.className = 'quiz-fb hint';
+  fb.textContent='💡 Tipp: '+q.hint; fb.className='qfb hint';
 }
 
-function updateQuizProgress(lesson) {
-  const qs = sessionQuestions[lesson];
-  if (!qs) return;
-  const correct = qs.filter((_,i) => sessionCorrect[`${lesson}_${i}`]).length;
-  const prog = document.getElementById(`qprog_${lesson}`);
-  if (prog) prog.textContent = `${correct} / ${qs.length} richtig`;
-  // update dots for active
-  qs.forEach((_,i) => {
-    const dot = document.getElementById(`dot_${lesson}_${i}`);
-    if (!dot) return;
-    if (sessionCorrect[`${lesson}_${i}`]) { dot.classList.add('done'); dot.classList.remove('active'); }
-    else dot.classList.add('active');
-  });
+function updateBtn(lesson) {
+  const btn = document.getElementById('cbtn'+lesson);
+  if(!btn) return;
+  const qs = getQuestions(lesson, lessonDiff[lesson]||'easy');
+  const cnt = qs.filter((_,i)=>correct[`${lesson}_${i}`]).length;
+  const need = lesson===10 ? Math.ceil(qs.length*0.75) : qs.length;
+  btn.disabled = cnt < need;
+  if(lesson===10) btn.textContent=`Quiz abschließen (${cnt}/${qs.length}) 🏆`;
+  else btn.textContent = cnt>=need ? 'Kapitel abschließen & nächstes freischalten 🔓' : `Kapitel abschließen (${cnt}/${qs.length}) ✗`;
 }
 
-function updateCompleteBtn(lesson) {
-  const btn = document.getElementById('complete'+lesson);
-  if (!btn) return;
-  const qs = sessionQuestions[lesson];
-  if (!qs) return;
-  const correct = qs.filter((_,i) => sessionCorrect[`${lesson}_${i}`]).length;
-
-  if (lesson === 10) {
-    const need = Math.ceil(qs.length * 0.75);
-    btn.disabled = correct < need;
-    btn.textContent = `Quiz abschließen (${correct}/${qs.length} richtig) 🏆`;
-  } else {
-    btn.disabled = correct < qs.length;
-    btn.textContent = correct >= qs.length
-      ? 'Kapitel abschließen & Nächstes freischalten 🔓'
-      : `Kapitel abschließen (${correct}/${qs.length} richtig)`;
-  }
+function updateFinalScore() {
+  const qs = getQuestions(10, lessonDiff[10]||'easy');
+  const cnt = qs.filter((_,i)=>correct[`10_${i}`]).length;
+  const pct = Math.round(cnt/qs.length*100);
+  const card = document.getElementById('finalScoreCard');
+  card.style.display='block';
+  let note,emoji;
+  if(pct>=90){note='1';emoji='🏆';}
+  else if(pct>=75){note='2';emoji='🥈';}
+  else if(pct>=60){note='3';emoji='🥉';}
+  else if(pct>=45){note='4';emoji='📚';}
+  else{note='5';emoji='💪';}
+  document.getElementById('finalNote').textContent=emoji+' Note '+note;
+  document.getElementById('finalPct').textContent=pct+'% richtig';
+  document.getElementById('finalSub').textContent=`${cnt} von ${qs.length} Aufgaben korrekt`;
 }
 
-// ============ COMPLETE LESSON ============
-function completeLesson(lesson) {
-  if (state.completed[lesson]) return;
-  state.completed[lesson] = true;
-  state.points += 50;
-  const next = lesson + 1;
-  if (next < 12) {
-    state.unlocked[next] = true;
-    showToast(`🔓 Kapitel ${next+1} freigeschaltet! +50 Punkte`);
-  } else {
-    showToast('🏆 Alle Kapitel abgeschlossen! Mega!');
-  }
-  saveState();
-  updateStats();
-  updateNav();
-  if (next < 12) {
-    setTimeout(() => showLesson(next), 800);
-  }
+// ═══════════════════════════════════════════
+// LESSON MANAGEMENT
+// ═══════════════════════════════════════════
+function completeLesson(i) {
+  if(st.completed[i]) return;
+  st.completed[i]=true; st.points+=50;
+  const nx=i+1;
+  if(nx<12){st.unlocked[nx]=true;showToast(`🔓 Kapitel ${nx+1} freigeschaltet! +50 Punkte`);}
+  else showToast('🏆 Alles abgeschlossen!');
+  save(); updateStats(); updateNav();
+  if(nx<12) setTimeout(()=>go(nx),600);
 }
 
-// ============ NAVIGATION ============
-function showLesson(n) {
-  if (!state.unlocked[n]) {
-    showToast('🔒 Schließ zuerst das vorherige Kapitel ab!');
-    return;
-  }
-  document.querySelectorAll('.lesson').forEach(l => l.classList.remove('active'));
-  document.querySelectorAll('.nav-item').forEach(b => b.classList.remove('active'));
+function go(n) {
+  if(!st.unlocked[n]){showToast('🔒 Schließ zuerst das vorherige Kapitel ab!');return;}
+  document.querySelectorAll('.lesson').forEach(l=>l.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
   document.getElementById('lesson'+n).classList.add('active');
   document.getElementById('nav'+n).classList.add('active');
-  curLesson = n;
   buildQuiz(n);
-  if (n === 9) buildAccordion();
-  window.scrollTo({top:0, behavior:'smooth'});
+  if(n===9) buildAccordion();
+  window.scrollTo({top:0,behavior:'smooth'});
 }
 
-function updateNav() {
-  for (let i = 0; i < 12; i++) {
-    const nav = document.getElementById('nav'+i);
-    const lock = document.getElementById('nlock'+i);
-    if (!nav) continue;
-    if (state.unlocked[i]) {
-      nav.classList.remove('locked');
-      if (lock) lock.remove();
-    }
-    if (state.completed[i]) {
-      nav.classList.add('done');
-      const num = nav.querySelector('.nav-num');
-      if (num && num.textContent !== '✓') num.textContent = '✓';
-    }
+// ═══════════════════════════════════════════
+// ACCORDION (Lesson 9)
+// ═══════════════════════════════════════════
+const accData=[
+  {l:'a',c:'#f472b6',q:'(−1)⁵ = ?',e:'(−1)⁵ = −1 · −1 · −1 · −1 · −1 = <strong>−1</strong><br><em>Ungerade → negativ ✅</em>'},
+  {l:'b',c:'#fbbf24',q:'(−2)⁶ = ?',e:'(−2)⁶ = 2⁶ = <strong>64</strong><br><em>Gerader Exponent → positiv ✅</em>'},
+  {l:'c',c:'#34d399',q:'(−3)⁴ = ?',e:'(−3)⁴ = 3⁴ = 9·9 = <strong>81</strong><br><em>Gerader Exponent → positiv ✅</em>'},
+  {l:'d',c:'#8b7cf8',q:'(−0,2)³ = ?',e:'(−0,2)³ = <strong>−0,008</strong><br><em>Ungerade → negativ ✅</em>'},
+  {l:'e',c:'#60a5fa',q:'(−0,1)⁶ = ?',e:'(−0,1)⁶ = 0,000001<br><em>Gerader Exponent → positiv ✅</em>'},
+  {l:'f',c:'#f87171',q:'(−5)³ = ?',e:'(−5)³ = 25·(−5) = <strong>−125</strong><br><em>Ungerade → negativ ✅</em>'},
+  {l:'g',c:'#a78bfa',q:'(−0,01)² = ?',e:'(−0,01)² = <strong>0,0001</strong><br><em>Gerader Exponent → positiv ✅</em>'},
+  {l:'h',c:'#f472b6',q:'(−½)⁷ = ?',e:'(−½)⁷ = <strong>−1/128</strong><br>(ungerade → negativ ✅)'},
+  {l:'i',c:'#34d399',q:'(−¾)² = ?',e:'(−¾)² = 9/16<br><em>Gerader Exponent → positiv ✅</em>'},
+  {l:'j',c:'#fbbf24',q:'(−¾)³ = ?',e:'(−¾)³ = −27/64<br><em>Ungerade → negativ ✅</em>'},
+  {l:'k',c:'#34d399',q:'(−⅖)⁴ = ?',e:'(−⅖)⁴ = 16/625<br><em>Gerader Exponent → positiv ✅</em>'},
+  {l:'l',c:'#8b7cf8',q:'(−3/10)⁵ = ?',e:'(−3/10)⁵ = −243/100.000 = <strong>−0,00243</strong><br><em>Ungerade → negativ ✅</em>'},
+];
+function buildAccordion(){
+  const el=document.getElementById('accList');
+  if(!el||el.children.length>0)return;
+  el.innerHTML=accData.map((d,i)=>`<div class="acc"><div class="acc-head" onclick="togAcc(${i})"><div class="acc-dot" style="background:${d.c}">${d.l}</div>${d.q}<span class="acc-arr">▼</span></div><div class="acc-body" id="accb${i}">${d.e}</div></div>`).join('');
+}
+function togAcc(i){
+  const h=document.querySelector(`#accb${i}`).previousElementSibling;
+  h.classList.toggle('open');
+  document.getElementById('accb'+i).classList.toggle('open');
+}
+
+// ═══════════════════════════════════════════
+// STATS & NAV
+// ═══════════════════════════════════════════
+function updateStats(){
+  document.getElementById('pts').textContent=st.points;
+  const done=st.completed.slice(0,10).filter(Boolean).length;
+  document.getElementById('chapCount').textContent=done+'/10';
+  document.getElementById('qCount').textContent=st.quizCorrect;
+  const pct=Math.min(100,Math.round((done/10)*70+(Math.min(st.quizCorrect,38)/38)*30));
+  document.getElementById('progFill').style.width=pct+'%';
+  document.getElementById('progLbl').textContent=pct+'%';
+  // Note badge
+  const b=document.getElementById('noteBadge');
+  let note,col,bg;
+  if(pct>=90){note='1';col='#34d399';bg='rgba(52,211,153,.15)';}
+  else if(pct>=75){note='2';col='#60a5fa';bg='rgba(96,165,250,.15)';}
+  else if(pct>=60){note='3';col='#fbbf24';bg='rgba(251,191,36,.15)';}
+  else if(pct>=45){note='4';col='#fb923c';bg='rgba(251,146,60,.15)';}
+  else if(pct>=25){note='5';col='#f87171';bg='rgba(248,113,113,.15)';}
+  else{note='?';col='var(--muted)';bg='var(--s2)';}
+  b.textContent=note; b.style.color=col; b.style.background=bg; b.style.borderColor=col;
+}
+function updateNav(){
+  for(let i=0;i<12;i++){
+    const n=document.getElementById('nav'+i);
+    if(!n)continue;
+    if(st.unlocked[i]) n.classList.remove('locked');
+    if(st.completed[i]){ n.classList.add('done'); const nm=n.querySelector('.nnum'); if(nm&&nm.textContent!=='✓')nm.textContent='✓'; }
   }
 }
-
-// ============ STATS ============
-function updateStats() {
-  document.getElementById('pts').textContent = state.points;
-  const completedMain = state.completed.slice(0,10).filter(Boolean).length;
-  document.getElementById('chapCount').textContent = completedMain + '/10';
-  document.getElementById('quizCount').textContent = state.quizCorrect;
-
-  const totalQuestions = 10 * 3 + 8; // rough total
-  const answeredQ = Math.min(state.quizCorrect, totalQuestions);
-  const lessonPct = (completedMain / 10) * 70;
-  const quizPct = (answeredQ / totalQuestions) * 30;
-  const pct = Math.min(100, Math.round(lessonPct + quizPct));
-  document.getElementById('progressBar').style.width = pct + '%';
-  document.getElementById('pctLabel').textContent = pct + '%';
-
-  const badge = document.getElementById('noteBadge');
-  let note, color, bg;
-  if (pct >= 90) { note = '1'; color = '#6af7a0'; bg = 'rgba(106,247,160,0.15)'; }
-  else if (pct >= 75) { note = '2'; color = '#6ab8f7'; bg = 'rgba(106,184,247,0.15)'; }
-  else if (pct >= 60) { note = '3'; color = '#f7c46a'; bg = 'rgba(247,196,106,0.15)'; }
-  else if (pct >= 45) { note = '4'; color = '#f79c6a'; bg = 'rgba(247,156,106,0.15)'; }
-  else if (pct >= 30) { note = '5'; color = '#f76a6a'; bg = 'rgba(247,106,106,0.15)'; }
-  else { note = '?'; color = 'var(--muted)'; bg = 'var(--surface2)'; }
-  badge.textContent = note;
-  badge.style.color = color;
-  badge.style.background = bg;
-  badge.style.borderColor = color;
-  badge.setAttribute('data-label', `Note ${note} (${pct}% Fortschritt)`);
+function showToast(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg; t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),2500);
+}
+function doReset(){
+  if(confirm('Wirklich alle Daten löschen?')){localStorage.removeItem(SK);location.reload();}
 }
 
-function showToast(msg) {
-  const t = document.getElementById('toast');
-  t.textContent = msg;
-  t.classList.add('show');
-  setTimeout(() => t.classList.remove('show'), 2500);
-}
-
-function confirmReset() {
-  if (confirm('Wirklich alle Daten löschen? Das kann nicht rückgängig gemacht werden!')) {
-    localStorage.removeItem(STORAGE_KEY);
-    location.reload();
-  }
-}
-
-// ============ INIT ============
-function init() {
-  updateNav();
-  updateStats();
-  buildQuiz(0);
-}
-
-init();
+// INIT
+updateNav(); updateStats(); buildQuiz(0);
 </script>
 </body>
 </html>
