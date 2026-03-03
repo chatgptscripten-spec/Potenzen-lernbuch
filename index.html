@@ -20,7 +20,6 @@
   --accent5: #6ab8f7;
   --red: #f76a6a;
   --green: #6af7a0;
-  --locked: #1a1a2a;
 }
 * { margin:0; padding:0; box-sizing:border-box; }
 html { scroll-behavior:smooth; }
@@ -31,8 +30,6 @@ body {
   min-height: 100vh;
   overflow-x: hidden;
 }
-
-/* BG grid */
 body::before {
   content: '';
   position: fixed; inset: 0;
@@ -42,8 +39,6 @@ body::before {
   background-size: 60px 60px;
   pointer-events: none; z-index: 0;
 }
-
-/* HEADER */
 .header {
   position: relative; z-index: 10;
   padding: 2.5rem 2rem 2rem;
@@ -63,8 +58,6 @@ body::before {
   letter-spacing: -0.03em;
 }
 .logo span { -webkit-text-fill-color: var(--text); }
-
-/* STATS BAR */
 .stats-bar {
   display: flex; gap: 1.5rem; flex-wrap: wrap; align-items: center;
 }
@@ -79,8 +72,6 @@ body::before {
   font-family: 'JetBrains Mono', monospace;
   color: var(--accent3); font-size: 1rem;
 }
-
-/* NOTE BADGE */
 .note-badge {
   font-family: 'Syne', sans-serif; font-size: 2rem; font-weight: 800;
   width: 56px; height: 56px; border-radius: 14px;
@@ -97,8 +88,6 @@ body::before {
   opacity: 0; pointer-events: none; transition: opacity 0.2s;
 }
 .note-badge:hover::after { opacity: 1; }
-
-/* PROGRESS */
 .progress-section {
   max-width: 1100px; margin: 1.5rem auto 0;
   padding: 0 2rem;
@@ -117,8 +106,6 @@ body::before {
   border-radius: 3px;
   transition: width 0.6s cubic-bezier(0.34,1.56,0.64,1);
 }
-
-/* LAYOUT */
 .app {
   max-width: 1100px; margin: 0 auto;
   padding: 2rem; position: relative; z-index: 1;
@@ -129,8 +116,6 @@ body::before {
   .app { grid-template-columns: 1fr; }
   .sidebar { display: flex; flex-wrap: wrap; gap: 0.5rem; }
 }
-
-/* SIDEBAR NAV */
 .sidebar {
   display: flex; flex-direction: column; gap: 0.4rem;
 }
@@ -163,7 +148,6 @@ body::before {
 .nav-item.locked {
   opacity: 0.35; cursor: not-allowed;
 }
-.nav-item.done .nav-check { display: flex; }
 .nav-num {
   width: 26px; height: 26px; border-radius: 8px;
   background: var(--surface2); display: flex; align-items: center; justify-content: center;
@@ -174,8 +158,6 @@ body::before {
 .nav-item.done .nav-num { background: var(--green); color: #0a2a1a; }
 .nav-lock { margin-left: auto; font-size: 0.8rem; }
 .nav-stars { margin-left: auto; font-size: 0.65rem; letter-spacing: -0.05em; }
-
-/* LESSON CONTENT */
 .content { min-width: 0; }
 .lesson { display: none; }
 .lesson.active {
@@ -186,8 +168,6 @@ body::before {
   from { opacity: 0; transform: translateY(16px); }
   to { opacity: 1; transform: translateY(0); }
 }
-
-/* LESSON HERO */
 .lesson-hero {
   border-radius: 20px; padding: 2rem 2.5rem;
   margin-bottom: 1.5rem; position: relative; overflow: hidden;
@@ -207,8 +187,6 @@ body::before {
   font-weight: 800; line-height: 1.1; margin-bottom: 0.4rem;
 }
 .lesson-hero p { font-size: 1rem; opacity: 0.85; font-weight: 500; max-width: 65%; }
-
-/* CARDS */
 .card {
   background: var(--surface);
   border: 1px solid var(--border);
@@ -220,8 +198,6 @@ body::before {
   font-size: 1.05rem; margin-bottom: 1rem;
   display: flex; align-items: center; gap: 0.5rem;
 }
-
-/* FORMULA BOX */
 .formula {
   background: linear-gradient(135deg, rgba(124,106,247,0.15), rgba(247,106,170,0.15));
   border: 1px solid rgba(124,106,247,0.3);
@@ -234,8 +210,6 @@ body::before {
   color: var(--accent);
 }
 .formula-sub { font-size: 0.9rem; color: var(--muted); font-weight: 500; }
-
-/* STEPS */
 .steps { display: flex; flex-direction: column; gap: 0.5rem; }
 .step {
   display: flex; align-items: center; gap: 0.75rem;
@@ -258,8 +232,6 @@ body::before {
   font-family: 'Syne', sans-serif; font-size: 1.3rem;
   text-align: center; color: var(--green); font-weight: 700;
 }
-
-/* INFO BOXES */
 .infobox {
   border-radius: 12px; padding: 1rem 1.25rem;
   margin: 0.75rem 0; display: flex; gap: 0.75rem;
@@ -270,8 +242,6 @@ body::before {
 .infobox.info { background: rgba(106,184,247,0.08); border: 1px solid rgba(106,184,247,0.25); }
 .infobox.danger { background: rgba(247,106,106,0.1); border: 1px solid rgba(247,106,106,0.3); }
 .infobox-icon { font-size: 1.3rem; flex-shrink: 0; margin-top: 0.05rem; }
-
-/* GRID CARDS */
 .concept-grid {
   display: grid; grid-template-columns: repeat(auto-fill, minmax(155px,1fr));
   gap: 0.75rem; margin: 1rem 0;
@@ -285,8 +255,6 @@ body::before {
 .concept-card .cc-p { font-weight: 800; font-size: 1rem; margin: 0.3rem 0; }
 .concept-card .cc-a { color: var(--accent); font-family: 'JetBrains Mono', monospace; font-size: 1.05rem; font-weight: 700; }
 .concept-card .cc-n { font-size: 0.72rem; color: var(--muted); margin-top: 0.25rem; }
-
-/* TABLE */
 .data-table {
   width: 100%; border-collapse: separate; border-spacing: 0;
   border-radius: 12px; overflow: hidden; margin: 1rem 0;
@@ -306,14 +274,10 @@ body::before {
 .data-table tr:hover td { background: var(--surface2); }
 .data-table td:nth-child(2) { color: var(--accent); font-family: 'JetBrains Mono', monospace; }
 .data-table td:nth-child(3) { color: var(--accent4); }
-
-/* ACCORDION */
 .acc-item {
   background: var(--surface); border: 1px solid var(--border);
   border-radius: 12px; margin-bottom: 0.5rem; overflow: hidden;
-  transition: border-color 0.2s;
 }
-.acc-item.solved { border-color: rgba(106,247,160,0.4); }
 .acc-head {
   display: flex; align-items: center; gap: 0.85rem;
   padding: 0.9rem 1.25rem; cursor: pointer;
@@ -335,8 +299,6 @@ body::before {
   border-top: 1px solid var(--border);
 }
 .acc-body.open { display: block; }
-
-/* SPICK GRID */
 .spick-grid {
   display: grid; grid-template-columns: repeat(auto-fill,minmax(200px,1fr));
   gap: 0.85rem; margin: 1rem 0;
@@ -377,7 +339,7 @@ body::before {
   color: var(--text); transition: border-color 0.2s;
 }
 .quiz-input:focus { border-color: var(--accent); }
-.btn-check, .btn-hint {
+.btn-check, .btn-hint, .btn-new {
   font-family: 'Space Grotesk', sans-serif; font-weight: 700;
   font-size: 0.85rem; padding: 0.45rem 1.1rem;
   border: none; border-radius: 10px; cursor: pointer; transition: all 0.2s;
@@ -389,6 +351,8 @@ body::before {
 .btn-check:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(124,106,247,0.4); }
 .btn-hint { background: var(--surface2); color: var(--muted); border: 1px solid var(--border); }
 .btn-hint:hover { color: var(--text); }
+.btn-new { background: var(--surface2); color: var(--accent3); border: 1px solid rgba(106,247,196,0.3); }
+.btn-new:hover { background: rgba(106,247,196,0.1); }
 .quiz-fb {
   margin-top: 0.75rem; font-weight: 700; font-size: 0.95rem;
   min-height: 1.4rem;
@@ -397,7 +361,20 @@ body::before {
 .quiz-fb.no { color: var(--red); }
 .quiz-fb.hint { color: var(--accent5); }
 
-/* LESSON COMPLETE */
+/* Quiz progress bar */
+.quiz-progress {
+  display: flex; align-items: center; gap: 0.75rem;
+  margin-bottom: 1rem; font-size: 0.85rem; color: var(--muted); font-weight: 600;
+}
+.quiz-dots { display: flex; gap: 0.35rem; }
+.quiz-dot {
+  width: 10px; height: 10px; border-radius: 50%;
+  background: var(--surface2); border: 1px solid var(--border);
+  transition: all 0.3s;
+}
+.quiz-dot.done { background: var(--green); border-color: var(--green); }
+.quiz-dot.active { background: var(--accent); border-color: var(--accent); }
+
 .lesson-complete-btn {
   margin-top: 1.5rem; width: 100%; padding: 1rem;
   font-family: 'Syne', sans-serif; font-size: 1.1rem; font-weight: 800;
@@ -412,35 +389,11 @@ body::before {
 .lesson-complete-btn:disabled {
   opacity: 0.5; cursor: not-allowed; transform: none; box-shadow: none;
 }
-
-/* QUIZ UNLOCK */
-.quiz-unlock-msg {
-  background: linear-gradient(135deg, rgba(124,106,247,0.2), rgba(247,106,170,0.2));
-  border: 1px solid rgba(124,106,247,0.4); border-radius: 16px;
-  padding: 2rem; text-align: center;
-}
-.quiz-unlock-msg h3 {
-  font-family: 'Syne', sans-serif; font-size: 1.5rem;
-  font-weight: 800; margin-bottom: 0.5rem;
-}
-
-/* SPLIT CARD */
 .split-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 1rem 0; }
 .split-card { border-radius: 16px; overflow: hidden; }
 .split-head { padding: 0.85rem 1.25rem; font-family: 'Syne', sans-serif; font-weight: 700; color: white; font-size: 1rem; }
 .split-body { background: var(--surface2); padding: 1rem 1.25rem; font-size: 0.88rem; font-weight: 600; line-height: 2; }
 @media(max-width:500px) { .split-grid { grid-template-columns: 1fr; } }
-
-/* LOCKED LESSON */
-.locked-msg {
-  background: var(--surface); border: 1px solid var(--border);
-  border-radius: 20px; padding: 3rem; text-align: center;
-}
-.locked-msg .lock-icon { font-size: 3rem; margin-bottom: 1rem; }
-.locked-msg h3 { font-family: 'Syne', sans-serif; font-size: 1.5rem; margin-bottom: 0.5rem; }
-.locked-msg p { color: var(--muted); font-weight: 500; }
-
-/* DATA MANAGEMENT */
 .data-mgmt {
   background: var(--surface); border: 1px solid rgba(247,106,106,0.3);
   border-radius: 16px; padding: 1.5rem; margin: 1rem 0;
@@ -457,7 +410,6 @@ body::before {
   font-size: 0.9rem; transition: all 0.2s;
 }
 .btn-danger:hover { background: var(--red); color: white; }
-
 sup { font-size: 0.62em; vertical-align: super; font-weight: 900; }
 .frac {
   display: inline-flex; flex-direction: column; align-items: center;
@@ -468,8 +420,6 @@ sup { font-size: 0.62em; vertical-align: super; font-weight: 900; }
   padding: 0 0.2em;
 }
 .frac > span:last-child { padding: 0 0.2em; }
-
-/* TOAST */
 .toast {
   position: fixed; bottom: 2rem; left: 50%; transform: translateX(-50%) translateY(80px);
   background: linear-gradient(135deg, var(--accent), var(--accent2));
@@ -480,10 +430,7 @@ sup { font-size: 0.62em; vertical-align: super; font-weight: 900; }
   pointer-events: none;
 }
 .toast.show { transform: translateX(-50%) translateY(0); }
-
 @keyframes shake { 0%,100%{transform:translateX(0)}25%{transform:translateX(-8px)}75%{transform:translateX(8px)} }
-
-/* Hero gradients */
 .h-purple { background: linear-gradient(135deg, #2d1b69, #4a2569); }
 .h-orange { background: linear-gradient(135deg, #5c2a0a, #7a3d1a); }
 .h-yellow { background: linear-gradient(135deg, #4a3a00, #6b5500); color: #ffe; }
@@ -493,14 +440,6 @@ sup { font-size: 0.62em; vertical-align: super; font-weight: 900; }
 .h-pink   { background: linear-gradient(135deg, #4a0a2d, #6b1a47); }
 .h-red    { background: linear-gradient(135deg, #4a0a0a, #7a1a1a); }
 .h-indigo { background: linear-gradient(135deg, #1a0a4a, #2d1a7a); }
-
-/* Sidebar badge for required quiz score */
-.req-badge {
-  font-size: 0.65rem; background: rgba(247,196,106,0.15);
-  border: 1px solid rgba(247,196,106,0.3);
-  color: var(--accent4); padding: 0.1rem 0.4rem; border-radius: 4px;
-  font-weight: 700; margin-left: 0.25rem;
-}
 </style>
 </head>
 <body>
@@ -527,7 +466,6 @@ sup { font-size: 0.62em; vertical-align: super; font-weight: 900; }
 </div>
 
 <div class="app">
-  <!-- SIDEBAR -->
   <div class="sidebar">
     <div class="sidebar-title">Kapitel</div>
     <button class="nav-item active" id="nav0" onclick="showLesson(0)">
@@ -579,7 +517,6 @@ sup { font-size: 0.62em; vertical-align: super; font-weight: 900; }
     </button>
   </div>
 
-  <!-- CONTENT AREA -->
   <div class="content" id="contentArea">
 
     <!-- LESSON 0: GRUNDLAGEN -->
@@ -619,7 +556,6 @@ sup { font-size: 0.62em; vertical-align: super; font-weight: 900; }
           <div class="concept-card"><div style="font-size:1.5rem">🎲</div><div class="cc-p">a<sup>3</sup></div><div class="cc-a">„Kubik"</div><div class="cc-n">3³ = 27</div></div>
         </div>
       </div>
-      <!-- MINI QUIZ -->
       <div class="card" style="border-color:rgba(124,106,247,0.3)">
         <div class="card-title">⚡ Mini-Quiz — Zeig was du kannst!</div>
         <div class="quiz-wrap" id="mq0"></div>
@@ -692,15 +628,6 @@ sup { font-size: 0.62em; vertical-align: super; font-weight: 900; }
           <tr><td>10⁹</td><td>1.000.000.000</td><td>Milliarde — 9 Nullen</td></tr>
           <tr><td>10¹²</td><td>1.000.000.000.000</td><td>Billion — 12 Nullen</td></tr>
         </table>
-      </div>
-      <div class="card">
-        <div class="card-title">🎯 Als Zehnerpotenz</div>
-        <div class="concept-grid">
-          <div class="concept-card"><div style="font-size:1.5rem">💰</div><div class="cc-p">1 Milliarde</div><div class="cc-a">10⁹</div></div>
-          <div class="concept-card"><div style="font-size:1.5rem">📱</div><div class="cc-p">10 Millionen</div><div class="cc-a">10⁷</div></div>
-          <div class="concept-card"><div style="font-size:1.5rem">🌍</div><div class="cc-p">10 Billionen</div><div class="cc-a">10¹³</div></div>
-          <div class="concept-card"><div style="font-size:1.5rem">🚀</div><div class="cc-p">100 Milliarden</div><div class="cc-a">10¹¹</div></div>
-        </div>
       </div>
       <div class="card" style="border-color:rgba(124,106,247,0.3)">
         <div class="card-title">⚡ Mini-Quiz</div>
@@ -832,7 +759,7 @@ sup { font-size: 0.62em; vertical-align: super; font-weight: 900; }
           <div class="step" style="border-color:var(--accent2)"><span class="step-badge" style="background:var(--accent2)">Zähler</span><span class="step-main">(−3)³ = −27 (ungerade → negativ!)</span></div>
           <div class="step" style="border-color:var(--accent2)"><span class="step-badge" style="background:var(--accent2)">Nenner</span><span class="step-main">4³ = 4·4·4 = 64</span></div>
         </div>
-        <div class="result">🎉 Ergebnis: −<span class="frac"><span>27</span><span>64</span></span></div>
+        <div class="result">🎉 Ergebnis: −27/64</div>
       </div>
       <div class="card" style="border-color:rgba(124,106,247,0.3)">
         <div class="card-title">⚡ Mini-Quiz</div>
@@ -864,10 +791,6 @@ sup { font-size: 0.62em; vertical-align: super; font-weight: 900; }
         </div>
         <div class="result">🎉 = 1.296</div>
       </div>
-      <div class="infobox tip">
-        <div class="infobox-icon">💡</div>
-        <div><strong>Mit Variablen:</strong> (3x)² = 3² · x² = 9x²<br>Sowohl die 3 als auch x bekommen das Quadrat!</div>
-      </div>
       <div class="card" style="border-color:rgba(124,106,247,0.3)">
         <div class="card-title">⚡ Mini-Quiz</div>
         <div class="quiz-wrap" id="mq7"></div>
@@ -886,7 +809,7 @@ sup { font-size: 0.62em; vertical-align: super; font-weight: 900; }
       </div>
       <div class="card">
         <div class="formula">
-          <div class="formula-main">a<sup>−n</sup> = <span class="frac" style="color:var(--accent);font-size:1rem"><span>1</span><span>a<sup>n</sup></span></span></div>
+          <div class="formula-main">a<sup>−n</sup> = 1/a<sup>n</sup></div>
           <div class="formula-sub">Minus → 1 geteilt durch die Potenz (Kehrwert!)</div>
         </div>
       </div>
@@ -894,7 +817,7 @@ sup { font-size: 0.62em; vertical-align: super; font-weight: 900; }
         <div class="card-title">📝 Schritt-für-Schritt: 2⁻³</div>
         <div class="steps">
           <div class="step"><span class="step-badge">Erkennen</span><span class="step-main">Minus im Exponenten → Kehrwert!</span></div>
-          <div class="step"><span class="step-badge">Umschreiben</span><span class="step-main">= <span class="frac"><span>1</span><span>2³</span></span> = <span class="frac"><span>1</span><span>8</span></span></span></div>
+          <div class="step"><span class="step-badge">Umschreiben</span><span class="step-main">= 1/2³ = 1/8</span></div>
         </div>
         <div class="result">🎉 = 0,125</div>
       </div>
@@ -981,7 +904,6 @@ sup { font-size: 0.62em; vertical-align: super; font-weight: 900; }
           <span style="color:var(--text)">3.</span> (aⁿ)ᵐ = aⁿ⁺ᵐ ❌ → MIT Klammer <strong style="color:var(--green)">MULTIPLIZIEREN</strong>! aⁿ·ᵐ ✅
         </div>
       </div>
-      <!-- DATA MANAGEMENT -->
       <div class="data-mgmt">
         <h4>🗑️ Daten löschen</h4>
         <p style="font-size:0.85rem;color:var(--muted);font-weight:500;margin-top:0.25rem">Alle Fortschritte, Punkte und freigeschaltete Kapitel zurücksetzen.</p>
@@ -989,14 +911,14 @@ sup { font-size: 0.62em; vertical-align: super; font-weight: 900; }
       </div>
     </div>
 
-  </div><!-- end content -->
+  </div>
 </div>
 
 <div class="toast" id="toast"></div>
 
 <script>
 // ============ STATE ============
-const STORAGE_KEY = 'potenzen_v3';
+const STORAGE_KEY = 'potenzen_v4';
 
 function loadState() {
   try {
@@ -1008,7 +930,9 @@ function loadState() {
     completed: Array(12).fill(false),
     points: 0,
     quizCorrect: 0,
-    quizAnswered: {}
+    // Per-lesson: how many have been answered correctly this session
+    lessonCorrect: Array(12).fill(0),
+    lessonNeeded: [3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 6, 0], // how many correct needed to unlock
   };
 }
 
@@ -1019,81 +943,268 @@ function saveState() {
 let state = loadState();
 let curLesson = 0;
 
-// ============ QUIZ DATA ============
-const miniQuizzes = [
-  // Lesson 0: Grundlagen
-  [
-    {q:'2<sup>4</sup> = ?', a:16, hint:'2·2·2·2 = 16'},
-    {q:'3<sup>3</sup> = ?', a:27, hint:'3·3·3 = 27'},
-    {q:'5<sup>0</sup> = ?', a:1, hint:'Alles hoch 0 = 1!'},
-  ],
-  // Lesson 1: Vorzeichen
-  [
-    {q:'(−2)<sup>4</sup> = ?', a:16, hint:'Gerade → positiv, 2⁴=16'},
-    {q:'(−3)<sup>3</sup> = ?', a:-27, hint:'Ungerade → negativ, 3³=27'},
-    {q:'(−1)<sup>7</sup> = ?', a:-1, hint:'Ungerade → −1'},
-  ],
-  // Lesson 2: Zehner
-  [
-    {q:'10<sup>4</sup> = ?', a:10000, hint:'4 Nullen → 10000'},
-    {q:'10<sup>2</sup> = ?', a:100, hint:'2 Nullen → 100'},
-    {q:'10<sup>5</sup> = ?', a:100000, hint:'5 Nullen'},
-  ],
-  // Lesson 3: Multiplizieren (Exponent-Ergebnis)
-  [
-    {q:'2<sup>3</sup> · 2<sup>4</sup> = 2<sup>?</sup>', a:7, hint:'3+4=7'},
-    {q:'5<sup>2</sup> · 5<sup>3</sup> = 5<sup>?</sup>', a:5, hint:'2+3=5'},
-    {q:'3<sup>6</sup> · 3<sup>2</sup> = 3<sup>?</sup>', a:8, hint:'6+2=8'},
-  ],
-  // Lesson 4: Dividieren
-  [
-    {q:'2<sup>7</sup> : 2<sup>3</sup> = 2<sup>?</sup>', a:4, hint:'7−3=4'},
-    {q:'10<sup>6</sup> : 10<sup>4</sup> = 10<sup>?</sup>', a:2, hint:'6−4=2'},
-    {q:'5<sup>5</sup> : 5<sup>5</sup> = ?', a:1, hint:'5⁰=1'},
-  ],
-  // Lesson 5: Potenz²
-  [
-    {q:'(2<sup>3</sup>)<sup>2</sup> = 2<sup>?</sup>', a:6, hint:'3×2=6'},
-    {q:'(3<sup>4</sup>)<sup>2</sup> = 3<sup>?</sup>', a:8, hint:'4×2=8'},
-    {q:'(5<sup>2</sup>)<sup>3</sup> = 5<sup>?</sup>', a:6, hint:'2×3=6'},
-  ],
-  // Lesson 6: Brüche (×100 für ganze Zahlen)
-  [
-    {q:'(½)<sup>2</sup> · 100 = ?', a:25, hint:'(½)²=¼, ¼×100=25'},
-    {q:'(⅔)<sup>3</sup> Nenner = ?', a:27, hint:'3³=27'},
-    {q:'(¼)<sup>2</sup> · 16 = ?', a:1, hint:'(¼)²=1/16, ×16=1'},
-  ],
-  // Lesson 7: Produkt
-  [
-    {q:'(2·5)<sup>2</sup> = ?', a:100, hint:'2²·5²=4·25=100'},
-    {q:'(3·2)<sup>3</sup> = ?', a:216, hint:'3³·2³=27·8=216'},
-    {q:'(2·3)<sup>2</sup> = ?', a:36, hint:'4·9=36'},
-  ],
-  // Lesson 8: Negative Exponenten
-  [
-    {q:'2<sup>−1</sup> · 2 = ?', a:1, hint:'½ · 2 = 1'},
-    {q:'10<sup>−2</sup> · 100 = ?', a:1, hint:'0,01 · 100 = 1'},
-    {q:'3<sup>−2</sup> · 9 = ?', a:1, hint:'1/9 · 9 = 1'},
-  ],
-  // Lesson 9: Aufgabe 6
-  [
-    {q:'(−2)<sup>6</sup> = ?', a:64, hint:'Gerade→positiv, 2⁶=64'},
-    {q:'(−5)<sup>3</sup> = ?', a:-125, hint:'Ungerade→negativ, 5³=125'},
-    {q:'(−0,1)<sup>2</sup> · 10000 = ?', a:100, hint:'(0,1)²=0,01 · 10000=100'},
-  ],
-  // Lesson 10: Final Quiz (bigger!)
-  [
-    {q:'2<sup>8</sup> = ?', a:256, hint:'2⁴·2⁴=16·16'},
-    {q:'(−3)<sup>4</sup> = ?', a:81, hint:'Gerade→+, 3⁴=81'},
-    {q:'3<sup>5</sup> : 3<sup>2</sup> = 3<sup>?</sup>', a:3, hint:'5−2=3'},
-    {q:'(2<sup>4</sup>)<sup>2</sup> = 2<sup>?</sup>', a:8, hint:'4×2=8'},
-    {q:'(−1)<sup>101</sup> = ?', a:-1, hint:'Ungerade → −1'},
-    {q:'(−2)<sup>3</sup> + 10 = ?', a:2, hint:'−8+10=2'},
-    {q:'10<sup>3</sup> + 10<sup>2</sup> = ?', a:1100, hint:'1000+100=1100'},
-    {q:'2<sup>3</sup> · 2<sup>2</sup> = 2<sup>?</sup>', a:5, hint:'3+2=5'},
-  ],
-];
+// Per-session: generated questions (regenerated each page load)
+const sessionQuestions = {};
 
+// ============ QUESTION GENERATORS ============
+// Each generator returns {qHTML, answer, hintText}
+
+function rnd(min, max) { return Math.floor(Math.random() * (max - min + 1)) + min; }
+function pick(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
+
+const generators = {
+
+  // Lesson 0: Grundlagen — basic powers
+  0: [
+    () => {
+      const bases = [2,3,4,5,6,7,8,9,10];
+      const b = pick(bases); const e = rnd(2, 4);
+      const ans = Math.pow(b, e);
+      const sup = n => `<sup>${n}</sup>`;
+      return { qHTML: `${b}${sup(e)} = ?`, answer: ans, hintText: `${b} × ${b} ${e>2?'× '.repeat(e-2).trim():''} = ${ans}`.replace('×  =','= ') };
+    },
+    () => {
+      const b = rnd(2, 12);
+      return { qHTML: `${b}<sup>0</sup> = ?`, answer: 1, hintText: 'Alles hoch 0 = 1!' };
+    },
+    () => {
+      const b = rnd(2, 15);
+      return { qHTML: `${b}<sup>1</sup> = ?`, answer: b, hintText: `Alles hoch 1 = sich selbst = ${b}` };
+    },
+    () => {
+      const b = pick([2,3,4,5,6,7,8,9,10]);
+      const ans = b * b;
+      return { qHTML: `${b}<sup>2</sup> = ?`, answer: ans, hintText: `${b} × ${b} = ${ans}` };
+    },
+    () => {
+      const b = pick([2,3,4,5]);
+      const ans = b*b*b;
+      return { qHTML: `${b}<sup>3</sup> = ?`, answer: ans, hintText: `${b}×${b}×${b} = ${ans}` };
+    },
+  ],
+
+  // Lesson 1: Vorzeichen
+  1: [
+    () => {
+      const b = rnd(1, 6);
+      const e = pick([2,4,6]);
+      const ans = Math.pow(b, e);
+      return { qHTML: `(−${b})<sup>${e}</sup> = ?`, answer: ans, hintText: `Gerade Hochzahl → positiv, ${b}^${e} = ${ans}` };
+    },
+    () => {
+      const b = rnd(1, 5);
+      const e = pick([3,5,7]);
+      const ans = -Math.pow(b, e);
+      return { qHTML: `(−${b})<sup>${e}</sup> = ?`, answer: ans, hintText: `Ungerade Hochzahl → negativ, −${b}^${e} = ${ans}` };
+    },
+    () => {
+      const e = pick([2,3,4,5,6,7]);
+      const ans = e % 2 === 0 ? 1 : -1;
+      return { qHTML: `(−1)<sup>${e}</sup> = ?`, answer: ans, hintText: e%2===0 ? 'Gerade → +1' : 'Ungerade → −1' };
+    },
+    () => {
+      const b = rnd(2, 5); const e = pick([2,4]);
+      const ans = Math.pow(b, e);
+      return { qHTML: `(−${b})<sup>${e}</sup> = ?`, answer: ans, hintText: `Gerade → positiv! ${b}^${e}=${ans}` };
+    },
+  ],
+
+  // Lesson 2: Zehnerpotenzen
+  2: [
+    () => {
+      const e = rnd(1, 6);
+      const ans = Math.pow(10, e);
+      return { qHTML: `10<sup>${e}</sup> = ?`, answer: ans, hintText: `${e} Nullen → ${ans}` };
+    },
+    () => {
+      const e = rnd(1, 5);
+      const ans = Math.pow(10, e);
+      return { qHTML: `10<sup>${e}</sup> = ?`, answer: ans, hintText: `Zehnerpotenz: 1 + ${e} Nullen = ${ans}` };
+    },
+    () => {
+      const e = rnd(2, 7);
+      const ans = Math.pow(10, e);
+      return { qHTML: `10<sup>${e}</sup> = ?`, answer: ans, hintText: `${e} Nullen nach der 1` };
+    },
+  ],
+
+  // Lesson 3: Multiplizieren (ask for resulting exponent)
+  3: [
+    () => {
+      const bases = [2,3,5,7,10];
+      const b = pick(bases);
+      const n = rnd(1,6); const m = rnd(1,6);
+      return { qHTML: `${b}<sup>${n}</sup> · ${b}<sup>${m}</sup> = ${b}<sup>?</sup>`, answer: n+m, hintText: `${n}+${m}=${n+m}` };
+    },
+    () => {
+      const b = pick([2,3,5]);
+      const n = rnd(2,8); const m = rnd(1,5);
+      return { qHTML: `${b}<sup>${n}</sup> · ${b}<sup>${m}</sup> = ${b}<sup>?</sup>`, answer: n+m, hintText: `Gleiche Basis → addieren: ${n}+${m}=${n+m}` };
+    },
+    () => {
+      const b = pick([2,3,4,5]);
+      const n = rnd(1,5); const m = rnd(1,5);
+      return { qHTML: `${b}<sup>${n}</sup> · ${b}<sup>${m}</sup> = ${b}<sup>?</sup>`, answer: n+m, hintText: `${n}+${m}=${n+m}` };
+    },
+  ],
+
+  // Lesson 4: Dividieren
+  4: [
+    () => {
+      const b = pick([2,3,5,10]);
+      const m = rnd(1,4); const n = m + rnd(1,5);
+      return { qHTML: `${b}<sup>${n}</sup> : ${b}<sup>${m}</sup> = ${b}<sup>?</sup>`, answer: n-m, hintText: `${n}−${m}=${n-m}` };
+    },
+    () => {
+      const b = pick([2,3,5]);
+      const e = rnd(2,6);
+      return { qHTML: `${b}<sup>${e}</sup> : ${b}<sup>${e}</sup> = ?`, answer: 1, hintText: `${e}−${e}=0, ${b}⁰=1` };
+    },
+    () => {
+      const b = pick([2,3,5,10]);
+      const m = rnd(1,3); const n = m + rnd(2,6);
+      return { qHTML: `${b}<sup>${n}</sup> : ${b}<sup>${m}</sup> = ${b}<sup>?</sup>`, answer: n-m, hintText: `Subtrahieren: ${n}−${m}=${n-m}` };
+    },
+  ],
+
+  // Lesson 5: Potenz² — ask for resulting exponent
+  5: [
+    () => {
+      const b = pick([2,3,5]);
+      const n = rnd(2,5); const m = rnd(2,4);
+      return { qHTML: `(${b}<sup>${n}</sup>)<sup>${m}</sup> = ${b}<sup>?</sup>`, answer: n*m, hintText: `Mit Klammer → multiplizieren: ${n}×${m}=${n*m}` };
+    },
+    () => {
+      const b = pick([2,3,4,5]);
+      const n = rnd(2,4); const m = rnd(2,3);
+      return { qHTML: `(${b}<sup>${n}</sup>)<sup>${m}</sup> = ${b}<sup>?</sup>`, answer: n*m, hintText: `${n}×${m}=${n*m}` };
+    },
+    () => {
+      const b = pick([2,3,5,10]);
+      const n = rnd(1,5); const m = rnd(2,4);
+      return { qHTML: `(${b}<sup>${n}</sup>)<sup>${m}</sup> = ${b}<sup>?</sup>`, answer: n*m, hintText: `Klammer → ×: ${n}×${m}=${n*m}` };
+    },
+  ],
+
+  // Lesson 6: Brüche (give the denominator or multiply out to avoid fractions)
+  6: [
+    () => {
+      const nums = [1,1,2,3]; const dens = [2,3,4,5];
+      const ni = rnd(0,3);
+      const num = nums[ni], den = dens[ni];
+      const e = pick([2,3]);
+      const ansNum = Math.pow(num, e);
+      const ansDen = Math.pow(den, e);
+      // Ask: what is the denominator?
+      return { qHTML: `(${num}/${den})<sup>${e}</sup> — Nenner = ?`, answer: ansDen, hintText: `${den}^${e} = ${ansDen}` };
+    },
+    () => {
+      // (1/2)^2 × 4 = 1
+      const e = 2;
+      return { qHTML: `(½)<sup>2</sup> · 4 = ?`, answer: 1, hintText: '(½)²=¼, ¼×4=1' };
+    },
+    () => {
+      const den = pick([2,4,5]);
+      const e = 2;
+      const ansDen = den*den;
+      return { qHTML: `(1/${den})<sup>2</sup> · ${ansDen} = ?`, answer: 1, hintText: `(1/${den})²=1/${ansDen}, ×${ansDen}=1` };
+    },
+    () => {
+      const b = pick([2,3]);
+      const den = pick([3,4,5]);
+      const e = 2;
+      const ans = Math.pow(b,e) * Math.pow(den,e);
+      // ask: (b/den)^2 × den^2 = b^2
+      return { qHTML: `(${b}/${den})<sup>2</sup> · ${den*den} = ?`, answer: b*b, hintText: `(${b}/${den})²=${b*b}/${den*den}, ×${den*den}=${b*b}` };
+    },
+  ],
+
+  // Lesson 7: Produkt potenzieren
+  7: [
+    () => {
+      const a = pick([2,3,4,5]); const b = pick([2,3,4,5]); const e = pick([2,3]);
+      const ans = Math.pow(a*b, e);
+      return { qHTML: `(${a}·${b})<sup>${e}</sup> = ?`, answer: ans, hintText: `${a}^${e}·${b}^${e}=${Math.pow(a,e)}·${Math.pow(b,e)}=${ans}` };
+    },
+    () => {
+      const a = pick([2,3,5]); const b = pick([2,3,4]); const e = 2;
+      const ans = Math.pow(a,2)*Math.pow(b,2);
+      return { qHTML: `(${a}·${b})<sup>2</sup> = ?`, answer: ans, hintText: `${a}²·${b}²=${a*a}·${b*b}=${ans}` };
+    },
+    () => {
+      const a = pick([2,3]); const b = pick([4,5]); const e = 2;
+      const ans = Math.pow(a*b,2);
+      return { qHTML: `(${a}·${b})<sup>2</sup> = ?`, answer: ans, hintText: `(${a*b})²=${ans}` };
+    },
+  ],
+
+  // Lesson 8: Negative Exponenten (multiply by power to get whole number)
+  8: [
+    () => {
+      const b = pick([2,4,5,10]); const e = pick([1,2,3]);
+      const pow = Math.pow(b,e);
+      return { qHTML: `${b}<sup>−${e}</sup> · ${pow} = ?`, answer: 1, hintText: `1/${pow} · ${pow} = 1` };
+    },
+    () => {
+      const e = rnd(1,3);
+      const pow = Math.pow(10,e);
+      return { qHTML: `10<sup>−${e}</sup> · ${pow} = ?`, answer: 1, hintText: `0,${'0'.repeat(e-1)}1 · ${pow} = 1` };
+    },
+    () => {
+      const b = pick([2,3,5]); const e = pick([1,2]);
+      const pow = Math.pow(b,e);
+      return { qHTML: `${b}<sup>−${e}</sup> · ${pow} = ?`, answer: 1, hintText: `Kehrwert · sich selbst = 1` };
+    },
+  ],
+
+  // Lesson 9: Aufgabe 6 — Vorzeichen mixed
+  9: [
+    () => {
+      const b = rnd(2,6); const e = pick([2,4,6]);
+      const ans = Math.pow(b,e);
+      return { qHTML: `(−${b})<sup>${e}</sup> = ?`, answer: ans, hintText: `Gerade → positiv, ${b}^${e}=${ans}` };
+    },
+    () => {
+      const b = rnd(2,5); const e = pick([3,5]);
+      const ans = -Math.pow(b,e);
+      return { qHTML: `(−${b})<sup>${e}</sup> = ?`, answer: ans, hintText: `Ungerade → negativ, −${b}^${e}=${ans}` };
+    },
+    () => {
+      const e = pick([2,4]);
+      return { qHTML: `(−0,1)<sup>${e}</sup> · 10000 = ?`, answer: Math.pow(0.1,e)*10000, hintText: `(0,1)^${e}·10000` };
+    },
+    () => {
+      const b = rnd(1,4); const e = pick([2,4]);
+      const ans = Math.pow(b,e);
+      return { qHTML: `(−${b})<sup>${e}</sup> = ?`, answer: ans, hintText: `Gerade → positiv` };
+    },
+  ],
+
+  // Lesson 10: Final — mix of all topics
+  10: [
+    // basic
+    () => { const b=pick([2,3,4,5]); const e=rnd(2,5); const a=Math.pow(b,e); return {qHTML:`${b}<sup>${e}</sup> = ?`, answer:a, hintText:`${b} hoch ${e}`}; },
+    // vorzeichen
+    () => { const b=rnd(1,5); const e=pick([2,4]); const a=Math.pow(b,e); return {qHTML:`(−${b})<sup>${e}</sup> = ?`, answer:a, hintText:`Gerade → positiv`}; },
+    () => { const b=rnd(2,4); const e=pick([3,5]); const a=-Math.pow(b,e); return {qHTML:`(−${b})<sup>${e}</sup> = ?`, answer:a, hintText:`Ungerade → negativ`}; },
+    // mult
+    () => { const b=pick([2,3,5]); const n=rnd(2,5); const m=rnd(1,4); return {qHTML:`${b}<sup>${n}</sup>·${b}<sup>${m}</sup> = ${b}<sup>?</sup>`, answer:n+m, hintText:`${n}+${m}=${n+m}`}; },
+    // div
+    () => { const b=pick([2,3,5]); const m=rnd(1,3); const n=m+rnd(2,5); return {qHTML:`${b}<sup>${n}</sup>:${b}<sup>${m}</sup> = ${b}<sup>?</sup>`, answer:n-m, hintText:`${n}−${m}=${n-m}`}; },
+    // potenz²
+    () => { const b=pick([2,3,5]); const n=rnd(2,4); const m=rnd(2,3); return {qHTML:`(${b}<sup>${n}</sup>)<sup>${m}</sup> = ${b}<sup>?</sup>`, answer:n*m, hintText:`${n}×${m}=${n*m}`}; },
+    // neg exponent
+    () => { const b=pick([2,5,10]); const e=pick([1,2]); const pow=Math.pow(b,e); return {qHTML:`${b}<sup>−${e}</sup>·${pow} = ?`, answer:1, hintText:`Kehrwert·selbst=1`}; },
+    // zehnerpotenz
+    () => { const e=rnd(1,5); const a=Math.pow(10,e); return {qHTML:`10<sup>${e}</sup> = ?`, answer:a, hintText:`${e} Nullen`}; },
+    // hoch 0
+    () => { const b=rnd(2,99); return {qHTML:`${b}<sup>0</sup> = ?`, answer:1, hintText:'Alles hoch 0 = 1!'}; },
+    // combination
+    () => { const b=pick([2,3]); const e=rnd(2,4); const ans=-Math.pow(b,e)+Math.pow(10,2); return {qHTML:`(−${b})<sup>${e%2===0?e:e+1}</sup> + 100 = ?`, answer:Math.pow(b, e%2===0?e:e+1)+100, hintText:`Gerade→positiv, dann +100`}; },
+  ],
+};
+
+// Accordion data (fixed, from original)
 const accordionData = [
   {l:'a', c:'#f76aaa', q:'(−1)⁵ = ?', e:'(−1)⁵ = (−1)·(−1)·(−1)·(−1)·(−1) = <strong>−1</strong><br><em>Ungerade → negativ ✅</em>'},
   {l:'b', c:'#f7c46a', q:'(−2)⁶ = ?', e:'(−2)⁶ = 2⁶ = 2·2·2·2·2·2 = 4·4·4 = 16·4 = <strong>64</strong><br><em>Gerader Exponent → positiv ✅</em>'},
@@ -1108,6 +1219,32 @@ const accordionData = [
   {l:'k', c:'#6af7c4', q:'(−⅖)⁴ = ?', e:'2⁴/5⁴ = 16/625<br>(2⁴=16, 5⁴=625, gerader Exponent → positiv)<br><strong>Ergebnis: 16/625</strong>'},
   {l:'l', c:'#7c6af7', q:'(−3/10)⁵ = ?', e:'−3⁵/10⁵ = −243/100.000<br>(3⁵=243, 10⁵=100.000, ungerade → negativ)<br><strong>Ergebnis: −0,00243</strong>'},
 ];
+
+// ============ GENERATE SESSION QUESTIONS ============
+// Called once per lesson per page load
+function generateQuestions(lessonIdx) {
+  if (sessionQuestions[lessonIdx]) return;
+  const pool = generators[lessonIdx];
+  if (!pool) { sessionQuestions[lessonIdx] = []; return; }
+
+  const count = lessonIdx === 10 ? 8 : 3;
+  const qs = [];
+  const used = new Set();
+
+  // Generate questions - try multiple times to get variety
+  let attempts = 0;
+  while (qs.length < count && attempts < 200) {
+    attempts++;
+    const gen = pool[Math.floor(Math.random() * pool.length)];
+    const q = gen();
+    // Deduplicate by qHTML
+    if (!used.has(q.qHTML)) {
+      used.add(q.qHTML);
+      qs.push(q);
+    }
+  }
+  sessionQuestions[lessonIdx] = qs;
+}
 
 // ============ BUILD ACCORDION ============
 function buildAccordion() {
@@ -1132,36 +1269,55 @@ function togAcc(i) {
   body.classList.toggle('open');
 }
 
-// ============ BUILD MINI QUIZZES ============
+// ============ BUILD QUIZ ============
 function buildQuiz(lessonIdx) {
   const wrap = document.getElementById('mq'+lessonIdx);
-  if (!wrap || wrap.children.length > 0) return;
-  const qs = miniQuizzes[lessonIdx];
-  const need = lessonIdx === 10 ? Math.ceil(qs.length * 0.75) : qs.length; // need 75% for final
-  wrap.innerHTML = qs.map((item, qi) => {
-    const key = `${lessonIdx}_${qi}`;
-    const already = state.quizAnswered[key];
-    return `<div class="quiz-card${already?' ok':''}" id="qcard_${lessonIdx}_${qi}">
-      <div class="quiz-q">Berechne: ${item.q} = ?</div>
+  if (!wrap) return;
+  // Always (re)build — questions are generated fresh each page load
+  if (wrap.children.length > 0) return;
+
+  generateQuestions(lessonIdx);
+  const qs = sessionQuestions[lessonIdx];
+  if (!qs || qs.length === 0) return;
+
+  const needCount = lessonIdx === 10 ? Math.ceil(qs.length * 0.75) : qs.length;
+
+  // Progress indicator
+  const dots = qs.map((_,i) => `<div class="quiz-dot" id="dot_${lessonIdx}_${i}"></div>`).join('');
+  const progressHTML = `<div class="quiz-progress">
+    <div class="quiz-dots">${dots}</div>
+    <span id="qprog_${lessonIdx}">0 / ${qs.length} richtig</span>
+    ${lessonIdx===10?`<span style="color:var(--accent4);margin-left:auto">Brauche ${needCount} von ${qs.length}</span>`:''}
+  </div>`;
+
+  wrap.innerHTML = progressHTML + qs.map((item, qi) => {
+    return `<div class="quiz-card" id="qcard_${lessonIdx}_${qi}">
+      <div class="quiz-q">Berechne: ${item.qHTML}</div>
       <div class="quiz-input-row">
-        <input class="quiz-input" id="qi_${lessonIdx}_${qi}" type="number" step="any" placeholder="?" ${already?'disabled':''} onkeydown="if(event.key==='Enter')checkQ(${lessonIdx},${qi})">
-        <button class="btn-check" onclick="checkQ(${lessonIdx},${qi})" ${already?'disabled':''}>Prüfen ✓</button>
+        <input class="quiz-input" id="qi_${lessonIdx}_${qi}" type="number" step="any" placeholder="?"
+          onkeydown="if(event.key==='Enter')checkQ(${lessonIdx},${qi})">
+        <button class="btn-check" onclick="checkQ(${lessonIdx},${qi})">Prüfen ✓</button>
         <button class="btn-hint" onclick="showHint(${lessonIdx},${qi})">Tipp 💡</button>
       </div>
-      <div class="quiz-fb ${already?'ok':''}" id="qfb_${lessonIdx}_${qi}">${already?'✅ Bereits richtig beantwortet!':''}</div>
+      <div class="quiz-fb" id="qfb_${lessonIdx}_${qi}"></div>
     </div>`;
   }).join('');
+
   updateCompleteBtn(lessonIdx);
 }
 
+// Track correct per lesson (session only — no localStorage for individual answers)
+const sessionCorrect = {};
+
 function checkQ(lesson, qi) {
   const key = `${lesson}_${qi}`;
-  if (state.quizAnswered[key]) return;
+  if (sessionCorrect[key]) return; // already correct
   const inp = document.getElementById(`qi_${lesson}_${qi}`);
   const fb = document.getElementById(`qfb_${lesson}_${qi}`);
   const card = document.getElementById(`qcard_${lesson}_${qi}`);
-  const val = parseFloat(inp.value);
-  const correct = miniQuizzes[lesson][qi].a;
+  const val = parseFloat(inp.value.replace(',', '.'));
+  const correct = sessionQuestions[lesson][qi].answer;
+
   if (isNaN(val)) { fb.textContent='Bitte eine Zahl eingeben!'; fb.className='quiz-fb no'; return; }
   if (Math.abs(val - correct) < 0.0001) {
     fb.textContent = '🎉 Super richtig! +10 Punkte!';
@@ -1169,13 +1325,18 @@ function checkQ(lesson, qi) {
     card.classList.add('ok');
     inp.disabled = true;
     card.querySelector('.btn-check').disabled = true;
-    state.quizAnswered[key] = true;
+    sessionCorrect[key] = true;
     state.points += 10;
     state.quizCorrect++;
+    state.lessonCorrect[lesson] = (state.lessonCorrect[lesson] || 0) + 1;
     saveState();
     updateStats();
+    updateQuizProgress(lesson);
     updateCompleteBtn(lesson);
     showToast('🎉 Richtig! +10 Punkte');
+    // update dot
+    const dot = document.getElementById(`dot_${lesson}_${qi}`);
+    if (dot) dot.classList.add('done');
   } else {
     fb.textContent = '❌ Leider falsch — nochmal versuchen!';
     fb.className = 'quiz-fb no';
@@ -1186,21 +1347,41 @@ function checkQ(lesson, qi) {
 
 function showHint(lesson, qi) {
   const fb = document.getElementById(`qfb_${lesson}_${qi}`);
-  fb.textContent = '💡 Tipp: ' + miniQuizzes[lesson][qi].hint;
+  fb.textContent = '💡 Tipp: ' + sessionQuestions[lesson][qi].hintText;
   fb.className = 'quiz-fb hint';
+}
+
+function updateQuizProgress(lesson) {
+  const qs = sessionQuestions[lesson];
+  if (!qs) return;
+  const correct = qs.filter((_,i) => sessionCorrect[`${lesson}_${i}`]).length;
+  const prog = document.getElementById(`qprog_${lesson}`);
+  if (prog) prog.textContent = `${correct} / ${qs.length} richtig`;
+  // update dots for active
+  qs.forEach((_,i) => {
+    const dot = document.getElementById(`dot_${lesson}_${i}`);
+    if (!dot) return;
+    if (sessionCorrect[`${lesson}_${i}`]) { dot.classList.add('done'); dot.classList.remove('active'); }
+    else dot.classList.add('active');
+  });
 }
 
 function updateCompleteBtn(lesson) {
   const btn = document.getElementById('complete'+lesson);
   if (!btn) return;
-  const qs = miniQuizzes[lesson];
+  const qs = sessionQuestions[lesson];
+  if (!qs) return;
+  const correct = qs.filter((_,i) => sessionCorrect[`${lesson}_${i}`]).length;
+
   if (lesson === 10) {
-    const correct = qs.filter((_,i) => state.quizAnswered[`${lesson}_${i}`]).length;
-    btn.disabled = correct < Math.ceil(qs.length * 0.75);
+    const need = Math.ceil(qs.length * 0.75);
+    btn.disabled = correct < need;
     btn.textContent = `Quiz abschließen (${correct}/${qs.length} richtig) 🏆`;
   } else {
-    const allDone = qs.every((_,i) => state.quizAnswered[`${lesson}_${i}`]);
-    btn.disabled = !allDone;
+    btn.disabled = correct < qs.length;
+    btn.textContent = correct >= qs.length
+      ? 'Kapitel abschließen & Nächstes freischalten 🔓'
+      : `Kapitel abschließen (${correct}/${qs.length} richtig)`;
   }
 }
 
@@ -1209,7 +1390,6 @@ function completeLesson(lesson) {
   if (state.completed[lesson]) return;
   state.completed[lesson] = true;
   state.points += 50;
-  // Unlock next
   const next = lesson + 1;
   if (next < 12) {
     state.unlocked[next] = true;
@@ -1253,30 +1433,26 @@ function updateNav() {
     if (state.completed[i]) {
       nav.classList.add('done');
       const num = nav.querySelector('.nav-num');
-      if (num) num.textContent = '✓';
+      if (num && num.textContent !== '✓') num.textContent = '✓';
     }
   }
 }
 
-// ============ STATS / NOTE ============
+// ============ STATS ============
 function updateStats() {
   document.getElementById('pts').textContent = state.points;
-  const done = state.completed.filter(Boolean).length - (state.completed[10]?0:0);
-  const total = 10;
   const completedMain = state.completed.slice(0,10).filter(Boolean).length;
-  document.getElementById('chapCount').textContent = completedMain + '/' + total;
+  document.getElementById('chapCount').textContent = completedMain + '/10';
   document.getElementById('quizCount').textContent = state.quizCorrect;
 
-  // Progress: based on completed lessons (0-10) + quizzes answered
-  const totalQuizzes = miniQuizzes.slice(0,11).flat().length;
-  const answeredQ = Object.keys(state.quizAnswered).length;
+  const totalQuestions = 10 * 3 + 8; // rough total
+  const answeredQ = Math.min(state.quizCorrect, totalQuestions);
   const lessonPct = (completedMain / 10) * 70;
-  const quizPct = (answeredQ / totalQuizzes) * 30;
+  const quizPct = (answeredQ / totalQuestions) * 30;
   const pct = Math.min(100, Math.round(lessonPct + quizPct));
   document.getElementById('progressBar').style.width = pct + '%';
   document.getElementById('pctLabel').textContent = pct + '%';
 
-  // Note estimate
   const badge = document.getElementById('noteBadge');
   let note, color, bg;
   if (pct >= 90) { note = '1'; color = '#6af7a0'; bg = 'rgba(106,247,160,0.15)'; }
@@ -1292,7 +1468,6 @@ function updateStats() {
   badge.setAttribute('data-label', `Note ${note} (${pct}% Fortschritt)`);
 }
 
-// ============ TOAST ============
 function showToast(msg) {
   const t = document.getElementById('toast');
   t.textContent = msg;
@@ -1300,13 +1475,10 @@ function showToast(msg) {
   setTimeout(() => t.classList.remove('show'), 2500);
 }
 
-// ============ RESET ============
 function confirmReset() {
   if (confirm('Wirklich alle Daten löschen? Das kann nicht rückgängig gemacht werden!')) {
     localStorage.removeItem(STORAGE_KEY);
-    state = loadState();
-    showToast('✅ Alle Daten gelöscht!');
-    setTimeout(() => location.reload(), 800);
+    location.reload();
   }
 }
 
@@ -1314,8 +1486,7 @@ function confirmReset() {
 function init() {
   updateNav();
   updateStats();
-  buildQuiz(0); // build first lesson quiz immediately
-  // Re-open to current completed state
+  buildQuiz(0);
 }
 
 init();
