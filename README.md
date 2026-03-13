@@ -1,1 +1,1 @@
-# trigonometrie-lernbuch
+Potenzen-lernbuch
