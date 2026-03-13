@@ -1071,13 +1071,12 @@ function updateStats(){
 }
 
 // ══════════════════════════════════════
-// SICKS WIDGET — AUTO LOGIN (GAST)
+// SICKS WIDGET — AUTO REGISTER + LOGIN
 // ══════════════════════════════════════
 const SINGH_API='https://sicks-madebysamuelsingh.up.railway.app/api';
-// Gast-Account — einmalig im Admin-Panel anlegen:
-// Username: mathe_gast  Passwort: mathe123
-const GUEST_USER='mathe_gast';
-const GUEST_PASS='mathe123';
+const GUEST_CODE='SINGH-E41169C2';
+const GUEST_USER='mathe_gast_01';
+const GUEST_PASS='mm_gast_2026!';
 
 let sicksOpen=false;
 let sicksHistory=[];
@@ -1086,17 +1085,29 @@ let sicksGreeted=false;
 let singhToken=sessionStorage.getItem('mm_tok')||null;
 let singhChatId='mm_'+Date.now();
 
-// Auto-login beim Seitenstart im Hintergrund
-(async function autoLogin(){
+// Beim Start: einloggen oder registrieren
+(async function initSinghSession(){
   if(singhToken)return;
   try{
+    // Erst einloggen versuchen
     const r=await fetch(SINGH_API+'/client/login',{
       method:'POST',headers:{'Content-Type':'application/json'},
       body:JSON.stringify({username:GUEST_USER,password:GUEST_PASS})
     });
     const d=await r.json();
-    if(d.success){singhToken=d.token;sessionStorage.setItem('mm_tok',d.token);}
-  }catch(e){console.log('Sicks auto-login failed:',e);}
+    if(d.success){
+      singhToken=d.token;sessionStorage.setItem('mm_tok',d.token);return;
+    }
+    // Falls noch nicht registriert → einmalig registrieren mit dem Lizenzcode
+    const r2=await fetch(SINGH_API+'/client/register',{
+      method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({code:GUEST_CODE,username:GUEST_USER,password:GUEST_PASS})
+    });
+    const d2=await r2.json();
+    if(d2.success){
+      singhToken=d2.token;sessionStorage.setItem('mm_tok',d2.token);
+    }
+  }catch(e){console.log('Sicks init:',e);}
 })();
 
 function toggleSicks(){
