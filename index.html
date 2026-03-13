@@ -911,46 +911,253 @@ function makeOpts(a){const s=new Set([a]);let t=0;const sp=Math.abs(a)>200?50:Ma
 
 // WAHRSCHEINLICHKEIT QUESTIONS
 const GEN={
-0:{easy:[()=>({q:'Münzwurf 2× — wie viele mögliche Ergebnisse?',a:4,hint:'KK,KZ,ZK,ZZ → 4'}),()=>({q:'Alle Äste einer Stufe addieren sich zu...?',a:1,hint:'Immer 1 = 100%'})],
-med:[()=>({q:'Münze 3× — wie viele Endäste?',a:8,hint:'2³=8'}),()=>({q:'Würfel 2× — wie viele Paare?',a:36,hint:'6×6=36'})],
-hard:[()=>({q:'P(KK)×4=?',a:1,hint:'¼×4=1'})]},
-1:{easy:[()=>({q:'P(O) aus K,E,O,A = 1/? (Nenner)',a:4,hint:'4 Karten→1/4'}),()=>({q:'Nach O gezogen: P(K) = 1/?',a:3,hint:'3 Karten→1/3'})],
-med:[()=>({q:'P("OK")×12=?',a:1,hint:'1/12×12=1'}),()=>({q:'30 Schüler×P("OK"): Kaugummis?',a:3,hint:'2,49→3'})],
-hard:[()=>({q:'P("OK")≈?%',a:8,hint:'8,3%≈8%'})]},
-2:{easy:[()=>({q:'5W+5S: Gesamt?',a:10,hint:'10'}),()=>({q:'P(genau 1× Kopf)×2=?',a:1,hint:'½×2=1'})],
-med:[()=>({q:'5W+5S: P(gleichfarbig)×9=?',a:4,hint:'4/9×9=4'}),()=>({q:'P(gleichfarbig)≈?%',a:44,hint:'4/9≈44%'})],
-hard:[()=>({q:'P(mind.1× Kopf)×4=?',a:3,hint:'¾×4=3'})]},
-3:{easy:[()=>({q:'4 orange+8 weiß: Gesamt?',a:12,hint:'12'}),()=>({q:'MIT Zurücklegen: Nenner ändert sich? 1=Ja,0=Nein',a:0,hint:'Nein!→0'})],
-med:[()=>({q:'OHNE Zurücklegen: nach 1 Zug übrig (start 12)?',a:11,hint:'11'})],
-hard:[()=>({q:'P(OO) ohne Zurücklegen×132=?',a:12,hint:'12/132→12'})]},
-4:{easy:[()=>({q:'P(nicht 1) = ?/6',a:5,hint:'5'}),()=>({q:'Alle drei 1: Nenner?',a:216,hint:'6³=216'})],
-med:[()=>({q:'Genau 1×: günstige Pfade?',a:3,hint:'3'}),()=>({q:'3×25/216 = ?/216',a:75,hint:'75'})],
-hard:[()=>({q:'S.49 d) ≈?%',a:7,hint:'6,9%≈7%'})]},
-5:{easy:[()=>({q:'K,E,O,A: wie viele Paare?',a:12,hint:'4×3=12'}),()=>({q:'P("OK")×12=?',a:1,hint:'1'})],
-med:[()=>({q:'30×1/12 (×10)=?',a:25,hint:'2,5×10=25'}),()=>({q:'Kaugummis?',a:3,hint:'3'})],
-hard:[()=>({q:'Paare die K enthalten?',a:6,hint:'6'})]},
-6:{easy:[()=>({q:'S.49 b) keinmal 1 ≈?%',a:58,hint:'57,9%≈58%'}),()=>({q:'P("OK")≈?%',a:8,hint:'8%'})],
-med:[()=>({q:'S.49 c) genau einmal≈?%',a:35,hint:'34,8%≈35%'})],
-hard:[()=>({q:'(5/6)³×1000≈?',a:579,hint:'579'})]},
+0:{
+easy:[
+()=>({q:'Münzwurf 2× — wie viele Ergebnisse?',a:4,hint:'KK, KZ, ZK, ZZ → 4'}),
+()=>({q:'Alle Äste einer Stufe zusammen = ?',a:1,hint:'Immer 1 = 100%'}),
+()=>({q:'Münzwurf 1×: wie viele Äste?',a:2,hint:'Kopf oder Zahl → 2'}),
+()=>({q:'Würfel 1×: wie viele Ergebnisse?',a:6,hint:'1,2,3,4,5,6 → 6'}),
+()=>({q:'P(Kopf) × 2 = ?',a:1,hint:'½ × 2 = 1'}),
+],
+med:[
+()=>({q:'Münze 3×: wie viele Endäste?',a:8,hint:'2³ = 8'}),
+()=>({q:'Würfel 2×: wie viele Paare?',a:36,hint:'6 × 6 = 36'}),
+()=>({q:'P(Kopf) = 1/? (Nenner)',a:2,hint:'½ → Nenner 2'}),
+()=>({q:'Münze 2×: P(KZ) = 1/? (Nenner)',a:4,hint:'½ × ½ = ¼ → 4'}),
+()=>({q:'Münze 2×: Pfade mit genau 1× Kopf?',a:2,hint:'KZ und ZK → 2'}),
+()=>({q:'Probe: alle Pfadwahrscheinlichkeiten addiert = ?',a:1,hint:'Immer 1 = 100%'}),
+],
+hard:[
+()=>({q:'P(KK) × 4 = ?',a:1,hint:'¼ × 4 = 1'}),
+()=>({q:'P(mind. 1× Kopf) bei 2 Würfen × 4 = ?',a:3,hint:'1 − P(ZZ) = 1 − ¼ = ¾ → ×4 = 3'}),
+()=>({q:'Münze 3×: P(genau 2× Kopf) × 8 = ?',a:3,hint:'KKZ, KZK, ZKK → 3/8 × 8 = 3'}),
+]},
+1:{
+easy:[
+()=>({q:'P(O) aus K,E,O,A = 1/? (Nenner)',a:4,hint:'4 Karten → 1/4'}),
+()=>({q:'Nach O gezogen: wie viele Karten bleiben?',a:3,hint:'4 − 1 = 3'}),
+()=>({q:'Wie viele Karten insgesamt (K,E,O,A)?',a:4,hint:'K, E, O, A → 4'}),
+()=>({q:'P(E) aus K,E,O,A = 1/? (Nenner)',a:4,hint:'1/4 → Nenner 4'}),
+()=>({q:'1 günstig, 4 möglich = 1/? (Nenner)',a:4,hint:'1/4'}),
+],
+med:[
+()=>({q:'P("OK") nach Pfadregel = 1/? (Nenner)',a:12,hint:'1/4 × 1/3 = 1/12 → Nenner 12'}),
+()=>({q:'30 Schüler, P("OK")=1/12 → Kaugummis (gerundet)?',a:3,hint:'30/12 = 2,5 → 3'}),
+()=>({q:'P("KE") ohne Zurücklegen = 1/? (Nenner)',a:12,hint:'1/4 × 1/3 = 1/12'}),
+()=>({q:'Alle Paare aus 4 Karten ohne Zurücklegen = 4 × ? = 12',a:3,hint:'4 × 3 = 12 Paare'}),
+()=>({q:'P(K zuerst) = ?% (gerundet)',a:25,hint:'1/4 = 25%'}),
+],
+hard:[
+()=>({q:'P("OK") ≈ ?% (gerundet)',a:8,hint:'1/12 ≈ 8,3% ≈ 8%'}),
+()=>({q:'P(kein A) in 2 Zügen ohne Zurücklegen: günstige Paare?',a:6,hint:'3 × 2 = 6 Paare ohne A'}),
+]},
+2:{
+easy:[
+()=>({q:'5 weiße + 5 schwarze Kugeln: Gesamt?',a:10,hint:'5 + 5 = 10'}),
+()=>({q:'P(weiß) aus 5W+5S = 1/? (Nenner)',a:2,hint:'5/10 = 1/2 → Nenner 2'}),
+()=>({q:'P(schwarz) aus 5W+5S = 1/? (Nenner)',a:2,hint:'5/10 = 1/2'}),
+()=>({q:'P(weiß) + P(schwarz) = ?',a:1,hint:'1/2 + 1/2 = 1'}),
+],
+med:[
+()=>({q:'P(gleichfarbig) ÷ 4/9 × 9 = ?',a:4,hint:'4/9 × 9 = 4'}),
+()=>({q:'P(gleichfarbig) ≈ ?% (ohne Zurücklegen)',a:44,hint:'4/9 ≈ 44,4% ≈ 44%'}),
+()=>({q:'P(WS) ohne Zurücklegen: Zähler (5 × 5)?',a:25,hint:'5 × 5 = 25'}),
+()=>({q:'P(SW) ohne Zurücklegen: Nenner (10 × 9)?',a:90,hint:'10 × 9 = 90'}),
+],
+hard:[
+()=>({q:'P(WW) ohne Zurücklegen × 90 = ?',a:20,hint:'5/10 × 4/9 = 20/90 → ×90 = 20'}),
+]},
+3:{
+easy:[
+()=>({q:'4 orange + 8 weiße Kugeln: Gesamt?',a:12,hint:'4 + 8 = 12'}),
+()=>({q:'MIT Zurücklegen: Ändert sich Nenner? 1=Ja, 0=Nein',a:0,hint:'Nein! Immer gleich → 0'}),
+()=>({q:'OHNE Zurücklegen: Ändert sich Nenner? 1=Ja, 0=Nein',a:1,hint:'Ja! Wird kleiner → 1'}),
+()=>({q:'P(orange) aus 4O+8W = 4/? (Nenner)',a:12,hint:'4/12 → Nenner 12'}),
+()=>({q:'P(orange) = 4/12 = 1/? (vereinfacht, Nenner)',a:3,hint:'4/12 = 1/3 → Nenner 3'}),
+],
+med:[
+()=>({q:'OHNE Zurücklegen: nach 1. Zug (orange) noch ? Kugeln',a:11,hint:'12 − 1 = 11'}),
+()=>({q:'P(OO) MIT Zurücklegen × 144 = ?',a:16,hint:'(4/12)² × 144 = 16/144 × 144 = 16'}),
+()=>({q:'P(OO) OHNE Zurücklegen: Zähler (4 × 3)?',a:12,hint:'4 × 3 = 12'}),
+()=>({q:'P(OO) OHNE Zurücklegen: Nenner (12 × 11)?',a:132,hint:'12 × 11 = 132'}),
+],
+hard:[
+()=>({q:'P(OO) OHNE Zurücklegen × 132 = ?',a:12,hint:'12/132 × 132 = 12'}),
+()=>({q:'P(OW) ohne Zurücklegen × 132 = ?',a:32,hint:'4/12 × 8/11 = 32/132 → ×132 = 32'}),
+]},
+4:{
+easy:[
+()=>({q:'P(nicht 1) beim Würfel = ?/6',a:5,hint:'6 − 1 = 5 günstige → 5/6'}),
+()=>({q:'Würfel 3×: Gesamtanzahl Ergebnisse?',a:216,hint:'6³ = 216'}),
+()=>({q:'P(1) beim Würfel = 1/? (Nenner)',a:6,hint:'1/6 → Nenner 6'}),
+()=>({q:'P(alle drei 1): Zähler?',a:1,hint:'Nur 1 Möglichkeit: 1-1-1'}),
+],
+med:[
+()=>({q:'Genau 1× eine 1: günstige Pfade?',a:3,hint:'1__ oder _1_ oder __1 → 3'}),
+()=>({q:'3 × 25/216 = ?/216',a:75,hint:'3 × 25 = 75'}),
+()=>({q:'P(keinmal 1): Zähler (5³)?',a:125,hint:'5³ = 125'}),
+()=>({q:'Genau 2× eine 1: günstige Pfade?',a:3,hint:'11_, 1_1, _11 → 3'}),
+()=>({q:'P(mind. 1× eine 1) × 216 = ?',a:91,hint:'216 − 125 = 91'}),
+],
+hard:[
+()=>({q:'S.49 d) ≈ ?%',a:7,hint:'15/216 ≈ 6,9% ≈ 7%'}),
+()=>({q:'P(genau 2×) × 216 = ?',a:15,hint:'3 × 1 × 5 = 15'}),
+]},
+5:{
+easy:[
+()=>({q:'K,E,O,A: geordnete Paare ohne Zurücklegen?',a:12,hint:'4 × 3 = 12'}),
+()=>({q:'P("KE") = 1/? (Nenner)',a:12,hint:'1/4 × 1/3 = 1/12'}),
+()=>({q:'P("OK") × 12 = ?',a:1,hint:'1/12 × 12 = 1'}),
+()=>({q:'Wie viele Paare starten mit K?',a:3,hint:'KE, KO, KA → 3'}),
+],
+med:[
+()=>({q:'Kaugummis erwartet (30 Schüler, P=1/12)?',a:3,hint:'30 ÷ 12 = 2,5 → 3 runden'}),
+()=>({q:'P(A zuletzt): Paare die auf A enden?',a:3,hint:'KA, EA, OA → 3'}),
+()=>({q:'P(K oder E zuerst) = ?/12',a:6,hint:'KE,KO,KA + EK,EO,EA = 6'}),
+],
+hard:[
+()=>({q:'Paare, die K enthalten?',a:6,hint:'K-zuerst: KE,KO,KA + K-zuletzt: EK,OK,AK → 6'}),
+()=>({q:'P(weder K noch E im Paar) × 12 = ?',a:2,hint:'Nur O und A: OA, AO → 2'}),
+]},
+6:{
+easy:[
+()=>({q:'S.49 b) keinmal eine 1: ≈ ?%',a:58,hint:'125/216 ≈ 57,9% ≈ 58%'}),
+()=>({q:'P("OK") ≈ ?%',a:8,hint:'1/12 ≈ 8,3% ≈ 8%'}),
+()=>({q:'S.49 c) genau 1× eine 1: ≈ ?%',a:35,hint:'75/216 ≈ 34,7% ≈ 35%'}),
+],
+med:[
+()=>({q:'(5/6)³ × 1000 ≈ ?',a:579,hint:'125/216 × 1000 ≈ 578,7 ≈ 579'}),
+()=>({q:'Summe a)+b)+c)+d) × 216 = ?',a:216,hint:'1+125+75+15 = 216 → Probe!'}),
+],
+hard:[
+()=>({q:'P(mind. 1× eine 1) × 216 = ?',a:91,hint:'216 − 125 = 91'}),
+]},
 };
 
-// POTENZEN QUESTIONS
 const POT_GEN={
-0:{easy:[()=>({q:'2⁴ = ?',a:16,hint:'2×2×2×2=16'}),()=>({q:'3² = ?',a:9,hint:'3×3=9'}),()=>({q:'5⁰ = ?',a:1,hint:'Alles hoch 0 ist 1!'})],
-med:[()=>({q:'2⁵ = ?',a:32,hint:'2^5=32'}),()=>({q:'(-2)² = ?',a:4,hint:'gerade Zahl → positiv'}),()=>({q:'(-3)³ = ?',a:-27,hint:'ungerade → negativ'})],
-hard:[()=>({q:'2⁸ = ?',a:256,hint:'256'}),()=>({q:'4³ = ?',a:64,hint:'4×4×4=64'})]},
-1:{easy:[()=>({q:'2³ × 2² = 2^? (Exponent)',a:5,hint:'3+2=5'}),()=>({q:'3⁴ × 3¹ = 3^? (Exponent)',a:5,hint:'4+1=5'})],
-med:[()=>({q:'2³ × 2² = ? (Ergebnis)',a:32,hint:'2⁵=32'}),()=>({q:'3² × 3³ = ? (Ergebnis)',a:243,hint:'3⁵=243'})],
-hard:[()=>({q:'5² × 5² = ? (Ergebnis)',a:625,hint:'5⁴=625'}),()=>({q:'2⁴ × 2³ = ? (Ergebnis)',a:128,hint:'2⁷=128'})]},
-2:{easy:[()=>({q:'2⁵ ÷ 2² = 2^? (Exponent)',a:3,hint:'5-2=3'}),()=>({q:'3⁶ ÷ 3³ = 3^? (Exponent)',a:3,hint:'6-3=3'})],
-med:[()=>({q:'2⁵ ÷ 2² = ? (Ergebnis)',a:8,hint:'2³=8'}),()=>({q:'3⁴ ÷ 3² = ? (Ergebnis)',a:9,hint:'3²=9'})],
-hard:[()=>({q:'a⁰ = ? (immer)',a:1,hint:'1!'}),()=>({q:'2⁻² = 1/? (Nenner)',a:4,hint:'1/2²=1/4'})]},
-3:{easy:[()=>({q:'(2³)² = 2^? (Exponent)',a:6,hint:'3×2=6'}),()=>({q:'(3²)³ = 3^? (Exponent)',a:6,hint:'2×3=6'})],
-med:[()=>({q:'(2³)² = ? (Ergebnis)',a:64,hint:'2⁶=64'}),()=>({q:'(2²)³ = ? (Ergebnis)',a:64,hint:'2⁶=64'})],
-hard:[()=>({q:'(5²)³ ÷ 5⁴ = 5^? (Exponent)',a:2,hint:'5⁶÷5⁴=5²'})]},
-4:{easy:[()=>({q:'3² × 3³ = ? (Ergebnis)',a:243,hint:'3⁵=243'}),()=>({q:'2⁸ ÷ 2³ = ? (Ergebnis)',a:32,hint:'2⁵=32'})],
-med:[()=>({q:'(4²)³ = 4^? (Exponent)',a:6,hint:'2×3=6'}),()=>({q:'(-2)⁴ = ?',a:16,hint:'gerade→positiv'})],
-hard:[()=>({q:'2³ × 4² = 2^? (Hinweis: 4=2²)',a:7,hint:'2³×2⁴=2⁷'}),()=>({q:'(2³×2²)² = ? (Ergebnis)',a:1024,hint:'(2⁵)²=2¹⁰=1024'})]},
+0:{
+easy:[
+()=>({q:'2⁴ = ?',a:16,hint:'2×2×2×2 = 16'}),
+()=>({q:'3² = ?',a:9,hint:'3×3 = 9'}),
+()=>({q:'5⁰ = ?',a:1,hint:'Alles hoch 0 ist IMMER 1!'}),
+()=>({q:'4² = ?',a:16,hint:'4×4 = 16'}),
+()=>({q:'2³ = ?',a:8,hint:'2×2×2 = 8'}),
+()=>({q:'7¹ = ?',a:7,hint:'Jede Zahl hoch 1 ist sie selbst'}),
+()=>({q:'10² = ?',a:100,hint:'10×10 = 100'}),
+()=>({q:'1⁵ = ?',a:1,hint:'1×1×1×1×1 = 1'}),
+],
+med:[
+()=>({q:'2⁵ = ?',a:32,hint:'2⁴=16, ×2=32'}),
+()=>({q:'(-2)² = ?',a:4,hint:'Gerade Exponent → immer positiv!'}),
+()=>({q:'(-3)³ = ?',a:-27,hint:'Ungerade → negativ! (-3)×(-3)×(-3)=-27'}),
+()=>({q:'(-1)⁴ = ?',a:1,hint:'Gerade → positiv! 1'}),
+()=>({q:'(-2)³ = ?',a:-8,hint:'Ungerade → negativ! -8'}),
+()=>({q:'3³ = ?',a:27,hint:'3×3×3 = 27'}),
+()=>({q:'2⁶ = ?',a:64,hint:'2⁵=32, ×2=64'}),
+()=>({q:'(-4)² = ?',a:16,hint:'Gerade → positiv! 16'}),
+],
+hard:[
+()=>({q:'2⁸ = ?',a:256,hint:'2⁷=128, ×2=256'}),
+()=>({q:'4³ = ?',a:64,hint:'4×4×4 = 64'}),
+()=>({q:'3⁴ = ?',a:81,hint:'3×3×3×3 = 81'}),
+()=>({q:'5³ = ?',a:125,hint:'5×5×5 = 125'}),
+()=>({q:'-3² = ? (KEINE Klammern!)',a:-9,hint:'-(3²) = -9, NICHT (-3)²!'}),
+()=>({q:'(-2)⁵ = ?',a:-32,hint:'Ungerade → negativ: -32'}),
+]},
+1:{
+easy:[
+()=>({q:'2³ × 2² = 2^? (nur Exponent)',a:5,hint:'3+2=5 → gleiche Basis: Exponenten addieren!'}),
+()=>({q:'3⁴ × 3¹ = 3^? (nur Exponent)',a:5,hint:'4+1=5'}),
+()=>({q:'5² × 5³ = 5^? (nur Exponent)',a:5,hint:'2+3=5'}),
+()=>({q:'x⁷ × x² = x^? (nur Exponent)',a:9,hint:'7+2=9'}),
+()=>({q:'a³ × a⁴ = a^? (nur Exponent)',a:7,hint:'3+4=7'}),
+()=>({q:'2¹ × 2¹ = 2^? (nur Exponent)',a:2,hint:'1+1=2'}),
+],
+med:[
+()=>({q:'2³ × 2² = ? (Ergebnis)',a:32,hint:'2⁵ = 32'}),
+()=>({q:'3² × 3³ = ? (Ergebnis)',a:243,hint:'3⁵ = 243'}),
+()=>({q:'2⁴ × 2¹ = ? (Ergebnis)',a:32,hint:'2⁵ = 32'}),
+()=>({q:'5¹ × 5² = ? (Ergebnis)',a:125,hint:'5³ = 125'}),
+()=>({q:'2² × 2² = ? (Ergebnis)',a:16,hint:'2⁴ = 16'}),
+()=>({q:'3¹ × 3² = ? (Ergebnis)',a:27,hint:'3³ = 27'}),
+()=>({q:'2³ × 2³ = ? (Ergebnis)',a:64,hint:'2⁶ = 64'}),
+],
+hard:[
+()=>({q:'5² × 5² = ? (Ergebnis)',a:625,hint:'5⁴ = 625'}),
+()=>({q:'2⁴ × 2³ = ? (Ergebnis)',a:128,hint:'2⁷ = 128'}),
+()=>({q:'2³ × 3³ = (2×3)^? → Ergebnis?',a:216,hint:'(2×3)³ = 6³ = 216'}),
+()=>({q:'2³ × 2² × 2¹ = 2^? (Exponent)',a:6,hint:'3+2+1=6'}),
+]},
+2:{
+easy:[
+()=>({q:'2⁵ ÷ 2² = 2^? (nur Exponent)',a:3,hint:'5−2=3 → Exponenten subtrahieren!'}),
+()=>({q:'3⁶ ÷ 3³ = 3^? (nur Exponent)',a:3,hint:'6−3=3'}),
+()=>({q:'5⁴ ÷ 5² = 5^? (nur Exponent)',a:2,hint:'4−2=2'}),
+()=>({q:'a⁸ ÷ a⁵ = a^? (nur Exponent)',a:3,hint:'8−5=3'}),
+()=>({q:'x⁷ ÷ x⁴ = x^? (nur Exponent)',a:3,hint:'7−4=3'}),
+()=>({q:'2⁴ ÷ 2¹ = 2^? (nur Exponent)',a:3,hint:'4−1=3'}),
+],
+med:[
+()=>({q:'2⁵ ÷ 2² = ? (Ergebnis)',a:8,hint:'2³ = 8'}),
+()=>({q:'3⁴ ÷ 3² = ? (Ergebnis)',a:9,hint:'3² = 9'}),
+()=>({q:'2⁶ ÷ 2² = ? (Ergebnis)',a:16,hint:'2⁴ = 16'}),
+()=>({q:'5³ ÷ 5¹ = ? (Ergebnis)',a:25,hint:'5² = 25'}),
+()=>({q:'3³ ÷ 3¹ = ? (Ergebnis)',a:9,hint:'3² = 9'}),
+()=>({q:'2⁷ ÷ 2⁴ = ? (Ergebnis)',a:8,hint:'2³ = 8'}),
+],
+hard:[
+()=>({q:'a⁰ = ? (für jedes a≠0)',a:1,hint:'aⁿ÷aⁿ=a⁰=1 immer!'}),
+()=>({q:'2⁻² = 1/? (Nenner)',a:4,hint:'1/2² = 1/4 → Nenner 4'}),
+()=>({q:'3⁻¹ = 1/? (Nenner)',a:3,hint:'1/3¹ = 1/3 → Nenner 3'}),
+()=>({q:'2³ ÷ 2⁵ = 2^? (Exponent, kann negativ sein)',a:-2,hint:'3−5=−2 → 2⁻²'}),
+]},
+3:{
+easy:[
+()=>({q:'(2³)² = 2^? (nur Exponent)',a:6,hint:'3×2=6 → Exponenten multiplizieren!'}),
+()=>({q:'(3²)³ = 3^? (nur Exponent)',a:6,hint:'2×3=6'}),
+()=>({q:'(5²)² = 5^? (nur Exponent)',a:4,hint:'2×2=4'}),
+()=>({q:'(a⁴)² = a^? (nur Exponent)',a:8,hint:'4×2=8'}),
+()=>({q:'(x³)³ = x^? (nur Exponent)',a:9,hint:'3×3=9'}),
+()=>({q:'(2¹)⁵ = 2^? (nur Exponent)',a:5,hint:'1×5=5'}),
+],
+med:[
+()=>({q:'(2³)² = ? (Ergebnis)',a:64,hint:'2⁶ = 64'}),
+()=>({q:'(2²)³ = ? (Ergebnis)',a:64,hint:'2⁶ = 64'}),
+()=>({q:'(3²)² = ? (Ergebnis)',a:81,hint:'3⁴ = 81'}),
+()=>({q:'(2²)² = ? (Ergebnis)',a:16,hint:'2⁴ = 16'}),
+()=>({q:'(5²)¹ = ? (Ergebnis)',a:25,hint:'5² = 25'}),
+()=>({q:'(3¹)⁴ = ? (Ergebnis)',a:81,hint:'3⁴ = 81'}),
+],
+hard:[
+()=>({q:'(5²)³ ÷ 5⁴ = 5^? (Exponent)',a:2,hint:'5⁶ ÷ 5⁴ = 5²'}),
+()=>({q:'(2³)² × 2¹ = 2^? (Exponent)',a:7,hint:'2⁶ × 2¹ = 2⁷'}),
+()=>({q:'(2²)³ ÷ (2³)¹ = 2^? (Exponent)',a:3,hint:'2⁶ ÷ 2³ = 2³'}),
+()=>({q:'(3²)³ = ? (Ergebnis)',a:729,hint:'3⁶ = 729'}),
+()=>({q:'2³ × (2²)² = 2^? (Exponent)',a:7,hint:'2³ × 2⁴ = 2⁷'}),
+]},
+4:{
+easy:[
+()=>({q:'3² × 3³ = ? (Ergebnis)',a:243,hint:'3⁵ = 243'}),
+()=>({q:'2⁸ ÷ 2³ = ? (Ergebnis)',a:32,hint:'2⁵ = 32'}),
+()=>({q:'(-2)⁴ = ?',a:16,hint:'Gerade → positiv! 2⁴=16'}),
+()=>({q:'(-3)³ = ?',a:-27,hint:'Ungerade → negativ! -27'}),
+()=>({q:'7⁰ = ?',a:1,hint:'Alles hoch 0 = 1'}),
+()=>({q:'(3²)⁰ = ?',a:1,hint:'Alles hoch 0 = 1'}),
+],
+med:[
+()=>({q:'(4²)³ = 4^? (Exponent)',a:6,hint:'2×3=6'}),
+()=>({q:'2³ × 2⁵ = ? (Ergebnis)',a:256,hint:'2⁸ = 256'}),
+()=>({q:'(2³)² ÷ 2³ = ? (Ergebnis)',a:8,hint:'2⁶÷2³=2³=8'}),
+()=>({q:'5² × 5⁰ = ? (Ergebnis)',a:25,hint:'5²×1=25'}),
+()=>({q:'(-2)² × (-2)³ = ? (Ergebnis)',a:-32,hint:'4×(−8)=−32 oder (−2)⁵=−32'}),
+],
+hard:[
+()=>({q:'2³ × 4² = 2^? (Tipp: 4=2²)',a:7,hint:'4²=(2²)²=2⁴ → 2³×2⁴=2⁷'}),
+()=>({q:'9³ ÷ 3² = 3^? (Tipp: 9=3²)',a:4,hint:'9³=(3²)³=3⁶ → 3⁶÷3²=3⁴'}),
+()=>({q:'(2³×2²)² = ? (Ergebnis)',a:1024,hint:'(2⁵)²=2¹⁰=1024'}),
+()=>({q:'8² = 2^? (Tipp: 8=2³)',a:6,hint:'(2³)²=2⁶'}),
+()=>({q:'2³ × 4² = ? (Ergebnis)',a:128,hint:'2⁷=128'}),
+]},
 };
 
 function getQs(l,topic,d){
@@ -1202,7 +1409,69 @@ async function sendSicks(){
 
   try{
     // Mathe-Kontext immer dazuschreiben damit Sicks weiß worum es geht
-    const mathMsg='[Klasse 9 Mathe] '+msg;
+    const SICKS_CTX=`Du bist Sicks, der beste Mathe-Erklärer der Welt — viel besser als jeder Lehrer. Du erklärst IMMER:
+1. Die REGEL zuerst (kurz und knackig)
+2. WARUM sie funktioniert (Beweis/Intuition)
+3. Ein BEISPIEL Schritt für Schritt
+4. Einen TRICK um es zu merken
+
+DU KENNST DIESE AUFGABEN AUSWENDIG:
+
+=== POTENZEN ===
+DEFINITION: aⁿ = a×a×...×a (n-mal). Basis=a, Exponent=n.
+SONDERFÄLLE: a⁰=1 immer (außer 0⁰), a¹=a, 1ⁿ=1
+VORZEICHEN: (-a) gerade Exp → positiv, (-a) ungerade Exp → negativ
+ACHTUNG: -3²=-(3²)=-9 aber (-3)²=+9 (Klammern!)
+AUSWENDIG: 2¹=2, 2²=4, 2³=8, 2⁴=16, 2⁵=32, 2⁶=64, 2⁷=128, 2⁸=256, 3²=9, 3³=27, 3⁴=81, 4²=16, 4³=64, 5²=25, 5³=125, 10²=100, 10³=1000
+
+GESETZ 1 (Mult.): aⁿ × aᵐ = aⁿ⁺ᵐ (Basis gleich → Exponenten addieren)
+  Warum: 2³×2²=(2×2×2)×(2×2)=2⁵ ✓
+  Vorsicht: 2³×3² → NICHT möglich (verschiedene Basis!)
+  Bonus: aⁿ×bⁿ=(a×b)ⁿ (gleicher Exponent, verschiedene Basis)
+
+GESETZ 2 (Div.): aⁿ÷aᵐ = aⁿ⁻ᵐ (Basis gleich → Exponenten subtrahieren)
+  Warum: 2⁵÷2³ = (2×2×2×2×2)/(2×2×2) → 2 übrig → 2² ✓
+  BEWEIS a⁰=1: a³÷a³=a⁰ aber auch a³/a³=1 → a⁰=1 MUSS sein!
+  NEGATIV: aⁿ÷aᵐ wenn n<m → negativer Exponent → a⁻ⁿ=1/aⁿ
+
+GESETZ 3 (Potenz hoch Potenz): (aⁿ)ᵐ = aⁿˣᵐ (Exponenten multiplizieren)
+  Warum: (2³)²=2³×2³=2⁶ ✓
+  TRICK zum Unterscheiden: × → +, ÷ → -, ()ᵐ → ×
+
+KNIFFLIGE AUFGABEN:
+  2³×4²: Umschreiben! 4=2² → 4²=(2²)²=2⁴ → 2³×2⁴=2⁷=128
+  9³÷3²: 9=3² → 9³=(3²)³=3⁶ → 3⁶÷3²=3⁴=81
+  8²: 8=2³ → (2³)²=2⁶=64
+
+=== WAHRSCHEINLICHKEIT ===
+BAUMDIAGRAMM: Zeigt alle Möglichkeiten. Pfadregel(×) + Summenregel(+). Probe: alle Pfade = 1.
+
+KARTEN K,E,O,A (4 Karten, ohne Zurücklegen):
+  P("OK") = 1/4 × 1/3 = 1/12 ≈ 8,3%
+  Alle Paare: 4×3=12. 30 Schüler → 30/12=2,5 → 3 Kaugummis
+  Paare mit K: KE,KO,KA,EK,OK,AK → 6 Stück
+
+KUGELN 5W+5S (ohne Zurücklegen):
+  P(WW): 5/10 × 4/9 = 20/90 = 2/9
+  P(SS): 5/10 × 4/9 = 20/90 = 2/9
+  P(gleichfarb.) = 40/90 = 4/9 ≈ 44%
+
+KUGELN 4O+8W=12 (MIT vs OHNE Zurücklegen):
+  MIT: P(OO) = 4/12 × 4/12 = 16/144 = 1/9
+  OHNE: P(OO) = 4/12 × 3/11 = 12/132 = 1/11
+
+WÜRFEL 3× (S.49):
+  a) alle drei 1: 1/216 ≈ 0,46%
+  b) keinmal 1: (5/6)³=125/216 ≈ 57,9%
+  c) genau 1×: 3×(1/6)×(5/6)²=75/216 ≈ 34,7%
+  d) genau 2×: 3×(1/6)²×(5/6)=15/216 ≈ 6,9%
+  Probe: 1+125+75+15=216 ✓
+
+MÜNZWURF 2×: 4 Ergebnisse: KK,KZ,ZK,ZZ. P(KK)=1/4. P(mind.1K)=3/4.
+
+${st.name?'Schüler: '+st.name+'. ':''}
+STIL: Erkläre wie ein cooler älterer Bruder — direkt, witzig, mit Emojis. Max 3 Schritte. Keine langen Aufsätze. IMMER ein Beispiel. Nur Mathe-Fragen!`;
+    const mathMsg=SICKS_CTX+'\n\nFRAGE: '+msg;
     const res=await fetch(SINGH_API+'/client/chat',{
       method:'POST',
       headers:{'Content-Type':'application/json'},
@@ -1226,7 +1495,7 @@ async function sendSicks(){
     if(data.error){
       appendSicks('ai','❌ Fehler: '+data.error);
     }else{
-      const reply=(data.response||'').replace(/\[Klasse 9 Mathe\]/g,'').trim()||'Ups, leere Antwort!';
+      const reply=(data.response||'').replace(/FRAGE:.*/s,'').trim()||'Ups, leere Antwort!';
       sicksHistory.push({u:msg,a:reply});
       if(sicksHistory.length>8)sicksHistory.splice(0,sicksHistory.length-8);
       appendSicks('ai',reply);
