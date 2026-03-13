@@ -339,10 +339,10 @@ sup{font-size:.6em;vertical-align:super;font-weight:900}
     <div id="lessonPicker">
       <!-- Topic switcher -->
       <div class="topic-bar">
-        <button class="topic-btn active" id="topic-wahr" onclick="switchTopic('wahr',this)">🎯 Wahrscheinlichkeit</button>
-        <button class="topic-btn" id="topic-pot" onclick="switchTopic('pot',this)">⚡ Potenzen</button>
+        <button class="topic-btn active" id="topic-pot" onclick="switchTopic('pot',this)">⚡ Potenzen</button>
+        <button class="topic-btn" id="topic-wahr" onclick="switchTopic('wahr',this)">🎯 Wahrscheinlichkeit</button>
       </div>
-      <div id="picker-wahr">
+      <div id="picker-wahr" style="display:none">
         <div class="hero c-purple" style="margin-bottom:14px">
           <div class="hero-tag">Wahrscheinlichkeit · Klasse 9</div>
           <h2>Was möchtest du lernen?</h2>
@@ -351,7 +351,7 @@ sup{font-size:.6em;vertical-align:super;font-weight:900}
         </div>
         <div class="lesson-grid" id="lessonGrid"></div>
       </div>
-      <div id="picker-pot" style="display:none">
+      <div id="picker-pot">
         <div class="hero c-lime" style="margin-bottom:14px">
           <div class="hero-tag">Potenzen · Klasse 9</div>
           <h2>Potenzen meistern 🔢</h2>
@@ -438,12 +438,7 @@ sup{font-size:.6em;vertical-align:super;font-weight:900}
     <button class="sicks-close" onclick="toggleSicks()">✕</button>
   </div>
   <div class="sicks-msgs" id="sicksMsgs"></div>
-  <!-- API key prompt -->
-  <div class="sicks-apikey-prompt" id="sicksApiPrompt" style="display:none">
-    <input class="sicks-apikey-input" id="sicksApiInput" type="password" placeholder="Anthropic API Key eingeben (sk-ant-...)">
-    <button class="sicks-apikey-btn" onclick="confirmApiKey()">🔑 Aktivieren</button>
-    <div class="api-note">API Key wird nur lokal gespeichert.<br>Hol dir einen auf: console.anthropic.com</div>
-  </div>
+  <!-- no login needed -->
   <!-- name prompt shown when name unknown -->
   <div class="sicks-name-prompt" id="sicksNamePrompt" style="display:none">
     <input class="sicks-name-input" id="sicksNameInput" placeholder="Deinen Namen eingeben..." maxlength="20" onkeypress="if(event.key==='Enter')confirmSicksName()">
@@ -471,7 +466,7 @@ function saveSt(){try{localStorage.setItem(STORE,JSON.stringify(st));}catch(e){}
 let st=loadSt();
 
 // ── TOPIC SWITCHER ──
-let currentTopic='wahr';
+let currentTopic='pot';
 function switchTopic(t,btn){
   currentTopic=t;
   document.querySelectorAll('.topic-btn').forEach(b=>b.classList.remove('active'));
@@ -1076,12 +1071,33 @@ function updateStats(){
 }
 
 // ══════════════════════════════════════
-// SICKS WIDGET — FIXED VERSION
+// SICKS WIDGET — AUTO LOGIN (GAST)
 // ══════════════════════════════════════
+const SINGH_API='https://sicks-madebysamuelsingh.up.railway.app/api';
+// Gast-Account — einmalig im Admin-Panel anlegen:
+// Username: mathe_gast  Passwort: mathe123
+const GUEST_USER='mathe_gast';
+const GUEST_PASS='mathe123';
+
 let sicksOpen=false;
 let sicksHistory=[];
 let sicksWaiting=false;
 let sicksGreeted=false;
+let singhToken=sessionStorage.getItem('mm_tok')||null;
+let singhChatId='mm_'+Date.now();
+
+// Auto-login beim Seitenstart im Hintergrund
+(async function autoLogin(){
+  if(singhToken)return;
+  try{
+    const r=await fetch(SINGH_API+'/client/login',{
+      method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({username:GUEST_USER,password:GUEST_PASS})
+    });
+    const d=await r.json();
+    if(d.success){singhToken=d.token;sessionStorage.setItem('mm_tok',d.token);}
+  }catch(e){console.log('Sicks auto-login failed:',e);}
+})();
 
 function toggleSicks(){
   sicksOpen=!sicksOpen;
@@ -1094,36 +1110,18 @@ function toggleSicks(){
         appendSicks('ai','Hey! 👋 Ich bin **Sicks**, dein Mathe-Assistent.\n\nWie soll ich dich nennen?');
         document.getElementById('sicksNamePrompt').style.display='block';
         document.getElementById('sicksInputRow').style.display='none';
-        document.getElementById('sicksApiPrompt').style.display='none';
         setTimeout(()=>document.getElementById('sicksNameInput').focus(),100);
-      } else if(!st.apiKey){
-        showApiPrompt();
-      } else {
-        appendSicks('ai','Hey **'+st.name+'**! 👋 Ich bin **Sicks**.\n\nBei welcher Mathe-Aufgabe kann ich dir helfen? Potenzen oder Wahrscheinlichkeit? 🧮');
-        document.getElementById('sicksInputRow').style.display='flex';
-        setTimeout(()=>document.getElementById('sicksInput').focus(),100);
+      }else{
+        openSicksChat();
       }
     },250);
   }
 }
 
-function showApiPrompt(){
-  appendSicks('ai','Hey **'+st.name+'**! 👋 Ich bin **Sicks**.\n\nUm zu chatten brauche ich einen **Anthropic API Key** 🔑\n\nHol dir einen kostenlos auf: `console.anthropic.com`\nDann eingeben unten 👇');
-  document.getElementById('sicksApiPrompt').style.display='block';
-  document.getElementById('sicksInputRow').style.display='none';
+function openSicksChat(){
   document.getElementById('sicksNamePrompt').style.display='none';
-}
-
-function confirmApiKey(){
-  const k=document.getElementById('sicksApiInput').value.trim();
-  if(!k||!k.startsWith('sk-')){
-    document.getElementById('sicksApiInput').style.borderColor='var(--r)';
-    return;
-  }
-  st.apiKey=k;saveSt();
-  document.getElementById('sicksApiPrompt').style.display='none';
   document.getElementById('sicksInputRow').style.display='flex';
-  appendSicks('ai','🎉 Super! API Key gespeichert!\n\nJetzt kann ich dir richtig helfen. Was willst du wissen? 🧮');
+  appendSicks('ai','Hey **'+st.name+'**! 👋\n\nStell mir deine Mathe-Frage!\n🔢 Potenzen · 🌳 Baumdiagramme · 📐 Alles andere?');
   setTimeout(()=>document.getElementById('sicksInput').focus(),100);
 }
 
@@ -1135,15 +1133,7 @@ function confirmSicksName(){
   showGreeting();buildLessonGrid();buildPotGrid();updateStats();
   document.getElementById('sicksNamePrompt').style.display='none';
   appendSicks('user',name);
-  setTimeout(()=>{
-    if(!st.apiKey){
-      showApiPrompt();
-    } else {
-      appendSicks('ai','Schön dich kennenzulernen, **'+name+'**! 🎉\n\nIch bin **Sicks** — dein Mathe-Assistent für Klasse 9.\nFrag mich alles über Potenzen, Baumdiagramme und mehr! 🧮');
-      document.getElementById('sicksInputRow').style.display='flex';
-      document.getElementById('sicksInput').focus();
-    }
-  },300);
+  setTimeout(openSicksChat,200);
 }
 
 function appendSicks(role,text){
@@ -1172,7 +1162,6 @@ function appendSicksTyping(){
 
 async function sendSicks(){
   if(sicksWaiting)return;
-  if(!st.apiKey){showApiPrompt();return;}
   const inp=document.getElementById('sicksInput');
   const msg=inp.value.trim();
   if(!msg)return;
@@ -1181,54 +1170,83 @@ async function sendSicks(){
   btn.disabled=true;sicksWaiting=true;
   appendSicks('user',msg);
   appendSicksTyping();
+
+  // Falls Token noch nicht da — nochmal einloggen
+  if(!singhToken){
+    try{
+      const r=await fetch(SINGH_API+'/client/login',{
+        method:'POST',headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({username:GUEST_USER,password:GUEST_PASS})
+      });
+      const d=await r.json();
+      if(d.success){singhToken=d.token;sessionStorage.setItem('mm_tok',d.token);}
+    }catch(e){}
+  }
+
+  if(!singhToken){
+    document.getElementById('sicks-typing')?.remove();
+    appendSicks('ai','❌ Server nicht erreichbar. Bitte später nochmal versuchen! 🔧');
+    sicksWaiting=false;btn.disabled=false;return;
+  }
+
   try{
-    const sys=`Du bist Sicks, ein freundlicher Mathe-Lernassistent für Schüler der Klasse 9.
-Du wurdest von einem cleveren Schüler selbst für sein Mathe-Lernprogramm gebaut.
-${st.name?'Der Schüler heißt '+st.name+'.':''}
-Wenn jemand fragt "Wer hat dich gemacht?": Antworte "Ich wurde von einem cleveren Schüler für den Unterricht gebaut 🙂"
-Du hilfst bei Mathe-Fragen, besonders:
-- Potenzen und Potenzgesetze (aⁿ×aᵐ=aⁿ⁺ᵐ, aⁿ÷aᵐ=aⁿ⁻ᵐ, (aⁿ)ᵐ=aⁿˣᵐ, a⁰=1)
-- Baumdiagramme, mehrstufige Zufallsversuche
-- Pfadregel (×) und Summenregel (+)
-- Mit/Ohne Zurücklegen
-- Wahrscheinlichkeit Klasse 9
-Erkläre immer sehr einfach mit Schritt-für-Schritt Beispielen.
-Bei Nicht-Mathe-Fragen: freundlich sagen dass du nur für Mathe da bist.
-Antworte immer auf Deutsch. Kurz, klar, motivierend. Nutze Emojis. Maximal 150 Wörter.`;
-    const messages=[
-      ...sicksHistory.map(h=>[{role:'user',content:h.u},{role:'assistant',content:h.a}]).flat(),
-      {role:'user',content:msg}
-    ];
-    const res=await fetch('https://api.anthropic.com/v1/messages',{
+    // Mathe-Kontext immer dazuschreiben damit Sicks weiß worum es geht
+    const mathMsg='[Klasse 9 Mathe] '+msg;
+    const res=await fetch(SINGH_API+'/client/chat',{
       method:'POST',
-      headers:{
-        'Content-Type':'application/json',
-        'x-api-key':st.apiKey,
-        'anthropic-version':'2023-06-01',
-        'anthropic-dangerous-direct-browser-access':'true'
-      },
-      body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:500,system:sys,messages})
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({
+        token:singhToken,
+        message:mathMsg,
+        chat_id:singhChatId,
+        history:sicksHistory.map(h=>({user:h.u,assistant:h.a}))
+      })
     });
     const data=await res.json();
     document.getElementById('sicks-typing')?.remove();
+
+    if(data.error==='LIMIT'){
+      // Token abgelaufen oder Limit — neu einloggen
+      singhToken=null;sessionStorage.removeItem('mm_tok');
+      appendSicks('ai','⏳ Kurze Pause, gleich wieder da...');
+      setTimeout(()=>sendSicksRetry(msg),1500);
+      sicksWaiting=false;btn.disabled=false;return;
+    }
     if(data.error){
-      const errMsg=data.error.type==='authentication_error'?
-        '🔑 API Key ungültig! Bitte prüfen und neu eingeben.':
-        'Fehler: '+data.error.message;
-      appendSicks('ai',errMsg);
-      if(data.error.type==='authentication_error'){st.apiKey='';saveSt();}
+      appendSicks('ai','❌ Fehler: '+data.error);
     }else{
-      const reply=data.content?.[0]?.text||'Ups, leere Antwort. Versuch nochmal!';
+      const reply=(data.response||'').replace(/\[Klasse 9 Mathe\]/g,'').trim()||'Ups, leere Antwort!';
       sicksHistory.push({u:msg,a:reply});
       if(sicksHistory.length>8)sicksHistory.splice(0,sicksHistory.length-8);
       appendSicks('ai',reply);
     }
   }catch(e){
     document.getElementById('sicks-typing')?.remove();
-    appendSicks('ai','Verbindungsfehler! Bitte prüfe deine Internetverbindung. 🔧\n\nFehler: '+e.message);
+    appendSicks('ai','❌ Server nicht erreichbar. Verbindung prüfen! 🔧');
   }
   sicksWaiting=false;btn.disabled=false;
   document.getElementById('sicksInput').focus();
+}
+
+async function sendSicksRetry(msg){
+  // Neuer Chat nach Reset
+  singhChatId='mm_'+Date.now();
+  sicksHistory=[];
+  try{
+    const r=await fetch(SINGH_API+'/client/login',{
+      method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({username:GUEST_USER,password:GUEST_PASS})
+    });
+    const d=await r.json();
+    if(d.success){
+      singhToken=d.token;sessionStorage.setItem('mm_tok',d.token);
+      // Nochmal schicken
+      document.getElementById('sicksInput').value=msg;
+      sendSicks();
+    }
+  }catch(e){
+    appendSicks('ai','❌ Server nicht erreichbar. 🔧');
+  }
 }
 
 // ── TOAST ──
