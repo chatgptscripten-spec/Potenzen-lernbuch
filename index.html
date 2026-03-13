@@ -306,9 +306,17 @@ sup{font-size:.6em;vertical-align:super;font-weight:900}
   <div class="wc-box">
     <div class="wc-logo">🧮</div>
     <div class="wc-title">Mathe Meister</div>
-    <div class="wc-sub">Dein Mathe-Lernassistent für Klasse 9.<br>Wie soll ich dich nennen?</div>
-    <input class="wc-input" id="nameInput" placeholder="Dein Name..." maxlength="20" onkeypress="if(event.key==='Enter')startApp()">
-    <button class="wc-btn" onclick="startApp()">Los geht's! 🚀</button>
+    <div id="wcStep1">
+      <div class="wc-sub">Gib deinen persönlichen Code ein.<br>Damit wird dein Fortschritt gespeichert — auf jedem Gerät! 💾</div>
+      <input class="wc-input" id="codeInput" placeholder="Dein Code (z.B. SINGH-XXXX)" maxlength="30" style="font-family:'JetBrains Mono',monospace;letter-spacing:.04em" onkeypress="if(event.key==='Enter')wcCheckCode()">
+      <div id="wcCodeErr" style="font-size:12px;color:var(--r);margin-bottom:8px;min-height:16px;text-align:left"></div>
+      <button class="wc-btn" onclick="wcCheckCode()">Weiter →</button>
+    </div>
+    <div id="wcStep2" style="display:none">
+      <div class="wc-sub" id="wcStep2Sub">Willkommen! Wie soll ich dich nennen?</div>
+      <input class="wc-input" id="nameInput" placeholder="Dein Name..." maxlength="20" onkeypress="if(event.key==='Enter')startApp()">
+      <button class="wc-btn" onclick="startApp()">Los geht's! 🚀</button>
+    </div>
   </div>
 </div>
 
@@ -319,6 +327,7 @@ sup{font-size:.6em;vertical-align:super;font-weight:900}
     <div class="stat">🏆 <span class="stat-v" id="pts">0</span></div>
     <div class="stat">✅ <span class="stat-v" id="qCount">0</span> Quiz</div>
     <div class="greeting-badge" id="greet"></div>
+    <button onclick="switchCode()" style="padding:4px 11px;background:rgba(124,92,252,.08);border:1px solid rgba(124,92,252,.2);border-radius:20px;color:var(--muted);font-size:11px;font-weight:700;cursor:pointer;font-family:'Nunito',sans-serif" title="Code wechseln">🔑 <span id="activeCodeDisplay"></span></button>
   </div>
 </header>
 <div class="prog-outer">
@@ -438,13 +447,16 @@ sup{font-size:.6em;vertical-align:super;font-weight:900}
     <button class="sicks-close" onclick="toggleSicks()">✕</button>
   </div>
   <div class="sicks-msgs" id="sicksMsgs"></div>
-  <!-- no login needed -->
-  <!-- name prompt shown when name unknown -->
-  <div class="sicks-name-prompt" id="sicksNamePrompt" style="display:none">
-    <input class="sicks-name-input" id="sicksNameInput" placeholder="Deinen Namen eingeben..." maxlength="20" onkeypress="if(event.key==='Enter')confirmSicksName()">
-    <button class="sicks-name-btn" onclick="confirmSicksName()">Bestätigen ✓</button>
+  <div class="sicks-code-prompt" id="sicksCodePrompt" style="display:none">
+    <div style="font-size:11px;color:var(--text2);margin-bottom:8px;font-weight:700;text-align:center">🔑 Gib deinen Sicks-Code ein</div>
+    <input class="sicks-name-input" id="sicksCodeInput" placeholder="Lizenzcode (z.B. SINGH-XXXX)" maxlength="30" style="letter-spacing:.05em;font-family:'JetBrains Mono',monospace;font-size:12px" onkeypress="if(event.key==='Enter')submitSicksCode()">
+    <button class="sicks-name-btn" onclick="submitSicksCode()">Aktivieren 🚀</button>
+    <div id="sicksCodeErr" style="font-size:11px;color:var(--r);text-align:center;margin-top:5px;min-height:14px"></div>
   </div>
-  <!-- normal chat input -->
+  <div class="sicks-name-prompt" id="sicksNamePrompt" style="display:none">
+    <input class="sicks-name-input" id="sicksNameInput" placeholder="Wie heißt du?" maxlength="20" onkeypress="if(event.key==='Enter')confirmSicksName()">
+    <button class="sicks-name-btn" onclick="confirmSicksName()">Los geht's ✓</button>
+  </div>
   <div class="sicks-input-row" id="sicksInputRow" style="display:none">
     <textarea class="sicks-input" id="sicksInput" placeholder="Mathe-Frage stellen..." rows="1"
       onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendSicks()}"
@@ -459,11 +471,34 @@ sup{font-size:.6em;vertical-align:super;font-weight:900}
 // ══════════════════════════════════════
 // STATE
 // ══════════════════════════════════════
-const STORE='mathemeister_v4';
-function defSt(){return{name:'',apiKey:'',unlocked:{0:true,1:false,2:false,3:false,4:false,5:false,6:false},unlockedPot:{0:true,1:false,2:false,3:false,4:false},completed:{},completedPot:{},points:0,qCorrect:0};}
-function loadSt(){try{const r=localStorage.getItem(STORE);if(r)return Object.assign(defSt(),JSON.parse(r));}catch(e){}return defSt();}
-function saveSt(){try{localStorage.setItem(STORE,JSON.stringify(st));}catch(e){}}
-let st=loadSt();
+const STORE_PREFIX='mm_save_';
+function defSt(){return{name:'',code:'',unlocked:{0:true,1:false,2:false,3:false,4:false,5:false,6:false},unlockedPot:{0:true,1:false,2:false,3:false,4:false},completed:{},completedPot:{},points:0,qCorrect:0};}
+function storeKey(code){return STORE_PREFIX+(code||'').toUpperCase();}
+function loadSt(code){try{const r=localStorage.getItem(storeKey(code));if(r)return Object.assign(defSt(),JSON.parse(r));}catch(e){}return defSt();}
+function saveSt(){try{localStorage.setItem(storeKey(st.code),JSON.stringify(st));}catch(e){}}
+let activeCode=localStorage.getItem('mm_active_code')||'';
+let st=activeCode?loadSt(activeCode):defSt();
+
+function wcCheckCode(){
+  const inp=document.getElementById('codeInput');
+  const err=document.getElementById('wcCodeErr');
+  const code=inp.value.trim().toUpperCase();
+  if(!code){err.textContent='Bitte Code eingeben!';return;}
+  activeCode=code;
+  const saved=loadSt(code);
+  if(saved.name){
+    st=saved;
+    localStorage.setItem('mm_active_code',code);
+    document.getElementById('welcome').classList.add('hidden');
+    showGreeting();buildLessonGrid();buildPotGrid();updateStats();
+  } else {
+    st=saved;st.code=code;
+    document.getElementById('wcStep1').style.display='none';
+    document.getElementById('wcStep2').style.display='block';
+    document.getElementById('wcStep2Sub').textContent='Code aktiviert ✅ Wie soll ich dich nennen?';
+    setTimeout(()=>document.getElementById('nameInput').focus(),100);
+  }
+}
 
 // ── TOPIC SWITCHER ──
 let currentTopic='pot';
@@ -498,7 +533,8 @@ const POT_LESSONS=[
 function startApp(){
   const n=document.getElementById('nameInput').value.trim();
   if(!n){document.getElementById('nameInput').focus();return;}
-  st.name=n;saveSt();
+  st.name=n;st.code=activeCode;saveSt();
+  localStorage.setItem('mm_active_code',activeCode);
   document.getElementById('welcome').classList.add('hidden');
   showGreeting();buildLessonGrid();buildPotGrid();updateStats();
 }
@@ -506,6 +542,18 @@ function showGreeting(){
   if(!st.name)return;
   const g=document.getElementById('greet');
   g.textContent='Hi '+st.name+' 👋';g.style.display='block';
+  const cd=document.getElementById('activeCodeDisplay');
+  if(cd)cd.textContent=activeCode;
+}
+function switchCode(){
+  if(!confirm('Code wechseln? Dein aktueller Fortschritt bleibt gespeichert.'))return;
+  activeCode='';
+  document.getElementById('welcome').classList.remove('hidden');
+  document.getElementById('wcStep1').style.display='block';
+  document.getElementById('wcStep2').style.display='none';
+  document.getElementById('codeInput').value='';
+  document.getElementById('wcCodeErr').textContent='';
+  setTimeout(()=>document.getElementById('codeInput').focus(),100);
 }
 function buildLessonGrid(){
   document.getElementById('lessonGrid').innerHTML=LESSONS.map(l=>{
@@ -1277,45 +1325,19 @@ function updateStats(){
   document.getElementById('progFill').style.width=((doneW+doneP)/12*100)+'%';
 }
 
-// ══════════════════════════════════════
-// SICKS WIDGET — AUTO REGISTER + LOGIN
-// ══════════════════════════════════════
 const SINGH_API='https://sicks-madebysamuelsingh.up.railway.app/api';
-const GUEST_CODE='SINGH-E41169C2';
-const GUEST_USER='mathe_gast_01';
-const GUEST_PASS='mm_gast_2026!';
-
 let sicksOpen=false;
 let sicksHistory=[];
 let sicksWaiting=false;
 let sicksGreeted=false;
-let singhToken=sessionStorage.getItem('mm_tok')||null;
+let singhToken=localStorage.getItem('mm_tok')||null;
 let singhChatId='mm_'+Date.now();
 
-// Beim Start: einloggen oder registrieren
-(async function initSinghSession(){
-  if(singhToken)return;
-  try{
-    // Erst einloggen versuchen
-    const r=await fetch(SINGH_API+'/client/login',{
-      method:'POST',headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({username:GUEST_USER,password:GUEST_PASS})
-    });
-    const d=await r.json();
-    if(d.success){
-      singhToken=d.token;sessionStorage.setItem('mm_tok',d.token);return;
-    }
-    // Falls noch nicht registriert → einmalig registrieren mit dem Lizenzcode
-    const r2=await fetch(SINGH_API+'/client/register',{
-      method:'POST',headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({code:GUEST_CODE,username:GUEST_USER,password:GUEST_PASS})
-    });
-    const d2=await r2.json();
-    if(d2.success){
-      singhToken=d2.token;sessionStorage.setItem('mm_tok',d2.token);
-    }
-  }catch(e){console.log('Sicks init:',e);}
-})();
+function showSicksPane(id){
+  ['sicksCodePrompt','sicksNamePrompt','sicksInputRow'].forEach(p=>{
+    document.getElementById(p).style.display=p===id?(id==='sicksInputRow'?'flex':'block'):'none';
+  });
+}
 
 function toggleSicks(){
   sicksOpen=!sicksOpen;
@@ -1324,21 +1346,69 @@ function toggleSicks(){
     sicksGreeted=true;
     document.querySelector('.sicks-btn .notif')?.remove();
     setTimeout(()=>{
-      if(!st.name){
-        appendSicks('ai','Hey! 👋 Ich bin **Sicks**, dein Mathe-Assistent.\n\nWie soll ich dich nennen?');
-        document.getElementById('sicksNamePrompt').style.display='block';
-        document.getElementById('sicksInputRow').style.display='none';
+      if(!singhToken){
+        appendSicks('ai','Hey! 👋 Ich bin **Sicks**!\n\nGib deinen **Sicks-Code** ein und leg sofort los! 🚀');
+        showSicksPane('sicksCodePrompt');
+        setTimeout(()=>document.getElementById('sicksCodeInput').focus(),100);
+      } else if(!st.name){
+        appendSicks('ai','Hey! 👋 Wie soll ich dich nennen?');
+        showSicksPane('sicksNamePrompt');
         setTimeout(()=>document.getElementById('sicksNameInput').focus(),100);
-      }else{
+      } else {
         openSicksChat();
       }
     },250);
   }
 }
 
+async function submitSicksCode(){
+  const inp=document.getElementById('sicksCodeInput');
+  const err=document.getElementById('sicksCodeErr');
+  const code=inp.value.trim().toUpperCase();
+  if(!code){err.textContent='Bitte Code eingeben!';return;}
+  if(!code.startsWith('SINGH-')){err.textContent='❌ Ungültiges Format (SINGH-XXXX)';return;}
+  err.textContent='⏳ Wird aktiviert...';
+  const user='mm_'+code.replace('SINGH-','').toLowerCase();
+  const pass='sicks_'+code+'_2026';
+  try{
+    const r=await fetch(SINGH_API+'/client/login',{
+      method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({username:user,password:pass})
+    });
+    const d=await r.json();
+    if(d.success){
+      singhToken=d.token;localStorage.setItem('mm_tok',d.token);
+      localStorage.setItem('mm_usr',user);localStorage.setItem('mm_pw',pass);
+      err.textContent='';
+      appendSicks('user',code);
+      appendSicks('ai','✅ **Code aktiviert!** Wie soll ich dich nennen?');
+      showSicksPane('sicksNamePrompt');
+      setTimeout(()=>document.getElementById('sicksNameInput').focus(),100);
+      return;
+    }
+    const r2=await fetch(SINGH_API+'/client/register',{
+      method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({code:code,username:user,password:pass})
+    });
+    const d2=await r2.json();
+    if(d2.success){
+      singhToken=d2.token;localStorage.setItem('mm_tok',d2.token);
+      localStorage.setItem('mm_usr',user);localStorage.setItem('mm_pw',pass);
+      err.textContent='';
+      appendSicks('user',code);
+      appendSicks('ai','🎉 **Willkommen!** Wie soll ich dich nennen?');
+      showSicksPane('sicksNamePrompt');
+      setTimeout(()=>document.getElementById('sicksNameInput').focus(),100);
+    } else {
+      err.textContent='❌ '+(d2.message||'Ungültiger Code');
+    }
+  }catch(e){
+    err.textContent='❌ Server nicht erreichbar';
+  }
+}
+
 function openSicksChat(){
-  document.getElementById('sicksNamePrompt').style.display='none';
-  document.getElementById('sicksInputRow').style.display='flex';
+  showSicksPane('sicksInputRow');
   appendSicks('ai','Hey **'+st.name+'**! 👋\n\nStell mir deine Mathe-Frage!\n🔢 Potenzen · 🌳 Baumdiagramme · 📐 Alles andere?');
   setTimeout(()=>document.getElementById('sicksInput').focus(),100);
 }
@@ -1349,7 +1419,6 @@ function confirmSicksName(){
   if(!name)return;
   st.name=name;saveSt();
   showGreeting();buildLessonGrid();buildPotGrid();updateStats();
-  document.getElementById('sicksNamePrompt').style.display='none';
   appendSicks('user',name);
   setTimeout(openSicksChat,200);
 }
@@ -1389,21 +1458,21 @@ async function sendSicks(){
   appendSicks('user',msg);
   appendSicksTyping();
 
-  // Falls Token noch nicht da — nochmal einloggen
   if(!singhToken){
-    try{
-      const r=await fetch(SINGH_API+'/client/login',{
-        method:'POST',headers:{'Content-Type':'application/json'},
-        body:JSON.stringify({username:GUEST_USER,password:GUEST_PASS})
-      });
-      const d=await r.json();
-      if(d.success){singhToken=d.token;sessionStorage.setItem('mm_tok',d.token);}
-    }catch(e){}
+    const u=localStorage.getItem('mm_usr'),p=localStorage.getItem('mm_pw');
+    if(u&&p){
+      try{
+        const r=await fetch(SINGH_API+'/client/login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({username:u,password:p})});
+        const d=await r.json();
+        if(d.success){singhToken=d.token;localStorage.setItem('mm_tok',d.token);}
+      }catch(e){}
+    }
   }
 
   if(!singhToken){
     document.getElementById('sicks-typing')?.remove();
-    appendSicks('ai','❌ Server nicht erreichbar. Bitte später nochmal versuchen! 🔧');
+    appendSicks('ai','❌ Bitte zuerst deinen Sicks-Code eingeben! 🔑');
+    showSicksPane('sicksCodePrompt');
     sicksWaiting=false;btn.disabled=false;return;
   }
 
@@ -1485,9 +1554,8 @@ STIL: Erkläre wie ein cooler älterer Bruder — direkt, witzig, mit Emojis. Ma
     const data=await res.json();
     document.getElementById('sicks-typing')?.remove();
 
-    if(data.error==='LIMIT'){
-      // Token abgelaufen oder Limit — neu einloggen
-      singhToken=null;sessionStorage.removeItem('mm_tok');
+    if(data.error==='LIMIT'||data.error==='TOKEN_EXPIRED'){
+      singhToken=null;localStorage.removeItem('mm_tok');
       appendSicks('ai','⏳ Kurze Pause, gleich wieder da...');
       setTimeout(()=>sendSicksRetry(msg),1500);
       sicksWaiting=false;btn.disabled=false;return;
@@ -1509,20 +1577,19 @@ STIL: Erkläre wie ein cooler älterer Bruder — direkt, witzig, mit Emojis. Ma
 }
 
 async function sendSicksRetry(msg){
-  // Neuer Chat nach Reset
   singhChatId='mm_'+Date.now();
   sicksHistory=[];
+  const u=localStorage.getItem('mm_usr'),p=localStorage.getItem('mm_pw');
+  if(!u||!p){appendSicks('ai','❌ Bitte Code neu eingeben! 🔑');showSicksPane('sicksCodePrompt');return;}
   try{
-    const r=await fetch(SINGH_API+'/client/login',{
-      method:'POST',headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({username:GUEST_USER,password:GUEST_PASS})
-    });
+    const r=await fetch(SINGH_API+'/client/login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({username:u,password:p})});
     const d=await r.json();
     if(d.success){
-      singhToken=d.token;sessionStorage.setItem('mm_tok',d.token);
-      // Nochmal schicken
+      singhToken=d.token;localStorage.setItem('mm_tok',d.token);
       document.getElementById('sicksInput').value=msg;
       sendSicks();
+    } else {
+      appendSicks('ai','❌ Sitzung abgelaufen. Bitte Seite neu laden! 🔄');
     }
   }catch(e){
     appendSicks('ai','❌ Server nicht erreichbar. 🔧');
@@ -1537,11 +1604,11 @@ function toast(msg){
 }
 
 // ── INIT ──
-if(st.name){
+if(activeCode&&st.name){
   document.getElementById('welcome').classList.add('hidden');
   showGreeting();buildLessonGrid();buildPotGrid();updateStats();
 }else{
-  setTimeout(()=>document.getElementById('nameInput').focus(),300);
+  setTimeout(()=>document.getElementById('codeInput').focus(),300);
 }
 </script>
 </body>
