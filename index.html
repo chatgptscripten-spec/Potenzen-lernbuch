@@ -44,7 +44,7 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;bac
 .mt:hover{background:var(--s2);color:var(--text);border-color:var(--border2)}
 .mt.on{background:rgba(124,92,252,.14);color:var(--p);border-color:var(--p)}
 
-/* TOPIC PICKER (Wahrscheinlichkeit / Potenzen) */
+/* TOPIC PICKER */
 .topic-bar{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap}
 .topic-btn{flex:1;min-width:140px;padding:14px 16px;border-radius:14px;border:1.5px solid var(--border);background:var(--s1);color:var(--text2);font-size:14px;font-weight:800;cursor:pointer;transition:all .18s;font-family:'Nunito',sans-serif;text-align:center}
 .topic-btn:hover{border-color:var(--border2);color:var(--text);transform:translateY(-2px)}
@@ -91,7 +91,6 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;bac
 .pot-box .exp{font-size:12px;vertical-align:super;color:var(--p2)}
 .pot-box .eq{font-size:12px;color:var(--muted);display:block;margin-top:3px}
 .pot-box .res{font-size:18px;color:var(--g)}
-.pot-arrow{display:flex;align-items:center;justify-content:center;flex-direction:column;gap:4px;padding:8px 0}
 .rule-block{border-radius:12px;padding:14px 16px;margin:8px 0;border:1.5px solid}
 .rule-block.mult{background:rgba(124,92,252,.06);border-color:rgba(124,92,252,.25)}
 .rule-block.div{background:rgba(235,91,158,.06);border-color:rgba(235,91,158,.25)}
@@ -178,16 +177,22 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;bac
 .cbtn:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 8px 28px rgba(124,92,252,.35)}
 .cbtn:disabled{opacity:.3;cursor:not-allowed;transform:none;box-shadow:none}
 
-/* SVG TREES */
-svg.tree line{stroke:rgba(255,255,255,.15);stroke-width:1.5}
-svg.tree circle{fill:#12121f;stroke:#667eea;stroke-width:1.5}
-svg.tree rect{fill:#12121f;stroke:#555580;stroke-width:1}
-svg.tree text.tlabel{fill:#f0f0fc;font-size:11px;font-weight:700;text-anchor:middle;dominant-baseline:middle;font-family:'JetBrains Mono',monospace}
-svg.tree text.tprob{fill:#9090c0;font-size:9px;text-anchor:middle;font-family:'JetBrains Mono',monospace;font-weight:700}
-svg.tree text.tres{fill:#9090c0;font-size:10px;font-family:'Nunito',sans-serif;font-weight:700}
-svg.tree text.tres.hi{fill:#00e5a0}
-svg.tree line.hi{stroke:rgba(0,229,160,.5);stroke-width:2.5}
-.tree-wrap{overflow-x:auto;padding:6px 0;margin:6px 0}
+/* ── VERBESSERTE BAUMDIAGRAMME ── */
+.tree-wrap{overflow-x:auto;padding:10px 0;margin:10px 0;background:var(--s2);border-radius:14px;border:1px solid var(--border)}
+svg.tree{display:block;margin:0 auto}
+svg.tree .branch{stroke:rgba(120,100,255,0.35);stroke-width:1.5;fill:none}
+svg.tree .branch-hi{stroke:rgba(0,229,160,0.6);stroke-width:2.5;fill:none}
+svg.tree .node-circle{fill:#1a1a35;stroke:#7c5cfc;stroke-width:1.5}
+svg.tree .node-circle-hi{fill:#0d2e22;stroke:#00e5a0;stroke-width:2}
+svg.tree .node-rect{fill:#1a1a35;stroke:#444470;stroke-width:1.5;rx:7}
+svg.tree .node-rect-hi{fill:#0d2e22;stroke:#00e5a0;stroke-width:2}
+svg.tree .lbl{fill:#e0e0ff;font-size:12px;font-weight:700;text-anchor:middle;dominant-baseline:middle;font-family:'JetBrains Mono',monospace}
+svg.tree .lbl-hi{fill:#00e5a0}
+svg.tree .prob{fill:#8888bb;font-size:10px;font-weight:700;font-family:'JetBrains Mono',monospace}
+svg.tree .res-lbl{fill:#9090bb;font-size:11px;font-family:'Nunito',monospace;font-weight:700}
+svg.tree .res-lbl-hi{fill:#00e5a0;font-weight:800}
+svg.tree .stage-lbl{fill:#555580;font-size:10px;font-weight:700;text-anchor:middle;font-family:'Nunito',sans-serif;letter-spacing:.08em}
+svg.tree .arrow{fill:rgba(120,100,255,0.3)}
 
 /* HERO THEMES */
 .c-purple{background:linear-gradient(135deg,#120836,#1f1060)}.c-orange{background:linear-gradient(135deg,#2e0a00,#4a1400)}
@@ -201,61 +206,24 @@ svg.tree line.hi{stroke:rgba(0,229,160,.5);stroke-width:2.5}
 .toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(60px);background:linear-gradient(135deg,var(--p),var(--p2));color:#fff;padding:10px 22px;border-radius:50px;font-weight:800;font-size:13px;z-index:9999;transition:transform .35s cubic-bezier(.34,1.56,.64,1);pointer-events:none;font-family:'Nunito',sans-serif;box-shadow:0 8px 24px rgba(124,92,252,.35)}
 .toast.show{transform:translateX(-50%) translateY(0)}
 
-/* ═══════════════════════════════════
-   SICKS WIDGET
-═══════════════════════════════════ */
-.sicks-btn{
-  position:fixed;bottom:28px;right:24px;z-index:1000;
-  width:60px;height:60px;border-radius:50%;
-  background:linear-gradient(135deg,var(--p),var(--p2));
-  border:none;cursor:pointer;
-  display:flex;align-items:center;justify-content:center;
-  font-size:26px;
-  box-shadow:0 6px 28px rgba(124,92,252,.5);
-  transition:all .2s cubic-bezier(.34,1.56,.64,1);
-}
+/* SICKS WIDGET */
+.sicks-btn{position:fixed;bottom:28px;right:24px;z-index:1000;width:60px;height:60px;border-radius:50%;background:linear-gradient(135deg,var(--p),var(--p2));border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:26px;box-shadow:0 6px 28px rgba(124,92,252,.5);transition:all .2s cubic-bezier(.34,1.56,.64,1)}
 .sicks-btn:hover{transform:scale(1.12);box-shadow:0 10px 36px rgba(124,92,252,.65)}
-.sicks-btn .notif{
-  position:absolute;top:-2px;right:-2px;
-  width:16px;height:16px;border-radius:50%;
-  background:var(--g);border:2px solid var(--bg);
-  animation:pulse 2s infinite;
-}
+.sicks-btn .notif{position:absolute;top:-2px;right:-2px;width:16px;height:16px;border-radius:50%;background:var(--g);border:2px solid var(--bg);animation:pulse 2s infinite}
 @keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(0,229,160,.5)}50%{box-shadow:0 0 0 6px rgba(0,229,160,0)}}
-
-.sicks-panel{
-  position:fixed;bottom:100px;right:24px;z-index:999;
-  width:340px;max-height:520px;
-  background:var(--s1);border:1.5px solid var(--border2);
-  border-radius:20px;display:flex;flex-direction:column;
-  box-shadow:0 20px 60px rgba(0,0,0,.6),0 0 0 1px rgba(124,92,252,.1);
-  transform:scale(.92) translateY(20px);opacity:0;pointer-events:none;
-  transition:all .25s cubic-bezier(.34,1.56,.64,1);
-  overflow:hidden;
-}
+.sicks-panel{position:fixed;bottom:100px;right:24px;z-index:999;width:340px;max-height:520px;background:var(--s1);border:1.5px solid var(--border2);border-radius:20px;display:flex;flex-direction:column;box-shadow:0 20px 60px rgba(0,0,0,.6),0 0 0 1px rgba(124,92,252,.1);transform:scale(.92) translateY(20px);opacity:0;pointer-events:none;transition:all .25s cubic-bezier(.34,1.56,.64,1);overflow:hidden}
 .sicks-panel.open{transform:scale(1) translateY(0);opacity:1;pointer-events:all}
-@media(max-width:480px){
-  .sicks-panel{width:calc(100vw - 20px);right:10px;bottom:88px}
-}
-
-.sicks-head{
-  padding:14px 16px 12px;
-  background:linear-gradient(135deg,rgba(124,92,252,.18),rgba(235,91,158,.12));
-  border-bottom:1px solid var(--border);
-  display:flex;align-items:center;gap:10px;flex-shrink:0;
-  position:relative;
-}
+@media(max-width:480px){.sicks-panel{width:calc(100vw - 20px);right:10px;bottom:88px}}
+.sicks-head{padding:14px 16px 12px;background:linear-gradient(135deg,rgba(124,92,252,.18),rgba(235,91,158,.12));border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px;flex-shrink:0;position:relative}
 .sicks-head::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;background:linear-gradient(90deg,var(--p),var(--p2))}
 .sicks-av{width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,var(--p),var(--p2));display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
 .sicks-info h4{font-size:14px;font-weight:900;color:var(--text)}
 .sicks-info p{font-size:11px;color:var(--text2);font-weight:600;margin-top:1px}
 .sicks-close{margin-left:auto;background:none;border:none;color:var(--muted);cursor:pointer;font-size:18px;padding:4px;border-radius:6px;transition:color .15s}
 .sicks-close:hover{color:var(--text)}
-
 .sicks-msgs{flex:1;overflow-y:auto;padding:12px;display:flex;flex-direction:column;gap:10px}
 .sicks-msgs::-webkit-scrollbar{width:3px}
 .sicks-msgs::-webkit-scrollbar-thumb{background:var(--s4);border-radius:2px}
-
 .smsg{display:flex;gap:8px;max-width:94%;animation:fadeUp .2s ease}
 .smsg.user{align-self:flex-end;flex-direction:row-reverse}
 .smsg-av{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0;font-weight:800}
@@ -264,31 +232,26 @@ svg.tree line.hi{stroke:rgba(0,229,160,.5);stroke-width:2.5}
 .smsg-bubble{border-radius:12px;padding:9px 12px;font-size:13px;font-weight:600;line-height:1.6;word-break:break-word}
 .smsg.ai .smsg-bubble{background:var(--s2);border:1px solid var(--border)}
 .smsg.user .smsg-bubble{background:rgba(124,92,252,.18);border:1px solid rgba(124,92,252,.28);color:#fff}
-
 .sicks-typing{display:flex;gap:4px;padding:9px 12px;background:var(--s2);border:1px solid var(--border);border-radius:12px;width:fit-content}
 .sicks-typing span{width:6px;height:6px;background:var(--p);border-radius:50%;animation:bounce .7s infinite}
 .sicks-typing span:nth-child(2){animation-delay:.15s}
 .sicks-typing span:nth-child(3){animation-delay:.3s}
 @keyframes bounce{0%,80%,100%{transform:translateY(0)}40%{transform:translateY(-6px)}}
-
 .sicks-input-row{padding:10px 12px;border-top:1px solid var(--border);display:flex;gap:7px;flex-shrink:0}
 .sicks-input{flex:1;background:var(--s2);border:1.5px solid var(--border);border-radius:10px;padding:9px 12px;color:var(--text);font-size:13px;font-weight:600;font-family:'Nunito',sans-serif;outline:none;resize:none;max-height:80px;transition:border-color .15s}
 .sicks-input:focus{border-color:var(--p)}
 .sicks-send{background:linear-gradient(135deg,var(--p),var(--p2));border:none;border-radius:10px;color:#fff;padding:9px 13px;font-size:15px;cursor:pointer;transition:opacity .15s;flex-shrink:0}
 .sicks-send:disabled{opacity:.4;cursor:not-allowed}
-
-/* name prompt inside chat */
 .sicks-name-prompt{padding:10px 12px;border-top:1px solid var(--border);flex-shrink:0}
 .sicks-name-input{width:100%;padding:9px 12px;background:var(--s2);border:1.5px solid var(--border2);border-radius:10px;color:var(--text);font-size:13px;font-family:'Nunito',sans-serif;font-weight:700;outline:none;margin-bottom:7px;transition:border-color .15s}
 .sicks-name-input:focus{border-color:var(--p)}
 .sicks-name-btn{width:100%;padding:9px;background:linear-gradient(135deg,var(--p),var(--p2));border:none;border-radius:10px;color:#fff;font-size:13px;font-weight:900;cursor:pointer;font-family:'Nunito',sans-serif}
-
-/* API Key prompt */
 .sicks-apikey-prompt{padding:10px 12px;border-top:1px solid var(--border);flex-shrink:0}
 .sicks-apikey-input{width:100%;padding:9px 12px;background:var(--s2);border:1.5px solid rgba(255,210,63,.3);border-radius:10px;color:var(--text);font-size:12px;font-family:'JetBrains Mono',monospace;font-weight:700;outline:none;margin-bottom:7px;transition:border-color .15s}
 .sicks-apikey-input:focus{border-color:var(--y)}
 .sicks-apikey-btn{width:100%;padding:9px;background:linear-gradient(135deg,#b8860b,#d4a017);border:none;border-radius:10px;color:#fff;font-size:13px;font-weight:900;cursor:pointer;font-family:'Nunito',sans-serif}
 .api-note{font-size:11px;color:var(--muted);text-align:center;margin-top:5px;line-height:1.5}
+.sicks-code-prompt{padding:10px 12px;border-top:1px solid var(--border);flex-shrink:0}
 
 sup{font-size:.6em;vertical-align:super;font-weight:900}
 .frac{display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;font-size:.84em;margin:0 .1em;line-height:1.2}
@@ -346,7 +309,6 @@ sup{font-size:.6em;vertical-align:super;font-weight:900}
   <!-- LERNEN -->
   <div id="page-lernen">
     <div id="lessonPicker">
-      <!-- Topic switcher -->
       <div class="topic-bar">
         <button class="topic-btn active" id="topic-pot" onclick="switchTopic('pot',this)">⚡ Potenzen</button>
         <button class="topic-btn" id="topic-wahr" onclick="switchTopic('wahr',this)">🎯 Wahrscheinlichkeit</button>
@@ -381,21 +343,169 @@ sup{font-size:.6em;vertical-align:super;font-weight:900}
       <div class="hero-tag">Zusammenfassung</div><h2>📋 Spickzettel</h2><p>Alle Formeln auf einen Blick</p>
     </div>
 
-    <!-- POTENZEN SPICKZETTEL -->
+    <!-- POTENZGESETZE VISUAL SPICKZETTEL -->
     <div class="card" style="border-color:rgba(0,229,160,.2)">
-      <div class="ct">⚡ Potenzgesetze</div>
-      <div class="spick-grid">
-        <div class="spick" style="background:linear-gradient(135deg,#0d1f0a,#142b10)"><div class="sp-l">Gleiche Basis ×</div><div class="sp-f">aⁿ × aᵐ = aⁿ⁺ᵐ</div><div class="sp-e">2³ × 2² = 2⁵ = 32</div></div>
-        <div class="spick" style="background:linear-gradient(135deg,#1a0a2e,#2a1050)"><div class="sp-l">Gleiche Basis ÷</div><div class="sp-f">aⁿ ÷ aᵐ = aⁿ⁻ᵐ</div><div class="sp-e">3⁵ ÷ 3² = 3³ = 27</div></div>
-        <div class="spick" style="background:linear-gradient(135deg,#0a1228,#0e1f40)"><div class="sp-l">Potenz hoch</div><div class="sp-f">(aⁿ)ᵐ = aⁿ×ᵐ</div><div class="sp-e">(2³)² = 2⁶ = 64</div></div>
-        <div class="spick" style="background:linear-gradient(135deg,#1a0d00,#2e1800)"><div class="sp-l">Gleicher Exp.</div><div class="sp-f">aⁿ × bⁿ = (a×b)ⁿ</div><div class="sp-e">2³×3³ = 6³=216</div></div>
-        <div class="spick" style="background:linear-gradient(135deg,#1a0018,#2e0028)"><div class="sp-l">Null-Exponent</div><div class="sp-f">a⁰ = 1</div><div class="sp-e">5⁰=1, 99⁰=1</div></div>
-        <div class="spick" style="background:linear-gradient(135deg,#001a1a,#002e2e)"><div class="sp-l">Neg. Exponent</div><div class="sp-f">a⁻ⁿ = 1/aⁿ</div><div class="sp-e">2⁻³ = 1/8</div></div>
+      <div class="ct">⚡ Potenzgesetze — alle 3 auf einen Blick</div>
+      <!-- Visual Rule Cards -->
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px;margin-bottom:14px">
+        <!-- Gesetz 1 -->
+        <div style="background:linear-gradient(135deg,rgba(124,92,252,.12),rgba(124,92,252,.04));border:1.5px solid rgba(124,92,252,.3);border-radius:14px;padding:14px">
+          <div style="font-size:10px;font-weight:800;letter-spacing:.15em;text-transform:uppercase;color:var(--p);margin-bottom:8px">Gesetz 1 · Multiplizieren</div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:20px;font-weight:900;color:#fff;margin-bottom:6px">aⁿ × aᵐ = aⁿ⁺ᵐ</div>
+          <div style="display:flex;align-items:center;gap:6px;font-size:12px;font-weight:700;color:var(--text2);margin-bottom:8px">
+            <span style="color:var(--p)">gleiche Basis</span> → Exponenten <span style="color:var(--g)">addieren</span>
+          </div>
+          <!-- Mini visual -->
+          <div style="background:var(--s2);border-radius:10px;padding:10px;display:flex;align-items:center;justify-content:center;gap:8px;font-family:'JetBrains Mono',monospace;font-size:13px">
+            <span style="background:rgba(124,92,252,.2);border-radius:6px;padding:3px 8px;color:var(--p)">2³</span>
+            <span style="color:var(--muted)">×</span>
+            <span style="background:rgba(124,92,252,.2);border-radius:6px;padding:3px 8px;color:var(--p)">2²</span>
+            <span style="color:var(--muted)">=</span>
+            <span style="background:rgba(0,229,160,.2);border-radius:6px;padding:3px 8px;color:var(--g)">2⁵=32</span>
+          </div>
+        </div>
+        <!-- Gesetz 2 -->
+        <div style="background:linear-gradient(135deg,rgba(235,91,158,.12),rgba(235,91,158,.04));border:1.5px solid rgba(235,91,158,.3);border-radius:14px;padding:14px">
+          <div style="font-size:10px;font-weight:800;letter-spacing:.15em;text-transform:uppercase;color:var(--p2);margin-bottom:8px">Gesetz 2 · Dividieren</div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:20px;font-weight:900;color:#fff;margin-bottom:6px">aⁿ ÷ aᵐ = aⁿ⁻ᵐ</div>
+          <div style="display:flex;align-items:center;gap:6px;font-size:12px;font-weight:700;color:var(--text2);margin-bottom:8px">
+            <span style="color:var(--p2)">gleiche Basis</span> → Exponenten <span style="color:var(--g)">subtrahieren</span>
+          </div>
+          <div style="background:var(--s2);border-radius:10px;padding:10px;display:flex;align-items:center;justify-content:center;gap:8px;font-family:'JetBrains Mono',monospace;font-size:13px">
+            <span style="background:rgba(235,91,158,.2);border-radius:6px;padding:3px 8px;color:var(--p2)">3⁵</span>
+            <span style="color:var(--muted)">÷</span>
+            <span style="background:rgba(235,91,158,.2);border-radius:6px;padding:3px 8px;color:var(--p2)">3²</span>
+            <span style="color:var(--muted)">=</span>
+            <span style="background:rgba(0,229,160,.2);border-radius:6px;padding:3px 8px;color:var(--g)">3³=27</span>
+          </div>
+        </div>
+        <!-- Gesetz 3 -->
+        <div style="background:linear-gradient(135deg,rgba(0,229,160,.1),rgba(0,229,160,.03));border:1.5px solid rgba(0,229,160,.25);border-radius:14px;padding:14px">
+          <div style="font-size:10px;font-weight:800;letter-spacing:.15em;text-transform:uppercase;color:var(--g);margin-bottom:8px">Gesetz 3 · Potenz hoch Potenz</div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:20px;font-weight:900;color:#fff;margin-bottom:6px">(aⁿ)ᵐ = aⁿˣᵐ</div>
+          <div style="display:flex;align-items:center;gap:6px;font-size:12px;font-weight:700;color:var(--text2);margin-bottom:8px">
+            <span style="color:var(--g)">Klammern</span> → Exponenten <span style="color:var(--g)">multiplizieren</span>
+          </div>
+          <div style="background:var(--s2);border-radius:10px;padding:10px;display:flex;align-items:center;justify-content:center;gap:8px;font-family:'JetBrains Mono',monospace;font-size:13px">
+            <span style="background:rgba(0,229,160,.15);border-radius:6px;padding:3px 8px;color:var(--g)">(2³)²</span>
+            <span style="color:var(--muted)">=</span>
+            <span style="background:rgba(0,229,160,.15);border-radius:6px;padding:3px 8px;color:var(--g)">2⁶=64</span>
+          </div>
+        </div>
+        <!-- Sonderfälle -->
+        <div style="background:linear-gradient(135deg,rgba(255,210,63,.1),rgba(255,210,63,.03));border:1.5px solid rgba(255,210,63,.25);border-radius:14px;padding:14px">
+          <div style="font-size:10px;font-weight:800;letter-spacing:.15em;text-transform:uppercase;color:var(--y);margin-bottom:8px">Sonderfälle — auswendig!</div>
+          <div style="display:flex;flex-direction:column;gap:6px;font-family:'JetBrains Mono',monospace;font-size:13px">
+            <div style="display:flex;justify-content:space-between;background:var(--s2);border-radius:7px;padding:6px 10px">
+              <span style="color:var(--y)">a⁰ = 1</span><span style="color:var(--muted);font-size:11px">immer! (a≠0)</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;background:var(--s2);border-radius:7px;padding:6px 10px">
+              <span style="color:var(--y)">a¹ = a</span><span style="color:var(--muted);font-size:11px">unverändert</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;background:var(--s2);border-radius:7px;padding:6px 10px">
+              <span style="color:var(--y)">a⁻ⁿ = 1/aⁿ</span><span style="color:var(--muted);font-size:11px">Kehrwert</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Merkhilfe -->
+      <div style="background:var(--s2);border-radius:12px;padding:12px 16px;border:1px solid var(--border);display:flex;align-items:center;gap:14px;flex-wrap:wrap">
+        <div style="font-size:12px;font-weight:800;color:var(--muted);letter-spacing:.1em">MERKTRICK:</div>
+        <div style="display:flex;gap:10px;flex-wrap:wrap">
+          <span style="font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:700">× → <span style="color:var(--g)">+</span></span>
+          <span style="color:var(--muted)">|</span>
+          <span style="font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:700">÷ → <span style="color:var(--g)">−</span></span>
+          <span style="color:var(--muted)">|</span>
+          <span style="font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:700">()ᵐ → <span style="color:var(--g)">×</span></span>
+        </div>
       </div>
     </div>
 
+    <!-- WAHRSCHEINLICHKEIT SPICKZETTEL -->
     <div class="card">
-      <div class="ct">🌳 Die wichtigsten Wahrsch.-Regeln</div>
+      <div class="ct">🌳 Wahrscheinlichkeit — Baumdiagramm-Regeln</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px">
+        <!-- Pfadregel -->
+        <div style="background:linear-gradient(135deg,rgba(124,92,252,.1),rgba(124,92,252,.03));border:1.5px solid rgba(124,92,252,.25);border-radius:14px;padding:14px">
+          <div style="font-size:10px;font-weight:800;letter-spacing:.15em;text-transform:uppercase;color:var(--p);margin-bottom:8px">Pfadregel ×</div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:18px;font-weight:900;color:#fff;margin-bottom:6px">P = P₁ × P₂</div>
+          <div style="font-size:12px;color:var(--text2);font-weight:600;margin-bottom:10px">Einem Ast folgen → alles multiplizieren</div>
+          <div style="background:var(--s2);border-radius:9px;padding:9px 12px;font-size:12px;font-weight:700;font-family:'JetBrains Mono',monospace">
+            <span style="color:var(--p)">1/4</span> × <span style="color:var(--p)">1/3</span> = <span style="color:var(--g)">1/12</span>
+          </div>
+        </div>
+        <!-- Summenregel -->
+        <div style="background:linear-gradient(135deg,rgba(235,91,158,.1),rgba(235,91,158,.03));border:1.5px solid rgba(235,91,158,.25);border-radius:14px;padding:14px">
+          <div style="font-size:10px;font-weight:800;letter-spacing:.15em;text-transform:uppercase;color:var(--p2);margin-bottom:8px">Summenregel +</div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:18px;font-weight:900;color:#fff;margin-bottom:6px">P = Ast₁ + Ast₂</div>
+          <div style="font-size:12px;color:var(--text2);font-weight:600;margin-bottom:10px">Mehrere günstige Wege → addieren</div>
+          <div style="background:var(--s2);border-radius:9px;padding:9px 12px;font-size:12px;font-weight:700;font-family:'JetBrains Mono',monospace">
+            <span style="color:var(--p2)">2/9</span> + <span style="color:var(--p2)">2/9</span> = <span style="color:var(--g)">4/9</span>
+          </div>
+        </div>
+      </div>
+      <!-- Baumdiagramm-Spickzettel Visual -->
+      <div class="tree-wrap" style="margin-bottom:10px">
+        <svg class="tree" width="500" height="220" viewBox="0 0 500 220">
+          <!-- Stage labels -->
+          <text x="60" y="18" class="stage-lbl">START</text>
+          <text x="190" y="18" class="stage-lbl">1. ZUG</text>
+          <text x="340" y="18" class="stage-lbl">2. ZUG</text>
+          <text x="450" y="18" class="stage-lbl">ERGEBNIS</text>
+
+          <!-- Branches from Start -->
+          <line x1="70" y1="110" x2="175" y2="65" class="branch"/>
+          <line x1="70" y1="110" x2="175" y2="155" class="branch"/>
+
+          <!-- Start node -->
+          <circle cx="70" cy="110" r="20" class="node-circle"/>
+          <text x="70" y="110" class="lbl">Start</text>
+
+          <!-- 1st level nodes -->
+          <circle cx="190" cy="65" r="18" class="node-circle"/>
+          <text x="190" y="65" class="lbl">K</text>
+          <circle cx="190" cy="155" r="18" class="node-circle"/>
+          <text x="190" y="155" class="lbl">Z</text>
+
+          <!-- Probability labels on branches -->
+          <text x="118" y="78" class="prob" text-anchor="middle">½</text>
+          <text x="118" y="148" class="prob" text-anchor="middle">½</text>
+
+          <!-- 2nd level branches from K -->
+          <line x1="208" y1="65" x2="320" y2="40" class="branch-hi"/>
+          <line x1="208" y1="65" x2="320" y2="90" class="branch"/>
+
+          <!-- 2nd level branches from Z -->
+          <line x1="208" y1="155" x2="320" y2="130" class="branch"/>
+          <line x1="208" y1="155" x2="320" y2="180" class="branch"/>
+
+          <!-- 2nd level nodes -->
+          <rect x="310" y="27" width="32" height="26" rx="7" class="node-rect-hi"/>
+          <text x="326" y="40" class="lbl lbl-hi">K</text>
+          <rect x="310" y="77" width="32" height="26" rx="7" class="node-rect"/>
+          <text x="326" y="90" class="lbl">Z</text>
+          <rect x="310" y="117" width="32" height="26" rx="7" class="node-rect"/>
+          <text x="326" y="130" class="lbl">K</text>
+          <rect x="310" y="167" width="32" height="26" rx="7" class="node-rect"/>
+          <text x="326" y="180" class="lbl">Z</text>
+
+          <!-- Prob on 2nd branches -->
+          <text x="262" y="46" class="prob">½</text>
+          <text x="262" y="84" class="prob">½</text>
+          <text x="262" y="135" class="prob">½</text>
+          <text x="262" y="176" class="prob">½</text>
+
+          <!-- Result labels -->
+          <text x="354" y="36" class="res-lbl res-lbl-hi">KK → ½×½ = ¼ ✓</text>
+          <text x="354" y="90" class="res-lbl">KZ → ½×½ = ¼</text>
+          <text x="354" y="130" class="res-lbl">ZK → ½×½ = ¼</text>
+          <text x="354" y="180" class="res-lbl">ZZ → ½×½ = ¼</text>
+
+          <!-- Probe -->
+          <text x="250" y="213" class="stage-lbl" text-anchor="middle" style="fill:#00e5a0">Probe: ¼ + ¼ + ¼ + ¼ = 1 ✓</text>
+        </svg>
+      </div>
+
       <div class="spick-grid">
         <div class="spick" style="background:linear-gradient(135deg,#0d1f0a,#142b10)"><div class="sp-l">Pfadregel ×</div><div class="sp-f">P=P₁×P₂×…</div><div class="sp-e">1/4 × 1/3 = 1/12</div></div>
         <div class="spick" style="background:linear-gradient(135deg,#1a0a2e,#2a1050)"><div class="sp-l">Summenregel +</div><div class="sp-f">P=Pfad₁+Pfad₂</div><div class="sp-e">¼ + ¼ = ½</div></div>
@@ -431,7 +541,7 @@ sup{font-size:.6em;vertical-align:super;font-weight:900}
 
 </div><!-- /app -->
 
-<!-- ═══════════ SICKS WIDGET ═══════════ -->
+<!-- SICKS WIDGET -->
 <button class="sicks-btn" id="sicksBtn" onclick="toggleSicks()" title="Sicks — dein Mathe-Assistent">
   🤖
   <div class="notif"></div>
@@ -500,7 +610,6 @@ function wcCheckCode(){
   }
 }
 
-// ── TOPIC SWITCHER ──
 let currentTopic='pot';
 function switchTopic(t,btn){
   currentTopic=t;
@@ -510,7 +619,6 @@ function switchTopic(t,btn){
   document.getElementById('picker-pot').style.display=t==='pot'?'block':'none';
 }
 
-// ── WAHRSCHEINLICHKEIT LESSONS ──
 const LESSONS=[
   {id:0,icon:'🌳',title:'Baumdiagramm',tag:'Kapitel 1'},
   {id:1,icon:'✖️',title:'Pfadregel',tag:'Kapitel 2'},
@@ -521,7 +629,6 @@ const LESSONS=[
   {id:6,icon:'📝',title:'Übungsaufgaben',tag:'Kapitel 7'},
 ];
 
-// ── POTENZEN LESSONS ──
 const POT_LESSONS=[
   {id:0,icon:'🔢',title:'Was ist eine Potenz?',tag:'P-Kapitel 1'},
   {id:1,icon:'✖️',title:'Potenz × Potenz',tag:'P-Kapitel 2'},
@@ -612,22 +719,29 @@ const POT_CONTENT={
 0:`${BACK_BTN}
 <div class="hero c-lime"><div class="hero-tag">P-Kapitel 1</div><h2>🔢 Was ist eine Potenz?</h2><p>Kurz schreiben statt lange multiplizieren</p><div class="hero-icon">⚡</div></div>
 
-<div class="erkl"><div class="erkl-label">💡 Super einfach erklärt!</div><div class="erkl-text">
-Stell dir vor, du schreibst <strong>2 × 2 × 2 × 2 × 2</strong>.<br>
-Das ist lästig! Deshalb gibt es <strong>Potenzen</strong>:<br>
+<div class="erkl"><div class="erkl-label">💡 Idee</div><div class="erkl-text">
+Statt <strong>2 × 2 × 2 × 2 × 2</strong> zu schreiben, gibt es eine Abkürzung:<br>
 <span class="big">2 × 2 × 2 × 2 × 2 = 2⁵</span>
-Die kleine Zahl oben (5) heißt <strong>Exponent</strong> — sie sagt WIE OFT.<br>
-Die große Zahl unten (2) heißt <strong>Basis</strong> — sie wird multipliziert.
+<strong>Basis</strong> (unten) = die Zahl, die multipliziert wird.<br>
+<strong>Exponent</strong> (oben) = wie oft multipliziert wird.
 </div></div>
 
-<div class="card"><div class="ct">📊 Die Teile einer Potenz</div>
-<div style="text-align:center;padding:20px;background:var(--s2);border-radius:12px;margin-bottom:12px">
-  <div style="font-size:48px;font-family:'JetBrains Mono',monospace;font-weight:900;color:var(--p);position:relative;display:inline-block">
-    2<sup style="font-size:24px;color:var(--p2)">5</sup>
+<div class="card"><div class="ct">📊 Aufbau einer Potenz</div>
+<div style="background:var(--s2);border-radius:14px;padding:20px;margin-bottom:14px;display:flex;align-items:center;justify-content:center;gap:32px;flex-wrap:wrap">
+  <div style="text-align:center;font-family:'JetBrains Mono',monospace">
+    <div style="font-size:56px;font-weight:900;line-height:1;position:relative;display:inline-block">
+      <span style="color:var(--p)">2</span><sup style="font-size:28px;color:var(--p2);vertical-align:super">5</sup>
+    </div>
   </div>
-  <div style="display:flex;justify-content:center;gap:40px;margin-top:12px;font-size:13px;font-weight:700">
-    <div style="color:var(--p)">↑<br>Basis<br><span style="color:var(--muted);font-size:11px">"Die Zahl"</span></div>
-    <div style="color:var(--p2)">↑<br>Exponent<br><span style="color:var(--muted);font-size:11px">"Wie oft"</span></div>
+  <div style="display:flex;flex-direction:column;gap:8px">
+    <div style="display:flex;align-items:center;gap:10px;padding:8px 14px;background:rgba(124,92,252,.1);border-radius:10px;border:1px solid rgba(124,92,252,.2)">
+      <span style="width:28px;height:28px;background:var(--p);border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:16px;color:#fff;font-family:'JetBrains Mono',monospace;flex-shrink:0">2</span>
+      <div><div style="font-size:13px;font-weight:800;color:var(--p)">Basis</div><div style="font-size:11px;color:var(--muted);font-weight:600">die Zahl, die wiederholt wird</div></div>
+    </div>
+    <div style="display:flex;align-items:center;gap:10px;padding:8px 14px;background:rgba(235,91,158,.1);border-radius:10px;border:1px solid rgba(235,91,158,.2)">
+      <span style="width:28px;height:28px;background:var(--p2);border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:16px;color:#fff;font-family:'JetBrains Mono',monospace;flex-shrink:0">5</span>
+      <div><div style="font-size:13px;font-weight:800;color:var(--p2)">Exponent</div><div style="font-size:11px;color:var(--muted);font-weight:600">wie oft multipliziert wird</div></div>
+    </div>
   </div>
 </div>
 <div class="pot-visual">
@@ -638,17 +752,17 @@ Die große Zahl unten (2) heißt <strong>Basis</strong> — sie wird multiplizie
   <div class="pot-box"><div><span class="base">2</span><span class="exp">5</span></div><span class="eq">= 2×2×2×2×2</span><span class="res">32</span></div>
 </div></div>
 
-<div class="card"><div class="ct">🎯 Wichtige Sonderfälle</div>
+<div class="card"><div class="ct">🎯 Sonderfälle — auswendig lernen!</div>
 <div class="steps">
-<div class="step" style="border-left-color:var(--y)"><span class="sb" style="background:var(--y);color:#000">a⁰</span><span class="st">JEDE Zahl hoch 0 ist immer 1!</span><span class="sv">5⁰ = 1</span></div>
-<div class="step" style="border-left-color:var(--y)"><span class="sb" style="background:var(--y);color:#000">a¹</span><span class="st">Jede Zahl hoch 1 ist sie selbst</span><span class="sv">7¹ = 7</span></div>
-<div class="step" style="border-left-color:var(--r)"><span class="sb" style="background:var(--r);color:#fff">(-a)²</span><span class="st">Negativ hoch gerade = positiv!</span><span class="sv">(-3)² = 9</span></div>
-<div class="step" style="border-left-color:var(--r)"><span class="sb" style="background:var(--r);color:#fff">(-a)³</span><span class="st">Negativ hoch ungerade = negativ!</span><span class="sv">(-2)³ = -8</span></div>
+<div class="step" style="border-left-color:var(--y)"><span class="sb" style="background:var(--y);color:#000">a⁰</span><span class="st">Jede Zahl hoch 0 = immer 1</span><span class="sv">5⁰ = 1</span></div>
+<div class="step" style="border-left-color:var(--y)"><span class="sb" style="background:var(--y);color:#000">a¹</span><span class="st">Jede Zahl hoch 1 bleibt gleich</span><span class="sv">7¹ = 7</span></div>
+<div class="step" style="border-left-color:var(--r)"><span class="sb" style="background:var(--r);color:#fff">(-a)²</span><span class="st">Negativ × gerade Exp → positiv</span><span class="sv">(-3)² = 9</span></div>
+<div class="step" style="border-left-color:var(--r)"><span class="sb" style="background:var(--r);color:#fff">(-a)³</span><span class="st">Negativ × ungerade Exp → negativ</span><span class="sv">(-2)³ = -8</span></div>
 </div>
-<div class="info warn"><div class="ii">⚠️</div><div><strong>Achtung:</strong> -3² = -(3²) = -9 aber (-3)² = 9! Die Klammern machen den Unterschied!</div></div>
+<div class="info warn"><div class="ii">⚠️</div><div><strong>Achtung Klammern:</strong> -3² = -(3²) = -9 — aber (-3)² = +9</div></div>
 </div>
 
-<div class="card"><div class="ct">📐 Bekannte Potenzen auswendig lernen</div>
+<div class="card"><div class="ct">📐 Wichtige Potenzen</div>
 <table class="dtab">
 <tr><th>Potenz</th><th>Rechnung</th><th>Ergebnis</th></tr>
 <tr><td>2⁸</td><td>2×2×2×2×2×2×2×2</td><td>256</td></tr>
@@ -662,12 +776,12 @@ Die große Zahl unten (2) heißt <strong>Basis</strong> — sie wird multiplizie
 <button class="cbtn" id="cb_pot_0" onclick="completePot(0)" disabled>P-Kapitel 1 abschließen 🔓</button></div>`,
 
 1:`${BACK_BTN}
-<div class="hero c-red"><div class="hero-tag">P-Kapitel 2</div><h2>✖️ Potenz × Potenz</h2><p>Gleiche Basis? Exponenten einfach addieren!</p><div class="hero-icon">✖️</div></div>
+<div class="hero c-red"><div class="hero-tag">P-Kapitel 2</div><h2>✖️ Potenz × Potenz</h2><p>Gleiche Basis? Exponenten addieren!</p><div class="hero-icon">✖️</div></div>
 
-<div class="erkl"><div class="erkl-label">💡 Das Gesetz erklärt!</div><div class="erkl-text">
-<strong>Regel:</strong> Gleiche Basis multiplizieren = Exponenten addieren!<br>
+<div class="erkl"><div class="erkl-label">💡 Die Regel</div><div class="erkl-text">
+Wenn die <strong>Basis gleich</strong> ist und du multiplizierst:<br>
 <span class="big">aⁿ × aᵐ = aⁿ⁺ᵐ</span>
-Warum? Schreib es aus:<br>
+Warum? Ausschreiben zeigt es:<br>
 <strong>2³ × 2²</strong> = (2×2×2) × (2×2) = 2×2×2×2×2 = <strong>2⁵</strong>
 </div></div>
 
@@ -677,15 +791,43 @@ Warum? Schreib es aus:<br>
   <div class="rule-formula" style="color:var(--p)">aⁿ × aᵐ = aⁿ⁺ᵐ</div>
   <div class="rule-example">2³ × 2² = 2<sup>3+2</sup> = 2⁵ = <span class="hl">32</span></div>
 </div>
+
+<!-- Visuelles Beispiel -->
+<div style="background:var(--s2);border-radius:12px;padding:14px;margin:10px 0;border:1px solid var(--border)">
+  <div style="font-size:11px;font-weight:800;color:var(--muted);letter-spacing:.1em;margin-bottom:10px">VISUELL: 2³ × 2²</div>
+  <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+    <div style="display:flex;gap:4px">
+      <span style="width:26px;height:26px;background:rgba(124,92,252,.3);border:1.5px solid var(--p);border-radius:6px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;font-family:'JetBrains Mono',monospace;color:var(--p)">2</span>
+      <span style="width:26px;height:26px;background:rgba(124,92,252,.3);border:1.5px solid var(--p);border-radius:6px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;font-family:'JetBrains Mono',monospace;color:var(--p)">2</span>
+      <span style="width:26px;height:26px;background:rgba(124,92,252,.3);border:1.5px solid var(--p);border-radius:6px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;font-family:'JetBrains Mono',monospace;color:var(--p)">2</span>
+    </div>
+    <span style="font-size:16px;font-weight:900;color:var(--muted)">×</span>
+    <div style="display:flex;gap:4px">
+      <span style="width:26px;height:26px;background:rgba(235,91,158,.3);border:1.5px solid var(--p2);border-radius:6px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;font-family:'JetBrains Mono',monospace;color:var(--p2)">2</span>
+      <span style="width:26px;height:26px;background:rgba(235,91,158,.3);border:1.5px solid var(--p2);border-radius:6px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;font-family:'JetBrains Mono',monospace;color:var(--p2)">2</span>
+    </div>
+    <span style="font-size:16px;font-weight:900;color:var(--muted)">=</span>
+    <div style="display:flex;gap:4px">
+      <span style="width:26px;height:26px;background:rgba(0,229,160,.2);border:1.5px solid var(--g);border-radius:6px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;font-family:'JetBrains Mono',monospace;color:var(--g)">2</span>
+      <span style="width:26px;height:26px;background:rgba(0,229,160,.2);border:1.5px solid var(--g);border-radius:6px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;font-family:'JetBrains Mono',monospace;color:var(--g)">2</span>
+      <span style="width:26px;height:26px;background:rgba(0,229,160,.2);border:1.5px solid var(--g);border-radius:6px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;font-family:'JetBrains Mono',monospace;color:var(--g)">2</span>
+      <span style="width:26px;height:26px;background:rgba(0,229,160,.2);border:1.5px solid var(--g);border-radius:6px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;font-family:'JetBrains Mono',monospace;color:var(--g)">2</span>
+      <span style="width:26px;height:26px;background:rgba(0,229,160,.2);border:1.5px solid var(--g);border-radius:6px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;font-family:'JetBrains Mono',monospace;color:var(--g)">2</span>
+    </div>
+    <span style="font-family:'JetBrains Mono',monospace;font-weight:900;color:var(--g)">=2⁵=32</span>
+  </div>
+  <div style="font-size:11px;color:var(--muted);margin-top:8px;font-weight:600">3 Felder + 2 Felder = 5 Felder = 2⁵</div>
+</div>
+
 <div class="steps">
-<div class="step"><span class="sb">Beispiel 1</span><span class="st">3⁴ × 3² = 3⁴⁺² = 3⁶</span><span class="sv">= 729</span></div>
-<div class="step"><span class="sb">Beispiel 2</span><span class="st">5² × 5³ = 5²⁺³ = 5⁵</span><span class="sv">= 3125</span></div>
-<div class="step"><span class="sb">Beispiel 3</span><span class="st">x⁷ × x² = x⁷⁺² = x⁹</span><span class="sv">mit Variable!</span></div>
-<div class="step"><span class="sb">Beispiel 4</span><span class="st">2³ × 2² × 2¹ = 2³⁺²⁺¹ = 2⁶</span><span class="sv">= 64</span></div>
+<div class="step"><span class="sb">Bsp 1</span><span class="st">3⁴ × 3² = 3⁶</span><span class="sv">= 729</span></div>
+<div class="step"><span class="sb">Bsp 2</span><span class="st">5² × 5³ = 5⁵</span><span class="sv">= 3125</span></div>
+<div class="step"><span class="sb">Bsp 3</span><span class="st">x⁷ × x² = x⁹</span><span class="sv">Variable!</span></div>
+<div class="step"><span class="sb">Bsp 4</span><span class="st">2³ × 2² × 2¹ = 2⁶</span><span class="sv">= 64</span></div>
 </div></div>
 
-<div class="card"><div class="ct">🚨 Wenn die Basis VERSCHIEDEN ist</div>
-<div class="info danger"><div class="ii">❌</div><div>Bei verschiedener Basis geht das NICHT! 2³ × 3² kann man nicht als eine Potenz schreiben!</div></div>
+<div class="card"><div class="ct">🚨 Nur bei gleicher Basis!</div>
+<div class="info danger"><div class="ii">❌</div><div>Bei verschiedener Basis geht das NICHT: 2³ × 3² kann man nicht als eine Potenz schreiben!</div></div>
 <div class="split">
 <div class="sc"><div class="sh" style="background:linear-gradient(135deg,#032a18,#065030)">✅ Gleiche Basis</div>
 <div class="sb2">2³ × 2² = 2⁵<br>5⁴ × 5³ = 5⁷<br>x² × x⁵ = x⁷</div></div>
@@ -706,41 +848,64 @@ Warum? Schreib es aus:<br>
 2:`${BACK_BTN}
 <div class="hero c-blue"><div class="hero-tag">P-Kapitel 3</div><h2>➗ Potenz ÷ Potenz</h2><p>Gleiche Basis teilen = Exponenten subtrahieren!</p><div class="hero-icon">➗</div></div>
 
-<div class="erkl"><div class="erkl-label">💡 Das Divisions-Gesetz!</div><div class="erkl-text">
-<strong>Regel:</strong> Gleiche Basis dividieren = Exponenten subtrahieren!<br>
+<div class="erkl"><div class="erkl-label">💡 Die Regel</div><div class="erkl-text">
+Gleiche Basis und du dividierst? → Exponenten subtrahieren:<br>
 <span class="big">aⁿ ÷ aᵐ = aⁿ⁻ᵐ</span>
-Warum? Kürzen!<br>
-<strong>2⁵ ÷ 2³</strong> = <sup>2×2×2×2×2</sup>/<sub>2×2×2</sub> = 2×2 = <strong>2²</strong>
+Warum? Man kürzt die gemeinsamen Faktoren raus!<br>
+<strong>2⁵ ÷ 2³</strong> = <span style="font-size:0.9em">2×2×2×2×2 / 2×2×2</span> = 2×2 = <strong>2²</strong>
 </div></div>
 
-<div class="card"><div class="ct">🔬 Schritt-für-Schritt</div>
+<div class="card"><div class="ct">🔬 Kürzen visuell</div>
+<!-- Visuell: Kürzen -->
+<div style="background:var(--s2);border-radius:12px;padding:14px;margin-bottom:12px;border:1px solid var(--border)">
+  <div style="font-size:11px;font-weight:800;color:var(--muted);letter-spacing:.1em;margin-bottom:10px">2⁵ ÷ 2³ — Kürzen!</div>
+  <div style="display:flex;flex-direction:column;gap:8px">
+    <div style="display:flex;align-items:center;gap:6px">
+      <span style="font-size:11px;color:var(--muted);font-weight:700;width:40px">Oben:</span>
+      <div style="display:flex;gap:4px">
+        <span style="width:26px;height:26px;background:rgba(255,87,87,.15);border:1.5px dashed var(--r);border-radius:6px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;font-family:'JetBrains Mono',monospace;color:var(--r)">2</span>
+        <span style="width:26px;height:26px;background:rgba(255,87,87,.15);border:1.5px dashed var(--r);border-radius:6px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;font-family:'JetBrains Mono',monospace;color:var(--r)">2</span>
+        <span style="width:26px;height:26px;background:rgba(255,87,87,.15);border:1.5px dashed var(--r);border-radius:6px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;font-family:'JetBrains Mono',monospace;color:var(--r)">2</span>
+        <span style="width:26px;height:26px;background:rgba(0,229,160,.2);border:1.5px solid var(--g);border-radius:6px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;font-family:'JetBrains Mono',monospace;color:var(--g)">2</span>
+        <span style="width:26px;height:26px;background:rgba(0,229,160,.2);border:1.5px solid var(--g);border-radius:6px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;font-family:'JetBrains Mono',monospace;color:var(--g)">2</span>
+      </div>
+    </div>
+    <div style="display:flex;align-items:center;gap:6px">
+      <span style="font-size:11px;color:var(--muted);font-weight:700;width:40px">Unten:</span>
+      <div style="display:flex;gap:4px">
+        <span style="width:26px;height:26px;background:rgba(255,87,87,.15);border:1.5px dashed var(--r);border-radius:6px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;font-family:'JetBrains Mono',monospace;color:var(--r)">2</span>
+        <span style="width:26px;height:26px;background:rgba(255,87,87,.15);border:1.5px dashed var(--r);border-radius:6px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;font-family:'JetBrains Mono',monospace;color:var(--r)">2</span>
+        <span style="width:26px;height:26px;background:rgba(255,87,87,.15);border:1.5px dashed var(--r);border-radius:6px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;font-family:'JetBrains Mono',monospace;color:var(--r)">2</span>
+      </div>
+    </div>
+    <div style="font-size:12px;font-weight:700;color:var(--muted)">Die roten kürzen sich weg → übrig bleiben <span style="color:var(--g)">2 grüne = 2²</span></div>
+  </div>
+</div>
+
 <div class="rule-block div">
   <div class="rule-title" style="color:var(--p2)">Gesetz 2: Gleiche Basis dividieren</div>
   <div class="rule-formula" style="color:var(--p2)">aⁿ ÷ aᵐ = aⁿ⁻ᵐ</div>
   <div class="rule-example">3⁵ ÷ 3² = 3<sup>5-2</sup> = 3³ = <span class="hl">27</span></div>
 </div>
 <div class="steps">
-<div class="step"><span class="sb">Beispiel 1</span><span class="st">2⁶ ÷ 2² = 2⁶⁻² = 2⁴</span><span class="sv">= 16</span></div>
-<div class="step"><span class="sb">Beispiel 2</span><span class="st">5⁷ ÷ 5³ = 5⁷⁻³ = 5⁴</span><span class="sv">= 625</span></div>
-<div class="step"><span class="sb">Beispiel 3</span><span class="st">x⁹ ÷ x⁴ = x⁹⁻⁴ = x⁵</span><span class="sv">mit Variable!</span></div>
+<div class="step"><span class="sb">Bsp 1</span><span class="st">2⁶ ÷ 2² = 2⁴</span><span class="sv">= 16</span></div>
+<div class="step"><span class="sb">Bsp 2</span><span class="st">5⁷ ÷ 5³ = 5⁴</span><span class="sv">= 625</span></div>
+<div class="step"><span class="sb">Bsp 3</span><span class="st">x⁹ ÷ x⁴ = x⁵</span><span class="sv">Variable!</span></div>
 </div></div>
 
-<div class="card"><div class="ct">🤯 Was passiert bei a⁰?</div>
+<div class="card"><div class="ct">🤯 Warum ist a⁰ = 1?</div>
 <div class="steps">
-<div class="step"><span class="sb">a³ ÷ a³</span><span class="st">= a³⁻³ = a⁰ ... aber auch</span></div>
-<div class="step"><span class="sb">a³ ÷ a³</span><span class="st">= <sup>a×a×a</sup>/<sub>a×a×a</sub> = 1</span></div>
-<div class="step" style="border-left-color:var(--y)"><span class="sb" style="background:var(--y);color:#000">Deshalb</span><span class="st">a⁰ = 1 immer! (außer a=0)</span></div>
+<div class="step"><span class="sb">Schritt 1</span><span class="st">a³ ÷ a³ = a³⁻³ = a⁰</span></div>
+<div class="step"><span class="sb">Schritt 2</span><span class="st">Aber a³ ÷ a³ = gleiche Zahl ÷ gleiche Zahl = 1</span></div>
+<div class="step" style="border-left-color:var(--y)"><span class="sb" style="background:var(--y);color:#000">Fazit</span><span class="st">a⁰ muss 1 sein — kein Zufall!</span></div>
 </div>
-<div class="info tip"><div class="ii">💡</div><div>Das ist kein Zufall — so beweist man warum a⁰ = 1 sein MUSS!</div></div>
 </div>
 
-<div class="card"><div class="ct">📉 Negative Exponenten</div>
-<div class="erkl"><div class="erkl-label">Bonus-Wissen</div><div class="erkl-text">
-Was ist 2⁻³?<br>
-<strong>2¹ ÷ 2⁴</strong> = 2¹⁻⁴ = 2⁻³<br>
-Aber auch: ²/₁₆ = <strong>1/8</strong><br>
+<div class="card"><div class="ct">📉 Negativer Exponent</div>
+<div class="erkl"><div class="erkl-label">Bonus</div><div class="erkl-text">
+2¹ ÷ 2⁴ = 2¹⁻⁴ = 2⁻³<br>
+Aber auch: 2/16 = 1/8<br>
 <span class="big">a⁻ⁿ = 1/aⁿ</span>
-Negativer Exponent = Kehrwert!
 </div></div></div>
 
 <div class="card" style="border-color:rgba(124,92,252,.2)"><div class="ct">⚡ Quiz</div><div id="qa_pot_2"></div>
@@ -749,37 +914,43 @@ Negativer Exponent = Kehrwert!
 3:`${BACK_BTN}
 <div class="hero c-pink"><div class="hero-tag">P-Kapitel 4</div><h2>🏗️ Potenz hoch Potenz</h2><p>Exponenten einfach multiplizieren!</p><div class="hero-icon">🔝</div></div>
 
-<div class="erkl"><div class="erkl-label">💡 Das dritte Gesetz!</div><div class="erkl-text">
-Wenn du eine Potenz nochmal mit einer Potenz erhöhst:<br>
+<div class="erkl"><div class="erkl-label">💡 Die Regel</div><div class="erkl-text">
+Wenn eine Potenz nochmal eine Potenz wird:<br>
 <span class="big">(aⁿ)ᵐ = aⁿ×ᵐ</span>
 Warum? Ausschreiben!<br>
 <strong>(2³)²</strong> = 2³ × 2³ = 2³⁺³ = <strong>2⁶ = 64</strong>
 </div></div>
 
-<div class="card"><div class="ct">🔬 Alle 3 Gesetze im Vergleich</div>
-<div class="rule-block mult">
-  <div class="rule-title" style="color:var(--p)">Gesetz 1: × → Exponenten addieren</div>
-  <div class="rule-formula" style="color:var(--p)">aⁿ × aᵐ = aⁿ⁺ᵐ</div>
-  <div class="rule-example">2³ × 2⁴ = 2⁷ = <span class="hl">128</span></div>
+<div class="card"><div class="ct">🔬 Alle 3 Gesetze im Überblick</div>
+<!-- Vergleichs-Visual -->
+<div style="display:flex;flex-direction:column;gap:8px;margin-bottom:12px">
+  <div style="background:var(--s2);border-radius:11px;padding:12px 16px;border-left:3px solid var(--p);display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap">
+    <div style="display:flex;align-items:center;gap:10px">
+      <span style="font-size:18px">✖️</span>
+      <div><div style="font-family:'JetBrains Mono',monospace;font-size:15px;font-weight:800;color:var(--p)">aⁿ × aᵐ = aⁿ⁺ᵐ</div><div style="font-size:11px;color:var(--muted);font-weight:600;margin-top:2px">gleiche Basis → Exponent addieren</div></div>
+    </div>
+    <span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;color:var(--g);background:rgba(0,229,160,.1);border-radius:6px;padding:4px 8px">× → +</span>
+  </div>
+  <div style="background:var(--s2);border-radius:11px;padding:12px 16px;border-left:3px solid var(--p2);display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap">
+    <div style="display:flex;align-items:center;gap:10px">
+      <span style="font-size:18px">➗</span>
+      <div><div style="font-family:'JetBrains Mono',monospace;font-size:15px;font-weight:800;color:var(--p2)">aⁿ ÷ aᵐ = aⁿ⁻ᵐ</div><div style="font-size:11px;color:var(--muted);font-weight:600;margin-top:2px">gleiche Basis → Exponent subtrahieren</div></div>
+    </div>
+    <span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;color:var(--g);background:rgba(0,229,160,.1);border-radius:6px;padding:4px 8px">÷ → −</span>
+  </div>
+  <div style="background:var(--s2);border-radius:11px;padding:12px 16px;border-left:3px solid var(--g);display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap">
+    <div style="display:flex;align-items:center;gap:10px">
+      <span style="font-size:18px">🏗️</span>
+      <div><div style="font-family:'JetBrains Mono',monospace;font-size:15px;font-weight:800;color:var(--g)">(aⁿ)ᵐ = aⁿˣᵐ</div><div style="font-size:11px;color:var(--muted);font-weight:600;margin-top:2px">Klammern → Exponenten multiplizieren</div></div>
+    </div>
+    <span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;color:var(--g);background:rgba(0,229,160,.1);border-radius:6px;padding:4px 8px">()ᵐ → ×</span>
+  </div>
 </div>
-<div class="rule-block div">
-  <div class="rule-title" style="color:var(--p2)">Gesetz 2: ÷ → Exponenten subtrahieren</div>
-  <div class="rule-formula" style="color:var(--p2)">aⁿ ÷ aᵐ = aⁿ⁻ᵐ</div>
-  <div class="rule-example">3⁵ ÷ 3² = 3³ = <span class="hl">27</span></div>
-</div>
-<div class="rule-block pot">
-  <div class="rule-title" style="color:var(--g)">Gesetz 3: ()ᵐ → Exponenten multiplizieren</div>
-  <div class="rule-formula" style="color:var(--g)">(aⁿ)ᵐ = aⁿ×ᵐ</div>
-  <div class="rule-example">(2³)⁴ = 2¹² = <span class="hl">4096</span></div>
-</div></div>
-
-<div class="card"><div class="ct">🧪 Gemischte Beispiele</div>
 <div class="steps">
-<div class="step"><span class="sb">Ex. 1</span><span class="st">(3²)³ = 3⁶</span><span class="sv">= 729</span></div>
-<div class="step"><span class="sb">Ex. 2</span><span class="st">(x⁴)² = x⁸</span><span class="sv">Variable!</span></div>
-<div class="step"><span class="sb">Ex. 3</span><span class="st">2³ × 2² × 2¹ = 2⁶</span><span class="sv">= 64</span></div>
-<div class="step"><span class="sb">Ex. 4</span><span class="st">(5²)³ ÷ 5⁴ = 5⁶÷5⁴ = 5²</span><span class="sv">= 25</span></div>
-<div class="step"><span class="sb">Ex. 5</span><span class="st">Deine Frage: 2² × 2² = ?</span><span class="sv">= 2⁴ = 16</span></div>
+<div class="step"><span class="sb">Bsp 1</span><span class="st">(3²)³ = 3⁶</span><span class="sv">= 729</span></div>
+<div class="step"><span class="sb">Bsp 2</span><span class="st">(x⁴)² = x⁸</span><span class="sv">Variable!</span></div>
+<div class="step"><span class="sb">Bsp 3</span><span class="st">(5²)³ ÷ 5⁴ = 5⁶÷5⁴ = 5²</span><span class="sv">= 25</span></div>
+<div class="step"><span class="sb">Bsp 4</span><span class="st">(2²)³ ÷ (2³)¹ = 2⁶÷2³ = 2³</span><span class="sv">= 8</span></div>
 </div></div>
 
 <div class="card" style="border-color:rgba(124,92,252,.2)"><div class="ct">⚡ Quiz</div><div id="qa_pot_3"></div>
@@ -788,7 +959,7 @@ Warum? Ausschreiben!<br>
 4:`${BACK_BTN}
 <div class="hero c-yellow"><div class="hero-tag">P-Kapitel 5</div><h2>🎯 Potenzen Übungen</h2><p>Alle Gesetze gemischt — bist du bereit?</p><div class="hero-icon">🏆</div></div>
 
-<div class="card"><div class="ct">📝 Aufgaben Typ A: Ausrechnen</div>
+<div class="card"><div class="ct">📝 Typ A: Ausrechnen</div>
 <div class="steps">
 <div class="step"><span class="sb">A1</span><span class="st">3² × 3³ = ?</span><span class="sv">3⁵ = 243</span></div>
 <div class="step"><span class="sb">A2</span><span class="st">2⁸ ÷ 2³ = ?</span><span class="sv">2⁵ = 32</span></div>
@@ -798,19 +969,19 @@ Warum? Ausschreiben!<br>
 <div class="step"><span class="sb">A6</span><span class="st">7⁰ × 7² = ?</span><span class="sv">1 × 49 = 49</span></div>
 </div></div>
 
-<div class="card"><div class="ct">📝 Aufgaben Typ B: Vereinfachen</div>
+<div class="card"><div class="ct">📝 Typ B: Vereinfachen</div>
 <div class="steps">
 <div class="step"><span class="sb">B1</span><span class="st">x⁵ × x³ = ?</span><span class="sv">x⁸</span></div>
 <div class="step"><span class="sb">B2</span><span class="st">a⁷ ÷ a² = ?</span><span class="sv">a⁵</span></div>
 <div class="step"><span class="sb">B3</span><span class="st">(y³)⁴ = ?</span><span class="sv">y¹²</span></div>
-<div class="step"><span class="sb">B4</span><span class="st">z⁴ × z⁰ = ?</span><span class="sv">z⁴ (mal 1)</span></div>
+<div class="step"><span class="sb">B4</span><span class="st">z⁴ × z⁰ = ?</span><span class="sv">z⁴ (×1)</span></div>
 <div class="step"><span class="sb">B5</span><span class="st">2² × 3² = ?</span><span class="sv">(2×3)² = 36</span></div>
 </div></div>
 
-<div class="card"><div class="ct">📝 Aufgaben Typ C: Knifflig!</div>
+<div class="card"><div class="ct">📝 Typ C: Knifflig!</div>
 <div class="steps">
-<div class="step"><span class="sb">C1</span><span class="st">2³ × 4² = ? (Hinweis: 4=2²)</span><span class="sv">2³×2⁴=2⁷=128</span></div>
-<div class="step"><span class="sb">C2</span><span class="st">9³ ÷ 3² = ? (Hinweis: 9=3²)</span><span class="sv">3⁶÷3²=3⁴=81</span></div>
+<div class="step"><span class="sb">C1</span><span class="st">2³ × 4² = ? (Tipp: 4=2²)</span><span class="sv">2³×2⁴=2⁷=128</span></div>
+<div class="step"><span class="sb">C2</span><span class="st">9³ ÷ 3² = ? (Tipp: 9=3²)</span><span class="sv">3⁶÷3²=3⁴=81</span></div>
 <div class="step"><span class="sb">C3</span><span class="st">(2³×2²)² = ?</span><span class="sv">(2⁵)²=2¹⁰=1024</span></div>
 </div></div>
 
@@ -824,72 +995,250 @@ Warum? Ausschreiben!<br>
 const LESSON_CONTENT={
 0:`${BACK_BTN}
 <div class="hero c-blue"><div class="hero-tag">Kapitel 1</div><h2>🌳 Baumdiagramm</h2><p>So zeigst du alle Möglichkeiten auf einmal</p><div class="hero-icon">🌳</div></div>
-<div class="erkl"><div class="erkl-label">💡 So einfach!</div><div class="erkl-text">
-Ein <strong>Baumdiagramm</strong> ist wie eine Karte aller Möglichkeiten.<br>
-Münze werfen → 2 Möglichkeiten: Kopf oder Zahl.<br>
-Nochmal werfen → wieder 2 Möglichkeiten.<br>
-Das Baumdiagramm zeigt ALLE Wege auf einmal! 🗺️
+
+<div class="erkl"><div class="erkl-label">💡 Idee</div><div class="erkl-text">
+Ein Baumdiagramm zeigt ALLE möglichen Ausgänge eines Zufallsexperiments.<br>
+Von links nach rechts: jede Stufe = ein Schritt.<br>
+Jeder Ast = eine Möglichkeit.
 </div></div>
+
 <div class="card"><div class="ct">3 Grundregeln</div><div class="steps">
-<div class="step"><span class="sb">Regel 1</span><span class="st">Pfadregel: Äste am Weg MULTIPLIZIEREN (×)</span></div>
-<div class="step"><span class="sb">Regel 2</span><span class="st">Summenregel: Mehrere günstige Pfade ADDIEREN (+)</span></div>
-<div class="step" style="border-left-color:var(--g)"><span class="sb" style="background:var(--g);color:#000">Probe</span><span class="st">Alle Äste einer Stufe = immer 1 (= 100%)</span></div>
+<div class="step"><span class="sb">Regel 1</span><span class="st">Pfadregel: Einem Weg folgen → alle Werte MULTIPLIZIEREN (×)</span></div>
+<div class="step"><span class="sb">Regel 2</span><span class="st">Summenregel: Mehrere günstige Wege → alle ADDIEREN (+)</span></div>
+<div class="step" style="border-left-color:var(--g)"><span class="sb" style="background:var(--g);color:#000">Probe</span><span class="st">Alle Ergebnisse einer Stufe zusammen = immer 1 (= 100%)</span></div>
 </div></div>
-<div class="card"><div class="ct">🪙 Münzwurf 2× — Beispiel</div>
-<div class="tree-wrap"><svg class="tree" width="440" height="180" viewBox="0 0 440 180">
-<line x1="45" y1="90" x2="140" y2="45"/><line x1="45" y1="90" x2="140" y2="135"/>
-<line x1="158" y1="45" x2="265" y2="22"/><line x1="158" y1="45" x2="265" y2="68"/>
-<line x1="158" y1="135" x2="265" y2="112"/><line x1="158" y1="135" x2="265" y2="158"/>
-<circle cx="45" cy="90" r="16"/><text x="45" y="90" class="tlabel" font-size="9">Start</text>
-<circle cx="158" cy="45" r="14"/><text x="158" y="45" class="tlabel">K</text>
-<circle cx="158" cy="135" r="14"/><text x="158" y="135" class="tlabel">Z</text>
-<rect x="249" y="10" width="32" height="24" rx="5"/><text x="265" y="22" class="tlabel" font-size="10">K</text>
-<rect x="249" y="56" width="32" height="24" rx="5"/><text x="265" y="68" class="tlabel" font-size="10">Z</text>
-<rect x="249" y="100" width="32" height="24" rx="5"/><text x="265" y="112" class="tlabel" font-size="10">K</text>
-<rect x="249" y="146" width="32" height="24" rx="5"/><text x="265" y="158" class="tlabel" font-size="10">Z</text>
-<text x="92" y="54" class="tprob">½</text><text x="92" y="136" class="tprob">½</text>
-<text x="210" y="25" class="tprob">½</text><text x="210" y="60" class="tprob">½</text>
-<text x="210" y="101" class="tprob">½</text><text x="210" y="155" class="tprob">½</text>
-<text x="295" y="22" class="tres hi">KK · ¼=25%</text><text x="295" y="68" class="tres">KZ · ¼=25%</text>
-<text x="295" y="112" class="tres">ZK · ¼=25%</text><text x="295" y="158" class="tres">ZZ · ¼=25%</text>
-</svg></div>
-<div class="info tip"><div class="ii">✅</div><div>Probe: ¼+¼+¼+¼=1 ✓ Die Summe ist immer 1.</div></div>
+
+<div class="card"><div class="ct">🪙 Münzwurf 2× — vollständiges Baumdiagramm</div>
+<div class="tree-wrap">
+<svg class="tree" width="520" height="230" viewBox="0 0 520 230">
+  <!-- Stage labels -->
+  <text x="55" y="18" class="stage-lbl">START</text>
+  <text x="170" y="18" class="stage-lbl">1. WURF</text>
+  <text x="310" y="18" class="stage-lbl">2. WURF</text>
+  <text x="440" y="18" class="stage-lbl">ERGEBNIS</text>
+
+  <!-- Branches from Start -->
+  <line x1="65" y1="115" x2="160" y2="70" class="branch"/>
+  <line x1="65" y1="115" x2="160" y2="160" class="branch"/>
+
+  <!-- Start node -->
+  <circle cx="65" cy="115" r="22" class="node-circle"/>
+  <text x="65" y="115" class="lbl" style="font-size:10px">Start</text>
+
+  <!-- 1st level: Kopf, Zahl -->
+  <circle cx="175" cy="70" r="20" class="node-circle"/>
+  <text x="175" y="70" class="lbl">K</text>
+  <circle cx="175" cy="160" r="20" class="node-circle"/>
+  <text x="175" y="160" class="lbl">Z</text>
+
+  <!-- Prob labels on 1st branches -->
+  <text x="110" y="82" class="prob" text-anchor="middle">½</text>
+  <text x="110" y="152" class="prob" text-anchor="middle">½</text>
+
+  <!-- 2nd level branches — KK highlighted -->
+  <line x1="195" y1="70" x2="300" y2="42" class="branch-hi"/>
+  <line x1="195" y1="70" x2="300" y2="98" class="branch"/>
+  <line x1="195" y1="160" x2="300" y2="132" class="branch"/>
+  <line x1="195" y1="160" x2="300" y2="188" class="branch"/>
+
+  <!-- 2nd level nodes -->
+  <rect x="290" y="28" width="36" height="28" rx="8" class="node-rect-hi"/>
+  <text x="308" y="42" class="lbl lbl-hi">K</text>
+  <rect x="290" y="84" width="36" height="28" rx="8" class="node-rect"/>
+  <text x="308" y="98" class="lbl">Z</text>
+  <rect x="290" y="118" width="36" height="28" rx="8" class="node-rect"/>
+  <text x="308" y="132" class="lbl">K</text>
+  <rect x="290" y="174" width="36" height="28" rx="8" class="node-rect"/>
+  <text x="308" y="188" class="lbl">Z</text>
+
+  <!-- Prob on 2nd branches -->
+  <text x="245" y="48" class="prob">½</text>
+  <text x="245" y="91" class="prob">½</text>
+  <text x="245" y="136" class="prob">½</text>
+  <text x="245" y="180" class="prob">½</text>
+
+  <!-- Result labels -->
+  <text x="338" y="37" class="res-lbl res-lbl-hi">KK  ½×½ = ¼ = 25% ✓</text>
+  <text x="338" y="98" class="res-lbl">KZ  ½×½ = ¼ = 25%</text>
+  <text x="338" y="132" class="res-lbl">ZK  ½×½ = ¼ = 25%</text>
+  <text x="338" y="188" class="res-lbl">ZZ  ½×½ = ¼ = 25%</text>
+
+  <!-- Probe line -->
+  <line x1="20" y1="215" x2="500" y2="215" stroke="rgba(0,229,160,0.2)" stroke-width="1"/>
+  <text x="260" y="228" class="stage-lbl" text-anchor="middle" style="fill:#00e5a0;font-size:11px">Probe: ¼ + ¼ + ¼ + ¼ = 1 ✓ (Summe aller Ergebnisse = immer 1)</text>
+</svg>
 </div>
+<div class="info tip"><div class="ii">✅</div><div><strong>Pfadregel:</strong> Für KK → ½ × ½ = ¼. Die Probe bestätigt: ¼+¼+¼+¼=1 ✓</div></div>
+</div>
+
 <div class="card" style="border-color:rgba(124,92,252,.2)"><div class="ct">⚡ Quiz</div><div id="qa0"></div>
 <button class="cbtn" id="cb0" onclick="complete(0)" disabled>Kapitel 1 abschließen 🔓</button></div>`,
 
 1:`${BACK_BTN}
 <div class="hero c-purple"><div class="hero-tag">Kapitel 2</div><h2>✖️ Pfadregel</h2><p>Einem Weg folgen = alles multiplizieren</p><div class="hero-icon">✖️</div></div>
-<div class="erkl"><div class="erkl-label">💡 Die wichtigste Regel!</div><div class="erkl-text">
-Du folgst einem Weg von links nach rechts im Baumdiagramm.<br>
-Alle Zahlen auf diesem Weg <strong>multiplizierst</strong> du miteinander.<br>
+
+<div class="erkl"><div class="erkl-label">💡 Die Regel</div><div class="erkl-text">
+Folge einem Ast von links nach rechts.<br>
+Multipliziere alle Zahlen auf diesem Weg:<br>
 <span class="big">P(Pfad) = P₁ × P₂ × P₃ × …</span>
 </div></div>
+
 <div class="card"><div class="ct">🎴 Klassenbeispiel: Karten K, E, O, A</div>
 <div class="info blue"><div class="ii">📋</div><div>4 Karten. Jeder Schüler zieht 2. Wer "OK" zieht bekommt einen Kaugummi!</div></div>
-<div class="steps">
-<div class="step"><span class="sb">1. Zug</span><span class="st">4 Karten → P(O) = 1/4 = 0,25</span><span class="sv">25%</span></div>
-<div class="step"><span class="sb">2. Zug</span><span class="st">O liegt weg, 3 übrig → P(K) = 1/3</span><span class="sv">33,3%</span></div>
-<div class="step" style="border-left-color:var(--g)"><span class="sb" style="background:var(--g);color:#000">×</span><span class="st">1/4 × 1/3 = 1/12</span><span class="sv" style="color:var(--g)">= 8,3%</span></div>
+
+<!-- Baumdiagramm K, E, O, A -->
+<div class="tree-wrap">
+<svg class="tree" width="520" height="260" viewBox="0 0 520 260">
+  <text x="55" y="18" class="stage-lbl">START</text>
+  <text x="160" y="18" class="stage-lbl">1. ZUG (4)</text>
+  <text x="300" y="18" class="stage-lbl">2. ZUG (3)</text>
+  <text x="440" y="18" class="stage-lbl">P = ?</text>
+
+  <!-- Start -->
+  <circle cx="55" cy="135" r="20" class="node-circle"/>
+  <text x="55" y="135" class="lbl" style="font-size:9px">Start</text>
+
+  <!-- Level 1: nur O und K zeigen (vereinfacht) -->
+  <line x1="75" y1="135" x2="158" y2="60" class="branch-hi"/>
+  <line x1="75" y1="135" x2="158" y2="110" class="branch"/>
+  <line x1="75" y1="135" x2="158" y2="160" class="branch"/>
+  <line x1="75" y1="135" x2="158" y2="210" class="branch"/>
+
+  <circle cx="172" cy="60" r="18" class="node-circle-hi"/>
+  <text x="172" y="60" class="lbl lbl-hi">O</text>
+  <circle cx="172" cy="110" r="18" class="node-circle"/>
+  <text x="172" y="110" class="lbl">K</text>
+  <circle cx="172" cy="160" r="18" class="node-circle"/>
+  <text x="172" y="160" class="lbl">E</text>
+  <circle cx="172" cy="210" r="18" class="node-circle"/>
+  <text x="172" y="210" class="lbl">A</text>
+
+  <text x="108" y="82" class="prob">¼</text>
+  <text x="108" y="118" class="prob">¼</text>
+  <text x="108" y="162" class="prob">¼</text>
+  <text x="108" y="202" class="prob">¼</text>
+
+  <!-- From O: K highlighted -->
+  <line x1="190" y1="60" x2="290" y2="35" class="branch-hi"/>
+  <line x1="190" y1="60" x2="290" y2="65" class="branch"/>
+  <line x1="190" y1="60" x2="290" y2="90" class="branch"/>
+
+  <rect x="280" y="22" width="28" height="24" rx="6" class="node-rect-hi"/>
+  <text x="294" y="34" class="lbl lbl-hi">K</text>
+  <rect x="280" y="52" width="28" height="24" rx="6" class="node-rect"/>
+  <text x="294" y="64" class="lbl">E</text>
+  <rect x="280" y="78" width="28" height="24" rx="6" class="node-rect"/>
+  <text x="294" y="90" class="lbl">A</text>
+
+  <text x="238" y="36" class="prob">⅓</text>
+  <text x="238" y="60" class="prob">⅓</text>
+  <text x="238" y="88" class="prob">⅓</text>
+
+  <!-- From K -->
+  <line x1="190" y1="110" x2="290" y2="125" class="branch"/>
+  <line x1="190" y1="110" x2="290" y2="148" class="branch"/>
+  <line x1="190" y1="110" x2="290" y2="170" class="branch"/>
+  <rect x="280" y="112" width="28" height="24" rx="6" class="node-rect"/>
+  <text x="294" y="124" class="lbl">O</text>
+  <rect x="280" y="136" width="28" height="24" rx="6" class="node-rect"/>
+  <text x="294" y="148" class="lbl">E</text>
+  <rect x="280" y="157" width="28" height="24" rx="6" class="node-rect"/>
+  <text x="294" y="169" class="lbl">A</text>
+
+  <!-- Results -->
+  <text x="320" y="29" class="res-lbl res-lbl-hi">OK → ¼×⅓ = 1/12 ✓ 🍬</text>
+  <text x="320" y="60" class="res-lbl">OE → 1/12</text>
+  <text x="320" y="86" class="res-lbl">OA → 1/12</text>
+  <text x="320" y="124" class="res-lbl">KO → 1/12</text>
+  <text x="320" y="148" class="res-lbl">KE → 1/12</text>
+  <text x="320" y="169" class="res-lbl">KA → 1/12</text>
+
+  <text x="260" y="245" class="stage-lbl" text-anchor="middle" style="fill:#00e5a0;font-size:11px">Alle 12 Paare haben P = 1/12 ≈ 8,3% · Probe: 12 × 1/12 = 1 ✓</text>
+</svg>
 </div>
-<div class="res">P("OK") = 1/12 = 0,083 = 8,3%</div>
+
+<div class="steps">
+<div class="step"><span class="sb">1. Zug</span><span class="st">4 Karten → P(O) = 1/4</span><span class="sv">25%</span></div>
+<div class="step"><span class="sb">2. Zug</span><span class="st">O weg, 3 übrig → P(K) = 1/3</span><span class="sv">33,3%</span></div>
+<div class="step" style="border-left-color:var(--g)"><span class="sb" style="background:var(--g);color:#000">×</span><span class="st">P("OK") = 1/4 × 1/3 = 1/12</span><span class="sv" style="color:var(--g)">≈ 8,3%</span></div>
+</div>
+<div class="res">P("OK") = 1/12 ≈ 8,3%   →   30 Schüler × 1/12 ≈ 3 Kaugummis 🍬</div>
 </div>
 <div class="card" style="border-color:rgba(124,92,252,.2)"><div class="ct">⚡ Quiz</div><div id="qa1"></div>
 <button class="cbtn" id="cb1" onclick="complete(1)" disabled>Kapitel 2 abschließen 🔓</button></div>`,
 
 2:`${BACK_BTN}
 <div class="hero c-teal"><div class="hero-tag">Kapitel 3</div><h2>➕ Summenregel</h2><p>Mehrere Wege zum Ziel = alle addieren</p><div class="hero-icon">➕</div></div>
-<div class="erkl"><div class="erkl-label">💡 So funktioniert's!</div><div class="erkl-text">
-Manchmal kann ein Ereignis auf <strong>mehreren Wegen</strong> eintreten.<br>
-Jeden Weg einzeln ausrechnen (Pfadregel ×)...<br>
-...dann alle günstigen Wege addieren (+)!<br>
+
+<div class="erkl"><div class="erkl-label">💡 Die Regel</div><div class="erkl-text">
+Manchmal gibt es <strong>mehrere Wege</strong> zum selben Ziel.<br>
+→ Jeden Weg einzeln mit Pfadregel (×) ausrechnen<br>
+→ Dann alle günstigen Wege addieren (+)<br>
 <span class="big">P(Ereignis) = Pfad₁ + Pfad₂ + …</span>
 </div></div>
-<div class="card"><div class="ct">🔵 Klassenbeispiel: 5 weiße + 5 schwarze Kugeln</div>
+
+<div class="card"><div class="ct">🔵 Beispiel: 5 weiße + 5 schwarze Kugeln (ohne Zurücklegen)</div>
+
+<div class="tree-wrap">
+<svg class="tree" width="500" height="230" viewBox="0 0 500 230">
+  <text x="55" y="18" class="stage-lbl">START</text>
+  <text x="170" y="18" class="stage-lbl">1. ZIEHT (10)</text>
+  <text x="310" y="18" class="stage-lbl">2. ZIEHT (9)</text>
+  <text x="435" y="18" class="stage-lbl">P</text>
+
+  <circle cx="55" cy="115" r="20" class="node-circle"/>
+  <text x="55" y="115" class="lbl" style="font-size:9px">Start</text>
+
+  <!-- Level 1 -->
+  <line x1="75" y1="115" x2="165" y2="70" class="branch-hi"/>
+  <line x1="75" y1="115" x2="165" y2="160" class="branch-hi"/>
+
+  <circle cx="180" cy="70" r="20" class="node-circle-hi"/>
+  <text x="180" y="70" class="lbl lbl-hi" style="font-size:11px">W</text>
+  <circle cx="180" cy="160" r="20" class="node-circle-hi"/>
+  <text x="180" y="160" class="lbl lbl-hi" style="font-size:11px">S</text>
+
+  <text x="115" y="82" class="prob">5/10</text>
+  <text x="115" y="155" class="prob">5/10</text>
+
+  <!-- From W -->
+  <line x1="200" y1="70" x2="298" y2="42" class="branch-hi"/>
+  <line x1="200" y1="70" x2="298" y2="98" class="branch"/>
+
+  <rect x="288" y="28" width="34" height="26" rx="7" class="node-rect-hi"/>
+  <text x="305" y="41" class="lbl lbl-hi" style="font-size:11px">W</text>
+  <rect x="288" y="85" width="34" height="26" rx="7" class="node-rect"/>
+  <text x="305" y="98" class="lbl" style="font-size:11px">S</text>
+
+  <text x="247" y="46" class="prob">4/9</text>
+  <text x="247" y="86" class="prob">5/9</text>
+
+  <!-- From S -->
+  <line x1="200" y1="160" x2="298" y2="132" class="branch"/>
+  <line x1="200" y1="160" x2="298" y2="180" class="branch-hi"/>
+
+  <rect x="288" y="118" width="34" height="26" rx="7" class="node-rect"/>
+  <text x="305" y="131" class="lbl" style="font-size:11px">W</text>
+  <rect x="288" y="167" width="34" height="26" rx="7" class="node-rect-hi"/>
+  <text x="305" y="181" class="lbl lbl-hi" style="font-size:11px">S</text>
+
+  <text x="247" y="128" class="prob">5/9</text>
+  <text x="247" y="176" class="prob">4/9</text>
+
+  <!-- Results -->
+  <text x="334" y="37" class="res-lbl res-lbl-hi">WW → 5/10×4/9 = 2/9 ✓</text>
+  <text x="334" y="98" class="res-lbl">WS → 5/10×5/9</text>
+  <text x="334" y="132" class="res-lbl">SW → 5/10×5/9</text>
+  <text x="334" y="181" class="res-lbl res-lbl-hi">SS → 5/10×4/9 = 2/9 ✓</text>
+
+  <text x="250" y="218" class="stage-lbl" text-anchor="middle" style="fill:#00e5a0;font-size:11px">Gleichfarbig: WW + SS = 2/9 + 2/9 = 4/9 ≈ 44%</text>
+</svg>
+</div>
+
 <div class="steps">
 <div class="step"><span class="sb">Pfad WW</span><span class="st">5/10 × 4/9 = 20/90 = 2/9</span></div>
 <div class="step"><span class="sb">Pfad SS</span><span class="st">5/10 × 4/9 = 20/90 = 2/9</span></div>
-<div class="step" style="border-left-color:var(--g)"><span class="sb" style="background:var(--g);color:#000">+</span><span class="st">P(gleichfarb) = 2/9 + 2/9 = 4/9 ≈ 44%</span></div>
+<div class="step" style="border-left-color:var(--g)"><span class="sb" style="background:var(--g);color:#000">+</span><span class="st">P(gleichfarb.) = 2/9 + 2/9 = 4/9 ≈ 44%</span></div>
 </div>
 </div>
 <div class="card" style="border-color:rgba(124,92,252,.2)"><div class="ct">⚡ Quiz</div><div id="qa2"></div>
@@ -897,11 +1246,37 @@ Jeden Weg einzeln ausrechnen (Pfadregel ×)...<br>
 
 3:`${BACK_BTN}
 <div class="hero c-green"><div class="hero-tag">Kapitel 4</div><h2>🔵 Kugeln ziehen</h2><p>MIT vs OHNE Zurücklegen</p><div class="hero-icon">🔵</div></div>
-<div class="erkl"><div class="erkl-label">💡 Der wichtige Unterschied</div><div class="erkl-text">
-<strong>MIT Zurücklegen:</strong> Kugel kommt zurück → Anzahl gleich → P gleich<br>
-<strong>OHNE Zurücklegen:</strong> Kugel bleibt weg → Anzahl kleiner → P ändert sich!
+
+<div class="erkl"><div class="erkl-label">💡 Der Unterschied</div><div class="erkl-text">
+<strong>MIT Zurücklegen:</strong> Kugel kommt zurück → Nenner bleibt gleich<br>
+<strong>OHNE Zurücklegen:</strong> Kugel bleibt weg → Nenner wird kleiner!
 </div></div>
-<div class="card"><div class="ct">📊 Vergleich</div>
+
+<div class="card"><div class="ct">📊 Vergleich: 4 orange + 8 weiße (= 12)</div>
+
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px">
+  <!-- MIT Zurücklegen -->
+  <div style="background:rgba(77,184,255,.05);border:1.5px solid rgba(77,184,255,.2);border-radius:12px;padding:12px">
+    <div style="font-size:11px;font-weight:800;color:var(--b);letter-spacing:.1em;margin-bottom:8px">MIT ZURÜCKLEGEN</div>
+    <div style="font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--text2);line-height:2">
+      1. Zug: <span style="color:var(--b)">4/12</span><br>
+      2. Zug: <span style="color:var(--b)">4/12</span> (gleich!)<br>
+      <span style="color:var(--g)">P(OO) = 4/12 × 4/12</span><br>
+      <span style="color:var(--g)">= 16/144 ≈ 11,1%</span>
+    </div>
+  </div>
+  <!-- OHNE Zurücklegen -->
+  <div style="background:rgba(0,229,160,.05);border:1.5px solid rgba(0,229,160,.2);border-radius:12px;padding:12px">
+    <div style="font-size:11px;font-weight:800;color:var(--g);letter-spacing:.1em;margin-bottom:8px">OHNE ZURÜCKLEGEN</div>
+    <div style="font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--text2);line-height:2">
+      1. Zug: <span style="color:var(--g)">4/12</span><br>
+      2. Zug: <span style="color:var(--g)">3/11</span> (kleiner!)<br>
+      <span style="color:var(--g)">P(OO) = 4/12 × 3/11</span><br>
+      <span style="color:var(--g)">= 12/132 ≈ 9,1%</span>
+    </div>
+  </div>
+</div>
+
 <div class="split">
 <div class="sc"><div class="sh" style="background:linear-gradient(135deg,#021a0c,#062e16)">OHNE Zurücklegen</div>
 <div class="sb2">P(O,O):<br>4/12 × 3/11 = 12/132<br>≈ <strong style="color:var(--g)">9,1%</strong></div></div>
@@ -913,23 +1288,126 @@ Jeden Weg einzeln ausrechnen (Pfadregel ×)...<br>
 
 4:`${BACK_BTN}
 <div class="hero c-orange"><div class="hero-tag">Kapitel 5</div><h2>🎲 Würfel 3×</h2><p>S.49 aus dem Buch — vollständig erklärt</p><div class="hero-icon">🎲</div></div>
-<div class="card"><div class="ct">📊 Alle Lösungen</div>
+
+<div class="card"><div class="ct">📊 Alle Lösungen (S.49)</div>
+
+<!-- Würfel-Visual -->
+<div style="background:var(--s2);border-radius:12px;padding:14px;margin-bottom:12px;border:1px solid var(--border)">
+  <div style="font-size:11px;font-weight:800;color:var(--muted);letter-spacing:.1em;margin-bottom:10px">GRUNDINFO: 6³ = 216 mögliche Ergebnisse</div>
+  <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(100px,1fr));gap:8px">
+    <div style="background:rgba(0,229,160,.08);border:1px solid rgba(0,229,160,.2);border-radius:9px;padding:10px;text-align:center">
+      <div style="font-size:10px;font-weight:800;color:var(--g);letter-spacing:.1em;margin-bottom:4px">P(1)</div>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:16px;font-weight:900;color:#fff">1/6</div>
+      <div style="font-size:10px;color:var(--muted);margin-top:3px">≈ 16,7%</div>
+    </div>
+    <div style="background:rgba(124,92,252,.08);border:1px solid rgba(124,92,252,.2);border-radius:9px;padding:10px;text-align:center">
+      <div style="font-size:10px;font-weight:800;color:var(--p);letter-spacing:.1em;margin-bottom:4px">P(nicht 1)</div>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:16px;font-weight:900;color:#fff">5/6</div>
+      <div style="font-size:10px;color:var(--muted);margin-top:3px">≈ 83,3%</div>
+    </div>
+    <div style="background:rgba(255,210,63,.08);border:1px solid rgba(255,210,63,.2);border-radius:9px;padding:10px;text-align:center">
+      <div style="font-size:10px;font-weight:800;color:var(--y);letter-spacing:.1em;margin-bottom:4px">GESAMT</div>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:16px;font-weight:900;color:#fff">6³</div>
+      <div style="font-size:10px;color:var(--muted);margin-top:3px">= 216</div>
+    </div>
+  </div>
+</div>
+
 <table class="dtab"><tr><th>Teil</th><th>Ereignis</th><th>Rechnung</th><th>%</th></tr>
 <tr><td>a)</td><td>alle drei 1</td><td>1/6³ = 1/216</td><td>0,46%</td></tr>
 <tr><td>b)</td><td>keinmal 1</td><td>(5/6)³ = 125/216</td><td>57,9%</td></tr>
-<tr><td>c)</td><td>genau einmal</td><td>3 × 1/6 × (5/6)²</td><td>34,8%</td></tr>
-<tr><td>d)</td><td>genau zweimal</td><td>3 × (1/6)² × 5/6</td><td>6,9%</td></tr></table>
+<tr><td>c)</td><td>genau 1×</td><td>3 × 1/6 × (5/6)²</td><td>34,8%</td></tr>
+<tr><td>d)</td><td>genau 2×</td><td>3 × (1/6)² × 5/6</td><td>6,9%</td></tr></table>
+
+<div class="info tip"><div class="ii">✅</div><div><strong>Probe:</strong> 1 + 125 + 75 + 15 = 216 ✓ Alle Möglichkeiten zusammen = 216</div></div>
 </div>
 <div class="card" style="border-color:rgba(124,92,252,.2)"><div class="ct">⚡ Quiz</div><div id="qa4"></div>
 <button class="cbtn" id="cb4" onclick="complete(4)" disabled>Kapitel 5 abschließen 🔓</button></div>`,
 
 5:`${BACK_BTN}
 <div class="hero c-pink"><div class="hero-tag">Kapitel 6</div><h2>🎴 Karten K, E, O, A</h2><p>Das vollständige Baumdiagramm</p><div class="hero-icon">🎴</div></div>
+
 <div class="erkl"><div class="erkl-label">💡 Das Klassenbeispiel</div><div class="erkl-text">
 4 Karten: <strong>K, E, O, A</strong> — 2 Züge ohne Zurücklegen<br>
 4 × 3 = <strong>12 mögliche Ergebnisse</strong><br>
 Jedes hat P = 1/4 × 1/3 = <strong>1/12 ≈ 8,3%</strong>
 </div></div>
+
+<!-- Vollständiges Baumdiagramm K,E,O,A -->
+<div class="card"><div class="ct">🌳 Vollständiges Baumdiagramm</div>
+<div class="tree-wrap">
+<svg class="tree" width="500" height="310" viewBox="0 0 500 310">
+  <text x="40" y="18" class="stage-lbl">START</text>
+  <text x="140" y="18" class="stage-lbl">1. ZUG</text>
+  <text x="285" y="18" class="stage-lbl">2. ZUG</text>
+  <text x="400" y="18" class="stage-lbl">ERGEBNIS</text>
+
+  <circle cx="40" cy="158" r="18" class="node-circle"/>
+  <text x="40" y="158" class="lbl" style="font-size:9px">Start</text>
+
+  <!-- Level 1: K, E, O, A -->
+  <line x1="58" y1="158" x2="148" y2="55" class="branch"/>
+  <line x1="58" y1="158" x2="148" y2="105" class="branch"/>
+  <line x1="58" y1="158" x2="148" y2="210" class="branch-hi"/>
+  <line x1="58" y1="158" x2="148" y2="260" class="branch"/>
+
+  <circle cx="162" cy="55" r="16" class="node-circle"/>
+  <text x="162" y="55" class="lbl">K</text>
+  <circle cx="162" cy="105" r="16" class="node-circle"/>
+  <text x="162" y="105" class="lbl">E</text>
+  <circle cx="162" cy="210" r="16" class="node-circle-hi"/>
+  <text x="162" y="210" class="lbl lbl-hi">O</text>
+  <circle cx="162" cy="260" r="16" class="node-circle"/>
+  <text x="162" y="260" class="lbl">A</text>
+
+  <text x="96" y="93" class="prob">¼</text>
+  <text x="96" y="120" class="prob">¼</text>
+  <text x="96" y="198" class="prob">¼</text>
+  <text x="96" y="245" class="prob">¼</text>
+
+  <!-- From K: E, O, A -->
+  <line x1="178" y1="55" x2="272" y2="35" class="branch"/>
+  <line x1="178" y1="55" x2="272" y2="55" class="branch"/>
+  <line x1="178" y1="55" x2="272" y2="75" class="branch"/>
+  <rect x="264" y="23" width="24" height="20" rx="5" class="node-rect"/><text x="276" y="33" class="lbl" style="font-size:10px">E</text>
+  <rect x="264" y="44" width="24" height="20" rx="5" class="node-rect"/><text x="276" y="54" class="lbl" style="font-size:10px">O</text>
+  <rect x="264" y="64" width="24" height="20" rx="5" class="node-rect"/><text x="276" y="74" class="lbl" style="font-size:10px">A</text>
+
+  <!-- From E: K, O, A -->
+  <line x1="178" y1="105" x2="272" y2="95" class="branch"/>
+  <line x1="178" y1="105" x2="272" y2="110" class="branch"/>
+  <line x1="178" y1="105" x2="272" y2="125" class="branch"/>
+  <rect x="264" y="84" width="24" height="20" rx="5" class="node-rect"/><text x="276" y="94" class="lbl" style="font-size:10px">K</text>
+  <rect x="264" y="99" width="24" height="20" rx="5" class="node-rect"/><text x="276" y="109" class="lbl" style="font-size:10px">O</text>
+  <rect x="264" y="114" width="24" height="20" rx="5" class="node-rect"/><text x="276" y="124" class="lbl" style="font-size:10px">A</text>
+
+  <!-- From O: K highlighted, E, A -->
+  <line x1="178" y1="210" x2="272" y2="185" class="branch-hi"/>
+  <line x1="178" y1="210" x2="272" y2="205" class="branch"/>
+  <line x1="178" y1="210" x2="272" y2="225" class="branch"/>
+  <rect x="264" y="174" width="24" height="20" rx="5" class="node-rect-hi"/><text x="276" y="184" class="lbl lbl-hi" style="font-size:10px">K</text>
+  <rect x="264" y="194" width="24" height="20" rx="5" class="node-rect"/><text x="276" y="204" class="lbl" style="font-size:10px">E</text>
+  <rect x="264" y="214" width="24" height="20" rx="5" class="node-rect"/><text x="276" y="224" class="lbl" style="font-size:10px">A</text>
+
+  <!-- From A: K, E, O -->
+  <line x1="178" y1="260" x2="272" y2="245" class="branch"/>
+  <line x1="178" y1="260" x2="272" y2="260" class="branch"/>
+  <line x1="178" y1="260" x2="272" y2="278" class="branch"/>
+  <rect x="264" y="234" width="24" height="20" rx="5" class="node-rect"/><text x="276" y="244" class="lbl" style="font-size:10px">K</text>
+  <rect x="264" y="249" width="24" height="20" rx="5" class="node-rect"/><text x="276" y="259" class="lbl" style="font-size:10px">E</text>
+  <rect x="264" y="267" width="24" height="20" rx="5" class="node-rect"/><text x="276" y="277" class="lbl" style="font-size:10px">O</text>
+
+  <!-- Result labels (abbreviated) -->
+  <text x="300" y="29" class="res-lbl">KE · KO · KA (je 1/12)</text>
+  <text x="300" y="94" class="res-lbl">EK · EO · EA (je 1/12)</text>
+  <text x="300" y="180" class="res-lbl res-lbl-hi">OK → 1/12 ≈ 8,3% 🍬</text>
+  <text x="300" y="200" class="res-lbl">OE · OA (je 1/12)</text>
+  <text x="300" y="240" class="res-lbl">AK · AE · AO (je 1/12)</text>
+
+  <text x="250" y="298" class="stage-lbl" text-anchor="middle" style="fill:#00e5a0;font-size:11px">12 Paare × 1/12 = 1 ✓   |   30 Schüler × 1/12 ≈ 3 Kaugummis 🍬</text>
+</svg>
+</div></div>
+
 <div class="res">P("OK") = 1/12 ≈ 8,3% → 30 Schüler → 3 Kaugummis! 🍬</div>
 <div class="card" style="border-color:rgba(124,92,252,.2)"><div class="ct">⚡ Quiz</div><div id="qa5"></div>
 <button class="cbtn" id="cb5" onclick="complete(5)" disabled>Kapitel 6 abschließen 🔓</button></div>`,
@@ -948,7 +1426,7 @@ Jedes hat P = 1/4 × 1/3 = <strong>1/12 ≈ 8,3%</strong>
 };
 
 // ══════════════════════════════════════
-// QUIZ ENGINE
+// QUIZ ENGINE (identisch zum Original)
 // ══════════════════════════════════════
 const lessonDiff={},answered={},qCache={};
 function rnd(a,b){return Math.floor(Math.random()*(b-a+1))+a;}
@@ -957,7 +1435,6 @@ function shuf(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*
 function fmt(n){if(Number.isInteger(n))return String(n);return String(Math.round(n*1000)/1000).replace('.',',');}
 function makeOpts(a){const s=new Set([a]);let t=0;const sp=Math.abs(a)>200?50:Math.abs(a)>50?12:Math.abs(a)>20?5:2;while(s.size<4&&t++<200){const d=rnd(1,sp);const c=pick([a+d,a-d,a+d*2,a-d*2]);if(c!==a)s.add(c);}return shuf([...s].slice(0,4));}
 
-// WAHRSCHEINLICHKEIT QUESTIONS
 const GEN={
 0:{
 easy:[
@@ -1219,7 +1696,6 @@ function getQs(l,topic,d){
   qCache[key]=qs;return qs;
 }
 
-// Track which topic the current lesson is
 let currentLessonTopic='wahr';
 
 function buildQuiz(l,topic){
@@ -1477,7 +1953,6 @@ async function sendSicks(){
   }
 
   try{
-    // Mathe-Kontext immer dazuschreiben damit Sicks weiß worum es geht
     const SICKS_CTX=`Du bist Sicks, der beste Mathe-Erklärer der Welt — viel besser als jeder Lehrer. Du erklärst IMMER:
 1. Die REGEL zuerst (kurz und knackig)
 2. WARUM sie funktioniert (Beweis/Intuition)
@@ -1515,28 +1990,17 @@ KNIFFLIGE AUFGABEN:
 === WAHRSCHEINLICHKEIT ===
 BAUMDIAGRAMM: Zeigt alle Möglichkeiten. Pfadregel(×) + Summenregel(+). Probe: alle Pfade = 1.
 
-KARTEN K,E,O,A (4 Karten, ohne Zurücklegen):
+KARTEN K,E,A,O:
   P("OK") = 1/4 × 1/3 = 1/12 ≈ 8,3%
   Alle Paare: 4×3=12. 30 Schüler → 30/12=2,5 → 3 Kaugummis
-  Paare mit K: KE,KO,KA,EK,OK,AK → 6 Stück
 
-KUGELN 5W+5S (ohne Zurücklegen):
-  P(WW): 5/10 × 4/9 = 20/90 = 2/9
-  P(SS): 5/10 × 4/9 = 20/90 = 2/9
-  P(gleichfarb.) = 40/90 = 4/9 ≈ 44%
-
-KUGELN 4O+8W=12 (MIT vs OHNE Zurücklegen):
-  MIT: P(OO) = 4/12 × 4/12 = 16/144 = 1/9
-  OHNE: P(OO) = 4/12 × 3/11 = 12/132 = 1/11
+KUGELN 5W+5S:
+  P(WW): 5/10 × 4/9 = 2/9
+  P(SS): 5/10 × 4/9 = 2/9
+  P(gleichfarb.) = 4/9 ≈ 44%
 
 WÜRFEL 3× (S.49):
-  a) alle drei 1: 1/216 ≈ 0,46%
-  b) keinmal 1: (5/6)³=125/216 ≈ 57,9%
-  c) genau 1×: 3×(1/6)×(5/6)²=75/216 ≈ 34,7%
-  d) genau 2×: 3×(1/6)²×(5/6)=15/216 ≈ 6,9%
-  Probe: 1+125+75+15=216 ✓
-
-MÜNZWURF 2×: 4 Ergebnisse: KK,KZ,ZK,ZZ. P(KK)=1/4. P(mind.1K)=3/4.
+  a) 1/216 b) 125/216 c) 75/216 d) 15/216
 
 ${st.name?'Schüler: '+st.name+'. ':''}
 STIL: Erkläre wie ein cooler älterer Bruder — direkt, witzig, mit Emojis. Max 3 Schritte. Keine langen Aufsätze. IMMER ein Beispiel. Nur Mathe-Fragen!`;
@@ -1596,14 +2060,12 @@ async function sendSicksRetry(msg){
   }
 }
 
-// ── TOAST ──
 let toastTimer;
 function toast(msg){
   const el=document.getElementById('toast');el.textContent=msg;el.classList.add('show');
   clearTimeout(toastTimer);toastTimer=setTimeout(()=>el.classList.remove('show'),2800);
 }
 
-// ── INIT ──
 if(activeCode&&st.name){
   document.getElementById('welcome').classList.add('hidden');
   showGreeting();buildLessonGrid();buildPotGrid();updateStats();
