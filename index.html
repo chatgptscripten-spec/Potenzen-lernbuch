@@ -3,1418 +3,985 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Mathe Meister ⚡ + Zeichen-Modus</title>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700;800&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<title>Mathe9 — Wahrscheinlichkeit</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=JetBrains+Mono:wght@400;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root {
-  --bg: #070710;
-  --s1: #0e0e1a;
-  --s2: #151524;
-  --s3: #1e1e30;
-  --s4: #26263a;
-  --border: rgba(255,255,255,0.07);
+  --bg: #080810;
+  --s1: #0d0d18;
+  --s2: #12121f;
+  --s3: #1a1a2e;
+  --s4: #222238;
+  --border: rgba(255,255,255,0.06);
   --border2: rgba(255,255,255,0.12);
   --text: #f0f0fc;
-  --text2: #b8b8d4;
-  --muted: #5a5a80;
-  --p: #7c5cfc;
-  --p2: #eb5b9e;
-  --p-glow: rgba(124,92,252,0.3);
+  --text2: #9898c0;
+  --muted: #4a4a70;
+  --p: #667eea;
+  --p2: #764ba2;
   --g: #00e5a0;
-  --g-glow: rgba(0,229,160,0.25);
   --r: #ff5757;
   --y: #ffd23f;
   --b: #4db8ff;
   --o: #ff8c42;
-  --radius: 14px;
-  --radius-sm: 8px;
-  --radius-lg: 20px;
+  --radius: 12px;
+  --sidebar: 240px;
 }
-*, *::before, *::after { margin:0; padding:0; box-sizing:border-box }
-html { scroll-behavior:smooth }
-body {
-  font-family: 'Space Grotesk', sans-serif;
-  background: var(--bg); color: var(--text);
-  min-height: 100vh; overflow-x: hidden; line-height: 1.6;
-}
-body::before {
-  content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 0;
-  background:
-    radial-gradient(ellipse 80% 50% at 15% -10%, rgba(124,92,252,.12), transparent 60%),
-    radial-gradient(ellipse 60% 40% at 90% 110%, rgba(235,91,158,.08), transparent 55%),
-    radial-gradient(ellipse 40% 30% at 50% 50%, rgba(0,229,160,.03), transparent 60%);
-}
-.hdr {
-  position: sticky; top: 0; z-index: 30;
-  padding: .8rem 2rem;
-  border-bottom: 1px solid var(--border);
-  display: flex; align-items: center; justify-content: space-between; gap: .75rem; flex-wrap: wrap;
-  background: rgba(7,7,16,.92);
-  backdrop-filter: blur(32px) saturate(180%);
-}
-.logo {
-  font-family: 'Outfit', sans-serif;
-  font-size: 1.25rem; font-weight: 900; letter-spacing: -.03em;
-  background: linear-gradient(135deg, var(--p), var(--p2));
-  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-  background-clip: text;
-  filter: drop-shadow(0 0 20px rgba(124,92,252,.4));
-}
-.hdr-stats { display:flex; align-items:center; gap:.4rem; flex-wrap:wrap }
-.stat {
-  display: flex; align-items: center; gap: .35rem;
-  background: var(--s2); border: 1px solid var(--border);
-  border-radius: 10px; padding: .25rem .65rem;
-  font-size: .72rem; font-weight: 600; color: var(--text2);
-}
-.stat-v { font-family: 'JetBrains Mono', monospace; color: var(--g); font-size: .78rem; font-weight: 700; }
-.grade-badge { padding: .25rem .7rem; border-radius: 10px; font-size: .78rem; font-weight: 800; border: 1.5px solid; transition: .3s; font-family: 'Outfit', sans-serif; }
-.prog-wrap { position: sticky; top: 53px; z-index: 29; background: var(--bg); padding: .3rem 2rem; border-bottom: 1px solid var(--border); }
-.prog-row { max-width:1200px; margin:0 auto; display:flex; align-items:center; gap:.8rem }
-.prog-track { flex: 1; height: 3px; background: var(--s3); border-radius: 2px; overflow: hidden; }
-.prog-fill { height: 100%; background: linear-gradient(90deg, var(--p), var(--p2), var(--g)); border-radius: 2px; transition: width .8s cubic-bezier(.34,1.56,.64,1); box-shadow: 0 0 10px var(--p-glow); }
-.prog-pct { font-size: .66rem; font-weight: 700; color: var(--muted); font-family: 'JetBrains Mono', monospace; white-space: nowrap; }
-.mod-bar { position: sticky; top: 84px; z-index: 28; background: rgba(7,7,16,.9); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); padding: .45rem 2rem; display: flex; gap: .35rem; flex-wrap: wrap; }
-.mod-tab { padding: .35rem .9rem; border-radius: var(--radius-sm); font-size: .75rem; font-weight: 700; letter-spacing: .01em; border: 1px solid var(--border); background: transparent; color: var(--muted); cursor: pointer; transition: all .15s; font-family: 'Space Grotesk', sans-serif; }
-.mod-tab:hover { background: var(--s2); color: var(--text); border-color: var(--border2) }
-.mod-tab.active { color: #fff; border-color: var(--p); background: rgba(124,92,252,.15); box-shadow: 0 0 16px rgba(124,92,252,.2); }
-.app { max-width: 1200px; margin: 0 auto; padding: 1.5rem 2rem; display: grid; grid-template-columns: 210px 1fr; gap: 1.5rem; position: relative; z-index: 1; }
-@media(max-width:720px) { .app { grid-template-columns:1fr; padding:1rem } .mod-bar, .prog-wrap, .hdr { padding-left:1rem; padding-right:1rem } }
-.sidebar { display: flex; flex-direction: column; gap: .1rem; position: sticky; top: 130px; align-self: start; }
-@media(max-width:720px) { .sidebar { position:static; flex-direction:row; flex-wrap:wrap } }
-.nav-sec { font-size: .52rem; font-weight: 800; letter-spacing: .2em; text-transform: uppercase; color: var(--muted); padding: .5rem .7rem .2rem; margin-top: .4rem; font-family: 'JetBrains Mono', monospace; }
-.nav-btn { display: flex; align-items: center; gap: .5rem; width: 100%; padding: .48rem .7rem; border-radius: var(--radius-sm); border: 1px solid transparent; background: transparent; color: var(--muted); font-size: .77rem; font-weight: 600; cursor: pointer; transition: all .13s; text-align: left; font-family: 'Space Grotesk', sans-serif; }
-.nav-btn:hover:not(.locked) { background: var(--s2); color: var(--text); border-color: var(--border) }
-.nav-btn.active { background: var(--s2); color: var(--text); border-color: rgba(124,92,252,.4) }
-.nav-btn.done .nn { background: var(--g) !important; color: #001a0f; box-shadow: 0 0 8px var(--g-glow) }
-.nav-btn.locked { opacity: .25; cursor: not-allowed }
-.nn { width: 20px; height: 20px; border-radius: 6px; background: var(--s3); font-family: 'JetBrains Mono', monospace; font-size: .62rem; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: all .2s; }
-.nav-btn.active .nn { background: var(--p); color: #fff; box-shadow: 0 0 10px var(--p-glow) }
-.content { min-width: 0 }
-.lesson { display: none }
-.lesson.active { display: block; animation: fadeUp .3s ease }
-@keyframes fadeUp { from { opacity:0; transform:translateY(10px) } to { opacity:1; transform:translateY(0) } }
-.hero { border-radius: var(--radius-lg); padding: 1.6rem 2rem; margin-bottom: 1rem; position: relative; overflow: hidden; }
-.hero::before { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(255,255,255,.04) 0%, transparent 60%); }
-.hero-tag { font-size: .58rem; font-weight: 800; letter-spacing: .24em; text-transform: uppercase; opacity: .5; margin-bottom: .35rem; font-family: 'JetBrains Mono', monospace; }
-.hero h2 { font-family: 'Outfit', sans-serif; font-size: 1.7rem; font-weight: 900; line-height: 1.1; margin-bottom: .3rem; letter-spacing: -.04em; }
-.hero p { font-size: .85rem; opacity: .65; font-weight: 500; max-width: 70% }
-.hero-icon { position: absolute; right: 1.8rem; top: 50%; transform: translateY(-50%); font-size: 4rem; opacity: .07; pointer-events: none; }
-.erkl-bar { background: var(--s1); border: 1px solid var(--border); border-radius: var(--radius); padding: .85rem 1.1rem; margin-bottom: .85rem; display: flex; align-items: center; gap: .7rem; flex-wrap: wrap; }
-.erkl-bar-label { font-size: .64rem; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); white-space: nowrap; font-family: 'JetBrains Mono', monospace; }
-.erkl-btns { display: flex; gap: .35rem; flex-wrap: wrap }
-.eb { padding: .32rem .85rem; border-radius: var(--radius-sm); font-size: .76rem; font-weight: 700; border: 1.5px solid var(--border); background: var(--s2); color: var(--muted); cursor: pointer; transition: all .18s; font-family: 'Space Grotesk', sans-serif; }
-.eb:hover { border-color: rgba(124,92,252,.4); color: var(--text) }
-.eb.on { color: #fff; border-color: transparent; background: linear-gradient(135deg, var(--p), var(--p2)); box-shadow: 0 4px 16px rgba(124,92,252,.3); }
-.ek, .el { display: none }
-.ek.vis, .el.vis { display: block; animation: fadeUp .25s ease }
-.card { background: var(--s1); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.25rem 1.4rem; margin-bottom: .85rem; transition: border-color .2s; }
-.card:hover { border-color: var(--border2) }
-.ct { font-family: 'Outfit', sans-serif; font-weight: 800; font-size: .92rem; margin-bottom: .85rem; display: flex; align-items: center; gap: .45rem; letter-spacing: -.01em; }
-.fbox { background: linear-gradient(135deg, rgba(124,92,252,.1), rgba(235,91,158,.07)); border: 1px solid rgba(124,92,252,.2); border-radius: var(--radius); padding: 1rem 1.4rem; text-align: center; margin: .6rem 0; position: relative; overflow: hidden; }
-.fm { font-size: 1.5rem; font-weight: 800; color: var(--p); font-family: 'JetBrains Mono', monospace; }
-.fs { font-size: .76rem; color: var(--muted); font-weight: 600; margin-top: .2rem }
-.steps { display: flex; flex-direction: column; gap: .3rem }
-.step { display: flex; align-items: center; gap: .6rem; padding: .55rem .85rem; background: var(--s2); border-radius: var(--radius-sm); border-left: 3px solid var(--p); }
-.sb { font-size: .56rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; padding: .15rem .45rem; border-radius: 5px; background: var(--p); color: #fff; flex-shrink: 0; white-space: nowrap; font-family: 'JetBrains Mono', monospace; }
-.st { font-weight: 700; font-size: .85rem }
-.sh { font-size: .68rem; color: var(--muted); margin-left: auto; white-space: nowrap; font-family: 'JetBrains Mono', monospace }
-.res { background: rgba(0,229,160,.08); border: 1px solid rgba(0,229,160,.2); border-radius: var(--radius-sm); padding: .7rem 1rem; text-align: center; font-weight: 800; color: var(--g); font-size: 1.05rem; margin-top: .45rem; font-family: 'JetBrains Mono', monospace; }
-.info { display: flex; gap: .65rem; padding: .85rem 1rem; border-radius: var(--radius-sm); font-size: .82rem; font-weight: 600; line-height: 1.7; margin: .55rem 0; }
-.info.tip { background: rgba(0,229,160,.05); border: 1px solid rgba(0,229,160,.15) }
-.info.warn { background: rgba(255,210,63,.06); border: 1px solid rgba(255,210,63,.18) }
-.info.danger { background: rgba(255,87,87,.06); border: 1px solid rgba(255,87,87,.18) }
-.info.blue { background: rgba(77,184,255,.06); border: 1px solid rgba(77,184,255,.17) }
-.ii { font-size: 1.05rem; flex-shrink: 0; margin-top: .1rem }
-.split { display: grid; grid-template-columns: 1fr 1fr; gap: .55rem; margin: .55rem 0 }
-.sc { border-radius: var(--radius); overflow: hidden }
-.sh2 { padding: .65rem .85rem; font-weight: 800; color: #fff; font-size: .84rem; font-family: 'Outfit', sans-serif }
-.sb2 { background: var(--s2); padding: .75rem .85rem; font-size: .8rem; font-weight: 600; line-height: 2.1 }
-@media(max-width:480px) { .split { grid-template-columns: 1fr } }
-.dtab { width: 100%; border-collapse: separate; border-spacing: 0; border-radius: var(--radius); overflow: hidden; border: 1px solid var(--border); margin: .55rem 0; }
-.dtab th { background: linear-gradient(135deg, rgba(124,92,252,.25), rgba(235,91,158,.18)); color: var(--text); padding: .52rem .85rem; font-size: .76rem; text-align: left; font-weight: 700; }
-.dtab td { background: var(--s1); padding: .48rem .85rem; font-weight: 600; border-bottom: 1px solid var(--border); font-size: .78rem; }
-.dtab tr:last-child td { border-bottom: none }
-.dtab tr:hover td { background: var(--s2) }
-.dtab td:nth-child(2) { color: var(--p); font-family: 'JetBrains Mono', monospace }
-.dtab td:nth-child(3) { color: var(--y) }
-.dtab td:nth-child(4) { color: var(--g) }
-.skala { width: 100%; height: 32px; background: linear-gradient(90deg, var(--r), var(--y), var(--g)); border-radius: 16px; position: relative; margin: .8rem 0; }
-.skala-pts { display: flex; justify-content: space-between; font-size: .64rem; font-weight: 700; color: var(--muted); margin-top: .35rem; }
-.diff-row { display: flex; gap: .4rem; margin-bottom: 1rem; flex-wrap: wrap }
-.db { padding: .34rem .9rem; border-radius: var(--radius-sm); font-size: .75rem; font-weight: 700; border: 1.5px solid var(--border); background: var(--s2); color: var(--muted); cursor: pointer; transition: all .15s; font-family: 'Space Grotesk', sans-serif; }
-.db:hover { border-color: var(--border2); color: var(--text) }
-.db.e.on { background: linear-gradient(135deg,#054a30,#0a8050); color:#fff; border-color:transparent; }
-.db.m.on { background: linear-gradient(135deg,#5a2500,#b84800); color:#fff; border-color:transparent; }
-.db.h.on { background: linear-gradient(135deg,#5a0000,#b80000); color:#fff; border-color:transparent; }
-.qcard { background: var(--s2); border: 2px solid var(--border); border-radius: var(--radius); padding: 1.2rem 1.3rem; transition: border-color .25s; margin-bottom: .65rem; }
-.qcard.ok { border-color: rgba(0,229,160,.4); background: rgba(0,229,160,.03) }
-.qcard.no { border-color: rgba(255,87,87,.4) }
-.qtext { font-size: 1.05rem; font-weight: 800; letter-spacing: -.02em; margin-bottom: .9rem; font-family: 'JetBrains Mono', monospace; line-height: 1.4; color: var(--text); }
-.mc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: .5rem; margin-bottom: .8rem }
-.mc { padding: .72rem .85rem; border-radius: var(--radius-sm); border: 2px solid var(--border); background: var(--s1); color: var(--text); font-size: .9rem; font-weight: 700; cursor: pointer; transition: all .15s; font-family: 'JetBrains Mono', monospace; text-align: center; }
-.mc:hover:not(:disabled) { border-color: rgba(124,92,252,.45); background: rgba(124,92,252,.07); transform: translateY(-1px); }
-.mc.ok { border-color: var(--g) !important; background: rgba(0,229,160,.1) !important; color: var(--g) }
-.mc.no { border-color: var(--r) !important; background: rgba(255,87,87,.07) !important; color: var(--r) }
-.mc:disabled { cursor: default }
-.inp-row { display:flex; gap:.4rem; align-items:stretch; flex-wrap:wrap; margin-bottom:.6rem }
-.qi { flex: 1; min-width: 100px; font-family: 'JetBrains Mono', monospace; font-size: .95rem; font-weight: 700; border: 2px solid var(--border); border-radius: var(--radius-sm); padding: .52rem .85rem; background: var(--s1); color: var(--text); outline: none; transition: border-color .18s; }
-.qi:focus { border-color: var(--p); }
-.btn-check { padding: .52rem 1rem; border-radius: var(--radius-sm); background: linear-gradient(135deg, var(--p), var(--p2)); color: #fff; border: none; font-weight: 700; font-size: .8rem; cursor: pointer; transition: all .18s; font-family: 'Space Grotesk', sans-serif; white-space: nowrap; }
-.btn-check:hover { opacity: .88; transform: translateY(-2px); }
-.btn-tipp { padding: .52rem .85rem; border-radius: var(--radius-sm); background: var(--s1); border: 1.5px solid var(--border); color: var(--muted); font-weight: 700; font-size: .77rem; cursor: pointer; font-family: 'Space Grotesk', sans-serif; transition: all .15s; }
-.qfb { min-height: 1.4rem; font-weight: 700; font-size: .82rem; padding: .38rem 0 }
-.qfb.ok { color: var(--g) }
-.qfb.no { color: var(--r) }
-.qfb.hint { color: var(--b) }
-.dots-row { display:flex; gap:.28rem; margin-bottom:.85rem; flex-wrap:wrap; align-items:center }
-.dot { width: 8px; height: 8px; border-radius: 50%; background: var(--s3); border: 1px solid var(--border); transition: all .22s }
-.dot.done { background: var(--g); border-color: var(--g); box-shadow: 0 0 6px var(--g-glow) }
-.dot.cur { background: var(--p); border-color: var(--p); }
-.q-stat { font-size: .72rem; font-weight: 700; color: var(--muted); margin-left: auto; font-family: 'JetBrains Mono', monospace }
-.cbtn { width: 100%; margin-top: 1rem; padding: .88rem; border-radius: var(--radius); border: none; background: linear-gradient(135deg, var(--p), var(--p2)); color: #fff; font-size: .9rem; font-weight: 800; cursor: pointer; transition: all .22s; font-family: 'Outfit', sans-serif; box-shadow: 0 4px 20px rgba(124,92,252,.25); }
-.cbtn:hover:not(:disabled) { transform: translateY(-3px); box-shadow: 0 12px 30px rgba(124,92,252,.4); }
-.cbtn:disabled { opacity: .35; cursor: not-allowed; transform: none; box-shadow: none }
-.toast { position: fixed; bottom: 1.75rem; left: 50%; transform: translateX(-50%) translateY(70px); background: linear-gradient(135deg, var(--p), var(--p2)); color: #fff; padding: .65rem 1.5rem; border-radius: 50px; font-weight: 700; font-size: .84rem; z-index: 1000; transition: transform .38s cubic-bezier(.34,1.56,.64,1); box-shadow: 0 12px 32px rgba(0,0,0,.5); pointer-events: none; font-family: 'Space Grotesk', sans-serif; }
-.toast.show { transform: translateX(-50%) translateY(0) }
-.c-purple { background: linear-gradient(135deg,#120836,#1f1060) }
-.c-tree { background: linear-gradient(135deg,#0a1a06,#122a0e) }
-.c-pfad { background: linear-gradient(135deg,#140828,#221040) }
-.c-draw { background: linear-gradient(135deg,#0a1820,#102530) }
-@keyframes shake { 0%,100%{transform:translateX(0)} 25%{transform:translateX(-7px)} 75%{transform:translateX(7px)} }
-sup { font-size: .54em; vertical-align: super; font-weight: 900 }
-.frac { display:inline-flex; flex-direction:column; align-items:center; vertical-align:middle; font-size:.84em; margin:0 .12em; line-height:1.2 }
-.frac>span:first-child { border-bottom:2px solid currentColor; padding:0 .16em }
-.frac>span:last-child { padding:0 .16em }
-::-webkit-scrollbar { width: 6px; height: 6px }
-::-webkit-scrollbar-track { background: var(--s1) }
-::-webkit-scrollbar-thumb { background: var(--s4); border-radius: 3px }
-::selection { background: rgba(124,92,252,.35); color: #fff }
-.dz { background: var(--s1); border: 1px solid rgba(255,87,87,.18); border-radius: var(--radius); padding: 1rem 1.25rem; margin: 1rem 0; }
-.dz h4 { color: var(--r); font-weight: 800; margin-bottom: .28rem; font-family: 'Outfit', sans-serif }
-.btn-del { margin-top: .45rem; padding: .46rem 1rem; background: transparent; border: 1.5px solid var(--r); color: var(--r); border-radius: var(--radius-sm); cursor: pointer; font-weight: 700; font-size: .77rem; transition: all .18s; }
-.btn-del:hover { background: var(--r); color: #fff; }
-.task-check-btn { padding: .42rem 1rem; background: linear-gradient(135deg, var(--p), var(--p2)); color: #fff; border: none; border-radius: var(--radius-sm); font-weight: 800; font-size: .79rem; cursor: pointer; transition: all .15s; font-family: 'Space Grotesk', sans-serif; margin-top: .5rem; }
-.feedback-line { font-size: .81rem; font-weight: 700; margin-top: .3rem; min-height: 1.2em; line-height: 1.5 }
-.fb-ok { color: var(--g) }
-.fb-no { color: var(--r) }
-.calc-input { background: var(--s2); border: 1.5px solid var(--border); border-radius: var(--radius-sm); color: var(--text); font-family: 'JetBrains Mono', monospace; font-weight: 800; font-size: .88rem; padding: .42rem .7rem; width: 100%; outline: none; transition: all .2s; margin-top: .3rem; }
-.calc-input:focus { border-color: var(--p); }
-.calc-input.ok { border-color: var(--g); background: rgba(0,229,160,.06) }
-.calc-input.no { border-color: var(--r) }
-.task-solution { background: rgba(0,229,160,.05); border: 1px solid rgba(0,229,160,.15); border-radius: var(--radius-sm); padding: .85rem 1rem; margin-top: .65rem; display: none; font-size: .84rem; }
-.task-solution.show { display:block; animation:fadeUp .2s ease }
-.part-box { background: var(--s2); border: 1px solid var(--border); border-radius: var(--radius); padding: .8rem 1rem; margin-bottom: .55rem; border-left: 3px solid rgba(124,92,252,.3); }
-.task-part-label { font-size: .8rem; font-weight: 800; color: var(--p); min-width: 28px; margin-top: .15rem; font-family: 'JetBrains Mono', monospace; }
-.task-sub { font-size: .83rem; font-weight: 600; color: var(--text2); margin-bottom: .5rem }
-.spick-grid { display: grid; grid-template-columns: repeat(auto-fill,minmax(180px,1fr)); gap: .55rem; margin: .55rem 0 }
-.spick { border-radius: var(--radius); padding: .8rem .95rem; border: 1px solid var(--border); transition: all .2s; }
-.sp-l { font-size: .52rem; font-weight: 800; letter-spacing: .18em; text-transform: uppercase; opacity: .5; margin-bottom: .22rem; font-family: 'JetBrains Mono', monospace }
-.sp-f { font-family: 'JetBrains Mono', monospace; font-weight: 700; font-size: .96rem; margin-bottom: .18rem; color: #fff }
-.sp-e { font-size: .7rem; opacity: .6; font-weight: 600 }
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);height:100vh;display:flex;overflow:hidden;font-size:14px}
 
-/* ══════════════════════════════════
-   🎨 ZEICHEN-MODUS — Premium Drawing Canvas
-   ══════════════════════════════════ */
-.draw-mode-bar {
-  display: flex; align-items: center; gap: .5rem; flex-wrap: wrap;
-  background: var(--s1); border: 1px solid var(--border);
-  border-radius: var(--radius); padding: .75rem 1rem; margin-bottom: .85rem;
-}
-.draw-mode-label {
-  font-size: .64rem; font-weight: 800; letter-spacing: .14em;
-  text-transform: uppercase; color: var(--muted); white-space: nowrap;
-  font-family: 'JetBrains Mono', monospace;
-}
-.mode-btn {
-  display: flex; align-items: center; gap: .4rem;
-  padding: .45rem 1.1rem; border-radius: var(--radius-sm);
-  font-size: .82rem; font-weight: 800; border: 2px solid var(--border);
-  background: var(--s2); color: var(--muted); cursor: pointer;
-  transition: all .2s; font-family: 'Space Grotesk', sans-serif;
-}
-.mode-btn:hover { border-color: var(--border2); color: var(--text) }
-.mode-btn.active-txt {
-  background: linear-gradient(135deg, rgba(77,184,255,.15), rgba(124,92,252,.1));
-  border-color: var(--b); color: var(--b);
-  box-shadow: 0 0 16px rgba(77,184,255,.2);
-}
-.mode-btn.active-draw {
-  background: linear-gradient(135deg, rgba(0,229,160,.15), rgba(0,200,120,.1));
-  border-color: var(--g); color: var(--g);
-  box-shadow: 0 0 16px rgba(0,229,160,.2);
-}
+/* ── SIDEBAR ── */
+.sidebar{width:var(--sidebar);background:#0a0a14;border-right:1px solid var(--border);display:flex;flex-direction:column;flex-shrink:0;overflow-y:auto}
+.sidebar::-webkit-scrollbar{width:3px}
+.sidebar::-webkit-scrollbar-thumb{background:var(--s4);border-radius:2px}
+.sidebar-logo{padding:18px 16px 12px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px}
+.logo-text{font-family:'Syne',sans-serif;font-size:18px;font-weight:800;background:linear-gradient(135deg,var(--p),var(--p2));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.logo-sub{font-size:10px;color:var(--muted);font-weight:600;letter-spacing:.08em;margin-top:1px}
+.sidebar-stats{padding:10px 12px;display:flex;gap:6px;flex-wrap:wrap;border-bottom:1px solid var(--border)}
+.stat-pill{background:var(--s2);border:1px solid var(--border);border-radius:20px;padding:4px 10px;font-size:11px;font-weight:700;color:var(--text2);display:flex;align-items:center;gap:4px}
+.stat-pill .sv{font-family:'JetBrains Mono',monospace;color:var(--g)}
+.nav-section{padding:10px 12px 4px;font-size:9px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);font-family:'JetBrains Mono',monospace}
+.nav-btn{display:flex;align-items:center;gap:8px;width:100%;padding:8px 12px;border:none;background:transparent;color:var(--text2);font-size:12px;font-weight:600;cursor:pointer;transition:all .12s;text-align:left;border-radius:0;font-family:'Inter',sans-serif;position:relative}
+.nav-btn:hover:not(.locked){background:var(--s2);color:var(--text)}
+.nav-btn.active{background:var(--s3);color:#fff}
+.nav-btn.active::before{content:'';position:absolute;left:0;top:0;bottom:0;width:2px;background:linear-gradient(180deg,var(--p),var(--p2))}
+.nav-btn.done .ni{background:var(--g)!important;color:#002a1a}
+.nav-btn.locked{opacity:.2;cursor:not-allowed}
+.ni{width:18px;height:18px;border-radius:5px;background:var(--s4);font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.nav-btn.active .ni{background:var(--p);color:#fff}
+.prog-bar-wrap{padding:10px 12px;border-top:1px solid var(--border);margin-top:auto}
+.prog-label{font-size:10px;color:var(--muted);font-weight:700;margin-bottom:5px;display:flex;justify-content:space-between}
+.prog-track{height:3px;background:var(--s4);border-radius:2px;overflow:hidden}
+.prog-fill{height:100%;background:linear-gradient(90deg,var(--p),var(--p2));border-radius:2px;transition:width .6s ease}
 
-/* Text mode content */
-.text-mode-content { display: block }
-.draw-mode-content { display: none }
-.showing-draw .text-mode-content { display: none }
-.showing-draw .draw-mode-content { display: block; animation: fadeUp .3s ease }
+/* ── MAIN ── */
+.main{flex:1;display:flex;flex-direction:column;overflow:hidden}
+.topbar{padding:12px 24px;border-bottom:1px solid var(--border);background:rgba(8,8,16,.95);backdrop-filter:blur(20px);display:flex;align-items:center;gap:10px;flex-shrink:0}
+.topbar-title{font-family:'Syne',sans-serif;font-size:15px;font-weight:700}
+.topbar-badge{padding:3px 10px;border-radius:20px;background:var(--s3);border:1px solid var(--border2);font-size:10px;font-weight:700;color:var(--p);letter-spacing:.04em}
+.content-area{flex:1;overflow-y:auto;padding:20px 24px 40px}
+.content-area::-webkit-scrollbar{width:4px}
+.content-area::-webkit-scrollbar-thumb{background:var(--s4);border-radius:2px}
+.lesson{display:none}
+.lesson.active{display:block;animation:fadeUp .25s ease}
+@keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
 
-/* Drawing Canvas */
-.canvas-container {
-  position: relative;
-  background: #0a0a16;
-  border: 2px solid rgba(0,229,160,.25);
-  border-radius: var(--radius);
-  overflow: hidden;
-  touch-action: none;
-  user-select: none;
-}
-.canvas-container canvas {
-  display: block; cursor: crosshair;
-  width: 100%; height: 100%;
-}
-.canvas-toolbar {
-  display: flex; align-items: center; gap: .4rem; flex-wrap: wrap;
-  padding: .6rem .85rem;
-  background: var(--s2); border-bottom: 1px solid var(--border);
-}
-.tool-btn {
-  width: 34px; height: 34px; border-radius: var(--radius-sm);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 1rem; border: 1.5px solid var(--border);
-  background: var(--s1); cursor: pointer; transition: all .15s;
-  color: var(--muted);
-}
-.tool-btn:hover { border-color: var(--border2); color: var(--text); transform: translateY(-1px) }
-.tool-btn.active { border-color: var(--p); background: rgba(124,92,252,.15); color: var(--p) }
-.tool-sep { width: 1px; height: 24px; background: var(--border); margin: 0 .1rem }
-.color-dot {
-  width: 22px; height: 22px; border-radius: 50%;
-  border: 2px solid transparent; cursor: pointer; transition: all .15s;
-  flex-shrink: 0;
-}
-.color-dot:hover { transform: scale(1.2) }
-.color-dot.active { border-color: #fff; box-shadow: 0 0 8px rgba(255,255,255,.4) }
-.size-slider {
-  -webkit-appearance: none; appearance: none;
-  width: 80px; height: 3px; border-radius: 2px;
-  background: var(--s3); outline: none; cursor: pointer;
-}
-.size-slider::-webkit-slider-thumb {
-  -webkit-appearance: none; width: 14px; height: 14px; border-radius: 50%;
-  background: var(--p); cursor: pointer; transition: .15s;
-}
-.canvas-hint {
-  position: absolute; bottom: .75rem; left: 50%; transform: translateX(-50%);
-  background: rgba(7,7,16,.85); backdrop-filter: blur(8px);
-  border: 1px solid var(--border); border-radius: 20px;
-  padding: .28rem .8rem; font-size: .66rem; font-weight: 700;
-  color: var(--muted); white-space: nowrap; pointer-events: none;
-  transition: opacity .4s;
-}
-.canvas-actions {
-  display: flex; gap: .45rem; flex-wrap: wrap; padding: .65rem .85rem;
-  background: var(--s2); border-top: 1px solid var(--border);
-}
-.cact-btn {
-  padding: .4rem .9rem; border-radius: var(--radius-sm);
-  font-size: .76rem; font-weight: 800; cursor: pointer; transition: all .15s;
-  border: 1.5px solid; font-family: 'Space Grotesk', sans-serif;
-}
-.cact-btn.primary { background: linear-gradient(135deg, var(--p), var(--p2)); color: #fff; border-color: transparent; }
-.cact-btn.secondary { background: transparent; color: var(--muted); border-color: var(--border); }
-.cact-btn.danger { background: transparent; color: var(--r); border-color: rgba(255,87,87,.3); }
-.cact-btn:hover { transform: translateY(-1px) }
+/* ── CARDS ── */
+.hero-card{border-radius:16px;padding:20px 24px;margin-bottom:16px;position:relative;overflow:hidden}
+.hero-card::after{content:'';position:absolute;bottom:-20px;right:-20px;width:100px;height:100px;border-radius:50%;background:rgba(255,255,255,.03)}
+.hc-tag{font-size:9px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;opacity:.5;margin-bottom:6px;font-family:'JetBrains Mono',monospace}
+.hc-title{font-family:'Syne',sans-serif;font-size:22px;font-weight:800;line-height:1.1;margin-bottom:4px}
+.hc-sub{font-size:12px;opacity:.55;font-weight:500}
+.hc-emoji{position:absolute;right:20px;top:50%;transform:translateY(-50%);font-size:40px;opacity:.08}
 
-/* Template overlay buttons */
-.template-grid {
-  display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: .5rem;
-  padding: .65rem .85rem; background: rgba(124,92,252,.04);
-  border-top: 1px solid var(--border);
-}
-.tmpl-btn {
-  padding: .6rem .8rem; border-radius: var(--radius-sm);
-  background: var(--s1); border: 1px solid var(--border);
-  color: var(--text2); font-size: .74rem; font-weight: 700; cursor: pointer;
-  transition: all .18s; text-align: center;
-  font-family: 'Space Grotesk', sans-serif;
-}
-.tmpl-btn:hover { border-color: rgba(0,229,160,.3); color: var(--g); background: rgba(0,229,160,.05); transform: translateY(-2px) }
-.tmpl-btn-ico { font-size: 1.2rem; display: block; margin-bottom: .2rem }
+.card{background:var(--s1);border:1px solid var(--border);border-radius:var(--radius);padding:16px;margin-bottom:12px;transition:border-color .15s}
+.card:hover{border-color:var(--border2)}
+.card-title{font-family:'Syne',sans-serif;font-weight:700;font-size:13px;margin-bottom:12px;display:flex;align-items:center;gap:6px}
 
-/* Preview saved drawing */
-.drawing-saved-badge {
-  display: inline-flex; align-items: center; gap: .35rem;
-  background: rgba(0,229,160,.08); border: 1px solid rgba(0,229,160,.2);
-  border-radius: 6px; padding: .2rem .6rem; font-size: .72rem; font-weight: 700;
-  color: var(--g); margin-left: .5rem;
-}
+/* ── EINFACH BOX (super simple explanations) ── */
+.einfach{background:linear-gradient(135deg,rgba(102,126,234,.08),rgba(118,75,162,.05));border:1px solid rgba(102,126,234,.2);border-radius:var(--radius);padding:14px 16px;margin-bottom:12px}
+.einfach-label{font-size:9px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--p);margin-bottom:8px;font-family:'JetBrains Mono',monospace}
+.einfach-text{font-size:13px;font-weight:500;line-height:1.8;color:var(--text)}
+.einfach-text strong{color:var(--p);font-weight:700}
+.einfach-text .big{font-size:18px;font-weight:800;font-family:'JetBrains Mono',monospace;color:var(--g)}
 
-/* Eraser cursor */
-.eraser-active canvas { cursor: cell !important }
+/* ── FORMEL ── */
+.formel{background:rgba(0,229,160,.04);border:1px solid rgba(0,229,160,.15);border-radius:var(--radius);padding:12px;text-align:center;margin:8px 0}
+.formel-main{font-family:'JetBrains Mono',monospace;font-size:16px;font-weight:700;color:var(--g)}
+.formel-sub{font-size:11px;color:var(--muted);margin-top:4px;font-weight:600}
 
-/* Responsive canvas */
-@media(max-width:480px) {
-  .size-slider { width: 55px }
-  .template-grid { grid-template-columns: 1fr 1fr }
-}
+/* ── STEPS ── */
+.step{display:flex;align-items:center;gap:8px;padding:8px 12px;background:var(--s2);border-radius:8px;border-left:2px solid var(--p);margin-bottom:4px;font-size:12px;font-weight:600}
+.step-n{font-size:9px;font-weight:800;padding:2px 6px;border-radius:4px;background:var(--p);color:#fff;flex-shrink:0;font-family:'JetBrains Mono',monospace}
+.step-val{font-family:'JetBrains Mono',monospace;color:var(--y);margin-left:auto;font-size:11px}
+
+/* ── RESULT ── */
+.result{background:rgba(0,229,160,.06);border:1px solid rgba(0,229,160,.2);border-radius:8px;padding:10px;text-align:center;font-family:'JetBrains Mono',monospace;font-weight:800;font-size:15px;color:var(--g);margin:8px 0}
+
+/* ── INFO BOXES ── */
+.info{display:flex;gap:8px;padding:10px 12px;border-radius:8px;font-size:12px;font-weight:600;line-height:1.7;margin:6px 0}
+.info.tip{background:rgba(0,229,160,.04);border:1px solid rgba(0,229,160,.14)}
+.info.warn{background:rgba(255,210,63,.04);border:1px solid rgba(255,210,63,.16)}
+.info.danger{background:rgba(255,87,87,.04);border:1px solid rgba(255,87,87,.15)}
+.info.blue{background:rgba(77,184,255,.04);border:1px solid rgba(77,184,255,.15)}
+.info-icon{font-size:14px;flex-shrink:0;margin-top:1px}
+
+/* ── TABLE ── */
+.tbl{width:100%;border-collapse:separate;border-spacing:0;border-radius:var(--radius);overflow:hidden;border:1px solid var(--border);margin:8px 0;font-size:12px}
+.tbl th{background:var(--s3);color:var(--text);padding:8px 12px;font-weight:700;text-align:left}
+.tbl td{background:var(--s1);padding:7px 12px;font-weight:600;border-bottom:1px solid var(--border)}
+.tbl tr:last-child td{border-bottom:none}
+.tbl tr:hover td{background:var(--s2)}
+.tbl td:nth-child(2){font-family:'JetBrains Mono',monospace;color:var(--p)}
+.tbl td:nth-child(3){font-family:'JetBrains Mono',monospace;color:var(--y)}
+.tbl td:nth-child(4){font-family:'JetBrains Mono',monospace;color:var(--g)}
+
+/* ── SPLIT ── */
+.split{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:8px 0}
+.split-box{border-radius:8px;overflow:hidden}
+.split-head{padding:8px 12px;font-weight:700;font-size:12px;color:#fff}
+.split-body{background:var(--s2);padding:10px 12px;font-size:12px;font-weight:600;line-height:2}
+@media(max-width:600px){.split{grid-template-columns:1fr}}
+
+/* ── SVG TREES ── */
+.tree-wrap{overflow-x:auto;padding:8px 0;margin:8px 0}
+svg.tree line{stroke:rgba(255,255,255,.12);stroke-width:1.5}
+svg.tree circle.tnode{fill:#12121f;stroke:#667eea;stroke-width:1.5}
+svg.tree rect.tnode{fill:#12121f;stroke:#555580;stroke-width:1}
+svg.tree text.tlabel{fill:#f0f0fc;font-size:11px;font-weight:700;text-anchor:middle;dominant-baseline:middle;font-family:'JetBrains Mono',monospace}
+svg.tree text.tprob{fill:#9898c0;font-size:9px;text-anchor:middle;font-family:'JetBrains Mono',monospace;font-weight:700}
+svg.tree text.tres{fill:#9898c0;font-size:10px;font-family:'Inter',sans-serif;font-weight:700}
+svg.tree text.tres.highlight{fill:#00e5a0}
+svg.tree line.highlight{stroke:rgba(0,229,160,.45);stroke-width:2.5}
+
+/* ── BEISPIEL-AUFGABE ── */
+.beispiel{background:var(--s2);border:1px solid rgba(102,126,234,.15);border-radius:var(--radius);padding:14px;margin:8px 0}
+.beispiel-tag{font-size:9px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--p);margin-bottom:8px;font-family:'JetBrains Mono',monospace}
+.beispiel-aufgabe{font-size:12px;font-weight:600;margin-bottom:10px;color:var(--text2)}
+.beispiel-rechnung{display:flex;flex-direction:column;gap:4px}
+.br-step{display:flex;align-items:center;gap:8px;font-size:12px;font-weight:700;padding:6px 10px;background:var(--s1);border-radius:6px}
+.br-label{font-size:9px;color:var(--p);font-weight:800;min-width:60px;font-family:'JetBrains Mono',monospace}
+.br-val{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--text)}
+.br-ans{margin-left:auto;font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--y)}
+
+/* ── CHANGED EXAMPLE ── */
+.changed-ex{background:rgba(255,210,63,.03);border:1px solid rgba(255,210,63,.12);border-radius:var(--radius);padding:14px;margin:8px 0}
+.changed-tag{font-size:9px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--y);margin-bottom:8px;font-family:'JetBrains Mono',monospace}
+
+/* ── QUIZ ── */
+.diff-row{display:flex;gap:5px;margin-bottom:12px}
+.db{padding:5px 12px;border-radius:6px;font-size:11px;font-weight:700;border:1px solid var(--border);background:var(--s2);color:var(--muted);cursor:pointer;transition:all .13s;font-family:'Inter',sans-serif}
+.db:hover{border-color:var(--border2);color:var(--text)}
+.db.e.on{background:linear-gradient(135deg,#032a18,#065030);color:#fff;border-color:transparent}
+.db.m.on{background:linear-gradient(135deg,#2a1200,#4a2200);color:#fff;border-color:transparent}
+.db.h.on{background:linear-gradient(135deg,#2a0000,#4a0000);color:#fff;border-color:transparent}
+
+.qcard{background:var(--s2);border:1.5px solid var(--border);border-radius:var(--radius);padding:14px;margin-bottom:8px;transition:border-color .2s}
+.qcard.ok{border-color:rgba(0,229,160,.35)}
+.qcard.no{border-color:rgba(255,87,87,.35)}
+.qtext{font-size:13px;font-weight:700;margin-bottom:10px;font-family:'JetBrains Mono',monospace;line-height:1.5}
+.mc-grid{display:grid;grid-template-columns:1fr 1fr;gap:5px;margin-bottom:7px}
+.mc{padding:8px 10px;border-radius:7px;border:1.5px solid var(--border);background:var(--s1);color:var(--text);font-size:12px;font-weight:700;cursor:pointer;transition:all .12s;font-family:'JetBrains Mono',monospace;text-align:center}
+.mc:hover:not(:disabled){border-color:rgba(102,126,234,.4);background:rgba(102,126,234,.07)}
+.mc.ok{border-color:var(--g)!important;background:rgba(0,229,160,.09)!important;color:var(--g)}
+.mc.no{border-color:var(--r)!important;background:rgba(255,87,87,.06)!important;color:var(--r)}
+.mc:disabled{cursor:default}
+.inp-row{display:flex;gap:5px;margin-bottom:7px}
+.qi{flex:1;font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:700;border:1.5px solid var(--border);border-radius:7px;padding:8px 10px;background:var(--s1);color:var(--text);outline:none;transition:border-color .15s}
+.qi:focus{border-color:var(--p)}
+.btn-check{padding:8px 14px;border-radius:7px;background:linear-gradient(135deg,var(--p),var(--p2));color:#fff;border:none;font-weight:700;font-size:11px;cursor:pointer;font-family:'Inter',sans-serif}
+.qfb{font-size:11px;font-weight:700;padding:3px 0;min-height:18px}
+.qfb.ok{color:var(--g)} .qfb.no{color:var(--r)} .qfb.hint{color:var(--b)}
+.dots-row{display:flex;gap:4px;margin-bottom:10px;align-items:center}
+.dot{width:7px;height:7px;border-radius:50%;background:var(--s4);border:1px solid var(--border);transition:all .2s}
+.dot.done{background:var(--g);border-color:var(--g)}
+.dot.cur{background:var(--p);border-color:var(--p)}
+.qs{font-size:10px;font-weight:700;color:var(--muted);margin-left:auto;font-family:'JetBrains Mono',monospace}
+.cbtn{width:100%;margin-top:12px;padding:11px;border-radius:var(--radius);border:none;background:linear-gradient(135deg,var(--p),var(--p2));color:#fff;font-size:12px;font-weight:800;cursor:pointer;transition:all .18s;font-family:'Syne',sans-serif}
+.cbtn:hover:not(:disabled){opacity:.88;transform:translateY(-1px)}
+.cbtn:disabled{opacity:.3;cursor:not-allowed;transform:none}
+
+/* ── TOAST ── */
+.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(60px);background:linear-gradient(135deg,var(--p),var(--p2));color:#fff;padding:9px 20px;border-radius:30px;font-weight:700;font-size:12px;z-index:999;transition:transform .3s cubic-bezier(.34,1.56,.64,1);pointer-events:none;font-family:'Inter',sans-serif}
+.toast.show{transform:translateX(-50%) translateY(0)}
+
+/* ── HERO COLORS ── */
+.hc-blue{background:linear-gradient(135deg,#06101e,#0e1e38)}
+.hc-purple{background:linear-gradient(135deg,#0d0820,#1a1040)}
+.hc-green{background:linear-gradient(135deg,#041510,#082a18)}
+.hc-orange{background:linear-gradient(135deg,#1a0800,#2e1000)}
+.hc-yellow{background:linear-gradient(135deg,#18100,#2a1c00)}
+.hc-teal{background:linear-gradient(135deg,#041818,#082c2c)}
+.hc-pink{background:linear-gradient(135deg,#180414,#2c0824)}
+
+/* ── SPICKZETTEL GRID ── */
+.spick-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(155px,1fr));gap:8px;margin:8px 0}
+.spick{border-radius:var(--radius);padding:10px 12px;border:1px solid var(--border);transition:all .18s;background:var(--s2)}
+.spick:hover{border-color:var(--border2);transform:translateY(-2px)}
+.sp-l{font-size:8px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;opacity:.45;margin-bottom:5px;font-family:'JetBrains Mono',monospace}
+.sp-f{font-family:'JetBrains Mono',monospace;font-weight:700;font-size:13px;margin-bottom:4px;color:#fff}
+.sp-e{font-size:10px;opacity:.55;font-weight:600}
+
+/* ── FEHLER BOX ── */
+.fehler{counter-reset:fehler}
+.fehler-item{display:flex;gap:8px;padding:8px 10px;background:rgba(255,87,87,.04);border:1px solid rgba(255,87,87,.12);border-radius:7px;margin-bottom:5px;font-size:12px;font-weight:600;line-height:1.6}
+.fehler-x{color:var(--r);font-weight:800;flex-shrink:0}
+.fehler-ok{color:var(--g);font-weight:700}
+
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
 </style>
 </head>
 <body>
 
-<header class="hdr">
-  <div class="logo">Mathe Meister ⚡</div>
-  <div class="hdr-stats">
-    <div class="stat">🏆 <span class="stat-v" id="pts">0</span> Pkt</div>
-    <div class="stat">📚 <span class="stat-v" id="chapCount">0/5</span></div>
-    <div class="stat">✅ <span class="stat-v" id="qCount">0</span> Quiz</div>
-    <div class="grade-badge" id="gbadge">—</div>
+<!-- SIDEBAR -->
+<aside class="sidebar">
+  <div class="sidebar-logo">
+    <div>
+      <div class="logo-text">Mathe9</div>
+      <div class="logo-sub">Wahrscheinlichkeit</div>
+    </div>
   </div>
-</header>
-<div class="prog-wrap">
-  <div class="prog-row">
+  <div class="sidebar-stats">
+    <div class="stat-pill">🏆 <span class="sv" id="pts">0</span> Pkt</div>
+    <div class="stat-pill">✅ <span class="sv" id="done">0/7</span></div>
+  </div>
+
+  <div class="nav-section">Grundlagen</div>
+  <button class="nav-btn active" id="nb0" onclick="go(0)"><span class="ni">1</span>Baumdiagramm</button>
+  <button class="nav-btn locked" id="nb1" onclick="go(1)"><span class="ni">2</span>Pfadregel ×</button>
+  <button class="nav-btn locked" id="nb2" onclick="go(2)"><span class="ni">3</span>Summenregel +</button>
+
+  <div class="nav-section">Aufgabentypen</div>
+  <button class="nav-btn locked" id="nb3" onclick="go(3)"><span class="ni">4</span>Kugeln ziehen</button>
+  <button class="nav-btn locked" id="nb4" onclick="go(4)"><span class="ni">5</span>Würfel 3×</button>
+  <button class="nav-btn locked" id="nb5" onclick="go(5)"><span class="ni">6</span>Karten K,E,O,A</button>
+  <button class="nav-btn locked" id="nb6" onclick="go(6)"><span class="ni">7</span>Übungsaufgaben</button>
+
+  <div class="nav-section">Hilfe</div>
+  <button class="nav-btn" id="nb99" onclick="go(99)"><span class="ni" style="background:var(--p)">★</span>Spickzettel</button>
+
+  <div class="prog-bar-wrap">
+    <div class="prog-label"><span>Fortschritt</span><span id="pct">0%</span></div>
     <div class="prog-track"><div class="prog-fill" id="progFill" style="width:0%"></div></div>
-    <div class="prog-pct" id="progPct">0%</div>
   </div>
-</div>
-<div class="mod-bar">
-  <button class="mod-tab active" id="mt-z" onclick="switchMod('z',this)">🌳 Mehrstufig</button>
-  <button class="mod-tab" onclick="go(99)">📋 Spickzettel</button>
-</div>
+</aside>
 
-<div class="app">
-  <nav class="sidebar" id="sidebar"></nav>
-  <div class="content">
-
-<!-- ══ L40: BAUMDIAGRAMM GRUNDLAGEN ══ -->
-<div class="lesson active" id="L40">
-  <div class="hero c-tree">
-    <div class="hero-tag">Mehrstufig · Kapitel 1</div>
-    <h2>Baumdiagramm — Grundlagen</h2>
-    <p>Mehrstufige Versuche übersichtlich darstellen</p>
-    <div class="hero-icon">🌳</div>
+<!-- MAIN -->
+<div class="main">
+  <div class="topbar">
+    <span class="topbar-title" id="topbarTitle">🌳 Baumdiagramm</span>
+    <span class="topbar-badge" id="topbarBadge">Kapitel 1</span>
   </div>
+  <div class="content-area">
 
-  <!-- MODUS-WAHL: Text oder Zeichnen -->
-  <div class="draw-mode-bar">
-    <span class="draw-mode-label">📐 Lernmodus:</span>
-    <button class="mode-btn active-txt" id="mode40-txt" onclick="setMode(40,'txt',this)">
-      📖 Text-Erklärung
-    </button>
-    <button class="mode-btn" id="mode40-draw" onclick="setMode(40,'draw',this)">
-      ✏️ Selber Zeichnen
-    </button>
-    <span style="font-size:.72rem;color:var(--muted);margin-left:.3rem">Wähle wie du lernen möchtest!</span>
+<!-- ══════════════════════════════
+     L0: BAUMDIAGRAMM
+══════════════════════════════ -->
+<div class="lesson active" id="L0">
+  <div class="hero-card hc-blue">
+    <div class="hc-tag">Kapitel 1 · Grundlagen</div>
+    <div class="hc-title">Das Baumdiagramm</div>
+    <div class="hc-sub">So malt man alle Möglichkeiten auf</div>
+    <div class="hc-emoji">🌳</div>
   </div>
 
-  <!-- TEXT-MODUS -->
-  <div class="text-mode-content" id="tc40">
-    <div class="erkl-bar"><span class="erkl-bar-label">📖 Erklärung:</span><div class="erkl-btns">
-      <button class="eb on" onclick="setE(40,'k',this)">⚡ Kurz</button>
-      <button class="eb" onclick="setE(40,'l',this)">📖 Lang</button>
-    </div></div>
-    <div class="ek vis" id="e40k">
-      <div class="card">
-        <div class="info blue"><div class="ii">🌳</div><div>
-          Ein <strong>Baumdiagramm</strong> zeigt alle möglichen Ausgänge eines mehrstufigen Zufallsversuchs.<br>
-          Jeder <strong>Ast</strong> = ein möglicher Ausgang. An den Ästen stehen die <strong>Wahrscheinlichkeiten</strong>.
-        </div></div>
-        <div class="fbox">
-          <div class="fm">Jede Stufe = ein Versuch &nbsp;|&nbsp; Äste = Ausgänge</div>
-          <div class="fs">Alle Äste derselben Stufe: Wahrscheinlichkeiten addieren sich zu 1</div>
-        </div>
-      </div>
+  <div class="einfach">
+    <div class="einfach-label">💡 So einfach geht's</div>
+    <div class="einfach-text">
+      Ein <strong>Baumdiagramm</strong> zeigt alle Möglichkeiten bei mehreren Würfen / Zügen.<br>
+      <strong>Jeder Ast</strong> = eine Möglichkeit (z.B. Kopf oder Zahl)<br>
+      <strong>Am Ast</strong> steht die Wahrscheinlichkeit (z.B. ½)<br>
+      <strong>Alle Äste einer Stufe</strong> müssen zusammen <strong>1 (= 100%)</strong> ergeben!
     </div>
-    <div class="el" id="e40l">
-      <div class="card">
-        <div class="ct">🌳 Aufbau eines Baumdiagramms</div>
-        <div class="split">
-          <div class="sc"><div class="sh2" style="background:linear-gradient(135deg,#0d1f0a,#142b10)">Aufbau</div>
-            <div class="sb2">📍 Start = links<br>🌿 1. Stufe = erste Äste<br>🌿 2. Stufe = zweite Äste<br>📋 Ergebnisse = rechts</div></div>
-          <div class="sc"><div class="sh2" style="background:linear-gradient(135deg,#1a0a2e,#2a1050)">Regeln</div>
-            <div class="sb2">➕ Äste einer Stufe = 1<br>✖️ Pfad = Multiplikation<br>📊 Alle Pfade = 1 gesamt</div></div>
-        </div>
-        <div class="info tip"><div class="ii">💡</div><div>Münzwurf 2×: 4 Pfade (KK, KZ, ZK, ZZ) — jeder P = ½ × ½ = ¼ — Summe: 4 × ¼ = 1 ✅</div></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ZEICHEN-MODUS -->
-  <div class="draw-mode-content" id="dc40">
-    <div class="card">
-      <div class="ct">✏️ Aufgabe: Zeichne selbst ein Baumdiagramm!</div>
-      <div class="info tip"><div class="ii">🎯</div><div>
-        <strong>Aufgabe:</strong> Zeichne ein Baumdiagramm für einen <strong>Münzwurf 2×</strong>.<br>
-        Zeige alle Äste mit den Wahrscheinlichkeiten (½ für Kopf, ½ für Zahl).<br>
-        <strong>Tipp:</strong> Nutze die Vorlagen unten zum Starten!
-      </div></div>
-      <div id="canvas-wrap-40"></div>
-    </div>
-  </div>
-
-  <div class="card" style="border-color:rgba(45,212,160,.25)">
-    <div class="ct">⚡ Quiz</div><div id="qa40"></div>
-    <button class="cbtn" id="cb40" onclick="complete(40)" disabled>Kapitel abschließen 🔓</button>
-  </div>
-</div>
-
-<!-- ══ L41: PFADREGEL ══ -->
-<div class="lesson" id="L41">
-  <div class="hero c-pfad">
-    <div class="hero-tag">Mehrstufig · Kapitel 2</div>
-    <h2>Die Pfadregel</h2>
-    <p>Wahrscheinlichkeit entlang eines Pfades berechnen</p>
-    <div class="hero-icon">✖️</div>
-  </div>
-
-  <div class="draw-mode-bar">
-    <span class="draw-mode-label">📐 Lernmodus:</span>
-    <button class="mode-btn active-txt" id="mode41-txt" onclick="setMode(41,'txt',this)">📖 Text-Erklärung</button>
-    <button class="mode-btn" id="mode41-draw" onclick="setMode(41,'draw',this)">✏️ Selber Zeichnen</button>
-  </div>
-
-  <div class="text-mode-content" id="tc41">
-    <div class="erkl-bar"><span class="erkl-bar-label">📖 Erklärung:</span><div class="erkl-btns">
-      <button class="eb on" onclick="setE(41,'k',this)">⚡ Kurz</button>
-      <button class="eb" onclick="setE(41,'l',this)">📖 Lang</button>
-    </div></div>
-    <div class="ek vis" id="e41k">
-      <div class="card">
-        <div class="fbox"><div class="fm">P(Pfad) = P₁ × P₂ × P₃ × …</div><div class="fs">Wahrscheinlichkeiten entlang eines Pfades MULTIPLIZIEREN</div></div>
-        <div class="info tip"><div class="ii">🔑</div><div>Beim Würfel: P(6, dann ungerade) = <strong>1/6 × 3/6 = 3/36 = 1/12</strong></div></div>
-      </div>
-    </div>
-    <div class="el" id="e41l">
-      <div class="card">
-        <div class="ct">✖️ Pfadregel — die wichtigste Regel!</div>
-        <div class="fbox"><div class="fm">P(Pfad) = P₁ × P₂ × P₃ × …</div></div>
-        <div class="steps">
-          <div class="step" style="border-color:var(--p2)"><span class="sb" style="background:var(--p2)">1. Zug</span><span class="st">4 Karten → P(O) = 1/4</span><span class="sh">= 0,25</span></div>
-          <div class="step" style="border-color:var(--p2)"><span class="sb" style="background:var(--p2)">2. Zug</span><span class="st">3 Karten übrig → P(K) = 1/3</span><span class="sh">= 0,333…</span></div>
-          <div class="step" style="border-color:var(--g)"><span class="sb" style="background:var(--g);color:#042014">Pfad</span><span class="st">1/4 × 1/3 = 1/12</span><span class="sh">≈ 8,3%</span></div>
-        </div>
-        <div class="res">P("OK") = 1/12 = 0,083 = 8,3%</div>
-      </div>
-    </div>
-  </div>
-
-  <div class="draw-mode-content" id="dc41">
-    <div class="card">
-      <div class="ct">✏️ Aufgabe: Zeichne den Pfad und rechne!</div>
-      <div class="info blue"><div class="ii">📋</div><div>
-        <strong>Aufgabe:</strong> Karten K, E, O, A — 2 Züge ohne Zurücklegen.<br>
-        Zeichne das Baumdiagramm und markiere den Pfad zu "OK".<br>
-        Schreibe die Pfadwahrscheinlichkeit daneben: 1/4 × 1/3 = ?
-      </div></div>
-      <div id="canvas-wrap-41"></div>
-    </div>
-  </div>
-
-  <div class="card" style="border-color:rgba(124,111,247,.25)">
-    <div class="ct">⚡ Quiz</div><div id="qa41"></div>
-    <button class="cbtn" id="cb41" onclick="complete(41)" disabled>Kapitel abschließen 🔓</button>
-  </div>
-</div>
-
-<!-- ══ L42: SUMMENREGEL ══ -->
-<div class="lesson" id="L42">
-  <div class="hero" style="background:linear-gradient(135deg,#0a1228,#0e1f40)">
-    <div class="hero-tag">Mehrstufig · Kapitel 3</div>
-    <h2>Die Summenregel</h2>
-    <p>Wenn mehrere Pfade zum Ziel führen — addieren!</p>
-    <div class="hero-icon">➕</div>
-  </div>
-
-  <div class="draw-mode-bar">
-    <span class="draw-mode-label">📐 Lernmodus:</span>
-    <button class="mode-btn active-txt" id="mode42-txt" onclick="setMode(42,'txt',this)">📖 Text-Erklärung</button>
-    <button class="mode-btn" id="mode42-draw" onclick="setMode(42,'draw',this)">✏️ Selber Zeichnen</button>
-  </div>
-
-  <div class="text-mode-content" id="tc42">
-    <div class="erkl-bar"><span class="erkl-bar-label">📖 Erklärung:</span><div class="erkl-btns">
-      <button class="eb on" onclick="setE(42,'k',this)">⚡ Kurz</button>
-      <button class="eb" onclick="setE(42,'l',this)">📖 Lang</button>
-    </div></div>
-    <div class="ek vis" id="e42k">
-      <div class="card">
-        <div class="fbox"><div class="fm">P(Ereignis) = P(Pfad₁) + P(Pfad₂) + …</div><div class="fs">Mehrere günstige Pfade → Wahrscheinlichkeiten ADDIEREN</div></div>
-        <div class="info tip"><div class="ii">🔑</div><div>P(genau 1× Kopf bei 2 Münzwürfen) = P(KZ) + P(ZK) = 1/4 + 1/4 = <strong>1/2</strong></div></div>
-      </div>
-    </div>
-    <div class="el" id="e42l">
-      <div class="card">
-        <div class="ct">➕ Mehrere Pfade addieren</div>
-        <table class="dtab">
-          <tr><th>Ereignis</th><th>Günstige Pfade</th><th>Rechnung</th><th>P</th></tr>
-          <tr><td>2× Kopf</td><td>KK</td><td>½ × ½</td><td>1/4 = 25%</td></tr>
-          <tr><td>genau 1× Kopf</td><td>KZ, ZK</td><td>¼ + ¼</td><td>1/2 = 50%</td></tr>
-          <tr><td>mindestens 1× Kopf</td><td>KK, KZ, ZK</td><td>¼+¼+¼</td><td>3/4 = 75%</td></tr>
-          <tr><td>kein Kopf</td><td>ZZ</td><td>½ × ½</td><td>1/4 = 25%</td></tr>
-        </table>
-      </div>
-    </div>
-  </div>
-
-  <div class="draw-mode-content" id="dc42">
-    <div class="card">
-      <div class="ct">✏️ Aufgabe: Markiere alle günstigen Pfade!</div>
-      <div class="info blue"><div class="ii">📋</div><div>
-        <strong>Aufgabe:</strong> Zeichne einen Würfel-Würfel Baum (1. Stufe: 6, ≠6 — 2. Stufe: 6, ≠6).<br>
-        Markiere alle Pfade mit mindestens einer 6 (in grün).<br>
-        Addiere die Wahrscheinlichkeiten: P = ?/36
-      </div></div>
-      <div id="canvas-wrap-42"></div>
-    </div>
-  </div>
-
-  <div class="card" style="border-color:rgba(90,171,240,.25)">
-    <div class="ct">⚡ Quiz</div><div id="qa42"></div>
-    <button class="cbtn" id="cb42" onclick="complete(42)" disabled>Kapitel abschließen 🔓</button>
-  </div>
-</div>
-
-<!-- ══ L43: TEST-AUFGABEN MIT ZEICHEN ══ -->
-<div class="lesson" id="L43">
-  <div class="hero" style="background:linear-gradient(135deg,#0d0020,#1a003a)">
-    <div class="hero-tag">Mehrstufig · Kapitel 4</div>
-    <h2>📝 Würfel-Aufgabe (Lösung)</h2>
-    <p>Das Tafelbild — 3 Würfe, nur "1" zählt</p>
-    <div class="hero-icon">🎲</div>
-  </div>
-
-  <div class="draw-mode-bar">
-    <span class="draw-mode-label">📐 Lernmodus:</span>
-    <button class="mode-btn active-txt" id="mode43-txt" onclick="setMode(43,'txt',this)">📖 Text + Lösung</button>
-    <button class="mode-btn" id="mode43-draw" onclick="setMode(43,'draw',this)">✏️ Selber Zeichnen</button>
-  </div>
-
-  <div class="text-mode-content" id="tc43">
-    <div class="card">
-      <div class="ct">🎲 Die Aufgabe vom Bild (Tafelblatt)</div>
-      <div class="info blue"><div class="ii">📋</div><div>
-        Ein <strong>Würfel wird 3× geworfen</strong>. Nur <strong>"1"</strong> führt zum Ziel.<br>
-        Berechne die Wahrscheinlichkeit für die vier Ereignisse a) bis d).
-      </div></div>
-      <div class="fbox">
-        <div class="fm">P(1) = 1/6 &nbsp;&nbsp; P(nicht 1) = 5/6</div>
-      </div>
-    </div>
-    <div class="card">
-      <div class="ct">a) Alle drei Male eine 1</div>
-      <div class="steps">
-        <div class="step" style="border-color:var(--g)"><span class="sb" style="background:var(--g);color:#042014">Pfad</span><span class="st">1/6 × 1/6 × 1/6</span><span class="sh">= 1/216</span></div>
-      </div>
-      <div class="res">P(1,1,1) = 1/216 ≈ 0,46%</div>
-    </div>
-    <div class="card">
-      <div class="ct">b) Keinmal eine 1</div>
-      <div class="steps">
-        <div class="step" style="border-color:var(--r)"><span class="sb" style="background:var(--r)">Pfad</span><span class="st">5/6 × 5/6 × 5/6</span><span class="sh">= 125/216</span></div>
-      </div>
-      <div class="res">P(keine 1) = 125/216 ≈ 57,9%</div>
-    </div>
-    <div class="card">
-      <div class="ct">c) Genau einmal eine 1</div>
-      <div class="info warn"><div class="ii">⚠️</div><div>3 günstige Pfade: (1,✗,✗), (✗,1,✗), (✗,✗,1) — alle gleich wahrscheinlich!</div></div>
-      <div class="steps">
-        <div class="step"><span class="sb">Jeder</span><span class="st">1/6 × 5/6 × 5/6 = 25/216</span><span class="sh">≈ 11,6%</span></div>
-        <div class="step" style="border-color:var(--g)"><span class="sb" style="background:var(--g);color:#042014">Summe</span><span class="st">3 × 25/216 = 75/216</span><span class="sh">≈ 34,7%</span></div>
-      </div>
-      <div class="res">P(genau eine 1) = 75/216 ≈ 34,7%</div>
-    </div>
-    <div class="card">
-      <div class="ct">d) Genau zweimal eine 1</div>
-      <div class="info warn"><div class="ii">⚠️</div><div>3 günstige Pfade: (1,1,✗), (1,✗,1), (✗,1,1)</div></div>
-      <div class="steps">
-        <div class="step"><span class="sb">Jeder</span><span class="st">1/6 × 1/6 × 5/6 = 5/216</span><span class="sh">≈ 2,3%</span></div>
-        <div class="step" style="border-color:var(--g)"><span class="sb" style="background:var(--g);color:#042014">Summe</span><span class="st">3 × 5/216 = 15/216</span><span class="sh">≈ 6,9%</span></div>
-      </div>
-      <div class="res">P(genau zwei 1en) = 15/216 ≈ 6,9%</div>
-    </div>
-    <div class="card">
-      <div class="ct">✅ Probe: Alle Wahrscheinlichkeiten addieren</div>
-      <div class="info tip"><div class="ii">✅</div><div>
-        0,46% + 57,9% + 34,7% + 6,9% ≈ <strong>100% ✅</strong>
-      </div></div>
-    </div>
-  </div>
-
-  <div class="draw-mode-content" id="dc43">
-    <div class="card">
-      <div class="ct">✏️ Zeichne das vollständige Baumdiagramm!</div>
-      <div class="info blue"><div class="ii">📋</div><div>
-        <strong>Aufgabe:</strong> Würfel 3× — nur "1" zählt (P = 1/6) oder "nicht 1" (P = 5/6).<br>
-        Zeichne alle 8 Äste und trage die Wahrscheinlichkeiten ein.<br>
-        <strong>Nutze die Vorlage für den Einstieg!</strong>
-      </div></div>
-      <div id="canvas-wrap-43"></div>
-    </div>
-  </div>
-
-  <div class="card" style="border-color:rgba(124,111,247,.25)">
-    <div class="ct">⚡ Quiz</div><div id="qa43"></div>
-    <button class="cbtn" id="cb43" onclick="complete(43)" disabled>Kapitel abschließen 🔓</button>
-  </div>
-</div>
-
-<!-- ══ L44: FREIES ZEICHNEN ══ -->
-<div class="lesson" id="L44">
-  <div class="hero c-draw">
-    <div class="hero-tag">Mehrstufig · Kapitel 5</div>
-    <h2>✏️ Freies Zeichnen</h2>
-    <p>Zeichne eigene Baumdiagramme — für alle Aufgaben!</p>
-    <div class="hero-icon">🎨</div>
   </div>
 
   <div class="card">
-    <div class="ct">🎨 Dein Zeichen-Board</div>
-    <div class="info tip"><div class="ii">💡</div><div>
-      Hier kannst du <strong>jede Aufgabe selbst aufzeichnen</strong>. Nutze Vorlagen, Farben und Werkzeuge!
-    </div></div>
-    <div id="canvas-wrap-44"></div>
+    <div class="card-title">🪙 Beispiel: Münzwurf 2× (Kopf K oder Zahl Z)</div>
+    <div class="tree-wrap">
+      <svg class="tree" width="460" height="180" viewBox="0 0 460 180">
+        <line x1="50" y1="90" x2="150" y2="45"/>
+        <line x1="50" y1="90" x2="150" y2="135"/>
+        <line x1="170" y1="45" x2="280" y2="22"/>
+        <line x1="170" y1="45" x2="280" y2="68"/>
+        <line x1="170" y1="135" x2="280" y2="112"/>
+        <line x1="170" y1="135" x2="280" y2="158"/>
+        <circle cx="50" cy="90" r="16" class="tnode"/>
+        <text x="50" y="90" class="tlabel" font-size="9">Start</text>
+        <circle cx="170" cy="45" r="16" class="tnode"/>
+        <text x="170" y="45" class="tlabel">K</text>
+        <circle cx="170" cy="135" r="16" class="tnode"/>
+        <text x="170" y="135" class="tlabel">Z</text>
+        <rect x="264" y="9" width="32" height="26" rx="5" class="tnode"/>
+        <text x="280" y="22" class="tlabel" font-size="10">K</text>
+        <rect x="264" y="55" width="32" height="26" rx="5" class="tnode"/>
+        <text x="280" y="68" class="tlabel" font-size="10">Z</text>
+        <rect x="264" y="99" width="32" height="26" rx="5" class="tnode"/>
+        <text x="280" y="112" class="tlabel" font-size="10">K</text>
+        <rect x="264" y="145" width="32" height="26" rx="5" class="tnode"/>
+        <text x="280" y="158" class="tlabel" font-size="10">Z</text>
+        <text x="96" y="54" class="tprob">½</text>
+        <text x="96" y="140" class="tprob">½</text>
+        <text x="222" y="26" class="tprob">½</text>
+        <text x="222" y="60" class="tprob">½</text>
+        <text x="222" y="101" class="tprob">½</text>
+        <text x="222" y="155" class="tprob">½</text>
+        <text x="308" y="22" class="tres highlight">KK — P=¼</text>
+        <text x="308" y="68" class="tres">KZ — P=¼</text>
+        <text x="308" y="112" class="tres">ZK — P=¼</text>
+        <text x="308" y="158" class="tres">ZZ — P=¼</text>
+      </svg>
+    </div>
+    <div class="info tip"><div class="info-icon">✅</div><div>Probe: ¼ + ¼ + ¼ + ¼ = 1 → passt!</div></div>
   </div>
 
   <div class="card">
-    <div class="ct">📋 Aufgaben zum Zeichnen</div>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:.5rem">
-      <div class="tmpl-btn" onclick="loadTask43Tmpl()" style="padding:.75rem;border-radius:var(--radius);background:var(--s2);border:1px solid var(--border);color:var(--text2);cursor:pointer;font-size:.78rem;font-weight:700;transition:all .2s">
-        🎲 Würfel 3× (Tafelaufgabe)
+    <div class="card-title">📋 Die 3 goldenen Regeln</div>
+    <div class="step"><span class="step-n">Regel 1</span> <span><strong>Pfadregel (×):</strong> Wahrscheinlichkeiten am Ast multiplizieren</span></div>
+    <div class="step"><span class="step-n">Regel 2</span> <span><strong>Summenregel (+):</strong> Bei mehreren günstigen Pfaden addieren</span></div>
+    <div class="step"><span class="step-n">Regel 3</span> <span><strong>Probe:</strong> Alle Äste einer Stufe = 1 (100%)</span></div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">⚡ Quiz</div>
+    <div id="qa0"></div>
+    <button class="cbtn" id="cb0" onclick="complete(0)" disabled>Kapitel abschließen & nächstes freischalten 🔓</button>
+  </div>
+</div>
+
+<!-- ══════════════════════════════
+     L1: PFADREGEL
+══════════════════════════════ -->
+<div class="lesson" id="L1">
+  <div class="hero-card hc-purple">
+    <div class="hc-tag">Kapitel 2 · Kernregel</div>
+    <div class="hc-title">Die Pfadregel ×</div>
+    <div class="hc-sub">Einem Pfad folgen → Wahrscheinlichkeiten multiplizieren</div>
+    <div class="hc-emoji">✖️</div>
+  </div>
+
+  <div class="einfach">
+    <div class="einfach-label">💡 Merke dir das!</div>
+    <div class="einfach-text">
+      <span class="big">P(Pfad) = P₁ × P₂ × P₃ × …</span><br><br>
+      Du folgst einem Weg von links nach rechts durchs Baumdiagramm.<br>
+      Alle Zahlen auf diesem Weg <strong>multiplizierst</strong> du miteinander.<br>
+      Das ist dann die Wahrscheinlichkeit genau für dieses Ergebnis.
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">📋 Tafelbsp: Karten K, E, O, A — P("OK")?</div>
+    <div class="beispiel">
+      <div class="beispiel-tag">🎴 Klassenbeispiel (von der Tafel)</div>
+      <div class="beispiel-aufgabe">Buchstabenkarten K, E, O, A. 2 Züge ohne Zurücklegen. Wer "OK" zieht → Kaugummi.</div>
+      <div class="beispiel-rechnung">
+        <div class="br-step"><span class="br-label">1. Zug</span><span class="br-val">4 Karten → P(O) = 1/4</span><span class="br-ans">0,25</span></div>
+        <div class="br-step"><span class="br-label">2. Zug</span><span class="br-val">O weg, 3 übrig → P(K) = 1/3</span><span class="br-ans">0,333…</span></div>
+        <div class="br-step" style="border-left-color:var(--g)"><span class="br-label" style="color:var(--g)">Pfadregel ×</span><span class="br-val">1/4 × 1/3 = 1/12</span><span class="br-ans" style="color:var(--g)">≈ 8,3%</span></div>
       </div>
-      <div class="tmpl-btn" onclick="loadKartenTmpl()" style="padding:.75rem;border-radius:var(--radius);background:var(--s2);border:1px solid var(--border);color:var(--text2);cursor:pointer;font-size:.78rem;font-weight:700;transition:all .2s">
-        🎴 Karten K,E,O,A
-      </div>
-      <div class="tmpl-btn" onclick="loadMuenzeTmpl()" style="padding:.75rem;border-radius:var(--radius);background:var(--s2);border:1px solid var(--border);color:var(--text2);cursor:pointer;font-size:.78rem;font-weight:700;transition:all .2s">
-        🪙 Münze 2×
-      </div>
-      <div class="tmpl-btn" onclick="loadUrneTmpl()" style="padding:.75rem;border-radius:var(--radius);background:var(--s2);border:1px solid var(--border);color:var(--text2);cursor:pointer;font-size:.78rem;font-weight:700;transition:all .2s">
-        🔵 Urne 3R + 2B
+    </div>
+    <div class="result">P("OK") = 1/12 = 0,083 = 8,3%</div>
+    <div class="info tip"><div class="info-icon">💡</div><div>30 Schüler × 8,3% = 2,49 ≈ <strong>3 Kaugummis</strong> muss der Lehrer bereithalten!</div></div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">🔄 Übungsbeispiel (veränderte Zahlen)</div>
+    <div class="changed-ex">
+      <div class="changed-tag">🎯 Jetzt mit anderen Zahlen üben</div>
+      <div class="beispiel-aufgabe">Karten: M, A, T, H, E (5 Karten). 2 Züge ohne Zurücklegen. P("MA")?</div>
+      <div class="beispiel-rechnung">
+        <div class="br-step"><span class="br-label">1. Zug</span><span class="br-val">5 Karten → P(M) = 1/5</span></div>
+        <div class="br-step"><span class="br-label">2. Zug</span><span class="br-val">M weg, 4 übrig → P(A) = 1/4</span></div>
+        <div class="br-step" style="border-left-color:var(--g)"><span class="br-label" style="color:var(--g)">Ergebnis</span><span class="br-val">1/5 × 1/4 = 1/20 = 5%</span></div>
       </div>
     </div>
   </div>
 
-  <div class="card" style="border-color:rgba(45,212,160,.25)">
-    <div class="ct">⚡ Quiz</div><div id="qa44"></div>
-    <button class="cbtn" id="cb44" onclick="complete(44)" disabled>Kapitel abschließen 🔓</button>
+  <div class="card">
+    <div class="card-title">🎲 MADN: Mensch-ärgere-dich-nicht (von der Tafel)</div>
+    <div class="info blue"><div class="info-icon">📋</div><div>Um ins Feld zu kommen muss man eine 6 würfeln. Man hat 3 Würfe.</div></div>
+    <div class="tbl">
+      <table>
+        <tr><th>Wurf</th><th>Rechnung</th><th>Ergebnis</th></tr>
+        <tr><td>1. Wurf direkt</td><td>P(6) = 1/6</td><td>≈ 16,7%</td></tr>
+        <tr><td>erst 2. Wurf</td><td>5/6 × 1/6 = 5/36</td><td>≈ 13,8%</td></tr>
+        <tr><td>erst 3. Wurf</td><td>5/6 × 5/6 × 1/6 = 25/216</td><td>≈ 11,57%</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">⚡ Quiz</div>
+    <div id="qa1"></div>
+    <button class="cbtn" id="cb1" onclick="complete(1)" disabled>Kapitel abschließen 🔓</button>
   </div>
 </div>
 
-<!-- ══ SPICKZETTEL ══ -->
+<!-- ══════════════════════════════
+     L2: SUMMENREGEL
+══════════════════════════════ -->
+<div class="lesson" id="L2">
+  <div class="hero-card hc-teal">
+    <div class="hc-tag">Kapitel 3 · Kernregel</div>
+    <div class="hc-title">Die Summenregel +</div>
+    <div class="hc-sub">Mehrere Wege führen zum Ziel → addieren!</div>
+    <div class="hc-emoji">➕</div>
+  </div>
+
+  <div class="einfach">
+    <div class="einfach-label">💡 Merke dir das!</div>
+    <div class="einfach-text">
+      <span class="big">P(Ereignis) = Pfad₁ + Pfad₂ + …</span><br><br>
+      Wenn das gleiche Ereignis auf <strong>mehreren verschiedenen Wegen</strong> eintreten kann,<br>
+      dann <strong>addierst</strong> du alle diese Pfadwahrscheinlichkeiten.<br><br>
+      Zuerst berechnest du jeden Pfad mit der <strong>Pfadregel (×)</strong>,<br>
+      dann addierst du alle günstigen Pfade mit der <strong>Summenregel (+)</strong>.
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">📋 Klassenbeispiel: 5 weiße + 5 schwarze Kugeln (S.38/1 von der Tafel)</div>
+    <div class="beispiel">
+      <div class="beispiel-tag">🔵 Ohne Zurücklegen — gleichfarbig ziehen?</div>
+      <div class="beispiel-aufgabe">5 weiße (W), 5 schwarze (S) Kugeln. 2× ohne Zurücklegen. P(gleichfarb)?</div>
+      <div class="step"><span class="step-n">Pfad 1</span><span>WW: 5/10 × 4/9 = 20/90 = 2/9</span></div>
+      <div class="step"><span class="step-n">Pfad 2</span><span>SS: 5/10 × 4/9 = 20/90 = 2/9</span></div>
+      <div class="step" style="border-left-color:var(--g)"><span class="step-n" style="background:var(--g);color:#002a1a">+</span><span>P(gleichfarb) = 2/9 + 2/9 = 4/9</span></div>
+    </div>
+    <div class="result">P(gleichfarbig) = 4/9 ≈ 44,4%</div>
+    <div class="info tip"><div class="info-icon">💡</div><div>Fast 50/50 — also faire Chance!</div></div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">🔄 Übungsbeispiel (veränderte Zahlen)</div>
+    <div class="changed-ex">
+      <div class="changed-tag">🎯 Mit anderen Zahlen</div>
+      <div class="beispiel-aufgabe">3 rote (R) + 7 blaue (B) Kugeln. 2× ohne Zurücklegen. P(gleichfarbig)?</div>
+      <div class="step"><span class="step-n">RR</span><span>3/10 × 2/9 = 6/90 = 1/15</span></div>
+      <div class="step"><span class="step-n">BB</span><span>7/10 × 6/9 = 42/90 = 7/15</span></div>
+      <div class="step" style="border-left-color:var(--g)"><span class="step-n" style="background:var(--g);color:#002a1a">+</span><span>1/15 + 7/15 = 8/15 ≈ 53,3%</span></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">⚡ Quiz</div>
+    <div id="qa2"></div>
+    <button class="cbtn" id="cb2" onclick="complete(2)" disabled>Kapitel abschließen 🔓</button>
+  </div>
+</div>
+
+<!-- ══════════════════════════════
+     L3: KUGELN ZIEHEN
+══════════════════════════════ -->
+<div class="lesson" id="L3">
+  <div class="hero-card hc-green">
+    <div class="hc-tag">Kapitel 4 · Aufgabentyp</div>
+    <div class="hc-title">Kugeln ziehen</div>
+    <div class="hc-sub">MIT und OHNE Zurücklegen — der Unterschied</div>
+    <div class="hc-emoji">🔵</div>
+  </div>
+
+  <div class="einfach">
+    <div class="einfach-label">💡 Der wichtige Unterschied</div>
+    <div class="einfach-text">
+      <strong>MIT Zurücklegen:</strong> Kugel kommt zurück → Anzahl bleibt gleich → Wahrscheinlichkeit bleibt gleich<br><br>
+      <strong>OHNE Zurücklegen:</strong> Kugel bleibt weg → Anzahl wird kleiner → Wahrscheinlichkeit ändert sich!
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">📋 Klassenbeispiel: Urne mit 4 orange + 8 weiße Kugeln (Projektor-Aufgabe)</div>
+    <div class="split">
+      <div class="split-box">
+        <div class="split-head" style="background:linear-gradient(135deg,#0a1a06,#122010)">a) OHNE Zurücklegen</div>
+        <div class="split-body">
+          Gesamt: 12 Kugeln<br>
+          P(O) = 4/12 = 1/3<br>
+          P(W) = 8/12 = 2/3<br>
+          Nach O-Zug: 11 übrig<br>
+          P(O|O) = 3/11<br>
+          P(OO) = 4/12 × 3/11 = <strong style="color:var(--g)">12/132 ≈ 9%</strong>
+        </div>
+      </div>
+      <div class="split-box">
+        <div class="split-head" style="background:linear-gradient(135deg,#060a1a,#0e1230)">b) MIT Zurücklegen</div>
+        <div class="split-body">
+          Gesamt: immer 12<br>
+          P(O) = 4/12 = 1/3<br>
+          P(W) = 8/12 = 2/3<br>
+          Immer gleich!<br>
+          P(OO) = 1/3 × 1/3 = <strong style="color:var(--b)">1/9 ≈ 11,1%</strong>
+        </div>
+      </div>
+    </div>
+
+    <div class="tbl" style="margin-top:8px">
+      <table>
+        <tr><th>Ereignis</th><th>OHNE Zurücklegen</th><th>MIT Zurücklegen</th></tr>
+        <tr><td>OO (beide orange)</td><td>4/12 × 3/11 ≈ 9,1%</td><td>4/12 × 4/12 ≈ 11,1%</td></tr>
+        <tr><td>OW (orange, weiß)</td><td>4/12 × 8/11 ≈ 24,2%</td><td>4/12 × 8/12 ≈ 22,2%</td></tr>
+        <tr><td>WO (weiß, orange)</td><td>8/12 × 4/11 ≈ 24,2%</td><td>8/12 × 4/12 ≈ 22,2%</td></tr>
+        <tr><td>WW (beide weiß)</td><td>8/12 × 7/11 ≈ 42,4%</td><td>8/12 × 8/12 ≈ 44,4%</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">🔄 Übungsbeispiel (veränderte Zahlen)</div>
+    <div class="changed-ex">
+      <div class="changed-tag">🎯 Mit anderen Zahlen</div>
+      <div class="beispiel-aufgabe">Beutel: 2 rote (r) + 2 grüne (g) + 1 blaue (b) Kugel. 2× OHNE Zurücklegen. P(r,g)?</div>
+      <div class="br-step" style="border-radius:6px;background:var(--s1)"><span class="br-label">1. Zug</span><span class="br-val">5 Kugeln → P(r) = 2/5</span></div>
+      <div class="br-step" style="border-radius:6px;background:var(--s1);margin-top:4px"><span class="br-label">2. Zug</span><span class="br-val">r weg, 4 übrig → P(g) = 2/4 = 1/2</span></div>
+      <div class="result" style="margin-top:6px">P(r,g) = 2/5 × 1/2 = 1/5 = 20%</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">⚡ Quiz</div>
+    <div id="qa3"></div>
+    <button class="cbtn" id="cb3" onclick="complete(3)" disabled>Kapitel abschließen 🔓</button>
+  </div>
+</div>
+
+<!-- ══════════════════════════════
+     L4: WÜRFEL 3×
+══════════════════════════════ -->
+<div class="lesson" id="L4">
+  <div class="hero-card hc-orange">
+    <div class="hc-tag">Kapitel 5 · Aufgabentyp</div>
+    <div class="hc-title">Würfel 3× — nur „1" zählt</div>
+    <div class="hc-sub">S.49 Aufgabe aus dem Buch — vollständig erklärt</div>
+    <div class="hc-emoji">🎲</div>
+  </div>
+
+  <div class="einfach">
+    <div class="einfach-label">💡 Die Aufgabe von S.49</div>
+    <div class="einfach-text">
+      Ein Würfel wird <strong>3× geworfen</strong>. Nur das Ergebnis „1" führt zum Ziel.<br>
+      P(1) = 1/6 &nbsp;&nbsp; P(nicht 1) = 5/6<br><br>
+      Gesucht: a) alle drei 1  b) keinmal 1  c) genau einmal 1  d) zweimal 1
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">📊 Das vollständige Baumdiagramm (S.49 Lösung)</div>
+    <div class="tbl">
+      <table>
+        <tr><th>Ergebnis</th><th>Rechnung</th><th>Wahrsch.</th></tr>
+        <tr><td>a) 1,1,1 — alle drei</td><td>1/6 × 1/6 × 1/6</td><td><strong>0,46%</strong></td></tr>
+        <tr><td>b) ✗,✗,✗ — keinmal</td><td>5/6 × 5/6 × 5/6</td><td><strong>57,9%</strong></td></tr>
+        <tr><td>c) genau einmal (3 Pfade!)</td><td>3 × (1/6 × 5/6 × 5/6)</td><td><strong>34,8%</strong></td></tr>
+        <tr><td>d) genau zweimal (3 Pfade!)</td><td>3 × (1/6 × 1/6 × 5/6)</td><td><strong>6,9%</strong></td></tr>
+      </table>
+    </div>
+    <div class="info tip"><div class="info-icon">✅</div><div>Probe: 0,46 + 57,9 + 34,8 + 6,9 ≈ 100% ✓</div></div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">📐 Schritt-für-Schritt: c) genau einmal 1</div>
+    <div class="step"><span class="step-n">Pfad 1</span><span>1, ✗, ✗ = 1/6 × 5/6 × 5/6 = 25/216</span><span class="step-val">11,57%</span></div>
+    <div class="step"><span class="step-n">Pfad 2</span><span>✗, 1, ✗ = 5/6 × 1/6 × 5/6 = 25/216</span><span class="step-val">11,57%</span></div>
+    <div class="step"><span class="step-n">Pfad 3</span><span>✗, ✗, 1 = 5/6 × 5/6 × 1/6 = 25/216</span><span class="step-val">11,57%</span></div>
+    <div class="step" style="border-left-color:var(--g)"><span class="step-n" style="background:var(--g);color:#002a1a">+</span><span>3 × 25/216 = 75/216</span><span class="step-val" style="color:var(--g)">≈ 34,8%</span></div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">🔄 Übungsbeispiel (veränderte Zahlen)</div>
+    <div class="changed-ex">
+      <div class="changed-tag">🎯 Jetzt: Würfel 2× — nur „6" zählt</div>
+      <div class="beispiel-rechnung">
+        <div class="br-step"><span class="br-label">P(6,6)</span><span class="br-val">1/6 × 1/6 = 1/36</span><span class="br-ans">≈ 2,8%</span></div>
+        <div class="br-step"><span class="br-label">P(✗,✗)</span><span class="br-val">5/6 × 5/6 = 25/36</span><span class="br-ans">≈ 69,4%</span></div>
+        <div class="br-step"><span class="br-label">P(genau 1×)</span><span class="br-val">2 × (1/6 × 5/6) = 10/36</span><span class="br-ans">≈ 27,8%</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">⚡ Quiz</div>
+    <div id="qa4"></div>
+    <button class="cbtn" id="cb4" onclick="complete(4)" disabled>Kapitel abschließen 🔓</button>
+  </div>
+</div>
+
+<!-- ══════════════════════════════
+     L5: KARTEN K,E,O,A
+══════════════════════════════ -->
+<div class="lesson" id="L5">
+  <div class="hero-card hc-pink">
+    <div class="hc-tag">Kapitel 6 · Aufgabentyp</div>
+    <div class="hc-title">Karten K, E, O, A</div>
+    <div class="hc-sub">Das vollständige Baumdiagramm — alle 12 Pfade</div>
+    <div class="hc-emoji">🎴</div>
+  </div>
+
+  <div class="einfach">
+    <div class="einfach-label">💡 Das Klassenbeispiel vollständig</div>
+    <div class="einfach-text">
+      4 Karten: <strong>K, E, O, A</strong> — 2 Züge ohne Zurücklegen<br>
+      Es gibt 4 × 3 = <strong>12 mögliche Ergebnisse</strong><br>
+      Jedes hat die Wahrscheinlichkeit 1/4 × 1/3 = <strong>1/12 ≈ 8,3%</strong>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">🌳 Vollständiges Baumdiagramm</div>
+    <div class="tree-wrap">
+      <svg class="tree" width="480" height="360" viewBox="0 0 480 360">
+        <!-- Root -->
+        <circle cx="40" cy="180" r="16" class="tnode"/>
+        <text x="40" y="180" class="tlabel" font-size="9">Start</text>
+        <!-- 4 first branches -->
+        <line x1="56" y1="180" x2="140" y2="45"/>
+        <line x1="56" y1="180" x2="140" y2="125"/>
+        <line x1="56" y1="180" x2="140" y2="235"/>
+        <line x1="56" y1="180" x2="140" y2="315"/>
+        <text x="94" y="96" class="tprob">1/4</text>
+        <text x="94" y="148" class="tprob">1/4</text>
+        <text x="94" y="212" class="tprob">1/4</text>
+        <text x="94" y="302" class="tprob">1/4</text>
+        <!-- First level nodes -->
+        <circle cx="156" cy="45" r="14" class="tnode"/>
+        <text x="156" y="45" class="tlabel">K</text>
+        <circle cx="156" cy="125" r="14" class="tnode"/>
+        <text x="156" y="125" class="tlabel">E</text>
+        <circle cx="156" cy="235" r="14" class="tnode"/>
+        <text x="156" y="235" class="tlabel">O</text>
+        <circle cx="156" cy="315" r="14" class="tnode"/>
+        <text x="156" y="315" class="tlabel">A</text>
+        <!-- From K: E,O,A -->
+        <line x1="170" y1="45" x2="255" y2="20"/>
+        <line x1="170" y1="45" x2="255" y2="45"/>
+        <line x1="170" y1="45" x2="255" y2="70"/>
+        <rect x="243" y="9" width="24" height="22" rx="4" class="tnode"/>
+        <text x="255" y="20" class="tlabel" font-size="9">E</text>
+        <rect x="243" y="34" width="24" height="22" rx="4" class="tnode"/>
+        <text x="255" y="45" class="tlabel" font-size="9">O</text>
+        <rect x="243" y="59" width="24" height="22" rx="4" class="tnode"/>
+        <text x="255" y="70" class="tlabel" font-size="9">A</text>
+        <text x="210" y="16" class="tprob">1/3</text>
+        <!-- From E: K,O,A -->
+        <line x1="170" y1="125" x2="255" y2="100"/>
+        <line x1="170" y1="125" x2="255" y2="125"/>
+        <line x1="170" y1="125" x2="255" y2="150"/>
+        <rect x="243" y="89" width="24" height="22" rx="4" class="tnode"/>
+        <text x="255" y="100" class="tlabel" font-size="9">K</text>
+        <rect x="243" y="114" width="24" height="22" rx="4" class="tnode"/>
+        <text x="255" y="125" class="tlabel" font-size="9">O</text>
+        <rect x="243" y="139" width="24" height="22" rx="4" class="tnode"/>
+        <text x="255" y="150" class="tlabel" font-size="9">A</text>
+        <!-- From O: K,E,A — highlight K path -->
+        <line x1="170" y1="235" x2="255" y2="210" class="highlight"/>
+        <line x1="170" y1="235" x2="255" y2="235"/>
+        <line x1="170" y1="235" x2="255" y2="260"/>
+        <rect x="243" y="199" width="24" height="22" rx="4" style="fill:#12121f;stroke:#00e5a0;stroke-width:2"/>
+        <text x="255" y="210" class="tlabel" font-size="9" style="fill:#00e5a0">K</text>
+        <rect x="243" y="224" width="24" height="22" rx="4" class="tnode"/>
+        <text x="255" y="235" class="tlabel" font-size="9">E</text>
+        <rect x="243" y="249" width="24" height="22" rx="4" class="tnode"/>
+        <text x="255" y="260" class="tlabel" font-size="9">A</text>
+        <!-- From A: K,E,O -->
+        <line x1="170" y1="315" x2="255" y2="290"/>
+        <line x1="170" y1="315" x2="255" y2="315"/>
+        <line x1="170" y1="315" x2="255" y2="340"/>
+        <rect x="243" y="279" width="24" height="22" rx="4" class="tnode"/>
+        <text x="255" y="290" class="tlabel" font-size="9">K</text>
+        <rect x="243" y="304" width="24" height="22" rx="4" class="tnode"/>
+        <text x="255" y="315" class="tlabel" font-size="9">E</text>
+        <rect x="243" y="329" width="24" height="22" rx="4" class="tnode"/>
+        <text x="255" y="340" class="tlabel" font-size="9">O</text>
+        <!-- Results -->
+        <text x="280" y="20" class="tres">KE</text>
+        <text x="280" y="45" class="tres">KO</text>
+        <text x="280" y="70" class="tres">KA</text>
+        <text x="280" y="100" class="tres">EK</text>
+        <text x="280" y="125" class="tres">EO</text>
+        <text x="280" y="150" class="tres">EA</text>
+        <text x="280" y="210" class="tres highlight">OK ← Treffer!</text>
+        <text x="280" y="235" class="tres">OE</text>
+        <text x="280" y="260" class="tres">OA</text>
+        <text x="280" y="290" class="tres">AK</text>
+        <text x="280" y="315" class="tres">AE</text>
+        <text x="280" y="340" class="tres">AO</text>
+        <!-- Labels -->
+        <text x="40" y="15" class="tprob" style="font-size:9px;fill:var(--p)">Start</text>
+        <text x="156" y="15" class="tprob" style="font-size:9px;fill:var(--p)">1. Karte</text>
+        <text x="255" y="15" class="tprob" style="font-size:9px;fill:var(--p)">2. Karte</text>
+        <text x="360" y="15" class="tprob" style="font-size:9px;fill:var(--p)">Ergebnis</text>
+      </svg>
+    </div>
+    <div class="result">P("OK") = 1 von 12 = 1/12 ≈ 8,3% → 0,083 × 30 = 2,49 ≈ 3 Kaugummis</div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">🔄 Übungsbeispiel (veränderte Zahlen)</div>
+    <div class="changed-ex">
+      <div class="changed-tag">🎯 Karten M, A, T, H, E (5 Karten)</div>
+      <div class="beispiel-aufgabe">2 Züge ohne Zurücklegen. P("AT")? Wie viele mögliche Ergebnisse gibt es insgesamt?</div>
+      <div class="br-step" style="border-radius:6px;background:var(--s1)"><span class="br-label">Anzahl</span><span class="br-val">5 × 4 = 20 mögliche Paare</span></div>
+      <div class="br-step" style="border-radius:6px;background:var(--s1);margin-top:4px"><span class="br-label">P("AT")</span><span class="br-val">1/5 × 1/4 = 1/20 = 5%</span></div>
+      <div class="br-step" style="border-radius:6px;background:var(--s1);margin-top:4px"><span class="br-label">Erwartet</span><span class="br-val">30 Schüler × 5% = 1,5 → 2 Kaugummis</span></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">⚡ Quiz</div>
+    <div id="qa5"></div>
+    <button class="cbtn" id="cb5" onclick="complete(5)" disabled>Kapitel abschließen 🔓</button>
+  </div>
+</div>
+
+<!-- ══════════════════════════════
+     L6: ÜBUNGSAUFGABEN (Buch)
+══════════════════════════════ -->
+<div class="lesson" id="L6">
+  <div class="hero-card hc-yellow">
+    <div class="hc-tag">Kapitel 7 · Übungen</div>
+    <div class="hc-title">Buchaufgaben gelöst</div>
+    <div class="hc-sub">S.38, S.49 — alle Aufgaben komplett erklärt</div>
+    <div class="hc-emoji">📚</div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">📘 S.38 Nr.1 — Glücksrad 2× (Buch)</div>
+    <div class="beispiel">
+      <div class="beispiel-tag">📋 Aufgabe: Glücksrad wird 2× gedreht</div>
+      <div class="beispiel-aufgabe">Glücksrad mit 4 gleich großen Feldern: 1, 2, 3, 4. Zweimal drehen. P(Summe = 5)?</div>
+      <div class="step"><span class="step-n">Günstige</span><span>(1,4) (2,3) (3,2) (4,1) → 4 Paare</span></div>
+      <div class="step"><span class="step-n">Gesamt</span><span>4 × 4 = 16 mögliche Paare</span></div>
+      <div class="result">P(Summe=5) = 4/16 = 1/4 = 25%</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">📘 S.49 — Würfel 3×, nur "1" zählt (vollständige Lösungstabelle)</div>
+    <div class="tbl">
+      <table>
+        <tr><th>Teil</th><th>Ereignis</th><th>Rechnung</th><th>Ergebnis</th></tr>
+        <tr><td>a)</td><td>alle drei 1</td><td>1/6³</td><td>0,46%</td></tr>
+        <tr><td>b)</td><td>keinmal 1</td><td>5/6³</td><td>57,9%</td></tr>
+        <tr><td>c)</td><td>genau einmal 1</td><td>3 × 1/6 × (5/6)²</td><td>34,8%</td></tr>
+        <tr><td>d)</td><td>zweimal 1</td><td>3 × (1/6)² × 5/6</td><td>6,9%</td></tr>
+      </table>
+    </div>
+    <div class="info tip"><div class="info-icon">✅</div><div>Probe: 0,46 + 57,9 + 34,8 + 6,9 = 100,06% ≈ 100% (Rundungsfehler sind ok!)</div></div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">📘 Hausaufgaben-Typ: Kugeln Beutel (S.35 Nr.1)</div>
+    <div class="beispiel">
+      <div class="beispiel-tag">🔵 Beutel: r, b, g, gr, g, r, b (7 Kugeln)</div>
+      <div class="beispiel-aufgabe">3× ohne Zurücklegen. P(rot, grün, blau)?</div>
+      <div class="br-step" style="border-radius:6px;background:var(--s1)"><span class="br-label">Kugeln</span><span class="br-val">2r, 2g, 2b, 1gr = 7 gesamt</span></div>
+      <div class="br-step" style="border-radius:6px;background:var(--s1);margin-top:4px"><span class="br-label">P(r,g,b)</span><span class="br-val">2/7 × 2/6 × 2/5 = 8/210 ≈ 3,8%</span></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">⚡ Abschluss-Quiz</div>
+    <div id="qa6"></div>
+    <button class="cbtn" id="cb6" onclick="complete(6)" disabled>Alle Kapitel abgeschlossen! 🎉</button>
+  </div>
+</div>
+
+<!-- ══════════════════════════════
+     L99: SPICKZETTEL
+══════════════════════════════ -->
 <div class="lesson" id="L99">
-  <div class="hero c-purple"><div class="hero-tag">Zusammenfassung</div><h2>Spickzettel</h2><p>Alle Regeln kompakt</p><div class="hero-icon">📋</div></div>
+  <div class="hero-card hc-blue">
+    <div class="hc-tag">Zusammenfassung</div>
+    <div class="hc-title">Spickzettel 📋</div>
+    <div class="hc-sub">Alle Regeln auf einen Blick</div>
+  </div>
+
   <div class="card">
-    <div class="ct" style="color:var(--g)">🌳 Mehrstufige Zufallsversuche</div>
+    <div class="card-title">⚡ Die 3 wichtigsten Regeln</div>
     <div class="spick-grid">
-      <div class="spick" style="background:linear-gradient(135deg,#0d1f0a,#142b10)"><div class="sp-l">Baumdiagramm</div><div class="sp-f">Äste = Ausgänge</div><div class="sp-e">Stufen nebeneinander</div></div>
-      <div class="spick" style="background:linear-gradient(135deg,#1a0a2e,#2a1050)"><div class="sp-l">Pfadregel</div><div class="sp-f">P = P₁ × P₂ × …</div><div class="sp-e">1/4 × 1/3 = 1/12</div></div>
-      <div class="spick" style="background:linear-gradient(135deg,#0a1228,#0e1f40)"><div class="sp-l">Summenregel</div><div class="sp-f">P = Pfad₁ + Pfad₂</div><div class="sp-e">¼ + ¼ = ½</div></div>
-      <div class="spick" style="background:linear-gradient(135deg,#1a0d00,#2e1800)"><div class="sp-l">Äste je Stufe</div><div class="sp-f">Summe = 1</div><div class="sp-e">immer prüfen!</div></div>
+      <div class="spick" style="background:linear-gradient(135deg,#0d0820,#1a1040)">
+        <div class="sp-l">Pfadregel</div>
+        <div class="sp-f">P = P₁ × P₂ × …</div>
+        <div class="sp-e">einem Pfad folgen → multiplizieren</div>
+      </div>
+      <div class="spick" style="background:linear-gradient(135deg,#041510,#082a18)">
+        <div class="sp-l">Summenregel</div>
+        <div class="sp-f">P = Pfad₁ + Pfad₂</div>
+        <div class="sp-e">mehrere günstige Wege → addieren</div>
+      </div>
+      <div class="spick" style="background:linear-gradient(135deg,#06101e,#0e1e38)">
+        <div class="sp-l">Probe</div>
+        <div class="sp-f">Alle Äste = 1</div>
+        <div class="sp-e">jede Stufe muss 100% ergeben</div>
+      </div>
     </div>
-    <div class="info tip"><div class="ii">🔑</div><div>
-      <strong>Goldene Regel:</strong> Entlang eines Pfades → <strong>MULTIPLIZIEREN</strong> · Mehrere Pfade → <strong>ADDIEREN</strong>
-    </div></div>
   </div>
+
   <div class="card">
-    <div class="ct">🎲 Würfel 3× — Ergebnisse (Tafelaufgabe)</div>
-    <table class="dtab">
-      <tr><th>Ereignis</th><th>Pfade</th><th>Rechnung</th><th>Ergebnis</th></tr>
-      <tr><td>a) 3× eine 1</td><td>1</td><td>1/6³</td><td>≈ 0,46%</td></tr>
-      <tr><td>b) Keine 1</td><td>1</td><td>5/6³</td><td>≈ 57,9%</td></tr>
-      <tr><td>c) Genau 1× eine 1</td><td>3</td><td>3 × 25/216</td><td>≈ 34,7%</td></tr>
-      <tr><td>d) Genau 2× eine 1</td><td>3</td><td>3 × 5/216</td><td>≈ 6,9%</td></tr>
-    </table>
+    <div class="card-title">🔵 MIT vs OHNE Zurücklegen</div>
+    <div class="tbl">
+      <table>
+        <tr><th>Situation</th><th>Zähler ändert sich?</th><th>Nenner ändert sich?</th></tr>
+        <tr><td>MIT Zurücklegen</td><td>nein</td><td>nein</td></tr>
+        <tr><td>OHNE Zurücklegen</td><td>ja (−1 wenn gezogen)</td><td>ja (−1)</td></tr>
+      </table>
+    </div>
   </div>
-  <div class="dz">
-    <h4>🗑️ Fortschritt löschen</h4>
-    <button class="btn-del" onclick="doReset()">⚠️ Alles löschen & neu starten</button>
+
+  <div class="card">
+    <div class="card-title">📊 Klassenbeispiele — alle Antworten</div>
+    <div class="tbl">
+      <table>
+        <tr><th>Aufgabe</th><th>Antwort</th></tr>
+        <tr><td>P("OK") aus K,E,O,A</td><td>1/12 ≈ 8,3% → 3 Kaugummis (30 Sch.)</td></tr>
+        <tr><td>MADN 1. Wurf</td><td>1/6 ≈ 16,7%</td></tr>
+        <tr><td>MADN 2. Wurf</td><td>5/36 ≈ 13,8%</td></tr>
+        <tr><td>MADN 3. Wurf</td><td>25/216 ≈ 11,57%</td></tr>
+        <tr><td>5W+5S gleichfarbig</td><td>4/9 ≈ 44,4%</td></tr>
+        <tr><td>Würfel 3× alle 1</td><td>1/216 ≈ 0,46%</td></tr>
+        <tr><td>Würfel 3× keinmal 1</td><td>125/216 ≈ 57,9%</td></tr>
+        <tr><td>Würfel 3× genau 1× eine 1</td><td>75/216 ≈ 34,8%</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">🚨 Häufige Fehler</div>
+    <div class="fehler">
+      <div class="fehler-item"><span class="fehler-x">✗</span><div>Pfadwahrscheinlichkeiten addieren → <span class="fehler-ok">immer MULTIPLIZIEREN (×)!</span></div></div>
+      <div class="fehler-item"><span class="fehler-x">✗</span><div>Nur einen Pfad berechnen bei "genau 1×" → <span class="fehler-ok">alle günstigen Pfade addieren (+)!</span></div></div>
+      <div class="fehler-item"><span class="fehler-x">✗</span><div>Nenner beim OHNE Zurücklegen nicht anpassen → <span class="fehler-ok">immer −1 nach jedem Zug!</span></div></div>
+      <div class="fehler-item"><span class="fehler-x">✗</span><div>Vergessen zu prüfen ob alle Äste = 1 → <span class="fehler-ok">immer die Probe machen!</span></div></div>
+    </div>
   </div>
 </div>
 
-  </div><!-- /content -->
-</div><!-- /app -->
+  </div><!-- /content-area -->
+</div><!-- /main -->
+
 <div class="toast" id="toast"></div>
 
 <script>
-// ════════════════════════════════════════
-//  STATE
-// ════════════════════════════════════════
-const STORE_KEY = 'mathemeister_draw_v1';
-function defaultSt() {
-  return { unlocked:{40:true,41:false,42:false,43:false,44:false,99:true}, completed:{}, points:0, quizCorrect:0 };
-}
-function loadSt(){try{const r=localStorage.getItem(STORE_KEY);if(r)return JSON.parse(r);}catch(e){}return defaultSt();}
-function saveSt(){try{localStorage.setItem(STORE_KEY,JSON.stringify(st));}catch(e){}}
+const STORE = 'mathe9_v2';
+function defSt(){return{unlocked:{0:true,1:false,2:false,3:false,4:false,5:false,6:false,99:true},completed:{},points:0,qCorrect:0};}
+function loadSt(){try{const r=localStorage.getItem(STORE);if(r)return JSON.parse(r);}catch(e){}return defSt();}
+function saveSt(){try{localStorage.setItem(STORE,JSON.stringify(st));}catch(e){}}
 let st=loadSt();
 
-// ════════════════════════════════════════
-//  DRAW MODE TOGGLE
-// ════════════════════════════════════════
-const drawModes = {}; // lesson -> 'txt'|'draw'
-function setMode(lesson, mode, btn) {
-  drawModes[lesson] = mode;
-  const txtBtn = document.getElementById(`mode${lesson}-txt`);
-  const drawBtn = document.getElementById(`mode${lesson}-draw`);
-  const tc = document.getElementById(`tc${lesson}`);
-  const dc = document.getElementById(`dc${lesson}`);
-  if(txtBtn) { txtBtn.classList.remove('active-txt','active-draw'); }
-  if(drawBtn) { drawBtn.classList.remove('active-txt','active-draw'); }
-  if(mode === 'txt') {
-    if(txtBtn) txtBtn.classList.add('active-txt');
-    if(tc) tc.style.display = 'block';
-    if(dc) dc.style.display = 'none';
-  } else {
-    if(drawBtn) drawBtn.classList.add('active-draw');
-    if(tc) tc.style.display = 'none';
-    if(dc) { dc.style.display = 'block'; dc.style.animation = 'fadeUp .3s ease'; }
-    // Init canvas
-    const canvasId = `canvas-wrap-${lesson}`;
-    if(!document.querySelector(`#${canvasId} canvas`)) {
-      initCanvas(canvasId, lesson);
-    }
-  }
-}
-
-// ════════════════════════════════════════
-//  ERKLÄRUNGS-TOGGLE
-// ════════════════════════════════════════
-function setE(lesson, mode, btn) {
-  const bar = btn.closest('.erkl-bar');
-  bar.querySelectorAll('.eb').forEach(b=>b.classList.remove('on'));
-  btn.classList.add('on');
-  const k = document.getElementById(`e${lesson}k`);
-  const l = document.getElementById(`e${lesson}l`);
-  if(!k||!l) return;
-  if(mode==='k'){k.classList.add('vis');l.classList.remove('vis');}
-  else if(mode==='l'){k.classList.remove('vis');l.classList.add('vis');}
-  else{k.classList.add('vis');l.classList.add('vis');}
-}
-
-// ════════════════════════════════════════
-//  🎨 DRAWING CANVAS ENGINE
-// ════════════════════════════════════════
-const canvases = {}; // id -> { canvas, ctx, ... }
-
-const COLORS = [
-  { id:'white', hex:'#f0f0fc' },
-  { id:'green', hex:'#00e5a0' },
-  { id:'purple', hex:'#7c5cfc' },
-  { id:'pink',   hex:'#eb5b9e' },
-  { id:'yellow', hex:'#ffd23f' },
-  { id:'red',    hex:'#ff5757' },
-  { id:'blue',   hex:'#4db8ff' },
-  { id:'orange', hex:'#ff8c42' },
-];
-
-const TEMPLATES = {
-  muenze2: {
-    label: '🪙 Münze 2× (leer)',
-    draw: (ctx, w, h) => drawTreeTemplate(ctx, w, h, {
-      title: 'Münzwurf 2× — Baumdiagramm',
-      stage1: ['K (½)', 'Z (½)'],
-      stage2: ['K (½)','Z (½)','K (½)','Z (½)'],
-      results: ['KK','KZ','ZK','ZZ'],
-    })
-  },
-  wuerfel_1_nur: {
-    label: '🎲 Würfel "1" 3× (leer)',
-    draw: (ctx, w, h) => drawTreeTemplate(ctx, w, h, {
-      title: 'Würfel 3× — nur "1" zählt',
-      stage1: ['1 (1/6)', '✗ (5/6)'],
-      stage2: ['1','✗','1','✗'],
-      stage3: ['1','✗','1','✗','1','✗','1','✗'],
-      showThird: true,
-    })
-  },
-  karten: {
-    label: '🎴 Karten K,E,O,A (leer)',
-    draw: (ctx, w, h) => drawSimpleTemplate(ctx, w, h, 'Karten K, E, O, A — 2 Züge (ohne Zurücklegen)\n\n1. Zug: P(jede Karte) = 1/4\n2. Zug: P(jede Karte) = 1/3\n\nPfadregel: 1/4 × 1/3 = 1/12')
-  },
-  urne: {
-    label: '🔵 Urne 3R+2B (leer)',
-    draw: (ctx, w, h) => drawSimpleTemplate(ctx, w, h, 'Urne: 3 rote (R) + 2 blaue (B) = 5 Kugeln\n\n1. Zug: P(R) = 3/5  P(B) = 2/5\n2. Zug ohne Zurücklegen:\n  nach R: P(R)=2/4  P(B)=2/4\n  nach B: P(R)=3/4  P(B)=1/4')
-  },
-  raster: {
-    label: '📏 Leeres Raster',
-    draw: (ctx, w, h) => drawGrid(ctx, w, h)
-  },
-  blank: {
-    label: '⬜ Leer starten',
-    draw: (ctx, w, h) => {}
-  }
-};
-
-function drawGrid(ctx, w, h) {
-  ctx.strokeStyle = 'rgba(255,255,255,0.04)';
-  ctx.lineWidth = 1;
-  const step = 30;
-  for(let x=0;x<w;x+=step){ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,h);ctx.stroke();}
-  for(let y=0;y<h;y+=step){ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(w,y);ctx.stroke();}
-  // dot grid
-  ctx.fillStyle = 'rgba(255,255,255,0.07)';
-  for(let x=step;x<w;x+=step){
-    for(let y=step;y<h;y+=step){
-      ctx.beginPath(); ctx.arc(x,y,1.5,0,Math.PI*2); ctx.fill();
-    }
-  }
-}
-
-function drawSimpleTemplate(ctx, w, h, text) {
-  drawGrid(ctx, w, h);
-  ctx.fillStyle = 'rgba(124,92,252,0.06)';
-  ctx.fillRect(0,0,w,h);
-  
-  // info box
-  ctx.strokeStyle = 'rgba(0,229,160,0.3)';
-  ctx.lineWidth = 1;
-  ctx.setLineDash([4,4]);
-  ctx.strokeRect(20, 20, w-40, 120);
-  ctx.setLineDash([]);
-  
-  ctx.fillStyle = 'rgba(0,229,160,0.15)';
-  ctx.fillRect(20, 20, w-40, 120);
-  
-  ctx.fillStyle = '#00e5a0';
-  ctx.font = 'bold 12px JetBrains Mono, monospace';
-  ctx.textAlign = 'left';
-  const lines = text.split('\n');
-  lines.forEach((line, i) => {
-    ctx.fillText(line, 35, 40 + i*16);
-  });
-  
-  // arrow pointing down
-  ctx.fillStyle = 'rgba(255,255,255,0.15)';
-  ctx.font = '13px sans-serif';
-  ctx.textAlign = 'center';
-  ctx.fillText('✏️ Zeichne dein Baumdiagramm hier unten:', w/2, 165);
-}
-
-function drawTreeTemplate(ctx, w, h, cfg) {
-  drawGrid(ctx, w, h);
-  
-  const isTri = !!cfg.showThird;
-  const startX = 60;
-  const stage1X = isTri ? w*0.28 : w*0.35;
-  const stage2X = isTri ? w*0.56 : w*0.65;
-  const stage3X = isTri ? w*0.84 : null;
-  const cx = h/2;
-  
-  // Title
-  ctx.fillStyle = 'rgba(124,92,252,0.5)';
-  ctx.font = 'bold 11px JetBrains Mono, monospace';
-  ctx.textAlign = 'center';
-  ctx.fillText(cfg.title, w/2, 20);
-  
-  // Stage labels
-  ctx.fillStyle = 'rgba(124,92,252,0.6)';
-  ctx.font = '10px JetBrains Mono, monospace';
-  ctx.fillText('Start', startX, 35);
-  ctx.fillText('1. Stufe', stage1X, 35);
-  ctx.fillText('2. Stufe', stage2X, 35);
-  if(isTri) ctx.fillText('3. Stufe', stage3X, 35);
-  
-  // START node
-  ctx.fillStyle = '#18181f';
-  ctx.strokeStyle = '#7c5cfc';
-  ctx.lineWidth = 2;
-  ctx.beginPath(); ctx.arc(startX, cx, 18, 0, Math.PI*2); ctx.fill(); ctx.stroke();
-  ctx.fillStyle = '#eeeef8'; ctx.font = 'bold 9px JetBrains Mono, monospace';
-  ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
-  ctx.fillText('Start', startX, cx);
-  
-  // Stage 1 nodes
-  const s1count = cfg.stage1.length;
-  const s1ys = Array.from({length:s1count}, (_,i) => (i+1)/(s1count+1) * (h-60) + 45);
-  
-  s1ys.forEach((y, i) => {
-    // Edge from start
-    ctx.strokeStyle = 'rgba(255,255,255,0.2)'; ctx.lineWidth = 1.5;
-    ctx.setLineDash([]); 
-    ctx.beginPath(); ctx.moveTo(startX+18, cx); ctx.lineTo(stage1X-20, y); ctx.stroke();
-    
-    // Node
-    ctx.fillStyle = '#18181f'; ctx.strokeStyle = '#4db8ff'; ctx.lineWidth = 1.5;
-    ctx.beginPath(); ctx.arc(stage1X, y, 20, 0, Math.PI*2); ctx.fill(); ctx.stroke();
-    ctx.fillStyle = '#4db8ff'; ctx.font = 'bold 9px Space Grotesk, sans-serif';
-    ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
-    // Split long labels
-    const lbl = cfg.stage1[i];
-    if(lbl.length > 6) {
-      const parts = lbl.split(' ');
-      ctx.fillText(parts[0]||'', stage1X, y-5);
-      ctx.fillText(parts[1]||'', stage1X, y+6);
-    } else {
-      ctx.fillText(lbl, stage1X, y);
-    }
-  });
-  
-  // Stage 2 nodes
-  const s2count = cfg.stage2.length;
-  const s2ys = Array.from({length:s2count}, (_,i) => (i+1)/(s2count+1) * (h-60) + 45);
-  
-  s2ys.forEach((y, i) => {
-    const parentIdx = Math.floor(i / (s2count / s1count));
-    const parentY = s1ys[parentIdx];
-    
-    ctx.strokeStyle = 'rgba(255,255,255,0.15)'; ctx.lineWidth = 1.2;
-    ctx.beginPath(); ctx.moveTo(stage1X+20, parentY); ctx.lineTo(stage2X-18, y); ctx.stroke();
-    
-    ctx.fillStyle = '#18181f'; ctx.strokeStyle = '#52526e'; ctx.lineWidth = 1.2;
-    ctx.beginPath(); ctx.arc(stage2X, y, 17, 0, Math.PI*2); ctx.fill(); ctx.stroke();
-    ctx.fillStyle = '#b8b8d4'; ctx.font = 'bold 9px Space Grotesk, sans-serif';
-    ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
-    ctx.fillText(cfg.stage2[i]||'?', stage2X, y);
-    
-    // Results (only if no stage 3)
-    if(!isTri && cfg.results && cfg.results[i]) {
-      ctx.fillStyle = 'rgba(255,255,255,0.3)'; ctx.font = '9px JetBrains Mono, monospace';
-      ctx.textAlign = 'left'; ctx.textBaseline = 'middle';
-      ctx.fillText(cfg.results[i], stage2X + 28, y);
-    }
-  });
-  
-  // Stage 3 nodes (if applicable)
-  if(isTri && cfg.stage3 && stage3X) {
-    const s3count = cfg.stage3.length;
-    const s3ys = Array.from({length:s3count}, (_,i) => (i+1)/(s3count+1) * (h-60) + 45);
-    
-    s3ys.forEach((y, i) => {
-      const parentIdx = Math.floor(i / (s3count / s2count));
-      const parentY = s2ys[parentIdx];
-      
-      ctx.strokeStyle = 'rgba(255,255,255,0.12)'; ctx.lineWidth = 1;
-      ctx.beginPath(); ctx.moveTo(stage2X+17, parentY); ctx.lineTo(stage3X-15, y); ctx.stroke();
-      
-      ctx.fillStyle = '#18181f'; ctx.strokeStyle = '#3a3a5a'; ctx.lineWidth = 1;
-      ctx.beginPath(); ctx.arc(stage3X, y, 13, 0, Math.PI*2); ctx.fill(); ctx.stroke();
-      ctx.fillStyle = '#6a6a9a'; ctx.font = '8px Space Grotesk, sans-serif';
-      ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
-      ctx.fillText(cfg.stage3[i]||'?', stage3X, y);
-    });
-  }
-  
-  ctx.textBaseline = 'alphabetic';
-}
-
-function initCanvas(wrapperId, lessonId) {
-  const wrap = document.getElementById(wrapperId);
-  if(!wrap) return;
-  
-  const isMobile = window.innerWidth < 600;
-  const W = wrap.clientWidth || 700;
-  const H = isMobile ? 380 : 480;
-  
-  wrap.innerHTML = '';
-  const container = document.createElement('div');
-  container.className = 'canvas-container';
-  container.style.height = H + 'px';
-  
-  // Toolbar
-  const toolbar = document.createElement('div');
-  toolbar.className = 'canvas-toolbar';
-  
-  const drawState = {
-    tool: 'pen',    // pen | eraser | line | text | arrow
-    color: '#f0f0fc',
-    size: 3,
-    drawing: false,
-    lastX: 0, lastY: 0,
-    history: [],
-    redoStack: [],
-    canvasId: wrapperId
-  };
-  
-  // Tool buttons
-  const tools = [
-    { id:'pen',    ico:'✏️', title:'Stift' },
-    { id:'line',   ico:'📏', title:'Linie' },
-    { id:'arrow',  ico:'➡️', title:'Pfeil' },
-    { id:'text',   ico:'🔤', title:'Text' },
-    { id:'eraser', ico:'⬜', title:'Radierer' },
-  ];
-  
-  tools.forEach(t => {
-    const btn = document.createElement('button');
-    btn.className = 'tool-btn' + (t.id==='pen'?' active':'');
-    btn.title = t.title;
-    btn.innerHTML = t.ico;
-    btn.onclick = () => {
-      toolbar.querySelectorAll('.tool-btn').forEach(b=>b.classList.remove('active'));
-      btn.classList.add('active');
-      drawState.tool = t.id;
-      canvas.style.cursor = t.id==='eraser' ? 'cell' : t.id==='text' ? 'text' : 'crosshair';
-    };
-    toolbar.appendChild(btn);
-  });
-  
-  // Separator
-  const sep1 = document.createElement('div'); sep1.className = 'tool-sep';
-  toolbar.appendChild(sep1);
-  
-  // Colors
-  COLORS.forEach(c => {
-    const dot = document.createElement('div');
-    dot.className = 'color-dot' + (c.hex===drawState.color?' active':'');
-    dot.style.background = c.hex;
-    dot.title = c.id;
-    dot.onclick = () => {
-      toolbar.querySelectorAll('.color-dot').forEach(d=>d.classList.remove('active'));
-      dot.classList.add('active');
-      drawState.color = c.hex;
-    };
-    toolbar.appendChild(dot);
-  });
-  
-  // Separator
-  const sep2 = document.createElement('div'); sep2.className = 'tool-sep';
-  toolbar.appendChild(sep2);
-  
-  // Size slider
-  const slider = document.createElement('input');
-  slider.type = 'range'; slider.min = 1; slider.max = 20; slider.value = 3;
-  slider.className = 'size-slider'; slider.title = 'Stiftgröße';
-  slider.oninput = () => { drawState.size = parseInt(slider.value); };
-  toolbar.appendChild(slider);
-  
-  // Undo/Redo
-  const sep3 = document.createElement('div'); sep3.className = 'tool-sep';
-  toolbar.appendChild(sep3);
-  
-  const undoBtn = document.createElement('button');
-  undoBtn.className = 'tool-btn'; undoBtn.innerHTML = '↩️'; undoBtn.title = 'Rückgängig';
-  undoBtn.onclick = () => undo(drawState, canvas, ctx);
-  toolbar.appendChild(undoBtn);
-  
-  const redoBtn = document.createElement('button');
-  redoBtn.className = 'tool-btn'; redoBtn.innerHTML = '↪️'; redoBtn.title = 'Wiederholen';
-  redoBtn.onclick = () => redo(drawState, canvas, ctx);
-  toolbar.appendChild(redoBtn);
-  
-  container.appendChild(toolbar);
-  
-  // Canvas
-  const canvas = document.createElement('canvas');
-  canvas.width = W * (window.devicePixelRatio||1);
-  canvas.height = H * (window.devicePixelRatio||1);
-  canvas.style.width = W + 'px';
-  canvas.style.height = H + 'px';
-  canvas.style.display = 'block';
-  container.appendChild(canvas);
-  
-  const ctx = canvas.getContext('2d');
-  const dpr = window.devicePixelRatio || 1;
-  ctx.scale(dpr, dpr);
-  
-  // Background
-  ctx.fillStyle = '#0a0a16';
-  ctx.fillRect(0, 0, W, H);
-  drawGrid(ctx, W, H);
-  
-  // Template overlay for hint
-  const hint = document.createElement('div');
-  hint.className = 'canvas-hint';
-  hint.textContent = '✏️ Zeichne dein Baumdiagramm hier';
-  container.appendChild(hint);
-  setTimeout(() => { hint.style.opacity = '0'; }, 3000);
-  
-  // Line/arrow start pos
-  let lineStart = null;
-  let tempSnapshot = null;
-  let textInput = null;
-  
-  function getPos(e) {
-    const rect = canvas.getBoundingClientRect();
-    const scaleX = W / rect.width;
-    const scaleY = H / rect.height;
-    const touch = e.touches ? e.touches[0] : e;
-    return {
-      x: (touch.clientX - rect.left) * scaleX,
-      y: (touch.clientY - rect.top) * scaleY
-    };
-  }
-  
-  function saveHistory() {
-    drawState.history.push(ctx.getImageData(0, 0, canvas.width / dpr, canvas.height / dpr));
-    if(drawState.history.length > 50) drawState.history.shift();
-    drawState.redoStack = [];
-  }
-  
-  function startDraw(e) {
-    e.preventDefault();
-    const pos = getPos(e);
-    
-    if(drawState.tool === 'text') {
-      const txt = prompt('Text eingeben (z.B. 1/6 oder "K"):');
-      if(txt) {
-        saveHistory();
-        ctx.fillStyle = drawState.color;
-        ctx.font = `bold ${Math.max(12, drawState.size * 4)}px JetBrains Mono, monospace`;
-        ctx.textAlign = 'left';
-        ctx.textBaseline = 'alphabetic';
-        ctx.fillText(txt, pos.x, pos.y);
-      }
-      return;
-    }
-    
-    saveHistory();
-    drawState.drawing = true;
-    drawState.lastX = pos.x;
-    drawState.lastY = pos.y;
-    
-    if(drawState.tool === 'line' || drawState.tool === 'arrow') {
-      lineStart = { x: pos.x, y: pos.y };
-      tempSnapshot = ctx.getImageData(0, 0, canvas.width / dpr, canvas.height / dpr);
-    }
-    
-    if(drawState.tool === 'pen' || drawState.tool === 'eraser') {
-      ctx.beginPath();
-      ctx.moveTo(pos.x, pos.y);
-    }
-  }
-  
-  function doDraw(e) {
-    if(!drawState.drawing) return;
-    e.preventDefault();
-    const pos = getPos(e);
-    
-    if(drawState.tool === 'pen') {
-      ctx.globalCompositeOperation = 'source-over';
-      ctx.strokeStyle = drawState.color;
-      ctx.lineWidth = drawState.size;
-      ctx.lineCap = 'round'; ctx.lineJoin = 'round';
-      ctx.lineTo(pos.x, pos.y); ctx.stroke();
-      ctx.beginPath(); ctx.moveTo(pos.x, pos.y);
-    } else if(drawState.tool === 'eraser') {
-      ctx.globalCompositeOperation = 'destination-out';
-      ctx.strokeStyle = 'rgba(0,0,0,1)';
-      ctx.lineWidth = drawState.size * 4;
-      ctx.lineCap = 'round'; ctx.lineJoin = 'round';
-      ctx.lineTo(pos.x, pos.y); ctx.stroke();
-      ctx.beginPath(); ctx.moveTo(pos.x, pos.y);
-    } else if((drawState.tool === 'line' || drawState.tool === 'arrow') && lineStart) {
-      ctx.putImageData(tempSnapshot, 0, 0);
-      ctx.globalCompositeOperation = 'source-over';
-      ctx.strokeStyle = drawState.color;
-      ctx.lineWidth = drawState.size;
-      ctx.lineCap = 'round';
-      ctx.beginPath(); ctx.moveTo(lineStart.x, lineStart.y); ctx.lineTo(pos.x, pos.y); ctx.stroke();
-      
-      if(drawState.tool === 'arrow') {
-        const angle = Math.atan2(pos.y - lineStart.y, pos.x - lineStart.x);
-        const arrowSize = Math.max(12, drawState.size * 4);
-        ctx.fillStyle = drawState.color;
-        ctx.beginPath();
-        ctx.moveTo(pos.x, pos.y);
-        ctx.lineTo(pos.x - arrowSize * Math.cos(angle - Math.PI/6), pos.y - arrowSize * Math.sin(angle - Math.PI/6));
-        ctx.lineTo(pos.x - arrowSize * Math.cos(angle + Math.PI/6), pos.y - arrowSize * Math.sin(angle + Math.PI/6));
-        ctx.closePath(); ctx.fill();
-      }
-    }
-    
-    drawState.lastX = pos.x; drawState.lastY = pos.y;
-  }
-  
-  function endDraw(e) {
-    if(!drawState.drawing) return;
-    drawState.drawing = false;
-    lineStart = null; tempSnapshot = null;
-    ctx.globalCompositeOperation = 'source-over';
-    ctx.beginPath();
-  }
-  
-  canvas.addEventListener('mousedown', startDraw);
-  canvas.addEventListener('mousemove', doDraw);
-  canvas.addEventListener('mouseup', endDraw);
-  canvas.addEventListener('mouseleave', endDraw);
-  canvas.addEventListener('touchstart', startDraw, {passive:false});
-  canvas.addEventListener('touchmove', doDraw, {passive:false});
-  canvas.addEventListener('touchend', endDraw);
-  
-  // Canvas actions
-  const actions = document.createElement('div');
-  actions.className = 'canvas-actions';
-  
-  const clearBtn = document.createElement('button');
-  clearBtn.className = 'cact-btn danger'; clearBtn.textContent = '🗑️ Alles löschen';
-  clearBtn.onclick = () => {
-    if(confirm('Alles löschen?')) {
-      saveHistory();
-      ctx.fillStyle = '#0a0a16'; ctx.fillRect(0,0,W,H); drawGrid(ctx,W,H);
-    }
-  };
-  actions.appendChild(clearBtn);
-  
-  const saveBtn = document.createElement('button');
-  saveBtn.className = 'cact-btn primary'; saveBtn.textContent = '💾 Bild speichern';
-  saveBtn.onclick = () => {
-    const link = document.createElement('a');
-    link.download = `baumdiagramm_L${lessonId}.png`;
-    link.href = canvas.toDataURL('image/png');
-    link.click();
-    toast('💾 Bild gespeichert!');
-  };
-  actions.appendChild(saveBtn);
-  
-  container.appendChild(actions);
-  
-  // Templates
-  const tmplSection = document.createElement('div');
-  const tmplLabel = document.createElement('div');
-  tmplLabel.style.cssText = 'font-size:.64rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);padding:.5rem .85rem .2rem;font-family:JetBrains Mono,monospace';
-  tmplLabel.textContent = '📋 VORLAGE LADEN:';
-  tmplSection.appendChild(tmplLabel);
-  
-  const tmplGrid = document.createElement('div');
-  tmplGrid.className = 'template-grid';
-  
-  const relevantTemplates = getTemplatesForLesson(lessonId);
-  relevantTemplates.forEach(key => {
-    const tmpl = TEMPLATES[key];
-    if(!tmpl) return;
-    const btn = document.createElement('button');
-    btn.className = 'tmpl-btn';
-    btn.textContent = tmpl.label;
-    btn.onclick = () => {
-      saveHistory();
-      ctx.fillStyle = '#0a0a16'; ctx.fillRect(0,0,W,H);
-      tmpl.draw(ctx, W, H);
-      toast('📋 Vorlage geladen!');
-    };
-    tmplGrid.appendChild(btn);
-  });
-  
-  tmplSection.appendChild(tmplGrid);
-  container.appendChild(tmplSection);
-  
-  wrap.appendChild(container);
-  canvases[wrapperId] = { canvas, ctx, drawState, W, H };
-}
-
-function getTemplatesForLesson(lessonId) {
-  const map = {
-    40: ['muenze2', 'raster', 'blank'],
-    41: ['karten', 'raster', 'blank'],
-    42: ['wuerfel_1_nur', 'muenze2', 'blank'],
-    43: ['wuerfel_1_nur', 'raster', 'blank'],
-    44: ['muenze2', 'wuerfel_1_nur', 'karten', 'urne', 'raster', 'blank'],
-  };
-  return map[lessonId] || ['raster', 'blank'];
-}
-
-function undo(state, canvas, ctx) {
-  if(!state.history.length) return;
-  state.redoStack.push(ctx.getImageData(0, 0, state.W, state.H));
-  ctx.putImageData(state.history.pop(), 0, 0);
-}
-
-function redo(state, canvas, ctx) {
-  if(!state.redoStack.length) return;
-  state.history.push(ctx.getImageData(0, 0, state.W, state.H));
-  ctx.putImageData(state.redoStack.pop(), 0, 0);
-}
-
-// Quick-load functions from sidebar cards
-function loadTask43Tmpl() { initOrLoadTemplate(44, 'wuerfel_1_nur'); }
-function loadKartenTmpl() { initOrLoadTemplate(44, 'karten'); }
-function loadMuenzeTmpl() { initOrLoadTemplate(44, 'muenze2'); }
-function loadUrneTmpl() { initOrLoadTemplate(44, 'urne'); }
-
-function initOrLoadTemplate(lessonId, tmplKey) {
-  const wrapperId = `canvas-wrap-${lessonId}`;
-  const wrap = document.getElementById(wrapperId);
-  if(!wrap) return;
-  if(!canvases[wrapperId]) {
-    initCanvas(wrapperId, lessonId);
-  }
-  const c = canvases[wrapperId];
-  if(!c) return;
-  const tmpl = TEMPLATES[tmplKey];
-  if(!tmpl) return;
-  // clear and draw
-  c.drawState.history.push(c.ctx.getImageData(0, 0, c.W, c.H));
-  c.ctx.fillStyle = '#0a0a16'; c.ctx.fillRect(0,0,c.W,c.H);
-  tmpl.draw(c.ctx, c.W, c.H);
-  toast('📋 Vorlage geladen!');
-}
-
-// ════════════════════════════════════════
-//  QUIZ ENGINE
-// ════════════════════════════════════════
+const CHAIN=[0,1,2,3,4,5,6];
+const TITLES={0:'🌳 Baumdiagramm',1:'✖️ Pfadregel',2:'➕ Summenregel',3:'🔵 Kugeln ziehen',4:'🎲 Würfel 3×',5:'🎴 Karten K,E,O,A',6:'📚 Übungsaufgaben',99:'📋 Spickzettel'};
+const BADGES={0:'Kapitel 1',1:'Kapitel 2',2:'Kapitel 3',3:'Kapitel 4',4:'Kapitel 5',5:'Kapitel 6',6:'Kapitel 7',99:'Zusammenfassung'};
+let cur=0;
 const lessonDiff={};
 const answered={};
 const qCache={};
+
 function rnd(a,b){return Math.floor(Math.random()*(b-a+1))+a;}
 function pick(arr){return arr[Math.floor(Math.random()*arr.length)];}
 function shuf(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
-function fmt(n){if(Number.isInteger(n))return String(n);return String(Math.round(n*1000)/1000).replace('.',',');}
-function makeOpts(ans,spread){
-  spread=spread||(Math.abs(ans)>100?15:Math.abs(ans)>20?5:2);
+function fmt(n){if(Number.isInteger(n))return String(n);const r=Math.round(n*1000)/1000;return String(r).replace('.',',');}
+function makeOpts(ans){
   const s=new Set([ans]);let t=0;
+  const spread=Math.abs(ans)>50?10:Math.abs(ans)>20?5:Math.abs(ans)>5?3:2;
   while(s.size<4&&t++<200){const d=rnd(1,spread);const c=pick([ans+d,ans-d,ans+d*2,ans-d*2,ans+1,ans-1]);if(c!==ans)s.add(c);}
   return shuf([...s].slice(0,4));
 }
 
+// Quiz questions per lesson
 const GEN = {
-  40:{
+  0:{
     easy:[
-      ()=>({q:`Münze 2×: Wie viele Äste hat die 1. Stufe?`,a:2,hint:'Kopf oder Zahl → 2 Äste'}),
-      ()=>({q:`Münze 2×: P(KK) = 1/? `,a:4,hint:'½ × ½ = ¼'}),
-      ()=>({q:`Alle Astwahrscheinlichkeiten einer Stufe addieren sich zu...?`,a:1,hint:'Summe = 1 (= 100%)'}),
+      ()=>({q:'Münze 2×: Wie viele Äste hat Stufe 1?',a:2,hint:'Kopf oder Zahl → 2'}),
+      ()=>({q:'P(KK) bei 2 Münzwürfen: Zähler = ?  (= ?/4)',a:1,hint:'½ × ½ = 1/4'}),
+      ()=>({q:'Alle Äste einer Stufe addieren sich zu...?',a:1,hint:'Immer 1 = 100%'}),
+      ()=>({q:'Würfel + Münze: Wie viele Äste total am Ende?',a:12,hint:'6 × 2 = 12'}),
     ],
     med:[
-      ()=>({q:`2 Münzwürfe: Wie viele mögliche Ergebnisse?`,a:4,hint:'KK, KZ, ZK, ZZ → 4'}),
-      ()=>({q:`Würfel 2×: Wie viele verschiedene Paare?`,a:36,hint:'6 × 6 = 36'}),
+      ()=>({q:'Würfel 2×: Wie viele mögliche Paare gibt es?',a:36,hint:'6 × 6 = 36'}),
+      ()=>({q:'Münze 3×: Wie viele Endzweige?',a:8,hint:'2 × 2 × 2 = 8'}),
+      ()=>({q:'Karten K,E,O,A: Wie viele Paare ohne Zurücklegen?',a:12,hint:'4 × 3 = 12'}),
     ],
     hard:[
-      ()=>({q:`Urne 4 Kugeln, 2× ziehen ohne Zurücklegen: Wie viele Pfade?`,a:12,hint:'4 × 3 = 12'}),
-      ()=>({q:`Karten K,E,O,A — 2 Züge: Wie viele mögliche Ergebnisse?`,a:12,hint:'4 × 3 = 12'}),
+      ()=>({q:'Urne 5 Kugeln: 2× ohne Zurücklegen. Wie viele Pfade?',a:20,hint:'5 × 4 = 20'}),
+      ()=>({q:'Würfel 3×: Wie viele verschiedene Ergebnisse?',a:216,hint:'6 × 6 × 6 = 216'}),
     ]
   },
-  41:{
+  1:{
     easy:[
-      ()=>({q:`Münze 2×: P(KK) = ½ × ½ = 1/?`,a:4,hint:'½ × ½ = 1/4'}),
-      ()=>({q:`P₁=1/4, P₂=1/3. Pfadwahrsch. × 12 = ?`,a:1,hint:'1/4 × 1/3 = 1/12 → ×12=1'}),
+      ()=>({q:'Pfadregel: P₁=½, P₂=½. P(Pfad) × 4 = ?',a:1,hint:'½ × ½ = ¼ → ×4 = 1'}),
+      ()=>({q:'P(O) aus K,E,O,A = 1/? (Nenner)',a:4,hint:'4 Karten → 1/4'}),
+      ()=>({q:'Nach O gezogen, 3 Karten übrig. P(K) = 1/? (Nenner)',a:3,hint:'3 Karten → 1/3'}),
     ],
     med:[
-      ()=>({q:`Karten K,E,O,A: P("OK") × 12 = ?`,a:1,hint:'1/4 × 1/3 = 1/12 → ×12=1'}),
-      ()=>({q:`Münze 3×: P(KKK) × 8 = ?`,a:1,hint:'½³ = 1/8 → ×8=1'}),
+      ()=>({q:'P("OK") × 12 = ?',a:1,hint:'1/4 × 1/3 = 1/12 → ×12 = 1'}),
+      ()=>{const p1=pick([2,3,4,5,6]);const p2=pick([2,3,4]);return{q:`P₁=1/${p1}, P₂=1/${p2}. Nenner des Pfades?`,a:p1*p2,hint:`${p1} × ${p2} = ${p1*p2}`}},
+      ()=>({q:'MADN: P(Stein im 1. Wurf) × 6 = ?',a:1,hint:'1/6 × 6 = 1'}),
     ],
     hard:[
-      ()=>({q:`P(Stein ins Feld in 1 Wurf) × 6 = ?`,a:1,hint:'1/6 × 6 = 1'}),
-      ()=>({q:`P("OK" aus K,E,O,A) ≈ ?% (rund)`,a:8,hint:'1/12 ≈ 8,3% ≈ 8%'}),
+      ()=>({q:'MADN 2. Wurf: P = 5/6 × 1/6. Nenner = ?',a:36,hint:'6 × 6 = 36'}),
+      ()=>({q:'30 Schüler, P=1/12. Erwartungswert gerundet = ?',a:3,hint:'1/12 × 30 ≈ 2,49 → 3'}),
+      ()=>({q:'P("OK") ≈ ?% (rund)',a:8,hint:'1/12 ≈ 8,3% ≈ 8%'}),
     ]
   },
-  42:{
+  2:{
     easy:[
-      ()=>({q:`Münze 2×: P(genau 1× Kopf) × 2 = ?`,a:1,hint:'KZ+ZK = ¼+¼ = ½ → ×2=1'}),
-      ()=>({q:`Münze 2×: Wie viele Pfade enden mit Zahl?`,a:2,hint:'KZ und ZZ → 2'}),
+      ()=>({q:'Münze 2×: P(KZ) + P(ZK) = ?/4 (Zähler)',a:2,hint:'¼ + ¼ = 2/4'}),
+      ()=>({q:'Münze 2×: P(genau 1× Kopf) × 2 = ?',a:1,hint:'KZ + ZK = ½ → ×2 = 1'}),
+      ()=>({q:'5W+5S: Wie viele Kugeln gesamt?',a:10,hint:'5 + 5 = 10'}),
     ],
     med:[
-      ()=>({q:`Würfel 2×: P(Summe=7) × 6 = ?`,a:1,hint:'6/36 = 1/6 → ×6=1'}),
-      ()=>({q:`Münze 2×: P(mind. 1 Kopf) × 4 = ?`,a:3,hint:'1−P(ZZ)=1−¼=¾ → ×4=3'}),
+      ()=>({q:'5W+5S: P(WW) × 9 = ? (×9 um Bruch aufzulösen)',a:2,hint:'5/10×4/9 = 20/90 = 2/9 → ×9 = 2'}),
+      ()=>({q:'5W+5S: P(gleichfarbig) × 9 = ?',a:4,hint:'2/9 + 2/9 = 4/9 → ×9 = 4'}),
+      ()=>({q:'P(gleichfarbig) ≈ ?% (rund)',a:44,hint:'4/9 ≈ 44,4% ≈ 44%'}),
     ],
     hard:[
-      ()=>({q:`Mensch-ä-d-n: P(Stein in 3 Würfen) ≈ ?% (rund)`,a:42,hint:'91/216 ≈ 42%'}),
-      ()=>({q:`Würfel 2×: P(mind. eine 6) × 36 = ?`,a:11,hint:'11/36 → ×36=11'}),
+      ()=>({q:'3R+7B ohne Zurücklegen. P(RR) × 15 = ?',a:1,hint:'3/10×2/9 = 6/90 = 1/15 → ×15 = 1'}),
+      ()=>({q:'3R+7B: P(gleichfarbig) × 15 = ?',a:8,hint:'1/15 + 7/15 = 8/15 → ×15 = 8'}),
+      ()=>({q:'Würfel 2×: P(Summe=7) × 6 = ?',a:1,hint:'6/36 = 1/6 → ×6 = 1'}),
     ]
   },
-  43:{
+  3:{
     easy:[
-      ()=>({q:`Würfel 3×, nur "1": P(alle drei 1) × 216 = ?`,a:1,hint:'1/6³ = 1/216 → ×216=1'}),
-      ()=>({q:`Würfel 3×: P(keine 1) × 216 ≈ ?`,a:125,hint:'(5/6)³ = 125/216 → ×216=125'}),
+      ()=>({q:'Urne: 4 orange + 8 weiß. Gesamt = ?',a:12,hint:'4 + 8 = 12'}),
+      ()=>({q:'P(O) beim 1. Zug: Zähler = ? (= ?/12)',a:4,hint:'4 orange von 12 → 4/12'}),
+      ()=>({q:'MIT Zurücklegen: Nenner bleibt immer...?',a:12,hint:'Kugel kommt zurück → immer 12'}),
     ],
     med:[
-      ()=>({q:`Würfel 3×: P(genau eine 1) → Wie viele günstige Pfade?`,a:3,hint:'(1,✗,✗), (✗,1,✗), (✗,✗,1) → 3 Pfade'}),
-      ()=>({q:`P(genau eine 1) × 216 ≈ ?`,a:75,hint:'3 × 25/216 = 75/216 → ×216=75'}),
+      ()=>({q:'OHNE Zurücklegen: Nach O-Zug wie viele übrig?',a:11,hint:'12 − 1 = 11'}),
+      ()=>({q:'P(OO ohne Zurücklegen) × 11 × 3 = ? (vereinfacht)',a:1,hint:'4/12×3/11 = 1/11 → ×11 = 1, dann ×3 nein... Tipp: 4×3=12, 12×11=132 → 12/132 = 1/11. ×3 nicht nötig.'}),
+      ()=>{const r=rnd(2,5);const b=rnd(2,5);const n=r+b;return{q:`${r} rot, ${b} blau (${n} ges.). P(rot) = ${r}/?`,a:n,hint:`${n} gesamt → Nenner = ${n}`}},
     ],
     hard:[
-      ()=>({q:`Probe: Alle 4 Ereignisse addiert = ?%`,a:100,hint:'0,46+57,9+34,7+6,9 ≈ 100%'}),
-      ()=>({q:`P(genau 2× eine 1) × 216 = ?`,a:15,hint:'3 × 5/216 = 15/216 → ×216=15'}),
+      ()=>{const r=rnd(3,6);const b=rnd(3,6);const n=r+b;const pct=Math.round(r/n*100);return{q:`${r} rot, ${b} blau. P(rot) ≈ ?%`,a:pct,hint:`${r}/${n} × 100 ≈ ${pct}%`}},
+      ()=>({q:'Urne 4O+8W: P(WW ohne Zurücklegen) Zähler × Zähler = ?',a:56,hint:'8 × 7 = 56 (Zähler-Zähler)'}),
     ]
   },
-  44:{
+  4:{
     easy:[
-      ()=>({q:`Karten K,E,O,A: P(1. Zug = K) = 1/?`,a:4,hint:'4 Karten → 1/4'}),
-      ()=>({q:`Urne 3R+2B: Gesamt = ?`,a:5,hint:'3+2=5'}),
+      ()=>({q:'Würfel 3×. P(1) = 1/6. P(nicht 1) = ?/6 (Zähler)',a:5,hint:'1 − 1/6 = 5/6'}),
+      ()=>({q:'S.49 a): P(alle drei 1) × 216 = ?',a:1,hint:'1/6³ = 1/216 → ×216 = 1'}),
+      ()=>({q:'S.49 b): P(keinmal 1) × 216 = ?',a:125,hint:'(5/6)³ = 125/216 → ×216 = 125'}),
     ],
     med:[
-      ()=>({q:`Urne 3R+2B (ohne Zurücklegen): P(R,R) × 10 = ?`,a:3,hint:'3/5×2/4=3/10 → ×10=3'}),
-      ()=>({q:`Würfel 2×: P(Summe=7) × 6 = ?`,a:1,hint:'6/36=1/6 → ×6=1'}),
+      ()=>({q:'S.49 c) genau 1×: Wie viele günstige Pfade?',a:3,hint:'1✗✗, ✗1✗, ✗✗1 → 3 Pfade'}),
+      ()=>({q:'S.49 c): 3 × 25/216 = ?/216',a:75,hint:'3 × 25 = 75'}),
+      ()=>({q:'S.49 d): P(genau 2×) ≈ ?% (rund)',a:7,hint:'6/216 × 3 = 18/216 ≈ 6,9% ≈ 7%'}),
     ],
     hard:[
-      ()=>({q:`Urne 3R+2B: P(mind. 1 rot) × 10 = ?`,a:9,hint:'1−1/10=9/10 → ×10=9'}),
-      ()=>({q:`Würfel 2×: P(mind. eine 6) × 36 = ?`,a:11,hint:'11/36 → ×36=11'}),
+      ()=>({q:'Würfel 2×: P(genau 1× eine 6) × 36 = ?',a:10,hint:'2 × 5/36 = 10/36 → ×36 = 10'}),
+      ()=>({q:'Würfel 3× alle 1: 0,46% ist 1/? (Nenner)',a:216,hint:'6³ = 216 → 1/216'}),
+    ]
+  },
+  5:{
+    easy:[
+      ()=>({q:'Karten K,E,O,A: Wie viele verschiedene Paare?',a:12,hint:'4 × 3 = 12'}),
+      ()=>({q:'Jedes Paar hat P = 1/12. 1/12 × 12 = ?',a:1,hint:'1/12 × 12 = 1 ✓ Probe!'}),
+      ()=>({q:'P("OK") × 12 = ?',a:1,hint:'1/12 × 12 = 1'}),
+    ],
+    med:[
+      ()=>({q:'30 Schüler × 1/12 = ? (als Dezimal × 10)',a:25,hint:'30/12 = 2,5 → ×10 = 25'}),
+      ()=>({q:'Karten: Wie viele Paare beginnen mit O?',a:3,hint:'OK, OE, OA → 3'}),
+      ()=>({q:'Karten M,A,T,H,E (5): P("AT") × 20 = ?',a:1,hint:'1/5 × 1/4 = 1/20 → ×20 = 1'}),
+    ],
+    hard:[
+      ()=>({q:'30 Schüler, P=1/12. Kaugummis gerundet = ?',a:3,hint:'30 × 1/12 ≈ 2,49 → 3'}),
+      ()=>({q:'Karten K,E,O,A: Wie viele Paare enthalten K?',a:6,hint:'K vorne: KE,KO,KA (3) + K hinten: EK,OK,AK (3) = 6'}),
+    ]
+  },
+  6:{
+    easy:[
+      ()=>({q:'S.49 b) P(keinmal 1 in 3 Würfen) ≈ ?%',a:58,hint:'57,9% ≈ 58%'}),
+      ()=>({q:'Münze 2×: P(2× Kopf) = 1/? (Nenner)',a:4,hint:'½ × ½ = ¼'}),
+      ()=>({q:'5W+5S gleichfarbig ≈ ?%',a:44,hint:'4/9 ≈ 44,4%'}),
+    ],
+    med:[
+      ()=>({q:'MADN: In 3 Würfen kein Stein? (5/6)³ × 216 = ?',a:125,hint:'125/216 → ×216 = 125'}),
+      ()=>({q:'P(genau 1× in 3 Würfen) ≈ ?%',a:35,hint:'34,8% ≈ 35%'}),
+      ()=>({q:'Karten K,E,O,A: P("OK") ≈ ?%',a:8,hint:'1/12 ≈ 8,3%'}),
+    ],
+    hard:[
+      ()=>({q:'MADN 3 Würfe: P(mind. einmal 6) = 1−(5/6)³. (5/6)³ × 1000 ≈ ?',a:579,hint:'125/216 ≈ 0,579 → ×1000 ≈ 579'}),
+      ()=>({q:'30 Schüler: Erwartet Anzahl bei P=1/12 (×10)',a:25,hint:'2,5 × 10 = 25'}),
     ]
   }
 };
@@ -1423,49 +990,53 @@ function getQs(lesson,diff){
   diff=diff||lessonDiff[lesson]||'easy';
   const key=`${lesson}_${diff}`;
   if(qCache[key])return qCache[key];
-  const pool=GEN[lesson]&&GEN[lesson][diff]?GEN[lesson][diff]:(GEN[lesson]?GEN[lesson].easy:[]);
+  const pool=(GEN[lesson]&&GEN[lesson][diff])||GEN[lesson]?.easy||[];
   if(!pool.length)return[];
-  const qs=[];const seen=new Set();let tries=0;
-  while(qs.length<Math.min(4,pool.length)&&tries++<300){
+  const qs=[];const seen=new Set();let t=0;
+  while(qs.length<4&&t++<200){
     const g=pool[Math.floor(Math.random()*pool.length)];
     const q=g();if(seen.has(q.q))continue;seen.add(q.q);q.opts=makeOpts(q.a);qs.push(q);
   }
   qCache[key]=qs;return qs;
 }
 
-function buildQuiz(lesson,diff){
-  diff=diff||lessonDiff[lesson]||'easy';
-  lessonDiff[lesson]=diff;
-  for(const k in answered){if(k.startsWith(lesson+'_'))delete answered[k];}
+function buildQuiz(lesson){
+  const diff=lessonDiff[lesson]||'easy';
   const wrap=document.getElementById('qa'+lesson);
   if(!wrap)return;
   const qs=getQs(lesson,diff);
-  if(!qs.length){wrap.innerHTML='<div class="info tip"><div class="ii">✅</div><div>Kapitel einfach abschließen!</div></div>';const b=document.getElementById('cb'+lesson);if(b)b.disabled=false;return;}
-  const isHard=diff==='hard';
+  if(!qs.length){wrap.innerHTML='<div class="info tip"><div class="info-icon">✅</div><div>Klick auf „Abschließen"!</div></div>';const b=document.getElementById('cb'+lesson);if(b)b.disabled=false;return;}
   const dots=qs.map((_,i)=>`<div class="dot" id="dot_${lesson}_${i}"></div>`).join('');
   let html=`<div class="diff-row">
     <button class="db e${diff==='easy'?' on':''}" onclick="rebuildQ(${lesson},'easy',this)">😊 Leicht</button>
     <button class="db m${diff==='med'?' on':''}" onclick="rebuildQ(${lesson},'med',this)">🔥 Mittel</button>
     <button class="db h${diff==='hard'?' on':''}" onclick="rebuildQ(${lesson},'hard',this)">💀 Schwer</button>
-  </div><div class="dots-row">${dots}<span class="q-stat" id="qs_${lesson}">0/${qs.length}</span></div>`;
+  </div><div class="dots-row">${dots}<span class="qs" id="qs_${lesson}">0/${qs.length}</span></div>`;
+  const isHard=diff==='hard';
   qs.forEach((q,qi)=>{
-    html+=`<div class="qcard" id="qc_${lesson}_${qi}"><div class="qtext">${q.q}</div>`;
-    if(!isHard){html+=`<div class="mc-grid">`+q.opts.map(opt=>`<button class="mc" onclick="chkMC(${lesson},${qi},${opt})">${fmt(opt)}</button>`).join('')+`</div>`;}
-    else{html+=`<div class="inp-row"><input class="qi" id="inp_${lesson}_${qi}" type="number" step="any" placeholder="Antwort…" onkeydown="if(event.key==='Enter')chkInp(${lesson},${qi})"><button class="btn-check" onclick="chkInp(${lesson},${qi})">Prüfen ✓</button><button class="btn-tipp" onclick="showTipp(${lesson},${qi})">Tipp 💡</button></div>`;}
+    html+=`<div class="qcard" id="qc_${lesson}_${qi}">
+      <div class="qtext">${q.q}</div>`;
+    if(!isHard){
+      html+=`<div class="mc-grid">`+q.opts.map(o=>`<button class="mc" onclick="chkMC(${lesson},${qi},${o})">${fmt(o)}</button>`).join('')+`</div>`;
+    }else{
+      html+=`<div class="inp-row"><input class="qi" id="inp_${lesson}_${qi}" type="number" step="any" placeholder="Antwort…" onkeydown="if(event.key==='Enter')chkInp(${lesson},${qi})"><button class="btn-check" onclick="chkInp(${lesson},${qi})">✓</button></div>`;
+    }
     html+=`<div class="qfb" id="qfb_${lesson}_${qi}"></div></div>`;
   });
   wrap.innerHTML=html;updateCbtn(lesson);
 }
 
 function rebuildQ(lesson,diff,btn){
-  const row=btn.closest('.diff-row');row.querySelectorAll('.db').forEach(b=>b.classList.remove('on'));btn.classList.add('on');
-  delete qCache[`${lesson}_${diff}`];buildQuiz(lesson,diff);
+  btn.closest('.diff-row').querySelectorAll('.db').forEach(b=>b.classList.remove('on'));btn.classList.add('on');
+  lessonDiff[lesson]=diff;delete qCache[`${lesson}_${diff}`];
+  for(const k in answered){if(k.startsWith(lesson+'_'))delete answered[k];}
+  buildQuiz(lesson);
 }
 
 function markRight(lesson,qi){
   if(answered[`${lesson}_${qi}`])return;
-  answered[`${lesson}_${qi}`]=true;st.points+=10;st.quizCorrect++;saveSt();updateStats();
-  const dot=document.getElementById(`dot_${lesson}_${qi}`);if(dot){dot.classList.add('done');}
+  answered[`${lesson}_${qi}`]=true;st.points+=10;st.qCorrect++;saveSt();updateStats();
+  const dot=document.getElementById(`dot_${lesson}_${qi}`);if(dot){dot.classList.add('done');dot.classList.remove('cur');}
   const qs=getQs(lesson,lessonDiff[lesson]||'easy');
   const cnt=qs.filter((_,i)=>answered[`${lesson}_${i}`]).length;
   const stat=document.getElementById(`qs_${lesson}`);if(stat)stat.textContent=`${cnt}/${qs.length}`;
@@ -1478,16 +1049,15 @@ function chkMC(lesson,qi,chosen){
   const card=document.getElementById(`qc_${lesson}_${qi}`);
   const fb=document.getElementById(`qfb_${lesson}_${qi}`);
   card.querySelectorAll('.mc').forEach(b=>b.disabled=true);
-  let chosenBtn=null;
-  card.querySelectorAll('.mc').forEach(b=>{const v=parseFloat(b.textContent.replace(',','.'));if(Math.abs(v-chosen)<0.01)chosenBtn=b;});
+  let cb=null;
+  card.querySelectorAll('.mc').forEach(b=>{if(Math.abs(parseFloat(b.textContent.replace(',','.'))-chosen)<0.01)cb=b;});
   if(Math.abs(chosen-q.a)<0.6){
-    if(chosenBtn)chosenBtn.classList.add('ok');card.classList.add('ok');
-    fb.textContent='🎉 Richtig!';fb.className='qfb ok';markRight(lesson,qi);
+    if(cb)cb.classList.add('ok');card.classList.add('ok');fb.textContent='🎉 Richtig!';fb.className='qfb ok';markRight(lesson,qi);
   }else{
-    if(chosenBtn)chosenBtn.classList.add('no');
-    card.querySelectorAll('.mc').forEach(b=>{const v=parseFloat(b.textContent.replace(',','.'));if(Math.abs(v-q.a)<0.01)b.classList.add('ok');});
+    if(cb)cb.classList.add('no');
+    card.querySelectorAll('.mc').forEach(b=>{if(Math.abs(parseFloat(b.textContent.replace(',','.'))-q.a)<0.01)b.classList.add('ok');});
     card.classList.add('no');fb.innerHTML=`❌ Falsch — richtig: <strong>${fmt(q.a)}</strong> | ${q.hint}`;fb.className='qfb no';
-    setTimeout(()=>{card.querySelectorAll('.mc').forEach(b=>{b.disabled=false;b.classList.remove('no','ok');});card.classList.remove('no');fb.textContent='';fb.className='qfb';},2200);
+    setTimeout(()=>{card.querySelectorAll('.mc').forEach(b=>{b.disabled=false;b.classList.remove('no','ok');});card.classList.remove('no');fb.textContent='';fb.className='qfb';},2500);
   }
 }
 
@@ -1498,15 +1068,9 @@ function chkInp(lesson,qi){
   const card=document.getElementById(`qc_${lesson}_${qi}`);
   const q=getQs(lesson,lessonDiff[lesson]||'easy')[qi];
   const val=parseFloat(inp.value.replace(',','.'));
-  if(isNaN(val)){fb.textContent='Bitte eine Zahl eingeben!';fb.className='qfb no';return;}
-  if(Math.abs(val-q.a)<0.6){fb.textContent='🎉 Richtig!';fb.className='qfb ok';card.classList.add('ok');inp.disabled=true;markRight(lesson,qi);}
-  else{fb.textContent='❌ Nochmal!';fb.className='qfb no';card.style.animation='shake .35s';setTimeout(()=>card.style.animation='',350);}
-}
-
-function showTipp(lesson,qi){
-  const q=getQs(lesson,lessonDiff[lesson]||'easy')[qi];
-  const fb=document.getElementById(`qfb_${lesson}_${qi}`);
-  fb.textContent='💡 '+q.hint;fb.className='qfb hint';
+  if(isNaN(val)){fb.textContent='Zahl eingeben!';fb.className='qfb no';return;}
+  if(Math.abs(val-q.a)<0.7){fb.textContent='🎉 Richtig!';fb.className='qfb ok';card.classList.add('ok');inp.disabled=true;markRight(lesson,qi);}
+  else{fb.innerHTML=`❌ Tipp: ${q.hint}`;fb.className='qfb no';card.style.animation='shake .3s';setTimeout(()=>card.style.animation='',300);}
 }
 
 function updateCbtn(lesson){
@@ -1518,82 +1082,60 @@ function updateCbtn(lesson){
   btn.textContent=cnt>=qs.length?'Kapitel abschließen & nächstes freischalten 🔓':`Kapitel abschließen (${cnt}/${qs.length} richtig) ✗`;
 }
 
-// ════════════════════════════════════════
-//  NAVIGATION
-// ════════════════════════════════════════
-const MODULES = { z:[40,41,42,43,44] };
-const LABELS = { 40:'Baumdiagramm',41:'Pfadregel',42:'Summenregel',43:'Tafelbild',44:'Frei Zeichnen',99:'Spickzettel' };
-let curLesson = 40;
-
-function buildSidebar(){
-  const sb=document.getElementById('sidebar');let html='';
-  html+='<div class="nav-sec">🌳 Mehrstufig</div>';
-  MODULES.z.forEach((id,i)=>{
-    const locked=!st.unlocked[id];const done=!!st.completed[id];const active=curLesson===id;
-    html+=`<button class="nav-btn${active?' active':''}${done?' done':''}${locked?' locked':''}" id="nb${id}" onclick="go(${id})"><span class="nn">${done?'✓':(i+1)}</span>${LABELS[id]}</button>`;
-  });
-  html+='<div class="nav-sec">Extra</div>';
-  html+=`<button class="nav-btn${curLesson===99?' active':''}" id="nb99" onclick="go(99)"><span class="nn">★</span>Spickzettel</button>`;
-  sb.innerHTML=html;
-}
-
 function go(n){
-  if(!st.unlocked[n]&&n!==99){toast('🔒 Schließ zuerst das vorherige Kapitel ab!');return;}
+  if(!st.unlocked[n]&&n!==99){toast('🔒 Erst das vorherige Kapitel abschließen!');return;}
   document.querySelectorAll('.lesson').forEach(l=>l.classList.remove('active'));
-  const el=document.getElementById('L'+n);if(el)el.classList.add('active');
-  curLesson=n;buildSidebar();buildQuiz(n);
-  window.scrollTo({top:0,behavior:'smooth'});
-}
-
-function switchMod(mod,btn){
-  document.querySelectorAll('.mod-tab').forEach(t=>t.classList.remove('active'));
-  btn.classList.add('active');
-  go(MODULES[mod]?MODULES[mod][0]:99);
+  document.getElementById('L'+n)?.classList.add('active');
+  cur=n;
+  document.getElementById('topbarTitle').textContent=TITLES[n]||'';
+  document.getElementById('topbarBadge').textContent=BADGES[n]||'';
+  buildSidebar();buildQuiz(n);
+  document.querySelector('.content-area').scrollTop=0;
 }
 
 function complete(i){
   if(st.completed[i])return;
   st.completed[i]=true;st.points+=50;
-  const chain=MODULES.z;const idx=chain.indexOf(i);
-  if(idx>=0&&idx<chain.length-1){st.unlocked[chain[idx+1]]=true;}
-  toast('🔓 Nächstes Kapitel freigeschaltet! +50 Punkte');
+  const idx=CHAIN.indexOf(i);
+  if(idx>=0&&idx<CHAIN.length-1){st.unlocked[CHAIN[idx+1]]=true;toast('🔓 Nächstes Kapitel freigeschaltet! +50 Punkte');}
+  else{toast('🏆 Alle Kapitel abgeschlossen! +50 Punkte');}
   saveSt();updateStats();buildSidebar();
-  const nextIdx=chain.indexOf(i)+1;
-  if(nextIdx<chain.length)setTimeout(()=>go(chain[nextIdx]),600);
+  if(idx>=0&&idx<CHAIN.length-1)setTimeout(()=>go(CHAIN[idx+1]),500);
+}
+
+function buildSidebar(){
+  const map={0:'1',1:'2',2:'3',3:'4',4:'5',5:'6',6:'7',99:'★'};
+  const labels={0:'Baumdiagramm',1:'Pfadregel ×',2:'Summenregel +',3:'Kugeln ziehen',4:'Würfel 3×',5:'Karten K,E,O,A',6:'Übungsaufgaben',99:'Spickzettel'};
+  [...CHAIN,99].forEach(id=>{
+    const btn=document.getElementById('nb'+id);
+    if(!btn)return;
+    const locked=!st.unlocked[id]&&id!==99;
+    const done=!!st.completed[id];
+    const active=cur===id;
+    btn.className='nav-btn'+(active?' active':'')+(done?' done':'')+(locked?' locked':'');
+    const ni=btn.querySelector('.ni');
+    if(ni)ni.textContent=done?'✓':map[id];
+    const txt=btn.childNodes[btn.childNodes.length-1];
+    if(txt)txt.textContent=labels[id];
+  });
 }
 
 function updateStats(){
   document.getElementById('pts').textContent=st.points;
-  const all=MODULES.z;const done=all.filter(i=>st.completed[i]).length;
-  document.getElementById('chapCount').textContent=`${done}/${all.length}`;
-  document.getElementById('qCount').textContent=st.quizCorrect;
-  const pct=Math.min(100,Math.round(done/all.length*100));
+  const done=CHAIN.filter(i=>st.completed[i]).length;
+  document.getElementById('done').textContent=`${done}/${CHAIN.length}`;
+  const pct=Math.round(done/CHAIN.length*100);
   document.getElementById('progFill').style.width=pct+'%';
-  document.getElementById('progPct').textContent=pct+'%';
-  const b=document.getElementById('gbadge');let note,col,bg;
-  if(pct>=80){note='1';col='#2dd4a0';bg='rgba(45,212,160,.12)';}
-  else if(pct>=60){note='2';col='#5aabf0';bg='rgba(90,171,240,.12)';}
-  else if(pct>=40){note='3';col='#f5c842';bg='rgba(245,200,66,.12)';}
-  else{note='?';col='var(--muted)';bg='var(--s2)';}
-  b.textContent='Note '+note;b.style.color=col;b.style.background=bg;b.style.borderColor=col;
+  document.getElementById('pct').textContent=pct+'%';
 }
 
-let toastTimer;
+let tt;
 function toast(msg){
   const el=document.getElementById('toast');el.textContent=msg;el.classList.add('show');
-  clearTimeout(toastTimer);toastTimer=setTimeout(()=>el.classList.remove('show'),2600);
+  clearTimeout(tt);tt=setTimeout(()=>el.classList.remove('show'),2600);
 }
 
-function doReset(){
-  if(confirm('Wirklich alles löschen?')){localStorage.removeItem(STORE_KEY);location.reload();}
-}
-
-// ════════════════════════════════════════
-//  INIT
-// ════════════════════════════════════════
-buildSidebar();
-updateStats();
-buildQuiz(40);
+buildSidebar();updateStats();buildQuiz(0);
 </script>
 </body>
 </html>
