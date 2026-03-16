@@ -18,7 +18,6 @@ html{scroll-behavior:smooth}
 body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden;line-height:1.7}
 body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;background:radial-gradient(ellipse 70% 40% at 20% 0%,rgba(124,92,252,.1),transparent 60%),radial-gradient(ellipse 50% 30% at 80% 100%,rgba(235,91,158,.07),transparent 55%)}
 
-/* === WELCOME === */
 .welcome{position:fixed;inset:0;background:var(--bg);z-index:200;display:flex;align-items:center;justify-content:center}
 .welcome.hidden{display:none}
 .wc-box{background:var(--s1);border:1.5px solid var(--border2);border-radius:24px;padding:40px 44px;max-width:420px;width:90%;text-align:center;position:relative;overflow:hidden}
@@ -31,7 +30,6 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;bac
 .wc-btn{width:100%;padding:13px;background:linear-gradient(135deg,var(--p),var(--p2));border:none;border-radius:12px;color:#fff;font-size:15px;font-weight:900;cursor:pointer;font-family:'Nunito',sans-serif;transition:opacity .2s}
 .wc-btn:hover{opacity:.88}
 
-/* === HEADER === */
 .hdr{position:sticky;top:0;z-index:30;padding:10px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;background:rgba(10,10,20,.96);backdrop-filter:blur(20px)}
 .logo{font-size:17px;font-weight:900;background:linear-gradient(135deg,var(--p),var(--p2));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
 .hdr-right{display:flex;align-items:center;gap:7px;flex-wrap:wrap}
@@ -42,23 +40,19 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;bac
 .prog-track{height:3px;background:var(--s3);border-radius:2px;overflow:hidden;max-width:900px;margin:0 auto}
 .prog-fill{height:100%;background:linear-gradient(90deg,var(--p),var(--p2),var(--g));border-radius:2px;transition:width .8s cubic-bezier(.34,1.56,.64,1)}
 
-/* === MODULE TABS === */
 .mod-bar{position:sticky;top:57px;z-index:29;background:rgba(10,10,20,.95);backdrop-filter:blur(18px);border-bottom:1px solid var(--border);padding:6px 20px;display:flex;gap:5px;flex-wrap:wrap}
 .mt{padding:6px 14px;border-radius:20px;border:1.5px solid var(--border);background:transparent;color:var(--muted);font-size:12px;font-weight:800;cursor:pointer;transition:all .14s;font-family:'Nunito',sans-serif}
 .mt:hover{background:var(--s2);color:var(--text);border-color:var(--border2)}
 .mt.on{background:rgba(124,92,252,.14);color:var(--p);border-color:var(--p)}
-
-/* === TOPIC PICKER === */
 .topic-bar{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap}
 .topic-btn{flex:1;min-width:140px;padding:14px 16px;border-radius:14px;border:1.5px solid var(--border);background:var(--s1);color:var(--text2);font-size:14px;font-weight:800;cursor:pointer;transition:all .18s;font-family:'Nunito',sans-serif;text-align:center}
 .topic-btn:hover{border-color:var(--border2);color:var(--text);transform:translateY(-2px)}
 .topic-btn.active{background:linear-gradient(135deg,rgba(124,92,252,.18),rgba(235,91,158,.1));border-color:var(--p);color:var(--text)}
 
-/* === LAYOUT === */
 .app{max-width:900px;margin:0 auto;padding:18px 16px 120px;position:relative;z-index:1}
 @keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
 
-/* === HERO === */
+
 .hero{border-radius:18px;padding:22px 26px;margin-bottom:16px;position:relative;overflow:hidden}
 .hero::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,.04),transparent)}
 .hero-tag{font-size:10px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;opacity:.5;margin-bottom:6px;font-family:'JetBrains Mono',monospace}
@@ -66,7 +60,6 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;bac
 .hero p{font-size:13px;opacity:.65;font-weight:600;line-height:1.6}
 .hero-icon{position:absolute;right:20px;top:50%;transform:translateY(-50%);font-size:52px;opacity:.1}
 
-/* === LESSON GRID === */
 .lesson-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(155px,1fr));gap:10px;margin-bottom:14px}
 .lcard{background:var(--s1);border:1.5px solid var(--border);border-radius:14px;padding:14px;cursor:pointer;transition:all .18s;position:relative;overflow:hidden}
 .lcard:hover:not(.locked){border-color:rgba(124,92,252,.4);transform:translateY(-2px);box-shadow:0 8px 24px rgba(124,92,252,.12)}
@@ -76,12 +69,11 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;bac
 .lc-ico{font-size:22px;margin-bottom:5px}
 .lc-title{font-size:13px;font-weight:800;line-height:1.3}
 
-/* === CARDS === */
+
 .card{background:var(--s1);border:1px solid var(--border);border-radius:var(--radius);padding:20px;margin-bottom:14px;transition:border-color .2s;animation:fadeUp .3s ease}
 .card:hover{border-color:var(--border2)}
 .ct{font-weight:800;font-size:15px;margin-bottom:14px;display:flex;align-items:center;gap:6px}
 
-/* === NEUE ERKLÄRUNGSBOXEN === */
 .erkl-section{margin-bottom:16px}
 .erkl-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:0}
 .erkl{background:linear-gradient(135deg,rgba(124,92,252,.07),rgba(235,91,158,.04));border:1.5px solid rgba(124,92,252,.18);border-radius:var(--radius);padding:18px;margin-bottom:12px}
@@ -91,7 +83,6 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;bac
 .erkl-text .big{font-size:20px;font-weight:900;font-family:'JetBrains Mono',monospace;color:var(--g);display:block;margin:8px 0;padding:10px 14px;background:rgba(0,229,160,.06);border-radius:10px;border:1px solid rgba(0,229,160,.15)}
 .erkl-text p{margin-bottom:10px}
 
-/* === LESBARE ABSATZ-TEXTE === */
 .lese-block{font-size:14px;font-weight:600;line-height:2;color:var(--text2);margin-bottom:12px;padding:14px 18px;background:var(--s2);border-radius:12px;border-left:3px solid var(--p)}
 .lese-block strong{color:var(--text);font-weight:800}
 .lese-block .hl{color:var(--g);font-weight:800}
