@@ -3,2146 +3,878 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Mathe Meister</title>
-<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=JetBrains+Mono:wght@400;600;700;800&display=swap" rel="stylesheet">
+<title>Mathe Lernapp</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700;900&family=DM+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
-:root{
-  --bg:#0a0a14;--s1:#0f0f1e;--s2:#141428;--s3:#1a1a35;--s4:#22224a;
-  --border:rgba(120,100,255,0.12);--border2:rgba(120,100,255,0.25);
-  --text:#f0f0ff;--text2:#a0a0cc;--muted:#5050a0;
-  --p:#7c5cfc;--p2:#eb5b9e;--g:#00e5a0;--r:#ff5757;--y:#ffd23f;--b:#4db8ff;
-  --radius:14px;
-}
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden;line-height:1.7}
-body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;background:radial-gradient(ellipse 70% 40% at 20% 0%,rgba(124,92,252,.1),transparent 60%),radial-gradient(ellipse 50% 30% at 80% 100%,rgba(235,91,158,.07),transparent 55%)}
+:root{
+  --bg:#f5f0e8;
+  --card:#fff;
+  --text:#1a1a1a;
+  --muted:#888;
+  --border:#e0d8cc;
+  --accent:#2d4a2d;
+  --accent2:#c8430a;
+  --accent3:#1a3a5c;
+  --green:#2d7a2d;
+  --red:#c8430a;
+  --yellow:#c89a0a;
+  --radius:12px;
+}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;line-height:1.6}
 
-.welcome{position:fixed;inset:0;background:var(--bg);z-index:200;display:flex;align-items:center;justify-content:center}
-.welcome.hidden{display:none}
-.wc-box{background:var(--s1);border:1.5px solid var(--border2);border-radius:24px;padding:40px 44px;max-width:420px;width:90%;text-align:center;position:relative;overflow:hidden}
-.wc-box::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--p),var(--p2),var(--g))}
-.wc-logo{font-size:44px;margin-bottom:8px}
-.wc-title{font-size:24px;font-weight:900;background:linear-gradient(135deg,var(--p),var(--p2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:6px}
-.wc-sub{font-size:13px;color:var(--text2);margin-bottom:24px;line-height:1.7}
-.wc-input{width:100%;padding:13px 16px;background:var(--s3);border:1.5px solid var(--border2);border-radius:12px;color:var(--text);font-size:15px;font-family:'Nunito',sans-serif;font-weight:700;outline:none;transition:border-color .2s;margin-bottom:12px}
-.wc-input:focus{border-color:var(--p)}
-.wc-btn{width:100%;padding:13px;background:linear-gradient(135deg,var(--p),var(--p2));border:none;border-radius:12px;color:#fff;font-size:15px;font-weight:900;cursor:pointer;font-family:'Nunito',sans-serif;transition:opacity .2s}
-.wc-btn:hover{opacity:.88}
+/* HEADER */
+.hdr{background:var(--accent);color:#fff;padding:14px 20px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.hdr-logo{font-size:18px;font-weight:900;letter-spacing:-.02em}
+.hdr-logo span{color:#a8d8a8;font-family:'DM Mono',monospace}
 
-.hdr{position:sticky;top:0;z-index:30;padding:10px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;background:rgba(10,10,20,.96);backdrop-filter:blur(20px)}
-.logo{font-size:17px;font-weight:900;background:linear-gradient(135deg,var(--p),var(--p2));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-.hdr-right{display:flex;align-items:center;gap:7px;flex-wrap:wrap}
-.stat{display:flex;align-items:center;gap:5px;background:var(--s2);border:1px solid var(--border);border-radius:20px;padding:4px 11px;font-size:12px;font-weight:700;color:var(--text2)}
-.stat-v{font-family:'JetBrains Mono',monospace;color:var(--g);font-size:12px;font-weight:800}
-.greeting-badge{font-size:12px;font-weight:700;color:var(--p);padding:4px 11px;background:rgba(124,92,252,.1);border-radius:20px;border:1px solid rgba(124,92,252,.2);display:none}
-.prog-outer{background:rgba(10,10,20,.96);padding:4px 20px 6px;border-bottom:1px solid var(--border)}
-.prog-track{height:3px;background:var(--s3);border-radius:2px;overflow:hidden;max-width:900px;margin:0 auto}
-.prog-fill{height:100%;background:linear-gradient(90deg,var(--p),var(--p2),var(--g));border-radius:2px;transition:width .8s cubic-bezier(.34,1.56,.64,1)}
+/* COUNTDOWN */
+.countdown-bar{background:var(--accent3);color:#fff;padding:10px 20px;text-align:center;font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;gap:10px}
+.cd-label{opacity:.7}
+.cd-time{font-family:'DM Mono',monospace;font-size:16px;font-weight:700;color:#7dd3fc}
+.cd-expired{color:#fca5a5}
 
-.mod-bar{position:sticky;top:57px;z-index:29;background:rgba(10,10,20,.95);backdrop-filter:blur(18px);border-bottom:1px solid var(--border);padding:6px 20px;display:flex;gap:5px;flex-wrap:wrap}
-.mt{padding:6px 14px;border-radius:20px;border:1.5px solid var(--border);background:transparent;color:var(--muted);font-size:12px;font-weight:800;cursor:pointer;transition:all .14s;font-family:'Nunito',sans-serif}
-.mt:hover{background:var(--s2);color:var(--text);border-color:var(--border2)}
-.mt.on{background:rgba(124,92,252,.14);color:var(--p);border-color:var(--p)}
-.topic-bar{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap}
-.topic-btn{flex:1;min-width:140px;padding:14px 16px;border-radius:14px;border:1.5px solid var(--border);background:var(--s1);color:var(--text2);font-size:14px;font-weight:800;cursor:pointer;transition:all .18s;font-family:'Nunito',sans-serif;text-align:center}
-.topic-btn:hover{border-color:var(--border2);color:var(--text);transform:translateY(-2px)}
-.topic-btn.active{background:linear-gradient(135deg,rgba(124,92,252,.18),rgba(235,91,158,.1));border-color:var(--p);color:var(--text)}
+/* TABS */
+.tabs{display:flex;gap:2px;padding:12px 16px 0;background:var(--card);border-bottom:2px solid var(--border)}
+.tab{padding:10px 18px;font-size:13px;font-weight:700;cursor:pointer;border:none;background:transparent;color:var(--muted);border-bottom:3px solid transparent;margin-bottom:-2px;font-family:'DM Sans',sans-serif;transition:all .15s}
+.tab.on{color:var(--accent);border-bottom-color:var(--accent)}
+.tab:hover:not(.on){color:var(--text)}
 
-.app{max-width:900px;margin:0 auto;padding:18px 16px 120px;position:relative;z-index:1}
-@keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+/* MAIN */
+.main{max-width:780px;margin:0 auto;padding:20px 16px 100px}
 
+/* SECTION TITLE */
+.sec{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:20px 0 10px;display:flex;align-items:center;gap:8px}
+.sec::after{content:'';flex:1;height:1px;background:var(--border)}
 
-.hero{border-radius:18px;padding:22px 26px;margin-bottom:16px;position:relative;overflow:hidden}
-.hero::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,.04),transparent)}
-.hero-tag{font-size:10px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;opacity:.5;margin-bottom:6px;font-family:'JetBrains Mono',monospace}
-.hero h2{font-size:22px;font-weight:900;line-height:1.2;margin-bottom:4px}
-.hero p{font-size:13px;opacity:.65;font-weight:600;line-height:1.6}
-.hero-icon{position:absolute;right:20px;top:50%;transform:translateY(-50%);font-size:52px;opacity:.1}
+/* THEORY CARD */
+.tcard{background:var(--card);border:1.5px solid var(--border);border-radius:var(--radius);padding:16px;margin-bottom:10px}
+.tcard-head{font-weight:800;font-size:15px;margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.tag{font-size:10px;font-weight:700;padding:3px 8px;border-radius:20px;letter-spacing:.05em}
+.tag.green{background:#dcfce7;color:#15803d}
+.tag.blue{background:#dbeafe;color:#1d4ed8}
+.tag.orange{background:#ffedd5;color:#c2410c}
+.tag.purple{background:#ede9fe;color:#6d28d9}
 
-.lesson-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(155px,1fr));gap:10px;margin-bottom:14px}
-.lcard{background:var(--s1);border:1.5px solid var(--border);border-radius:14px;padding:14px;cursor:pointer;transition:all .18s;position:relative;overflow:hidden}
-.lcard:hover:not(.locked){border-color:rgba(124,92,252,.4);transform:translateY(-2px);box-shadow:0 8px 24px rgba(124,92,252,.12)}
-.lcard.done{border-color:rgba(0,229,160,.3)}
-.lcard.locked{opacity:.3;cursor:not-allowed}
-.lc-num{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:800;color:var(--muted);margin-bottom:6px}
-.lc-ico{font-size:22px;margin-bottom:5px}
-.lc-title{font-size:13px;font-weight:800;line-height:1.3}
+/* FORMEL BOX */
+.fbox{background:#f0fdf4;border:1.5px solid #86efac;border-radius:10px;padding:12px 16px;margin:8px 0;text-align:center}
+.fm{font-family:'DM Mono',monospace;font-size:19px;font-weight:700;color:var(--accent)}
+.fs{font-size:12px;color:var(--muted);margin-top:4px}
 
+/* STEPS */
+.steps{display:flex;flex-direction:column;gap:6px;margin:10px 0}
+.step{display:flex;gap:10px;align-items:flex-start;padding:10px 12px;background:#fafaf8;border-radius:8px;border-left:3px solid var(--accent)}
+.sn{font-family:'DM Mono',monospace;font-size:10px;font-weight:700;background:var(--accent);color:#fff;padding:3px 8px;border-radius:5px;flex-shrink:0;margin-top:2px}
+.st{font-size:13px;font-weight:600;flex:1;line-height:1.6}
+.sv{font-family:'DM Mono',monospace;font-size:13px;font-weight:700;color:var(--green);flex-shrink:0}
 
-.card{background:var(--s1);border:1px solid var(--border);border-radius:var(--radius);padding:20px;margin-bottom:14px;transition:border-color .2s;animation:fadeUp .3s ease}
-.card:hover{border-color:var(--border2)}
-.ct{font-weight:800;font-size:15px;margin-bottom:14px;display:flex;align-items:center;gap:6px}
+/* INFO */
+.info{display:flex;gap:10px;padding:10px 14px;border-radius:9px;font-size:13px;font-weight:600;line-height:1.7;margin:8px 0}
+.info.tip{background:#f0fdf4;border:1px solid #86efac}
+.info.warn{background:#fffbeb;border:1px solid #fcd34d}
+.info.danger{background:#fff1f2;border:1px solid #fca5a5}
 
-.erkl-section{margin-bottom:16px}
-.erkl-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:0}
-.erkl{background:linear-gradient(135deg,rgba(124,92,252,.07),rgba(235,91,158,.04));border:1.5px solid rgba(124,92,252,.18);border-radius:var(--radius);padding:18px;margin-bottom:12px}
-.erkl-label{font-size:10px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--p);margin-bottom:10px;display:flex;align-items:center;gap:6px}
-.erkl-text{font-size:14px;font-weight:600;line-height:2;color:var(--text)}
-.erkl-text strong{color:var(--p);font-weight:800}
-.erkl-text .big{font-size:20px;font-weight:900;font-family:'JetBrains Mono',monospace;color:var(--g);display:block;margin:8px 0;padding:10px 14px;background:rgba(0,229,160,.06);border-radius:10px;border:1px solid rgba(0,229,160,.15)}
-.erkl-text p{margin-bottom:10px}
-
-.lese-block{font-size:14px;font-weight:600;line-height:2;color:var(--text2);margin-bottom:12px;padding:14px 18px;background:var(--s2);border-radius:12px;border-left:3px solid var(--p)}
-.lese-block strong{color:var(--text);font-weight:800}
-.lese-block .hl{color:var(--g);font-weight:800}
-.lese-block .warn{color:var(--y);font-weight:800}
-
-/* === KONZEPT-KARTEN (visuell erklärt) === */
-.konzept-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;margin:12px 0}
-.konzept-card{border-radius:12px;padding:14px;border:1.5px solid var(--border);background:var(--s2);position:relative;overflow:hidden}
-.konzept-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px}
-.konzept-card.purple::before{background:var(--p)}
-.konzept-card.pink::before{background:var(--p2)}
-.konzept-card.green::before{background:var(--g)}
-.konzept-card.yellow::before{background:var(--y)}
-.konzept-card.blue::before{background:var(--b)}
-.k-label{font-size:10px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;opacity:.55;margin-bottom:6px}
-.k-formel{font-family:'JetBrains Mono',monospace;font-size:17px;font-weight:900;color:#fff;margin-bottom:6px}
-.k-erkl{font-size:12px;font-weight:600;color:var(--text2);line-height:1.6;margin-bottom:8px}
-.k-bsp{font-family:'JetBrains Mono',monospace;font-size:12px;background:rgba(0,0,0,.3);border-radius:7px;padding:6px 10px;color:var(--g)}
-
-/* === SCHRITT-FÜR-SCHRITT (VERBESSERT) === */
-.steps{display:flex;flex-direction:column;gap:6px;margin:8px 0}
-.step{display:flex;align-items:flex-start;gap:10px;padding:12px 14px;background:var(--s2);border-radius:10px;border-left:3px solid var(--p);transition:background .15s}
-.step:hover{background:var(--s3)}
-.sb{font-size:10px;font-weight:800;padding:4px 9px;border-radius:6px;background:var(--p);color:#fff;flex-shrink:0;font-family:'JetBrains Mono',monospace;margin-top:1px;white-space:nowrap}
-.st{font-weight:700;font-size:13px;flex:1;line-height:1.6}
-.sv{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--y);flex-shrink:0;font-weight:800;margin-top:2px}
-.step-erkl{font-size:12px;color:var(--text2);font-weight:600;margin-top:4px;padding-top:4px;border-top:1px solid var(--border)}
-.res{background:rgba(0,229,160,.06);border:1px solid rgba(0,229,160,.2);border-radius:10px;padding:12px 16px;text-align:center;font-weight:800;color:var(--g);font-size:16px;margin-top:8px;font-family:'JetBrains Mono',monospace}
-
-/* === INFO BOXEN === */
-.info{display:flex;gap:10px;padding:12px 16px;border-radius:10px;font-size:13px;font-weight:600;line-height:1.7;margin:8px 0}
-.info.tip{background:rgba(0,229,160,.05);border:1px solid rgba(0,229,160,.15)}
-.info.warn{background:rgba(255,210,63,.05);border:1px solid rgba(255,210,63,.18)}
-.info.danger{background:rgba(255,87,87,.05);border:1px solid rgba(255,87,87,.16)}
-.info.blue{background:rgba(77,184,255,.05);border:1px solid rgba(77,184,255,.16)}
-.ii{font-size:18px;flex-shrink:0;margin-top:1px}
-
-/* === TABELLE === */
-.dtab{width:100%;border-collapse:separate;border-spacing:0;border-radius:12px;overflow:hidden;border:1px solid var(--border);margin:8px 0;font-size:13px}
-.dtab th{background:var(--s3);color:var(--text);padding:10px 14px;font-weight:800;text-align:left;font-size:12px;letter-spacing:.04em}
-.dtab td{background:var(--s1);padding:9px 14px;font-weight:600;border-bottom:1px solid var(--border);line-height:1.6}
-.dtab tr:last-child td{border-bottom:none}
-.dtab tr:hover td{background:var(--s2)}
-.dtab td:nth-child(2){font-family:'JetBrains Mono',monospace;color:var(--p)}
-.dtab td:nth-child(3){font-family:'JetBrains Mono',monospace;color:var(--y)}
-.dtab td:nth-child(4){font-family:'JetBrains Mono',monospace;color:var(--g)}
-
-/* === SPLIT === */
-.split{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:10px 0}
-.sc{border-radius:10px;overflow:hidden}
-.sh{padding:10px 14px;font-weight:800;color:#fff;font-size:13px}
-.sb2{background:var(--s2);padding:12px 14px;font-size:13px;font-weight:600;line-height:2}
-@media(max-width:480px){.split{grid-template-columns:1fr}}
-
-/* === POTENZEN VISUAL === */
-.pot-visual{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0}
-.pot-box{background:var(--s2);border:1px solid var(--border2);border-radius:10px;padding:12px 14px;font-family:'JetBrains Mono',monospace;font-size:14px;font-weight:800;text-align:center;flex:1;min-width:110px;transition:all .15s}
-.pot-box:hover{background:var(--s3);border-color:var(--p)}
-.pot-box .base{font-size:20px;color:var(--p)}
-.pot-box .exp{font-size:11px;vertical-align:super;color:var(--p2)}
-.pot-box .eq{font-size:11px;color:var(--muted);display:block;margin-top:3px}
-.pot-box .res{font-size:17px;color:var(--g)}
-
-/* === FRAG SICKS BUTTON (AUFGABE-LEVEL) === */
-.frag-sicks-btn{display:inline-flex;align-items:center;gap:6px;padding:7px 13px;background:linear-gradient(135deg,rgba(124,92,252,.15),rgba(235,91,158,.1));border:1.5px solid rgba(124,92,252,.3);border-radius:20px;color:var(--p);font-size:12px;font-weight:800;cursor:pointer;transition:all .15s;font-family:'Nunito',sans-serif;white-space:nowrap}
-.frag-sicks-btn:hover{background:linear-gradient(135deg,rgba(124,92,252,.25),rgba(235,91,158,.18));border-color:var(--p);transform:translateY(-1px);box-shadow:0 4px 12px rgba(124,92,252,.2)}
-.frag-sicks-btn .fs-ico{font-size:14px}
-
-/* === ERKLÄR-BUTTON (TEXT-LEVEL) === */
-.erklaer-btn{display:inline-flex;align-items:center;gap:5px;padding:4px 10px;background:rgba(77,184,255,.1);border:1px solid rgba(77,184,255,.2);border-radius:12px;color:var(--b);font-size:11px;font-weight:800;cursor:pointer;transition:all .14s;font-family:'Nunito',sans-serif;margin-left:6px;vertical-align:middle}
-.erklaer-btn:hover{background:rgba(77,184,255,.2);border-color:var(--b)}
-
-/* === FRAG-SICKS ZEILE BEI AUFGABEN === */
-.task-sicks-row{display:flex;align-items:center;gap:8px;padding:10px 14px;background:rgba(124,92,252,.06);border-radius:10px;border:1px solid rgba(124,92,252,.15);margin:6px 0;flex-wrap:wrap}
-.task-sicks-label{font-size:12px;font-weight:700;color:var(--muted);flex:1}
-
-/* === BAUMDIAGRAMM === */
-.tree-wrap{overflow-x:auto;padding:10px 0;margin:12px 0;background:var(--s2);border-radius:14px;border:1px solid var(--border)}
-svg.tree{display:block;margin:0 auto}
-svg.tree .branch{stroke:rgba(120,100,255,0.35);stroke-width:1.5;fill:none}
-svg.tree .branch-hi{stroke:rgba(0,229,160,0.6);stroke-width:2.5;fill:none}
-svg.tree .node-circle{fill:#1a1a35;stroke:#7c5cfc;stroke-width:1.5}
-svg.tree .node-circle-hi{fill:#0d2e22;stroke:#00e5a0;stroke-width:2}
-svg.tree .node-rect{fill:#1a1a35;stroke:#444470;stroke-width:1.5}
-svg.tree .node-rect-hi{fill:#0d2e22;stroke:#00e5a0;stroke-width:2}
-svg.tree .lbl{fill:#e0e0ff;font-size:12px;font-weight:700;text-anchor:middle;dominant-baseline:middle;font-family:'JetBrains Mono',monospace}
-svg.tree .lbl-hi{fill:#00e5a0}
-svg.tree .prob{fill:#8888bb;font-size:10px;font-weight:700;font-family:'JetBrains Mono',monospace}
-svg.tree .res-lbl{fill:#9090bb;font-size:11px;font-family:'Nunito',monospace;font-weight:700}
-svg.tree .res-lbl-hi{fill:#00e5a0;font-weight:800}
-svg.tree .stage-lbl{fill:#555580;font-size:10px;font-weight:700;text-anchor:middle;font-family:'Nunito',sans-serif;letter-spacing:.08em}
-
-/* === HERO THEMES === */
-.c-purple{background:linear-gradient(135deg,#120836,#1f1060)}
-.c-orange{background:linear-gradient(135deg,#2e0a00,#4a1400)}
-.c-green{background:linear-gradient(135deg,#021a0c,#062e16)}
-.c-blue{background:linear-gradient(135deg,#040e24,#081a3a)}
-.c-pink{background:linear-gradient(135deg,#20041a,#360a2e)}
-.c-yellow{background:linear-gradient(135deg,#241800,#3a2800)}
-.c-teal{background:linear-gradient(135deg,#011a18,#022e28)}
-.c-indigo{background:linear-gradient(135deg,#0c0c30,#181848)}
-.c-red{background:linear-gradient(135deg,#1a0000,#2e0a0a)}
-.c-lime{background:linear-gradient(135deg,#0a1a00,#162e00)}
-
-/* === SPICKZETTEL === */
-.spick-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(148px,1fr));gap:8px;margin:8px 0}
-.spick{border-radius:12px;padding:12px;border:1px solid var(--border);background:var(--s2);transition:all .18s}
-.spick:hover{border-color:var(--border2);transform:translateY(-2px)}
-.sp-l{font-size:9px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;opacity:.45;margin-bottom:5px}
-.sp-f{font-family:'JetBrains Mono',monospace;font-weight:700;font-size:13px;margin-bottom:4px;color:#fff}
-.sp-e{font-size:11px;opacity:.55;font-weight:600}
-
-/* === QUIZ === */
-.diff-row{display:flex;gap:5px;margin-bottom:12px;flex-wrap:wrap}
-.db{padding:6px 14px;border-radius:20px;font-size:12px;font-weight:800;border:1.5px solid var(--border);background:var(--s2);color:var(--muted);cursor:pointer;transition:all .13s;font-family:'Nunito',sans-serif}
-.db:hover{border-color:var(--border2);color:var(--text)}
-.db.e.on{background:linear-gradient(135deg,#032a18,#065030);color:#fff;border-color:transparent}
-.db.m.on{background:linear-gradient(135deg,#2a1200,#4a2200);color:#fff;border-color:transparent}
-.db.h.on{background:linear-gradient(135deg,#2a0000,#4a0000);color:#fff;border-color:transparent}
-.qcard{background:var(--s2);border:1.5px solid var(--border);border-radius:var(--radius);padding:16px;margin-bottom:10px;transition:border-color .2s}
-.qcard.ok{border-color:rgba(0,229,160,.35)}.qcard.no{border-color:rgba(255,87,87,.35)}
-.qtext{font-size:14px;font-weight:800;margin-bottom:10px;line-height:1.6}
-.mc-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-bottom:8px}
-.mc{padding:11px 12px;border-radius:10px;border:1.5px solid var(--border);background:var(--s1);color:var(--text);font-size:13px;font-weight:800;cursor:pointer;transition:all .13s;font-family:'JetBrains Mono',monospace;text-align:center}
-.mc:hover:not(:disabled){border-color:rgba(124,92,252,.45);background:rgba(124,92,252,.07);transform:translateY(-1px)}
-.mc.ok{border-color:var(--g)!important;background:rgba(0,229,160,.09)!important;color:var(--g)}
-.mc.no{border-color:var(--r)!important;background:rgba(255,87,87,.06)!important;color:var(--r)}
-.mc:disabled{cursor:default}
+/* QUIZ */
+.qcard{background:var(--card);border:1.5px solid var(--border);border-radius:var(--radius);padding:16px;margin-bottom:10px}
+.qcard.ok{border-color:#86efac}.qcard.no{border-color:#fca5a5}
+.qtext{font-weight:700;font-size:14px;margin-bottom:10px;line-height:1.5}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-bottom:8px}
+.opt{padding:11px;border-radius:9px;border:1.5px solid var(--border);background:#fafaf8;font-family:'DM Mono',monospace;font-size:13px;font-weight:700;cursor:pointer;transition:all .12s;text-align:center}
+.opt:hover:not(:disabled){border-color:var(--accent);background:#f0fdf4;color:var(--accent)}
+.opt.ok{border-color:#86efac!important;background:#f0fdf4!important;color:var(--green)!important}
+.opt.no{border-color:#fca5a5!important;background:#fff1f2!important;color:var(--red)!important}
+.opt:disabled{cursor:default}
 .inp-row{display:flex;gap:7px;margin-bottom:8px}
-.qi{flex:1;font-family:'JetBrains Mono',monospace;font-size:14px;font-weight:700;border:1.5px solid var(--border);border-radius:10px;padding:10px 14px;background:var(--s1);color:var(--text);outline:none;transition:border-color .15s}
-.qi:focus{border-color:var(--p)}
-.btn-check{padding:10px 16px;border-radius:10px;background:linear-gradient(135deg,var(--p),var(--p2));color:#fff;border:none;font-weight:800;font-size:12px;cursor:pointer;font-family:'Nunito',sans-serif}
-.qfb{font-size:12px;font-weight:700;padding:4px 0;min-height:18px;line-height:1.5}
-.qfb.ok{color:var(--g)}.qfb.no{color:var(--r)}.qfb.hint{color:var(--b)}
-.dots-row{display:flex;gap:5px;margin-bottom:12px;align-items:center;flex-wrap:wrap}
-.dot{width:9px;height:9px;border-radius:50%;background:var(--s3);border:1px solid var(--border);transition:all .2s}
-.dot.done{background:var(--g);border-color:var(--g)}.dot.cur{background:var(--p);border-color:var(--p)}
-.qs{font-size:11px;font-weight:700;color:var(--muted);margin-left:auto;font-family:'JetBrains Mono',monospace}
-.cbtn{width:100%;margin-top:14px;padding:14px;border-radius:var(--radius);border:none;background:linear-gradient(135deg,var(--p),var(--p2));color:#fff;font-size:14px;font-weight:900;cursor:pointer;transition:all .18s;font-family:'Nunito',sans-serif;box-shadow:0 4px 20px rgba(124,92,252,.2)}
-.cbtn:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 8px 28px rgba(124,92,252,.35)}
-.cbtn:disabled{opacity:.3;cursor:not-allowed;transform:none;box-shadow:none}
+.qi{flex:1;font-family:'DM Mono',monospace;font-size:14px;font-weight:600;border:1.5px solid var(--border);border-radius:9px;padding:10px 13px;background:#fafaf8;color:var(--text);outline:none;transition:border-color .15s}
+.qi:focus{border-color:var(--accent)}
+.chk-btn{padding:10px 16px;border-radius:9px;background:var(--accent);color:#fff;border:none;font-weight:800;font-size:13px;cursor:pointer;font-family:'DM Sans',sans-serif}
+.qfb{font-size:12px;font-weight:700;min-height:18px;line-height:1.5}
+.qfb.ok{color:var(--green)}.qfb.no{color:var(--red)}
 
-/* === QUIZ HEADER MIT SICKS === */
-.quiz-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;flex-wrap:wrap;gap:8px}
-.quiz-header .ct{margin-bottom:0}
+/* PUNKTE */
+.pts-bar{display:flex;align-items:center;gap:8px;margin-bottom:12px}
+.pts-box{background:var(--card);border:1.5px solid var(--border);border-radius:8px;padding:6px 12px;font-family:'DM Mono',monospace;font-size:12px;font-weight:700}
+.pts-val{color:var(--accent);font-size:15px}
 
-/* === SICKS WIDGET === */
-.sicks-btn{position:fixed;bottom:28px;right:24px;z-index:1000;width:60px;height:60px;border-radius:50%;background:linear-gradient(135deg,var(--p),var(--p2));border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:26px;box-shadow:0 6px 28px rgba(124,92,252,.5);transition:all .2s cubic-bezier(.34,1.56,.64,1)}
-.sicks-btn:hover{transform:scale(1.12);box-shadow:0 10px 36px rgba(124,92,252,.65)}
-.sicks-btn .notif{position:absolute;top:-2px;right:-2px;width:16px;height:16px;border-radius:50%;background:var(--g);border:2px solid var(--bg);animation:pulse 2s infinite}
-@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(0,229,160,.5)}50%{box-shadow:0 0 0 6px rgba(0,229,160,0)}}
-.sicks-panel{position:fixed;bottom:100px;right:24px;z-index:999;width:360px;max-height:560px;background:var(--s1);border:1.5px solid var(--border2);border-radius:20px;display:flex;flex-direction:column;box-shadow:0 20px 60px rgba(0,0,0,.6),0 0 0 1px rgba(124,92,252,.1);transform:scale(.92) translateY(20px);opacity:0;pointer-events:none;transition:all .25s cubic-bezier(.34,1.56,.64,1);overflow:hidden}
+/* COMPLETE BTN */
+.cbtn{width:100%;margin-top:12px;padding:13px;border-radius:var(--radius);border:none;background:var(--accent);color:#fff;font-size:14px;font-weight:900;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .15s}
+.cbtn:hover:not(:disabled){background:#1d3520}
+.cbtn:disabled{opacity:.4;cursor:not-allowed}
+
+/* PICKER */
+.picker-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;margin:8px 0}
+.pcard{background:var(--card);border:1.5px solid var(--border);border-radius:var(--radius);padding:14px;cursor:pointer;transition:all .15s;position:relative}
+.pcard:hover:not(.locked){border-color:var(--accent);transform:translateY(-2px);box-shadow:0 6px 18px rgba(0,0,0,.08)}
+.pcard.done{border-color:#86efac}
+.pcard.locked{opacity:.35;cursor:not-allowed}
+.pc-tag{font-size:10px;font-weight:700;color:var(--muted);margin-bottom:4px;font-family:'DM Mono',monospace}
+.pc-ico{font-size:24px;margin-bottom:5px}
+.pc-title{font-size:13px;font-weight:800;line-height:1.3}
+
+/* BACK BTN */
+.back-btn{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;background:var(--card);border:1.5px solid var(--border);border-radius:9px;color:var(--muted);font-size:13px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;margin-bottom:14px;transition:all .13s}
+.back-btn:hover{color:var(--text);border-color:var(--text)}
+
+/* HERO */
+.hero{border-radius:var(--radius);padding:18px 20px;margin-bottom:14px;color:#fff;position:relative;overflow:hidden}
+.hero-tag{font-size:10px;font-weight:800;opacity:.6;letter-spacing:.15em;text-transform:uppercase;margin-bottom:4px}
+.hero h2{font-size:20px;font-weight:900;margin-bottom:2px}
+.hero p{font-size:13px;opacity:.7;font-weight:500}
+.hero-ico{position:absolute;right:16px;top:50%;transform:translateY(-50%);font-size:48px;opacity:.12}
+
+/* SICKS CHAT */
+.sicks-btn{position:fixed;bottom:24px;right:20px;z-index:100;width:56px;height:56px;border-radius:50%;background:var(--accent);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:24px;box-shadow:0 4px 20px rgba(0,0,0,.25);transition:all .18s}
+.sicks-btn:hover{transform:scale(1.08);background:#1d3520}
+.sicks-panel{position:fixed;bottom:92px;right:20px;z-index:99;width:340px;max-height:520px;background:var(--card);border:1.5px solid var(--border);border-radius:16px;display:flex;flex-direction:column;box-shadow:0 16px 48px rgba(0,0,0,.15);transform:scale(.92) translateY(16px);opacity:0;pointer-events:none;transition:all .22s;overflow:hidden}
 .sicks-panel.open{transform:scale(1) translateY(0);opacity:1;pointer-events:all}
-@media(max-width:480px){.sicks-panel{width:calc(100vw - 20px);right:10px;bottom:88px}}
-.sicks-head{padding:14px 16px 12px;background:linear-gradient(135deg,rgba(124,92,252,.18),rgba(235,91,158,.12));border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px;flex-shrink:0;position:relative}
-.sicks-head::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;background:linear-gradient(90deg,var(--p),var(--p2))}
-.sicks-av{width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,var(--p),var(--p2));display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
-.sicks-info h4{font-size:14px;font-weight:900;color:var(--text)}
-.sicks-info p{font-size:11px;color:var(--text2);font-weight:600;margin-top:1px}
-.sicks-close{margin-left:auto;background:none;border:none;color:var(--muted);cursor:pointer;font-size:18px;padding:4px;border-radius:6px;transition:color .15s}
-.sicks-close:hover{color:var(--text)}
-.sicks-msgs{flex:1;overflow-y:auto;padding:12px;display:flex;flex-direction:column;gap:10px}
-.sicks-msgs::-webkit-scrollbar{width:3px}
-.sicks-msgs::-webkit-scrollbar-thumb{background:var(--s4);border-radius:2px}
-.smsg{display:flex;gap:8px;max-width:96%;animation:fadeUp .2s ease}
+@media(max-width:420px){.sicks-panel{width:calc(100vw - 24px);right:12px}}
+.sicks-head{padding:12px 14px;background:var(--accent);color:#fff;display:flex;align-items:center;gap:8px}
+.s-av{width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+.s-info h4{font-size:13px;font-weight:800}
+.s-info p{font-size:10px;opacity:.6;font-weight:600}
+.s-close{margin-left:auto;background:none;border:none;color:rgba(255,255,255,.6);cursor:pointer;font-size:16px;padding:2px}
+.s-close:hover{color:#fff}
+.s-msgs{flex:1;overflow-y:auto;padding:10px;display:flex;flex-direction:column;gap:8px}
+.smsg{display:flex;gap:7px;max-width:94%}
 .smsg.user{align-self:flex-end;flex-direction:row-reverse}
-.smsg-av{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0;font-weight:800}
-.smsg.ai .smsg-av{background:linear-gradient(135deg,var(--p),var(--p2))}
-.smsg.user .smsg-av{background:var(--s3);border:1.5px solid var(--border2);color:var(--p);font-size:12px}
-.smsg-bubble{border-radius:12px;padding:10px 13px;font-size:13px;font-weight:600;line-height:1.7;word-break:break-word}
-.smsg.ai .smsg-bubble{background:var(--s2);border:1px solid var(--border)}
-.smsg.user .smsg-bubble{background:rgba(124,92,252,.18);border:1px solid rgba(124,92,252,.28);color:#fff}
-.sicks-typing{display:flex;gap:4px;padding:9px 12px;background:var(--s2);border:1px solid var(--border);border-radius:12px;width:fit-content}
-.sicks-typing span{width:6px;height:6px;background:var(--p);border-radius:50%;animation:bounce .7s infinite}
-.sicks-typing span:nth-child(2){animation-delay:.15s}
-.sicks-typing span:nth-child(3){animation-delay:.3s}
-@keyframes bounce{0%,80%,100%{transform:translateY(0)}40%{transform:translateY(-6px)}}
-.sicks-input-row{padding:10px 12px;border-top:1px solid var(--border);display:flex;gap:7px;flex-shrink:0}
-.sicks-input{flex:1;background:var(--s2);border:1.5px solid var(--border);border-radius:10px;padding:9px 12px;color:var(--text);font-size:13px;font-weight:600;font-family:'Nunito',sans-serif;outline:none;resize:none;max-height:80px;transition:border-color .15s}
-.sicks-input:focus{border-color:var(--p)}
-.sicks-send{background:linear-gradient(135deg,var(--p),var(--p2));border:none;border-radius:10px;color:#fff;padding:9px 13px;font-size:15px;cursor:pointer;transition:opacity .15s;flex-shrink:0}
-.sicks-send:disabled{opacity:.4;cursor:not-allowed}
-.sicks-name-prompt{padding:10px 12px;border-top:1px solid var(--border);flex-shrink:0}
-.sicks-name-input{width:100%;padding:9px 12px;background:var(--s2);border:1.5px solid var(--border2);border-radius:10px;color:var(--text);font-size:13px;font-family:'Nunito',sans-serif;font-weight:700;outline:none;margin-bottom:7px;transition:border-color .15s}
-.sicks-name-input:focus{border-color:var(--p)}
-.sicks-name-btn{width:100%;padding:9px;background:linear-gradient(135deg,var(--p),var(--p2));border:none;border-radius:10px;color:#fff;font-size:13px;font-weight:900;cursor:pointer;font-family:'Nunito',sans-serif}
-.sicks-code-prompt{padding:10px 12px;border-top:1px solid var(--border);flex-shrink:0}
-.sicks-apikey-input{width:100%;padding:9px 12px;background:var(--s2);border:1.5px solid rgba(255,210,63,.3);border-radius:10px;color:var(--text);font-size:12px;font-family:'JetBrains Mono',monospace;font-weight:700;outline:none;margin-bottom:7px;transition:border-color .15s}
-.sicks-apikey-input:focus{border-color:var(--y)}
-.api-note{font-size:11px;color:var(--muted);text-align:center;margin-top:5px;line-height:1.5}
+.s-av2{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0;font-weight:800}
+.smsg.ai .s-av2{background:var(--accent);color:#fff;font-size:14px}
+.smsg.user .s-av2{background:#e8ede8;color:var(--accent)}
+.s-bbl{border-radius:10px;padding:8px 11px;font-size:12px;font-weight:600;line-height:1.6;word-break:break-word}
+.smsg.ai .s-bbl{background:#f5f0e8;border:1px solid var(--border)}
+.smsg.user .s-bbl{background:var(--accent);color:#fff}
+.s-typing{display:flex;gap:3px;padding:8px 11px;background:#f5f0e8;border:1px solid var(--border);border-radius:10px}
+.s-typing span{width:5px;height:5px;background:var(--accent);border-radius:50%;animation:sbounce .65s infinite}
+.s-typing span:nth-child(2){animation-delay:.13s}
+.s-typing span:nth-child(3){animation-delay:.26s}
+@keyframes sbounce{0%,80%,100%{transform:translateY(0)}40%{transform:translateY(-5px)}}
+.s-inp-row{padding:8px 10px;border-top:1px solid var(--border);display:flex;gap:6px}
+.s-inp{flex:1;background:#fafaf8;border:1.5px solid var(--border);border-radius:8px;padding:8px 10px;color:var(--text);font-size:12px;font-family:'DM Sans',sans-serif;font-weight:600;outline:none;resize:none;max-height:70px;transition:border-color .13s}
+.s-inp:focus{border-color:var(--accent)}
+.s-send{background:var(--accent);border:none;border-radius:8px;color:#fff;padding:8px 12px;font-size:14px;cursor:pointer;flex-shrink:0;transition:opacity .13s}
+.s-send:disabled{opacity:.4;cursor:not-allowed}
+.s-code-area{padding:10px;border-top:1px solid var(--border)}
+.s-code-inp{width:100%;padding:8px 10px;background:#fafaf8;border:1.5px solid var(--border);border-radius:8px;color:var(--text);font-size:12px;font-family:'DM Mono',monospace;outline:none;margin-bottom:6px;transition:border-color .13s}
+.s-code-inp:focus{border-color:var(--accent)}
+.s-code-btn{width:100%;padding:9px;background:var(--accent);border:none;border-radius:8px;color:#fff;font-size:13px;font-weight:800;cursor:pointer;font-family:'DM Sans',sans-serif}
+.s-err{font-size:11px;color:var(--red);margin-top:4px;text-align:center;min-height:14px}
 
-/* === TOAST === */
-.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(60px);background:linear-gradient(135deg,var(--p),var(--p2));color:#fff;padding:10px 22px;border-radius:50px;font-weight:800;font-size:13px;z-index:9999;transition:transform .35s cubic-bezier(.34,1.56,.64,1);pointer-events:none;font-family:'Nunito',sans-serif;box-shadow:0 8px 24px rgba(124,92,252,.35)}
+/* TOAST */
+.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(60px);background:var(--accent);color:#fff;padding:9px 20px;border-radius:50px;font-weight:800;font-size:13px;z-index:200;transition:transform .3s;pointer-events:none;font-family:'DM Sans',sans-serif}
 .toast.show{transform:translateX(-50%) translateY(0)}
 
-sup{font-size:.6em;vertical-align:super;font-weight:900}
-.frac{display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;font-size:.84em;margin:0 .1em;line-height:1.2}
-.frac>span:first-child{border-bottom:2px solid currentColor;padding:0 .15em}
-.frac>span:last-child{padding:0 .15em}
-@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
-::selection{background:rgba(124,92,252,.3);color:#fff}
-::-webkit-scrollbar{width:5px}
-::-webkit-scrollbar-track{background:var(--s1)}
-::-webkit-scrollbar-thumb{background:var(--s4);border-radius:3px}
-
-/* === TRENNER === */
-.section-divider{display:flex;align-items:center;gap:12px;margin:16px 0 10px;color:var(--muted);font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase}
-.section-divider::before,.section-divider::after{content:'';flex:1;height:1px;background:var(--border)}
-
-/* === WARUM-AKKORDION === */
-.warum-toggle{display:flex;align-items:center;gap:8px;padding:9px 14px;background:rgba(77,184,255,.06);border:1px solid rgba(77,184,255,.15);border-radius:10px;cursor:pointer;font-size:13px;font-weight:700;color:var(--b);margin:6px 0;transition:all .15s;user-select:none}
-.warum-toggle:hover{background:rgba(77,184,255,.12)}
-.warum-toggle .arrow{margin-left:auto;transition:transform .2s;font-size:11px}
-.warum-toggle.open .arrow{transform:rotate(180deg)}
-.warum-content{display:none;padding:12px 14px;background:rgba(77,184,255,.04);border:1px solid rgba(77,184,255,.1);border-top:none;border-radius:0 0 10px 10px;font-size:13px;font-weight:600;line-height:1.8;color:var(--text2);margin-bottom:6px}
-.warum-content.open{display:block}
-.warum-content strong{color:var(--b)}
-
-/* === FORMEL-BOX === */
-.fbox{background:rgba(0,229,160,.04);border:1px solid rgba(0,229,160,.15);border-radius:12px;padding:14px;text-align:center;margin:10px 0}
-.fm{font-family:'JetBrains Mono',monospace;font-size:20px;font-weight:800;color:var(--g)}
-.fs{font-size:12px;color:var(--muted);margin-top:5px;font-weight:600}
+/* PAGE VISIBILITY */
+[data-page]{display:none}
+[data-page].active{display:block}
 </style>
 </head>
 <body>
 
-<!-- WELCOME -->
-<div class="welcome" id="welcome">
-  <div class="wc-box">
-    <div class="wc-logo">🧮</div>
-    <div class="wc-title">Mathe Meister</div>
-    <div id="wcStep1">
-      <div class="wc-sub">Gib deinen persönlichen Code ein.<br>Damit wird dein Fortschritt gespeichert — auf jedem Gerät! 💾</div>
-      <input class="wc-input" id="codeInput" placeholder="Dein Code (z.B. SINGH-XXXX)" maxlength="30" style="font-family:'JetBrains Mono',monospace;letter-spacing:.04em" onkeypress="if(event.key==='Enter')wcCheckCode()">
-      <div id="wcCodeErr" style="font-size:12px;color:var(--r);margin-bottom:8px;min-height:16px;text-align:left"></div>
-      <button class="wc-btn" onclick="wcCheckCode()">Weiter →</button>
-    </div>
-    <div id="wcStep2" style="display:none">
-      <div class="wc-sub" id="wcStep2Sub">Willkommen! Wie soll ich dich nennen?</div>
-      <input class="wc-input" id="nameInput" placeholder="Dein Name..." maxlength="20" onkeypress="if(event.key==='Enter')startApp()">
-      <button class="wc-btn" onclick="startApp()">Los geht's! 🚀</button>
-    </div>
-  </div>
-</div>
-
-<!-- HEADER -->
 <header class="hdr">
-  <div class="logo">Mathe Meister ⚡</div>
-  <div class="hdr-right">
-    <div class="stat">🏆 <span class="stat-v" id="pts">0</span></div>
-    <div class="stat">✅ <span class="stat-v" id="qCount">0</span> Quiz</div>
-    <div class="greeting-badge" id="greet"></div>
-    <button onclick="switchCode()" style="padding:4px 11px;background:rgba(124,92,252,.08);border:1px solid rgba(124,92,252,.2);border-radius:20px;color:var(--muted);font-size:11px;font-weight:700;cursor:pointer;font-family:'Nunito',sans-serif" title="Code wechseln">🔑 <span id="activeCodeDisplay"></span></button>
+  <div class="hdr-logo">Mathe <span>⚡</span> Klasse 9</div>
+  <div style="display:flex;align-items:center;gap:8px">
+    <div class="pts-box">🏆 <span class="pts-val" id="pts">0</span> Pkt</div>
+    <div class="pts-box">✅ <span class="pts-val" id="qc">0</span></div>
   </div>
 </header>
-<div class="prog-outer">
-  <div class="prog-track"><div class="prog-fill" id="progFill" style="width:0%"></div></div>
+
+<div class="countdown-bar">
+  <span class="cd-label">Bis morgen 12:40 Uhr:</span>
+  <span class="cd-time" id="cdTime">--:--:--</span>
+  <span id="cdLabel" style="font-size:11px;opacity:.6">Donnerstag, 19.03.2026</span>
 </div>
 
-<!-- MODULE TABS -->
-<div class="mod-bar">
-  <button class="mt on" id="mt-lernen" onclick="switchMod('lernen',this)">📚 Lernen</button>
-  <button class="mt" id="mt-spick" onclick="switchMod('spick',this)">📋 Spickzettel</button>
+<div class="tabs">
+  <button class="tab on" onclick="switchTab('lernen',this)">📚 Lernen</button>
+  <button class="tab" onclick="switchTab('spick',this)">📋 Spickzettel</button>
 </div>
 
-<!-- MAIN -->
-<div class="app">
+<div class="main">
 
   <!-- LERNEN -->
-  <div id="page-lernen">
-    <div id="lessonPicker">
-      <div class="topic-bar">
-        <button class="topic-btn active" id="topic-pot" onclick="switchTopic('pot',this)">⚡ Potenzen</button>
-        <button class="topic-btn" id="topic-wahr" onclick="switchTopic('wahr',this)">🎯 Wahrscheinlichkeit</button>
+  <div data-page="lernen" class="active">
+    <div id="picker">
+      <div class="sec">Thema wählen</div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px">
+        <button class="tab on" style="border:1.5px solid var(--border);border-radius:8px;padding:8px 14px" id="tp-pot" onclick="switchTopic('pot',this)">⚡ Potenzen</button>
+        <button class="tab" style="border:1.5px solid var(--border);border-radius:8px;padding:8px 14px" id="tp-wahr" onclick="switchTopic('wahr',this)">🎲 Wahrscheinlichkeit</button>
       </div>
-      <div id="picker-pot">
-        <div class="hero c-lime" style="margin-bottom:14px">
-          <div class="hero-tag">Potenzen · Klasse 9</div>
-          <h2>Potenzen meistern 🔢</h2>
-          <p>Von der Grundidee bis zu allen 3 Gesetzen — Schritt für Schritt erklärt!</p>
-          <div class="hero-icon">⚡</div>
-        </div>
-        <div class="lesson-grid" id="potGrid"></div>
-      </div>
-      <div id="picker-wahr" style="display:none">
-        <div class="hero c-purple" style="margin-bottom:14px">
-          <div class="hero-tag">Wahrscheinlichkeit · Klasse 9</div>
-          <h2>Was möchtest du lernen?</h2>
-          <p>Wähle ein Kapitel — bei jeder Aufgabe kannst du Sicks direkt fragen 👉</p>
-          <div class="hero-icon">🎯</div>
-        </div>
-        <div class="lesson-grid" id="lessonGrid"></div>
-      </div>
+      <div id="grid-pot"><div class="picker-grid" id="pgrid-pot"></div></div>
+      <div id="grid-wahr" style="display:none"><div class="picker-grid" id="pgrid-wahr"></div></div>
     </div>
-    <div id="lessonContent" style="display:none">
-      <div id="lessonInner"></div>
+    <div id="content" style="display:none">
+      <div id="content-inner"></div>
     </div>
   </div>
 
   <!-- SPICKZETTEL -->
-  <div id="page-spick" style="display:none">
-    <div class="hero c-indigo" style="margin-bottom:14px">
-      <div class="hero-tag">Zusammenfassung</div><h2>📋 Spickzettel</h2><p>Alle Formeln auf einen Blick</p>
-    </div>
-    <div class="card" style="border-color:rgba(0,229,160,.2)">
-      <div class="ct">⚡ Potenzgesetze — alle 3 Regeln</div>
-      <div class="konzept-grid">
-        <div class="konzept-card purple">
-          <div class="k-label" style="color:var(--p)">Gesetz 1 · Multiplizieren</div>
-          <div class="k-formel">aⁿ × aᵐ = aⁿ⁺ᵐ</div>
-          <div class="k-erkl">Gleiche Basis → Exponenten <strong style="color:var(--g)">addieren</strong></div>
-          <div class="k-bsp">2³ × 2² = 2⁵ = 32</div>
-        </div>
-        <div class="konzept-card pink">
-          <div class="k-label" style="color:var(--p2)">Gesetz 2 · Dividieren</div>
-          <div class="k-formel">aⁿ ÷ aᵐ = aⁿ⁻ᵐ</div>
-          <div class="k-erkl">Gleiche Basis → Exponenten <strong style="color:var(--g)">subtrahieren</strong></div>
-          <div class="k-bsp">3⁵ ÷ 3² = 3³ = 27</div>
-        </div>
-        <div class="konzept-card green">
-          <div class="k-label" style="color:var(--g)">Gesetz 3 · Potenz hoch Potenz</div>
-          <div class="k-formel">(aⁿ)ᵐ = aⁿˣᵐ</div>
-          <div class="k-erkl">Klammer → Exponenten <strong style="color:var(--g)">multiplizieren</strong></div>
-          <div class="k-bsp">(2³)² = 2⁶ = 64</div>
-        </div>
-        <div class="konzept-card yellow">
-          <div class="k-label" style="color:var(--y)">Sonderfälle</div>
-          <div style="display:flex;flex-direction:column;gap:5px;font-family:'JetBrains Mono',monospace;font-size:12px">
-            <div style="background:var(--s1);padding:5px 8px;border-radius:6px"><span style="color:var(--y)">a⁰ = 1</span> <span style="color:var(--muted);font-size:10px">immer!</span></div>
-            <div style="background:var(--s1);padding:5px 8px;border-radius:6px"><span style="color:var(--y)">a¹ = a</span></div>
-            <div style="background:var(--s1);padding:5px 8px;border-radius:6px"><span style="color:var(--y)">a⁻ⁿ = 1/aⁿ</span></div>
-          </div>
-        </div>
-      </div>
-      <div style="background:var(--s2);border-radius:12px;padding:12px 16px;border:1px solid var(--border);display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-top:10px">
-        <div style="font-size:12px;font-weight:800;color:var(--muted);letter-spacing:.1em">MERKTRICK:</div>
-        <div style="display:flex;gap:12px;flex-wrap:wrap">
-          <span style="font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:700">× → <span style="color:var(--g)">+</span></span>
-          <span style="color:var(--muted)">|</span>
-          <span style="font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:700">÷ → <span style="color:var(--g)">−</span></span>
-          <span style="color:var(--muted)">|</span>
-          <span style="font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:700">()ᵐ → <span style="color:var(--g)">×</span></span>
-        </div>
+  <div data-page="spick">
+    <div class="sec">Alle Formeln</div>
+
+    <div class="tcard">
+      <div class="tcard-head">⚡ Potenzgesetze <span class="tag green">3 Regeln</span></div>
+      <div class="fbox"><div class="fm">aⁿ × aᵐ = aⁿ⁺ᵐ</div><div class="fs">Gleiche Basis mal → Exponenten addieren</div></div>
+      <div class="fbox"><div class="fm">aⁿ ÷ aᵐ = aⁿ⁻ᵐ</div><div class="fs">Gleiche Basis geteilt → Exponenten subtrahieren</div></div>
+      <div class="fbox"><div class="fm">(aⁿ)ᵐ = aⁿˣᵐ</div><div class="fs">Potenz hoch Potenz → Exponenten multiplizieren</div></div>
+      <div class="info tip">💡 <strong>Merktrick:</strong> × → + &nbsp;|&nbsp; ÷ → − &nbsp;|&nbsp; ()ᵐ → ×</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:10px;font-family:'DM Mono',monospace;font-size:12px">
+        <div style="background:#fafaf8;border-radius:8px;padding:8px 10px;border:1px solid var(--border)">a⁰ = <strong style="color:var(--accent)">1</strong> <span style="color:var(--muted)">(immer!)</span></div>
+        <div style="background:#fafaf8;border-radius:8px;padding:8px 10px;border:1px solid var(--border)">a⁻ⁿ = <strong style="color:var(--accent)">1/aⁿ</strong></div>
+        <div style="background:#fff1f2;border-radius:8px;padding:8px 10px;border:1px solid #fca5a5">(-a)² = <strong style="color:var(--green)">+</strong> (gerade)</div>
+        <div style="background:#fff1f2;border-radius:8px;padding:8px 10px;border:1px solid #fca5a5">(-a)³ = <strong style="color:var(--red)">−</strong> (ungerade)</div>
       </div>
     </div>
-    <div class="card">
-      <div class="ct">🌳 Wahrscheinlichkeit — Baumdiagramm-Regeln</div>
-      <div class="split">
-        <div class="konzept-card purple" style="border-radius:12px">
-          <div class="k-label" style="color:var(--p)">Pfadregel ×</div>
-          <div class="k-formel">P = P₁ × P₂</div>
-          <div class="k-erkl">Einem Ast folgen → alles <strong style="color:var(--g)">multiplizieren</strong></div>
-          <div class="k-bsp">1/4 × 1/3 = 1/12</div>
-        </div>
-        <div class="konzept-card pink" style="border-radius:12px">
-          <div class="k-label" style="color:var(--p2)">Summenregel +</div>
-          <div class="k-formel">P = Ast₁ + Ast₂</div>
-          <div class="k-erkl">Mehrere günstige Wege → <strong style="color:var(--g)">addieren</strong></div>
-          <div class="k-bsp">2/9 + 2/9 = 4/9</div>
-        </div>
-      </div>
-      <div class="spick-grid" style="margin-top:10px">
-        <div class="spick"><div class="sp-l">Probe</div><div class="sp-f">Alle Äste = 1</div><div class="sp-e">immer 100%</div></div>
-        <div class="spick"><div class="sp-l">Erwartungswert</div><div class="sp-f">E = P × n</div><div class="sp-e">1/12 × 30 ≈ 3</div></div>
-        <div class="spick"><div class="sp-l">ohne Zurücklegen</div><div class="sp-f">Nenner −1</div><div class="sp-e">4/12 → 3/11</div></div>
-        <div class="spick"><div class="sp-l">mit Zurücklegen</div><div class="sp-f">Nenner gleich</div><div class="sp-e">4/12 → 4/12</div></div>
+
+    <div class="tcard">
+      <div class="tcard-head">🌳 Wahrscheinlichkeit <span class="tag blue">Baumdiagramm</span></div>
+      <div class="fbox"><div class="fm">Pfadregel: P = P₁ × P₂ × …</div><div class="fs">Einem Ast folgen → alles multiplizieren</div></div>
+      <div class="fbox"><div class="fm">Summenregel: P = Pfad₁ + Pfad₂</div><div class="fs">Mehrere günstige Wege → addieren</div></div>
+      <div class="info tip">✅ Probe: alle Pfade zusammen = 1 (100%)</div>
+    </div>
+
+    <div class="tcard">
+      <div class="tcard-head">📝 Tafelbild vom 17.03.2026 <span class="tag orange">Heute</span></div>
+      <div class="steps">
+        <div class="step"><span class="sn">1</span><div class="st">5⁻² · 5³ = 5^(−2+3) = 5¹ = 5</div><div class="sv">= 5</div></div>
+        <div class="step"><span class="sn">2</span><div class="st">(5⁻²)⁴ = 5^(−2·4) = 5⁻⁸ = 1/5⁸</div><div class="sv">= 0,00000256</div></div>
+        <div class="step"><span class="sn">3</span><div class="st">1/5⁸ = 0,00000256 = 2,56 · 10⁻⁶</div><div class="sv">Wissensch. Notation</div></div>
       </div>
     </div>
-    <div class="card">
-      <div class="ct">📊 Klassenaufgaben — Lösungen</div>
-      <table class="dtab">
-        <tr><th>Aufgabe</th><th>Rechnung</th><th>Ergebnis</th></tr>
-        <tr><td>P("OK") aus K,E,O,A</td><td>1/4 × 1/3</td><td>1/12 ≈ 8,3% → 3 Kaugummis</td></tr>
-        <tr><td>MADN 1. Wurf</td><td>1/6</td><td>≈ 16,7%</td></tr>
-        <tr><td>MADN 2. Wurf</td><td>5/6 × 1/6</td><td>5/36 ≈ 13,8%</td></tr>
-        <tr><td>5W+5S gleichfarbig</td><td>2/9 + 2/9</td><td>4/9 ≈ 44,4%</td></tr>
-        <tr><td>Würfel 3× alle 1</td><td>1/216</td><td>0,46%</td></tr>
-        <tr><td>Würfel 3× keinmal 1</td><td>125/216</td><td>57,9%</td></tr>
-      </table>
-    </div>
-    <div class="card" style="border-color:rgba(255,87,87,.2)">
-      <div class="ct" style="color:var(--r)">🚨 Häufige Fehler!</div>
-      <div style="display:flex;flex-direction:column;gap:7px;font-size:13px;font-weight:600">
-        <div style="padding:10px 14px;background:rgba(255,87,87,.04);border:1px solid rgba(255,87,87,.12);border-radius:9px;line-height:1.6">❌ Pfadwahrscheinlichkeiten addieren → <strong style="color:var(--g)">immer MULTIPLIZIEREN ✅</strong></div>
-        <div style="padding:10px 14px;background:rgba(255,87,87,.04);border:1px solid rgba(255,87,87,.12);border-radius:9px;line-height:1.6">❌ Nur einen Pfad rechnen bei mehreren → <strong style="color:var(--g)">alle günstigen addieren ✅</strong></div>
-        <div style="padding:10px 14px;background:rgba(255,87,87,.04);border:1px solid rgba(255,87,87,.12);border-radius:9px;line-height:1.6">❌ Exponenten bei gleicher Basis multiplizieren → <strong style="color:var(--g)">Exponenten ADDIEREN ✅</strong></div>
-        <div style="padding:10px 14px;background:rgba(255,87,87,.04);border:1px solid rgba(255,87,87,.12);border-radius:9px;line-height:1.6">❌ a⁰ = 0 denken → <strong style="color:var(--g)">a⁰ = 1 immer! ✅</strong></div>
+
+    <div class="tcard" style="border-color:#fca5a5">
+      <div class="tcard-head" style="color:var(--red)">🚨 Häufige Fehler</div>
+      <div style="display:flex;flex-direction:column;gap:6px;font-size:13px;font-weight:600">
+        <div style="padding:9px;background:#fff1f2;border-radius:8px">❌ Exponenten MULTIPLIZIEREN bei gleicher Basis → <strong style="color:var(--green)">addieren! ✅</strong></div>
+        <div style="padding:9px;background:#fff1f2;border-radius:8px">❌ a⁰ = 0 → <strong style="color:var(--green)">a⁰ = 1 immer! ✅</strong></div>
+        <div style="padding:9px;background:#fff1f2;border-radius:8px">❌ −3² = (−3)² → <strong style="color:var(--green)">−3² = −9, aber (−3)² = +9 ✅</strong></div>
+        <div style="padding:9px;background:#fff1f2;border-radius:8px">❌ Pfade addieren → <strong style="color:var(--green)">Pfade multiplizieren! ✅</strong></div>
       </div>
     </div>
   </div>
 
 </div>
 
-<!-- SICKS WIDGET -->
-<button class="sicks-btn" id="sicksBtn" onclick="toggleSicks()" title="Sicks — dein Mathe-Assistent">
-  🤖<div class="notif"></div>
-</button>
-
+<!-- SICKS -->
+<button class="sicks-btn" onclick="toggleSicks()" id="sicksBtn">🤖</button>
 <div class="sicks-panel" id="sicksPanel">
   <div class="sicks-head">
-    <div class="sicks-av">🤖</div>
-    <div class="sicks-info"><h4>Sicks</h4><p>Dein Mathe-Assistent · Klasse 9</p></div>
-    <button class="sicks-close" onclick="toggleSicks()">✕</button>
+    <div class="s-av">🤖</div>
+    <div class="s-info"><h4>Sicks</h4><p>Dein Mathe-Assistent</p></div>
+    <button class="s-close" onclick="toggleSicks()">✕</button>
   </div>
-  <div class="sicks-msgs" id="sicksMsgs"></div>
-  <div class="sicks-code-prompt" id="sicksCodePrompt" style="display:none">
-    <div style="font-size:11px;color:var(--text2);margin-bottom:8px;font-weight:700;text-align:center">🔑 Gib deinen Sicks-Code ein</div>
-    <input class="sicks-name-input" id="sicksCodeInput" placeholder="Lizenzcode (z.B. SINGH-XXXX)" maxlength="30" style="letter-spacing:.05em;font-family:'JetBrains Mono',monospace;font-size:12px" onkeypress="if(event.key==='Enter')submitSicksCode()">
-    <button class="sicks-name-btn" onclick="submitSicksCode()">Aktivieren 🚀</button>
-    <div id="sicksCodeErr" style="font-size:11px;color:var(--r);text-align:center;margin-top:5px;min-height:14px"></div>
+  <div class="s-msgs" id="sMsgs"></div>
+  <div id="sCodeArea" class="s-code-area" style="display:none">
+    <div style="font-size:11px;font-weight:700;color:var(--muted);margin-bottom:6px;text-align:center">🔑 Sicks-Code eingeben</div>
+    <input class="s-code-inp" id="sCodeInp" placeholder="SINGH-XXXX" maxlength="20" onkeypress="if(event.key==='Enter')submitCode()">
+    <button class="s-code-btn" onclick="submitCode()">Aktivieren 🚀</button>
+    <div class="s-err" id="sErr"></div>
   </div>
-  <div class="sicks-name-prompt" id="sicksNamePrompt" style="display:none">
-    <input class="sicks-name-input" id="sicksNameInput" placeholder="Wie heißt du?" maxlength="20" onkeypress="if(event.key==='Enter')confirmSicksName()">
-    <button class="sicks-name-btn" onclick="confirmSicksName()">Los geht's ✓</button>
-  </div>
-  <div class="sicks-input-row" id="sicksInputRow" style="display:none">
-    <textarea class="sicks-input" id="sicksInput" placeholder="Mathe-Frage stellen..." rows="1"
-      onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendSicks()}"
-      oninput="this.style.height='auto';this.style.height=Math.min(this.scrollHeight,80)+'px'"></textarea>
-    <button class="sicks-send" id="sicksSend" onclick="sendSicks()">➤</button>
+  <div class="s-inp-row" id="sInpRow" style="display:none">
+    <textarea class="s-inp" id="sInp" placeholder="Frage stellen..." rows="1"
+      onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendMsg()}"
+      oninput="this.style.height='auto';this.style.height=Math.min(this.scrollHeight,70)+'px'"></textarea>
+    <button class="s-send" id="sSend" onclick="sendMsg()">➤</button>
   </div>
 </div>
 
 <div class="toast" id="toast"></div>
 
 <script>
-// ══════════════════════════════════════════════
-// STATE & STORAGE
-// ══════════════════════════════════════════════
-const STORE_PREFIX='mm_save_';
-function defSt(){return{name:'',code:'',unlocked:{0:true,1:false,2:false,3:false,4:false,5:false,6:false},unlockedPot:{0:true,1:false,2:false,3:false,4:false},completed:{},completedPot:{},points:0,qCorrect:0};}
-function storeKey(code){return STORE_PREFIX+(code||'').toUpperCase();}
-function loadSt(code){try{const r=localStorage.getItem(storeKey(code));if(r)return Object.assign(defSt(),JSON.parse(r));}catch(e){}return defSt();}
-function saveSt(){try{localStorage.setItem(storeKey(st.code),JSON.stringify(st));}catch(e){}}
-let activeCode=localStorage.getItem('mm_active_code')||'';
-let st=activeCode?loadSt(activeCode):defSt();
+// ═══ STATE ═══
+let pts=0,qcnt=0,answered={};
+function addPts(n){pts+=n;qcnt++;document.getElementById('pts').textContent=pts;document.getElementById('qc').textContent=qcnt;toast('+'+n+' Punkte! 🎉');}
 
-function wcCheckCode(){
-  const inp=document.getElementById('codeInput'),err=document.getElementById('wcCodeErr');
-  const code=inp.value.trim().toUpperCase();
-  if(!code){err.textContent='Bitte Code eingeben!';return;}
-  activeCode=code;
-  const saved=loadSt(code);
-  if(saved.name){
-    st=saved;localStorage.setItem('mm_active_code',code);
-    document.getElementById('welcome').classList.add('hidden');
-    showGreeting();buildLessonGrid();buildPotGrid();updateStats();
-  } else {
-    st=saved;st.code=code;
-    document.getElementById('wcStep1').style.display='none';
-    document.getElementById('wcStep2').style.display='block';
-    document.getElementById('wcStep2Sub').textContent='Code aktiviert ✅ Wie soll ich dich nennen?';
-    setTimeout(()=>document.getElementById('nameInput').focus(),100);
-  }
+// ═══ COUNTDOWN ═══
+function updateCountdown(){
+  const target=new Date('2026-03-19T12:40:00');
+  const now=new Date();
+  const diff=target-now;
+  const el=document.getElementById('cdTime');
+  const lbl=document.getElementById('cdLabel');
+  if(diff<=0){el.textContent='00:00:00';el.className='cd-time cd-expired';lbl.textContent='Abgelaufen ❌';return;}
+  const h=Math.floor(diff/3600000);
+  const m=Math.floor((diff%3600000)/60000);
+  const s=Math.floor((diff%60000)/1000);
+  el.textContent=String(h).padStart(2,'0')+':'+String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');
+}
+updateCountdown();
+setInterval(updateCountdown,1000);
+
+// ═══ TABS ═══
+function switchTab(name,btn){
+  document.querySelectorAll('.tabs .tab').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on');
+  document.querySelectorAll('[data-page]').forEach(p=>p.classList.remove('active'));
+  document.querySelector('[data-page="'+name+'"]').classList.add('active');
 }
 
-let currentTopic='pot';
+// ═══ TOPIC ═══
+let curTopic='pot';
 function switchTopic(t,btn){
-  currentTopic=t;
-  document.querySelectorAll('.topic-btn').forEach(b=>b.classList.remove('active'));
-  btn.classList.add('active');
-  document.getElementById('picker-wahr').style.display=t==='wahr'?'block':'none';
-  document.getElementById('picker-pot').style.display=t==='pot'?'block':'none';
+  curTopic=t;
+  document.getElementById('tp-pot').classList.toggle('on',t==='pot');
+  document.getElementById('tp-wahr').classList.toggle('on',t==='wahr');
+  document.getElementById('grid-pot').style.display=t==='pot'?'block':'none';
+  document.getElementById('grid-wahr').style.display=t==='wahr'?'block':'none';
 }
 
-const LESSONS=[
-  {id:0,icon:'🌳',title:'Baumdiagramm',tag:'Kapitel 1'},
-  {id:1,icon:'✖️',title:'Pfadregel',tag:'Kapitel 2'},
-  {id:2,icon:'➕',title:'Summenregel',tag:'Kapitel 3'},
-  {id:3,icon:'🔵',title:'Kugeln ziehen',tag:'Kapitel 4'},
-  {id:4,icon:'🎲',title:'Würfel 3×',tag:'Kapitel 5'},
-  {id:5,icon:'🎴',title:'bespiel',tag:'Kapitel 6'},
-  {id:6,icon:'📝',title:'Übungsaufgaben',tag:'Kapitel 7'},
-];
+// ═══ LESSONS ═══
 const POT_LESSONS=[
-  {id:0,icon:'🔢',title:'Was ist eine Potenz?',tag:'P-Kapitel 1'},
-  {id:1,icon:'✖️',title:'Potenz × Potenz',tag:'P-Kapitel 2'},
-  {id:2,icon:'➗',title:'Potenz ÷ Potenz',tag:'P-Kapitel 3'},
-  {id:3,icon:'🏗️',title:'Potenz hoch Potenz',tag:'P-Kapitel 4'},
-  {id:4,icon:'🎯',title:'Übungsaufgaben',tag:'P-Kapitel 5'},
+  {id:0,ico:'🔢',title:'Was ist eine Potenz?'},
+  {id:1,ico:'✖️',title:'Potenz × Potenz'},
+  {id:2,ico:'➗',title:'Potenz ÷ Potenz'},
+  {id:3,ico:'🏗️',title:'Potenz hoch Potenz'},
+  {id:4,ico:'📝',title:'Tafelbild 17.03.'},
+  {id:5,ico:'🎯',title:'Übungsaufgaben'},
+];
+const WAHR_LESSONS=[
+  {id:0,ico:'🌳',title:'Baumdiagramm'},
+  {id:1,ico:'✖️',title:'Pfadregel'},
+  {id:2,ico:'➕',title:'Summenregel'},
+  {id:3,ico:'🎲',title:'Würfel 3×'},
+  {id:4,ico:'🎴',title:'Karten K,E,O,A'},
 ];
 
-function startApp(){
-  const n=document.getElementById('nameInput').value.trim();
-  if(!n){document.getElementById('nameInput').focus();return;}
-  st.name=n;st.code=activeCode;saveSt();
-  localStorage.setItem('mm_active_code',activeCode);
-  document.getElementById('welcome').classList.add('hidden');
-  showGreeting();buildLessonGrid();buildPotGrid();updateStats();
-}
-function showGreeting(){
-  if(!st.name)return;
-  const g=document.getElementById('greet');
-  g.textContent='Hi '+st.name+' 👋';g.style.display='block';
-  const cd=document.getElementById('activeCodeDisplay');
-  if(cd)cd.textContent=activeCode;
-}
-function switchCode(){
-  if(!confirm('Code wechseln? Dein aktueller Fortschritt bleibt gespeichert.'))return;
-  activeCode='';
-  document.getElementById('welcome').classList.remove('hidden');
-  document.getElementById('wcStep1').style.display='block';
-  document.getElementById('wcStep2').style.display='none';
-  document.getElementById('codeInput').value='';
-  document.getElementById('wcCodeErr').textContent='';
-  setTimeout(()=>document.getElementById('codeInput').focus(),100);
-}
-function buildLessonGrid(){
-  document.getElementById('lessonGrid').innerHTML=LESSONS.map(l=>{
-    const locked=!st.unlocked[l.id],done=!!st.completed[l.id];
-    return`<div class="lcard${locked?' locked':''}${done?' done':''}" onclick="openLesson(${l.id})">
-      <div class="lc-num">${l.tag}</div><div class="lc-ico">${l.icon}</div><div class="lc-title">${l.title}</div>
-      ${done?'<div style="position:absolute;top:8px;right:8px;font-size:14px">✅</div>':''}
-      ${locked?'<div style="position:absolute;top:8px;right:8px;font-size:14px">🔒</div>':''}
+let unlockedPot={0:true,1:false,2:false,3:false,4:false,5:false};
+let unlockedWahr={0:true,1:false,2:false,3:false,4:false};
+let donePot={};let doneWahr={};
+
+function buildPicker(){
+  document.getElementById('pgrid-pot').innerHTML=POT_LESSONS.map(l=>{
+    const lk=!unlockedPot[l.id],dn=!!donePot[l.id];
+    return`<div class="pcard${lk?' locked':''}${dn?' done':''}" onclick="openLesson('pot',${l.id})">
+      <div class="pc-tag">Kapitel ${l.id+1}</div>
+      <div class="pc-ico">${l.ico}</div>
+      <div class="pc-title">${l.title}</div>
+      ${dn?'<div style="position:absolute;top:8px;right:8px">✅</div>':''}
+      ${lk?'<div style="position:absolute;top:8px;right:8px">🔒</div>':''}
+    </div>`;
+  }).join('');
+  document.getElementById('pgrid-wahr').innerHTML=WAHR_LESSONS.map(l=>{
+    const lk=!unlockedWahr[l.id],dn=!!doneWahr[l.id];
+    return`<div class="pcard${lk?' locked':''}${dn?' done':''}" onclick="openLesson('wahr',${l.id})">
+      <div class="pc-tag">Kapitel ${l.id+1}</div>
+      <div class="pc-ico">${l.ico}</div>
+      <div class="pc-title">${l.title}</div>
+      ${dn?'<div style="position:absolute;top:8px;right:8px">✅</div>':''}
+      ${lk?'<div style="position:absolute;top:8px;right:8px">🔒</div>':''}
     </div>`;
   }).join('');
 }
-function buildPotGrid(){
-  document.getElementById('potGrid').innerHTML=POT_LESSONS.map(l=>{
-    const locked=!st.unlockedPot[l.id],done=!!st.completedPot[l.id];
-    return`<div class="lcard${locked?' locked':''}${done?' done':''}" onclick="openPotLesson(${l.id})">
-      <div class="lc-num">${l.tag}</div><div class="lc-ico">${l.icon}</div><div class="lc-title">${l.title}</div>
-      ${done?'<div style="position:absolute;top:8px;right:8px;font-size:14px">✅</div>':''}
-      ${locked?'<div style="position:absolute;top:8px;right:8px;font-size:14px">🔒</div>':''}
-    </div>`;
-  }).join('');
+buildPicker();
+
+function openLesson(topic,id){
+  const unlocked=topic==='pot'?unlockedPot:unlockedWahr;
+  if(!unlocked[id]){toast('🔒 Erst vorheriges Kapitel fertig machen!');return;}
+  const content=topic==='pot'?POT_CONTENT[id]:WAHR_CONTENT[id];
+  if(!content)return;
+  document.getElementById('picker').style.display='none';
+  document.getElementById('content').style.display='block';
+  document.getElementById('content-inner').innerHTML=content;
+  buildQ(topic,id);
+  window.scrollTo({top:0,behavior:'smooth'});
 }
-function openLesson(id){
-  if(!st.unlocked[id]){toast('🔒 Erst das vorherige Kapitel abschließen!');return;}
-  const c=LESSON_CONTENT[id];if(!c)return;
-  document.getElementById('lessonPicker').style.display='none';
-  document.getElementById('lessonContent').style.display='block';
-  document.getElementById('lessonInner').innerHTML=c;
-  buildQuiz(id,'wahr');window.scrollTo({top:0,behavior:'smooth'});
+function backToPicker(){
+  document.getElementById('picker').style.display='block';
+  document.getElementById('content').style.display='none';
+  buildPicker();
 }
-function openPotLesson(id){
-  if(!st.unlockedPot[id]){toast('🔒 Erst das vorherige Kapitel abschließen!');return;}
-  const c=POT_CONTENT[id];if(!c)return;
-  document.getElementById('lessonPicker').style.display='none';
-  document.getElementById('lessonContent').style.display='block';
-  document.getElementById('lessonInner').innerHTML=c;
-  buildQuiz(id,'pot');window.scrollTo({top:0,behavior:'smooth'});
-}
-function backToLessons(){
-  document.getElementById('lessonPicker').style.display='block';
-  document.getElementById('lessonContent').style.display='none';
-  buildLessonGrid();buildPotGrid();
-}
-function switchMod(mod,btn){
-  document.querySelectorAll('.mt').forEach(b=>b.classList.remove('on'));btn.classList.add('on');
-  document.getElementById('page-lernen').style.display=mod==='lernen'?'block':'none';
-  document.getElementById('page-spick').style.display=mod==='spick'?'block':'none';
-}
+const BACK=`<button class="back-btn" onclick="backToPicker()">← Zurück</button>`;
 
-// Warum-Akkordion
-function toggleWarum(id){
-  const t=document.getElementById('wt_'+id),c=document.getElementById('wc_'+id);
-  t.classList.toggle('open');c.classList.toggle('open');
-}
-
-// Frag Sicks mit Auto-Prompt
-function fragSicks(prompt){
-  if(!sicksOpen) toggleSicks();
-  setTimeout(()=>{
-    if(document.getElementById('sicksInputRow').style.display!=='flex'){
-      toast('🔑 Bitte zuerst Sicks-Code eingeben!');return;
-    }
-    const inp=document.getElementById('sicksInput');
-    inp.value=prompt;
-    inp.style.height='auto';
-    inp.style.height=Math.min(inp.scrollHeight,80)+'px';
-    inp.focus();
-    sendSicks();
-  },300);
-}
-
-// ══════════════════════════════════════════════
-// BACK BTN
-// ══════════════════════════════════════════════
-const BACK_BTN=`<button onclick="backToLessons()" style="margin-bottom:14px;padding:8px 16px;background:var(--s2);border:1px solid var(--border);border-radius:10px;color:var(--text2);cursor:pointer;font-weight:700;font-size:13px;font-family:'Nunito',sans-serif;display:inline-flex;align-items:center;gap:6px">← Zurück zur Übersicht</button>`;
-
-// ══════════════════════════════════════════════
-// HELPER: "Frag Sicks"-Knopf generieren
-// ══════════════════════════════════════════════
-function sBtn(prompt,label){
-  label=label||'Sicks fragen 🤖';
-  const esc=prompt.replace(/"/g,'&quot;').replace(/'/g,'&#39;');
-  return`<button class="frag-sicks-btn" onclick='fragSicks("${esc}")'><span class="fs-ico">🤖</span>${label}</button>`;
-}
-function erklaerBtn(prompt){
-  const esc=prompt.replace(/"/g,'&quot;').replace(/'/g,'&#39;');
-  return`<button class="erklaer-btn" onclick='fragSicks("${esc}")'><span>❓</span> Was bedeutet das?</button>`;
-}
-
-// ══════════════════════════════════════════════
-// POTENZEN CONTENT (VERBESSERT)
-// ══════════════════════════════════════════════
-const POT_CONTENT={
-0:`${BACK_BTN}
-<div class="hero c-lime"><div class="hero-tag">P-Kapitel 1</div><h2>🔢 Was ist eine Potenz?</h2><p>Kurz schreiben statt ewig zu multiplizieren — dein erstes Werkzeug!</p><div class="hero-icon">⚡</div></div>
-
-<div class="card">
-<div class="ct">💡 Die Grundidee</div>
-<div class="lese-block">
-Stell dir vor, du willst 2 × 2 × 2 × 2 × 2 schreiben. Das ist lang und fehleranfällig.
-Mathematiker haben sich deshalb eine Abkürzung ausgedacht: <strong>Potenzen!</strong>
-</div>
-
-<div class="erkl">
-<div class="erkl-label">📌 Definition ${erklaerBtn('Erkläre mir einfach: Was ist der Unterschied zwischen Basis und Exponent bei einer Potenz?')}</div>
-<div class="erkl-text">
-  <p>Bei der Potenz <strong>2⁵</strong> gibt es zwei Teile:</p>
-  <div class="big">2⁵ = 2 × 2 × 2 × 2 × 2 = 32</div>
-  <p>Die <strong>Basis</strong> (die untere Zahl = 2) ist die Zahl, die du wiederholst.<br>
-  Der <strong>Exponent</strong> (die kleine obere Zahl = 5) sagt dir, wie oft du multiplizierst.</p>
-</div>
-</div>
-
-<div style="background:var(--s2);border-radius:14px;padding:18px;margin-bottom:14px;display:flex;align-items:center;justify-content:center;gap:28px;flex-wrap:wrap">
-  <div style="text-align:center">
-    <div style="font-size:58px;font-weight:900;line-height:1;font-family:'JetBrains Mono',monospace">
-      <span style="color:var(--p)">2</span><sup style="font-size:28px;color:var(--p2)">5</sup>
-    </div>
-  </div>
-  <div style="display:flex;flex-direction:column;gap:9px">
-    <div style="display:flex;align-items:center;gap:10px;padding:9px 14px;background:rgba(124,92,252,.1);border-radius:10px;border:1px solid rgba(124,92,252,.2)">
-      <span style="width:30px;height:30px;background:var(--p);border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:17px;color:#fff;font-family:'JetBrains Mono',monospace;flex-shrink:0">2</span>
-      <div><div style="font-size:13px;font-weight:800;color:var(--p)">Basis</div><div style="font-size:11px;color:var(--muted);font-weight:600">die Zahl, die wiederholt wird</div></div>
-    </div>
-    <div style="display:flex;align-items:center;gap:10px;padding:9px 14px;background:rgba(235,91,158,.1);border-radius:10px;border:1px solid rgba(235,91,158,.2)">
-      <span style="width:30px;height:30px;background:var(--p2);border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:17px;color:#fff;font-family:'JetBrains Mono',monospace;flex-shrink:0">5</span>
-      <div><div style="font-size:13px;font-weight:800;color:var(--p2)">Exponent</div><div style="font-size:11px;color:var(--muted);font-weight:600">wie oft multipliziert wird</div></div>
-    </div>
-  </div>
-</div>
-
-<div class="section-divider">Potenzen von 2 im Überblick</div>
-<div class="pot-visual">
-  <div class="pot-box"><div><span class="base">2</span><span class="exp">1</span></div><span class="eq">= 2</span><span class="res">2</span></div>
-  <div class="pot-box"><div><span class="base">2</span><span class="exp">2</span></div><span class="eq">= 2×2</span><span class="res">4</span></div>
-  <div class="pot-box"><div><span class="base">2</span><span class="exp">3</span></div><span class="eq">= 2×2×2</span><span class="res">8</span></div>
-  <div class="pot-box"><div><span class="base">2</span><span class="exp">4</span></div><span class="eq">= 2×2×2×2</span><span class="res">16</span></div>
-  <div class="pot-box"><div><span class="base">2</span><span class="exp">5</span></div><span class="eq">= 2×2×2×2×2</span><span class="res">32</span></div>
-</div>
-<div style="text-align:right;margin-top:4px">${sBtn('Erkläre mir, warum die Potenzen von 2 immer doppelt so groß werden: 2, 4, 8, 16, 32...','Warum immer ×2? 🤖')}</div>
-</div>
-
-<div class="card">
-<div class="ct">⚠️ Sonderfälle — unbedingt auswendig lernen!</div>
-<div class="lese-block">Diese 4 Fälle kommen in fast jeder Aufgabe vor. Wenn du sie auswendig kennst, sparst du dir viel Zeit!</div>
-<div class="steps">
-  <div class="step" style="border-left-color:var(--y)">
-    <span class="sb" style="background:var(--y);color:#000">a⁰</span>
-    <div style="flex:1">
-      <div class="st">Jede Zahl hoch 0 ist immer 1 ${erklaerBtn('Warum ist a hoch 0 immer gleich 1? Erkläre das mit einem einfachen Beispiel.')}</div>
-      <div class="step-erkl">Beispiel: 5⁰ = 1, 100⁰ = 1, (−7)⁰ = 1</div>
-    </div>
-    <span class="sv">= 1</span>
-  </div>
-  <div class="step" style="border-left-color:var(--y)">
-    <span class="sb" style="background:var(--y);color:#000">a¹</span>
-    <div style="flex:1">
-      <div class="st">Jede Zahl hoch 1 bleibt dieselbe ${erklaerBtn('Warum ist a hoch 1 einfach a? Kurze Erklärung bitte.')}</div>
-      <div class="step-erkl">Beispiel: 7¹ = 7, 99¹ = 99</div>
-    </div>
-    <span class="sv">= a</span>
-  </div>
-  <div class="step" style="border-left-color:var(--r)">
-    <span class="sb" style="background:var(--r);color:#fff">(-a)²</span>
-    <div style="flex:1">
-      <div class="st">Negativ hoch GERADE Zahl → Ergebnis POSITIV ${erklaerBtn('Warum wird minus mal minus positiv? Erkläre es mir auf einfache Weise.')}</div>
-      <div class="step-erkl">(-3)² = (-3)×(-3) = +9  |  (-2)⁴ = +16</div>
-    </div>
-    <span class="sv">→ +</span>
-  </div>
-  <div class="step" style="border-left-color:var(--r)">
-    <span class="sb" style="background:var(--r);color:#fff">(-a)³</span>
-    <div style="flex:1">
-      <div class="st">Negativ hoch UNGERADE Zahl → Ergebnis NEGATIV</div>
-      <div class="step-erkl">(-2)³ = (-2)×(-2)×(-2) = 4×(-2) = -8</div>
-    </div>
-    <span class="sv">→ −</span>
-  </div>
-</div>
-<div class="info warn">
-  <div class="ii">⚠️</div>
-  <div>
-    <strong>Wichtig: Klammern machen den Unterschied!</strong><br>
-    <span style="font-family:'JetBrains Mono',monospace">-3² = -(3²) = -9</span> — hier gilt die Potenz nur für die 3!<br>
-    <span style="font-family:'JetBrains Mono',monospace">(-3)² = +9</span> — hier gilt die Potenz für die ganze -3!
-    ${erklaerBtn('Erkläre den Unterschied zwischen -3² und (-3)² mit einem konkreten Beispiel.')}
-  </div>
-</div>
-${sBtn('Ich verstehe Potenzen noch nicht ganz. Erkläre mir nochmal von Anfang an: Was ist eine Potenz, was ist die Basis und was ist der Exponent?','Alles nochmal erklären 🤖')}
-</div>
-
-<div class="card">
-<div class="ct">📐 Wichtige Potenzen — auswendig lernen!</div>
-<table class="dtab">
-<tr><th>Potenz</th><th>Rechnung</th><th>Ergebnis</th></tr>
-<tr><td>2³</td><td>2×2×2</td><td>8</td></tr>
-<tr><td>2⁴</td><td>2×2×2×2</td><td>16</td></tr>
-<tr><td>2⁵</td><td>…</td><td>32</td></tr>
-<tr><td>2⁶</td><td>…</td><td>64</td></tr>
-<tr><td>2⁸</td><td>…</td><td>256</td></tr>
-<tr><td>3³</td><td>3×3×3</td><td>27</td></tr>
-<tr><td>3⁴</td><td>…</td><td>81</td></tr>
-<tr><td>4³</td><td>4×4×4</td><td>64</td></tr>
-<tr><td>5³</td><td>5×5×5</td><td>125</td></tr>
-<tr><td>10³</td><td>…</td><td>1000</td></tr>
-</table>
-${sBtn('Gib mir einen Memorier-Trick, wie ich die wichtigsten Potenzen von 2 und 3 auswendig lernen kann.','Lerntrick für Potenzen 🤖')}
-</div>
-
-<div class="card" style="border-color:rgba(124,92,252,.2)">
-<div class="quiz-header"><div class="ct">⚡ Quiz</div>${sBtn('Ich mache gerade das Quiz zu Potenzen (Kapitel 1). Erkläre mir kurz: Wie rechne ich eine Potenz aus, bevor ich anfange?','Vor dem Quiz erklären 🤖')}</div>
-<div id="qa_pot_0"></div>
-<button class="cbtn" id="cb_pot_0" onclick="completePot(0)" disabled>P-Kapitel 1 abschließen 🔓</button>
-</div>`,
-
-1:`${BACK_BTN}
-<div class="hero c-red"><div class="hero-tag">P-Kapitel 2</div><h2>✖️ Potenz × Potenz</h2><p>Gleiche Basis? Einfach die Exponenten addieren — das ist alles!</p><div class="hero-icon">✖️</div></div>
-
-<div class="card">
-<div class="ct">💡 Das 1. Potenzgesetz</div>
-<div class="lese-block">
-Wenn du zwei Potenzen mit <strong>gleicher Basis</strong> multiplizierst, musst du NICHT beide Potenzen komplett ausrechnen.
-Du kannst stattdessen einfach die Exponenten addieren. Das spart enorm viel Zeit!
-</div>
-
-<div class="erkl">
-<div class="erkl-label">📌 Gesetz 1 ${erklaerBtn('Erkläre mir das erste Potenzgesetz: Warum darf ich bei aⁿ × aᵐ die Exponenten addieren?')}</div>
-<div class="erkl-text">
-  <div class="big">aⁿ × aᵐ = aⁿ⁺ᵐ</div>
-  <p><strong>Gleiche Basis</strong> und du multiplizierst? → Exponenten <span class="hl">addieren</span>!</p>
-</div>
-</div>
-
-<div class="warum-toggle" id="wt_1" onclick="toggleWarum(1)">
-  <span>🔍 Warum funktioniert das? — Beweis durch Ausschreiben</span>
-  <span class="arrow">▼</span>
-</div>
-<div class="warum-content" id="wc_1">
-  <strong>2³ × 2²</strong> ausgeschrieben:<br>
-  = (2 × 2 × 2) × (2 × 2)<br>
-  = 2 × 2 × 2 × 2 × 2<br>
-  = 2⁵ ✓<br><br>
-  <strong>Fazit:</strong> 3 Zweien mal 2 Zweien = 5 Zweien → Exponenten einfach addieren!
-</div>
-
-<div style="background:var(--s2);border-radius:12px;padding:14px;margin:12px 0;border:1px solid var(--border)">
-  <div style="font-size:11px;font-weight:800;color:var(--muted);letter-spacing:.1em;margin-bottom:10px">VISUELL: 2³ × 2²</div>
-  <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
-    <div style="display:flex;gap:4px">
-      ${[1,2,3].map(()=>`<span style="width:28px;height:28px;background:rgba(124,92,252,.3);border:1.5px solid var(--p);border-radius:6px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;font-family:'JetBrains Mono',monospace;color:var(--p)">2</span>`).join('')}
-    </div>
-    <span style="font-size:18px;font-weight:900;color:var(--muted)">×</span>
-    <div style="display:flex;gap:4px">
-      ${[1,2].map(()=>`<span style="width:28px;height:28px;background:rgba(235,91,158,.3);border:1.5px solid var(--p2);border-radius:6px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;font-family:'JetBrains Mono',monospace;color:var(--p2)">2</span>`).join('')}
-    </div>
-    <span style="font-size:18px;font-weight:900;color:var(--muted)">=</span>
-    <div style="display:flex;gap:4px">
-      ${[1,2,3,4,5].map(()=>`<span style="width:28px;height:28px;background:rgba(0,229,160,.2);border:1.5px solid var(--g);border-radius:6px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;font-family:'JetBrains Mono',monospace;color:var(--g)">2</span>`).join('')}
-    </div>
-    <span style="font-family:'JetBrains Mono',monospace;font-weight:900;color:var(--g)">= 2⁵ = 32</span>
-  </div>
-  <div style="font-size:11px;color:var(--muted);margin-top:8px;font-weight:600">3 lila Felder + 2 pink Felder = 5 grüne Felder</div>
-</div>
-
-<div class="section-divider">Beispiele</div>
-<div class="steps">
-  <div class="step"><span class="sb">Bsp 1</span><div style="flex:1"><div class="st">3⁴ × 3² = 3⁶</div><div class="step-erkl">4 + 2 = 6 → Exponenten addiert</div></div><span class="sv">= 729</span></div>
-  <div class="step"><span class="sb">Bsp 2</span><div style="flex:1"><div class="st">5² × 5³ = 5⁵</div><div class="step-erkl">2 + 3 = 5</div></div><span class="sv">= 3125</span></div>
-  <div class="step"><span class="sb">Bsp 3</span><div style="flex:1"><div class="st">x⁷ × x² = x⁹</div><div class="step-erkl">Geht auch mit Variablen! 7 + 2 = 9</div></div><span class="sv">x⁹</span></div>
-  <div class="step"><span class="sb">Bsp 4</span><div style="flex:1"><div class="st">2³ × 2² × 2¹ = 2⁶</div><div class="step-erkl">3 + 2 + 1 = 6 — geht auch mit 3 Faktoren!</div></div><span class="sv">= 64</span></div>
-</div>
-${sBtn('Ich übe das erste Potenzgesetz (Multiplizieren). Kannst du mir 3 Beispielaufgaben stellen und dann erklären?','Übungsaufgaben stellen 🤖')}
-</div>
-
-<div class="card">
-<div class="ct">🚨 Achtung: Nur bei GLEICHER Basis!</div>
-<div class="lese-block">Das Gesetz funktioniert nur, wenn BEIDE Potenzen dieselbe Basis haben. Bei verschiedenen Basen ist es <strong class="warn">NICHT anwendbar</strong>!</div>
-<div class="split">
-  <div class="sc"><div class="sh" style="background:linear-gradient(135deg,#032a18,#065030)">✅ Gleiche Basis</div>
-  <div class="sb2">2³ × 2² = <strong>2⁵</strong><br>5⁴ × 5³ = <strong>5⁷</strong><br>x² × x⁵ = <strong>x⁷</strong></div></div>
-  <div class="sc"><div class="sh" style="background:linear-gradient(135deg,#2a0000,#4a0000)">❌ Verschiedene Basis</div>
-  <div class="sb2">2³ × 3² → ❌<br>4² × 5³ → ❌<br>x³ × y² → ❌</div></div>
-</div>
-<div class="info danger"><div class="ii">❌</div><div>Bei 2³ × 3² ist die Basis verschieden (2 und 3) → das kann man so NICHT vereinfachen! ${erklaerBtn('Ich verstehe nicht, warum 2³ × 3² nicht zusammengefasst werden kann. Erkläre mir das.')}</div></div>
-</div>
-
-<div class="card" style="border-color:rgba(124,92,252,.2)">
-<div class="quiz-header"><div class="ct">⚡ Quiz</div>${sBtn('Ich mache das Quiz zum ersten Potenzgesetz (Multiplizieren = Exponenten addieren). Erkläre mir kurz die Regel vor dem Quiz.','Kurze Zusammenfassung 🤖')}</div>
-<div id="qa_pot_1"></div>
-<button class="cbtn" id="cb_pot_1" onclick="completePot(1)" disabled>P-Kapitel 2 abschließen 🔓</button>
-</div>`,
-
-2:`${BACK_BTN}
-<div class="hero c-blue"><div class="hero-tag">P-Kapitel 3</div><h2>➗ Potenz ÷ Potenz</h2><p>Gleiche Basis teilen = Exponenten subtrahieren — so einfach!</p><div class="hero-icon">➗</div></div>
-
-<div class="card">
-<div class="ct">💡 Das 2. Potenzgesetz</div>
-<div class="lese-block">
-Beim Teilen (Dividieren) von Potenzen mit gleicher Basis ist es ähnlich wie beim Multiplizieren —
-nur dass du die Exponenten diesmal <strong>subtrahierst</strong> statt addierst.
-</div>
-
-<div class="erkl">
-<div class="erkl-label">📌 Gesetz 2 ${erklaerBtn('Erkläre mir das zweite Potenzgesetz: Warum darf ich bei aⁿ ÷ aᵐ die Exponenten subtrahieren?')}</div>
-<div class="erkl-text">
-  <div class="big">aⁿ ÷ aᵐ = aⁿ⁻ᵐ</div>
-  <p><strong>Gleiche Basis</strong> und du dividierst? → Exponenten <span class="hl">subtrahieren</span>!</p>
-</div>
-</div>
-
-<div class="warum-toggle" id="wt_2" onclick="toggleWarum(2)">
-  <span>🔍 Warum? — Kürzen wie in der Bruchrechnung</span>
-  <span class="arrow">▼</span>
-</div>
-<div class="warum-content" id="wc_2">
-  <strong>2⁵ ÷ 2³</strong> ausgeschrieben als Bruch:<br>
-  = (2 × 2 × 2 × 2 × 2) ÷ (2 × 2 × 2)<br>
-  = <span style="text-decoration:line-through;color:var(--r)">2×2×2</span> × 2×2 ÷ <span style="text-decoration:line-through;color:var(--r)">2×2×2</span><br>
-  = 2 × 2 = 2² = 4 ✓<br><br>
-  <strong>Fazit:</strong> Die 3 unteren Zweien kürzen sich mit 3 oberen weg. Übrig bleiben 5−3=2 Zweien.
-</div>
-
-<div style="background:var(--s2);border-radius:12px;padding:14px;margin:12px 0;border:1px solid var(--border)">
-  <div style="font-size:11px;font-weight:800;color:var(--muted);letter-spacing:.1em;margin-bottom:10px">VISUELL: 2⁵ ÷ 2³ — Kürzen!</div>
-  <div style="display:flex;flex-direction:column;gap:8px">
-    <div style="display:flex;align-items:center;gap:6px">
-      <span style="font-size:11px;color:var(--muted);font-weight:700;width:45px">Zähler:</span>
-      <div style="display:flex;gap:4px">
-        ${[1,2,3].map(()=>`<span style="width:26px;height:26px;background:rgba(255,87,87,.15);border:1.5px dashed var(--r);border-radius:6px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;font-family:'JetBrains Mono',monospace;color:var(--r)">2</span>`).join('')}
-        ${[1,2].map(()=>`<span style="width:26px;height:26px;background:rgba(0,229,160,.2);border:1.5px solid var(--g);border-radius:6px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;font-family:'JetBrains Mono',monospace;color:var(--g)">2</span>`).join('')}
-      </div>
-    </div>
-    <div style="display:flex;align-items:center;gap:6px">
-      <span style="font-size:11px;color:var(--muted);font-weight:700;width:45px">Nenner:</span>
-      <div style="display:flex;gap:4px">
-        ${[1,2,3].map(()=>`<span style="width:26px;height:26px;background:rgba(255,87,87,.15);border:1.5px dashed var(--r);border-radius:6px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;font-family:'JetBrains Mono',monospace;color:var(--r)">2</span>`).join('')}
-      </div>
-    </div>
-    <div style="font-size:12px;font-weight:700;color:var(--text2)">Die 3 roten kürzen sich weg → übrig bleiben <span style="color:var(--g)">2 grüne = 2²</span></div>
-  </div>
-</div>
-
-<div class="steps">
-  <div class="step"><span class="sb">Bsp 1</span><div style="flex:1"><div class="st">2⁶ ÷ 2² = 2⁴</div><div class="step-erkl">6 − 2 = 4</div></div><span class="sv">= 16</span></div>
-  <div class="step"><span class="sb">Bsp 2</span><div style="flex:1"><div class="st">5⁷ ÷ 5³ = 5⁴</div><div class="step-erkl">7 − 3 = 4</div></div><span class="sv">= 625</span></div>
-  <div class="step"><span class="sb">Bsp 3</span><div style="flex:1"><div class="st">x⁹ ÷ x⁴ = x⁵</div><div class="step-erkl">9 − 4 = 5</div></div><span class="sv">x⁵</span></div>
-</div>
-${sBtn('Erkläre mir das zweite Potenzgesetz nochmal. Ich verstehe nicht, warum wir bei der Division die Exponenten subtrahieren.','Nochmal erklären 🤖')}
-</div>
-
-<div class="card">
-<div class="ct">🤯 Warum ist a⁰ = 1? (Beweis!)</div>
-<div class="lese-block">Jetzt kannst du endlich <em>verstehen</em>, warum a hoch 0 immer 1 ergibt — das ist kein Zufall, sondern Mathematik!</div>
-<div class="steps">
-  <div class="step"><span class="sb">Schritt 1</span><div style="flex:1"><div class="st">a³ ÷ a³ nach Gesetz 2</div><div class="step-erkl">3 − 3 = 0 → also a³ ÷ a³ = a⁰</div></div></div>
-  <div class="step"><span class="sb">Schritt 2</span><div style="flex:1"><div class="st">a³ ÷ a³ = ?</div><div class="step-erkl">Jede Zahl geteilt durch sich selbst = 1, z.B. 8 ÷ 8 = 1</div></div><span class="sv">= 1</span></div>
-  <div class="step" style="border-left-color:var(--y)"><span class="sb" style="background:var(--y);color:#000">Fazit</span><div style="flex:1"><div class="st">a⁰ = 1 muss sein!</div><div class="step-erkl">Kein Zufall — es folgt direkt aus dem Divisionsgesetz!</div></div></div>
-</div>
-${sBtn('Erkläre mir nochmal schritt für schritt, warum a hoch 0 gleich 1 ist.','Warum a⁰=1? 🤖')}
-</div>
-
-<div class="card">
-<div class="ct">📉 Negativer Exponent ${erklaerBtn('Was bedeutet ein negativer Exponent wie 2⁻³? Erkläre es mir einfach.')}</div>
-<div class="erkl">
-<div class="erkl-label">Bonus-Wissen</div>
-<div class="erkl-text">
-  <p>Was passiert, wenn der obere Exponent kleiner ist als der untere?<br>
-  Beispiel: 2¹ ÷ 2⁴ = 2¹⁻⁴ = <strong>2⁻³</strong></p>
-  <p>Ein negativer Exponent bedeutet: Kehrwert bilden!</p>
-  <div class="big">a⁻ⁿ = 1 ÷ aⁿ</div>
-  <p>2⁻³ = 1 ÷ 2³ = 1 ÷ 8 = 0,125</p>
-</div>
-</div>
-</div>
-
-<div class="card" style="border-color:rgba(124,92,252,.2)">
-<div class="quiz-header"><div class="ct">⚡ Quiz</div>${sBtn('Ich mache das Quiz zum zweiten Potenzgesetz (Dividieren = Exponenten subtrahieren). Was muss ich beachten?','Worauf achten? 🤖')}</div>
-<div id="qa_pot_2"></div>
-<button class="cbtn" id="cb_pot_2" onclick="completePot(2)" disabled>P-Kapitel 3 abschließen 🔓</button>
-</div>`,
-
-3:`${BACK_BTN}
-<div class="hero c-pink"><div class="hero-tag">P-Kapitel 4</div><h2>🏗️ Potenz hoch Potenz</h2><p>Das 3. Gesetz: Wenn eine Potenz nochmal eine Potenz wird.</p><div class="hero-icon">🔝</div></div>
-
-<div class="card">
-<div class="ct">💡 Das 3. Potenzgesetz</div>
-<div class="lese-block">
-Manchmal steht eine Potenz selbst in einer Klammer, und diese Klammer hat nochmal einen Exponenten.
-Das sieht kompliziert aus, ist aber eigentlich das Einfachste von allen drei Gesetzen!
-</div>
-
-<div class="erkl">
-<div class="erkl-label">📌 Gesetz 3 ${erklaerBtn('Erkläre mir das dritte Potenzgesetz: Was bedeutet (aⁿ)ᵐ und warum multipliziert man die Exponenten?')}</div>
-<div class="erkl-text">
-  <div class="big">(aⁿ)ᵐ = aⁿˣᵐ</div>
-  <p>Eine Potenz in Klammern hoch nochmal eine Zahl? → Exponenten <span class="hl">multiplizieren</span>!</p>
-</div>
-</div>
-
-<div class="warum-toggle" id="wt_3" onclick="toggleWarum(3)">
-  <span>🔍 Warum? — Ausschreiben zeigt es sofort</span>
-  <span class="arrow">▼</span>
-</div>
-<div class="warum-content" id="wc_3">
-  <strong>(2³)²</strong> ausgeschrieben:<br>
-  = 2³ × 2³<br>
-  = 2 × 2 × 2 × 2 × 2 × 2<br>
-  = 2⁶ ✓<br><br>
-  <strong>Oder mit Gesetz 1:</strong> 2³ × 2³ = 2³⁺³ = 2⁶ ✓<br><br>
-  <strong>Fazit:</strong> Der äußere Exponent (2) sagt: "Nimm die Potenz 2³ genau 2 Mal!" → 3 mal 2 = 6
-</div>
-
-<div class="section-divider">Alle 3 Gesetze im Vergleich</div>
-<div style="display:flex;flex-direction:column;gap:8px;margin-bottom:14px">
-  <div style="background:var(--s2);border-radius:11px;padding:12px 16px;border-left:3px solid var(--p);display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap">
-    <div style="display:flex;align-items:center;gap:10px">
-      <span style="font-size:18px">✖️</span>
-      <div><div style="font-family:'JetBrains Mono',monospace;font-size:15px;font-weight:800;color:var(--p)">aⁿ × aᵐ = aⁿ⁺ᵐ</div><div style="font-size:11px;color:var(--muted);font-weight:600;margin-top:2px">gleiche Basis multiplizieren → Exponent addieren</div></div>
-    </div>
-    <span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;color:var(--g);background:rgba(0,229,160,.1);border-radius:6px;padding:4px 8px">× → +</span>
-  </div>
-  <div style="background:var(--s2);border-radius:11px;padding:12px 16px;border-left:3px solid var(--p2);display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap">
-    <div style="display:flex;align-items:center;gap:10px">
-      <span style="font-size:18px">➗</span>
-      <div><div style="font-family:'JetBrains Mono',monospace;font-size:15px;font-weight:800;color:var(--p2)">aⁿ ÷ aᵐ = aⁿ⁻ᵐ</div><div style="font-size:11px;color:var(--muted);font-weight:600;margin-top:2px">gleiche Basis teilen → Exponent subtrahieren</div></div>
-    </div>
-    <span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;color:var(--g);background:rgba(0,229,160,.1);border-radius:6px;padding:4px 8px">÷ → −</span>
-  </div>
-  <div style="background:var(--s2);border-radius:11px;padding:12px 16px;border-left:3px solid var(--g);display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap">
-    <div style="display:flex;align-items:center;gap:10px">
-      <span style="font-size:18px">🏗️</span>
-      <div><div style="font-family:'JetBrains Mono',monospace;font-size:15px;font-weight:800;color:var(--g)">(aⁿ)ᵐ = aⁿˣᵐ</div><div style="font-size:11px;color:var(--muted);font-weight:600;margin-top:2px">Klammern → Exponenten multiplizieren</div></div>
-    </div>
-    <span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;color:var(--g);background:rgba(0,229,160,.1);border-radius:6px;padding:4px 8px">()ᵐ → ×</span>
-  </div>
-</div>
-
-<div class="steps">
-  <div class="step"><span class="sb">Bsp 1</span><div style="flex:1"><div class="st">(3²)³ = 3⁶</div><div class="step-erkl">2 × 3 = 6</div></div><span class="sv">= 729</span></div>
-  <div class="step"><span class="sb">Bsp 2</span><div style="flex:1"><div class="st">(x⁴)² = x⁸</div><div class="step-erkl">4 × 2 = 8 — auch bei Variablen!</div></div><span class="sv">x⁸</span></div>
-  <div class="step"><span class="sb">Bsp 3</span><div style="flex:1"><div class="st">(5²)³ ÷ 5⁴ = 5⁶ ÷ 5⁴ = 5²</div><div class="step-erkl">Erst Gesetz 3: 2×3=6, dann Gesetz 2: 6−4=2</div></div><span class="sv">= 25</span></div>
-</div>
-${sBtn('Kannst du mir alle drei Potenzgesetze nochmal zusammenfassen und je 2 Beispiele dazu zeigen?','Alle Gesetze zusammenfassen 🤖')}
-</div>
-
-<div class="card" style="border-color:rgba(124,92,252,.2)">
-<div class="quiz-header"><div class="ct">⚡ Quiz</div>${sBtn('Ich mache das Quiz zu allen drei Potenzgesetzen. Welches Gesetz wird am häufigsten verwechselt und was muss ich besonders beachten?','Was wird verwechselt? 🤖')}</div>
-<div id="qa_pot_3"></div>
-<button class="cbtn" id="cb_pot_3" onclick="completePot(3)" disabled>P-Kapitel 4 abschließen 🔓</button>
-</div>`,
-
-4:`${BACK_BTN}
-<div class="hero c-yellow"><div class="hero-tag">P-Kapitel 5</div><h2>🎯 Potenzen Übungen</h2><p>Alle 3 Gesetze gemischt — teste dein Wissen!</p><div class="hero-icon">🏆</div></div>
-
-<div class="card">
-<div class="ct">📝 Typ A: Ausrechnen</div>
-<div class="lese-block">Berechne das endgültige Ergebnis. Bei diesen Aufgaben musst du auch die Regel anwenden und dann ausrechnen.</div>
-<div class="steps">
-  <div class="step"><span class="sb">A1</span><div style="flex:1"><div class="st">3² × 3³ = ?</div><div class="step-erkl">Gesetz 1: 2+3=5 → 3⁵</div></div><span class="sv">= 243</span></div>
-  <div class="step"><span class="sb">A2</span><div style="flex:1"><div class="st">2⁸ ÷ 2³ = ?</div><div class="step-erkl">Gesetz 2: 8−3=5 → 2⁵</div></div><span class="sv">= 32</span></div>
-  <div class="step"><span class="sb">A3</span><div style="flex:1"><div class="st">(4²)³ = ?</div><div class="step-erkl">Gesetz 3: 2×3=6 → 4⁶</div></div><span class="sv">= 4096</span></div>
-  <div class="step"><span class="sb">A4</span><div style="flex:1"><div class="st">(-2)⁴ = ?</div><div class="step-erkl">Gerade Zahl → POSITIV! (-2)×(-2)×(-2)×(-2)</div></div><span class="sv">= 16</span></div>
-  <div class="step"><span class="sb">A5</span><div style="flex:1"><div class="st">(-3)³ = ?</div><div class="step-erkl">Ungerade Zahl → NEGATIV!</div></div><span class="sv">= -27</span></div>
-  <div class="step"><span class="sb">A6</span><div style="flex:1"><div class="st">7⁰ × 7² = ?</div><div class="step-erkl">7⁰ = 1, dann 1 × 7² = 49</div></div><span class="sv">= 49</span></div>
-</div>
-${sBtn('Ich habe bei Aufgabe A4 und A5 Probleme mit negativen Basen. Erkläre mir nochmal, wann das Ergebnis positiv und wann negativ ist.','Negative Basen erklären 🤖')}
-</div>
-
-<div class="card">
-<div class="ct">📝 Typ B: Vereinfachen</div>
-<div class="lese-block">Hier müssen Variablen vereinfacht werden. Das Ergebnis ist kein Zahlenwert, sondern eine vereinfachte Potenz.</div>
-<div class="steps">
-  <div class="step"><span class="sb">B1</span><div style="flex:1"><div class="st">x⁵ × x³ = ?</div><div class="step-erkl">5 + 3 = 8</div></div><span class="sv">= x⁸</span></div>
-  <div class="step"><span class="sb">B2</span><div style="flex:1"><div class="st">a⁷ ÷ a² = ?</div><div class="step-erkl">7 − 2 = 5</div></div><span class="sv">= a⁵</span></div>
-  <div class="step"><span class="sb">B3</span><div style="flex:1"><div class="st">(y³)⁴ = ?</div><div class="step-erkl">3 × 4 = 12</div></div><span class="sv">= y¹²</span></div>
-  <div class="step"><span class="sb">B4</span><div style="flex:1"><div class="st">z⁴ × z⁰ = ?</div><div class="step-erkl">z⁰ = 1, z⁴ × 1 = z⁴ (oder: 4+0=4)</div></div><span class="sv">= z⁴</span></div>
-</div>
-</div>
-
-<div class="card">
-<div class="ct">📝 Typ C: Knifflig! ${erklaerBtn('Wie gehe ich bei kniffligen Aufgaben vor, wo ich zuerst die Basis umschreiben muss?')}</div>
-<div class="lese-block">Hier musst du erst eine Basis in eine Potenz umschreiben. Zum Beispiel: 4 = 2², 8 = 2³, 9 = 3².</div>
-<div class="steps">
-  <div class="step"><span class="sb">C1</span><div style="flex:1"><div class="st">2³ × 4² = ? (Tipp: 4 = 2²)</div><div class="step-erkl">4² = (2²)² = 2⁴ → dann 2³ × 2⁴ = 2⁷</div></div><span class="sv">= 128</span></div>
-  <div class="step"><span class="sb">C2</span><div style="flex:1"><div class="st">9³ ÷ 3² = ? (Tipp: 9 = 3²)</div><div class="step-erkl">9³ = (3²)³ = 3⁶ → dann 3⁶ ÷ 3² = 3⁴</div></div><span class="sv">= 81</span></div>
-  <div class="step"><span class="sb">C3</span><div style="flex:1"><div class="st">(2³ × 2²)² = ?</div><div class="step-erkl">Erst Klammer: 2³×2²=2⁵, dann (2⁵)²=2¹⁰</div></div><span class="sv">= 1024</span></div>
-</div>
-${sBtn('Die kniffligen Aufgaben mit Typ C machen mir Probleme. Erkläre mir Schritt für Schritt, wie man 2³ × 4² löst.','C-Aufgaben erklären 🤖')}
-</div>
-
-<div class="card" style="border-color:rgba(124,92,252,.2)">
-<div class="quiz-header"><div class="ct">⚡ Abschluss-Quiz</div>${sBtn('Ich mache das Abschluss-Quiz zu Potenzen. Welche typischen Fehler mache ich vielleicht und wie vermeide ich sie?','Häufige Fehler vermeiden 🤖')}</div>
-<div id="qa_pot_4"></div>
-<button class="cbtn" id="cb_pot_4" onclick="completePot(4)" disabled>🏆 Potenzen gemeistert!</button>
-</div>`,
-};
-
-// ══════════════════════════════════════════════
-// WAHRSCHEINLICHKEIT CONTENT (VERBESSERT)
-// ══════════════════════════════════════════════
-const LESSON_CONTENT={
-0:`${BACK_BTN}
-<div class="hero c-blue"><div class="hero-tag">Kapitel 1</div><h2>🌳 Baumdiagramm</h2><p>So zeigst du alle Möglichkeiten eines Zufallsexperiments übersichtlich auf einem Blick.</p><div class="hero-icon">🌳</div></div>
-
-<div class="card">
-<div class="ct">💡 Was ist ein Baumdiagramm?</div>
-<div class="lese-block">
-Ein Baumdiagramm ist wie eine Landkarte aller möglichen Ergebnisse.
-Von <strong>links nach rechts</strong> stellst du jeden Schritt des Experiments dar.
-Jeder Ast zeigt eine mögliche Möglichkeit. Am Ende siehst du alle möglichen Ausgänge!
-</div>
-
-<div class="erkl">
-<div class="erkl-label">📌 Die 3 Grundregeln ${erklaerBtn('Erkläre mir die 3 Grundregeln des Baumdiagramms: Pfadregel, Summenregel und die Probe.')}</div>
-<div class="erkl-text">
-  <p><strong>Regel 1 — Pfadregel (×):</strong><br>
-  Du folgst einem einzigen Weg von links nach rechts und multiplizierst alle Zahlen auf diesem Weg.</p>
-  <p><strong>Regel 2 — Summenregel (+):</strong><br>
-  Wenn du mehrere verschiedene Wege zum selben Ergebnis hast, addierst du die Wahrscheinlichkeiten dieser Wege.</p>
-  <p><strong>Regel 3 — Probe:</strong><br>
-  Alle Wahrscheinlichkeiten zusammen müssen immer 1 (= 100%) ergeben. Das ist deine Kontrolle!</p>
-</div>
-</div>
-
-<div class="tree-wrap">
-<svg class="tree" width="520" height="230" viewBox="0 0 520 230">
-  <text x="55" y="18" class="stage-lbl">START</text>
-  <text x="170" y="18" class="stage-lbl">1. WURF</text>
-  <text x="310" y="18" class="stage-lbl">2. WURF</text>
-  <text x="440" y="18" class="stage-lbl">ERGEBNIS</text>
-  <line x1="65" y1="115" x2="160" y2="70" class="branch"/>
-  <line x1="65" y1="115" x2="160" y2="160" class="branch"/>
-  <circle cx="65" cy="115" r="22" class="node-circle"/>
-  <text x="65" y="115" class="lbl" style="font-size:10px">Start</text>
-  <circle cx="175" cy="70" r="20" class="node-circle"/>
-  <text x="175" y="70" class="lbl">K</text>
-  <circle cx="175" cy="160" r="20" class="node-circle"/>
-  <text x="175" y="160" class="lbl">Z</text>
-  <text x="110" y="82" class="prob" text-anchor="middle">½</text>
-  <text x="110" y="152" class="prob" text-anchor="middle">½</text>
-  <line x1="195" y1="70" x2="300" y2="42" class="branch-hi"/>
-  <line x1="195" y1="70" x2="300" y2="98" class="branch"/>
-  <line x1="195" y1="160" x2="300" y2="132" class="branch"/>
-  <line x1="195" y1="160" x2="300" y2="188" class="branch"/>
-  <rect x="290" y="28" width="36" height="28" rx="8" class="node-rect-hi"/>
-  <text x="308" y="42" class="lbl lbl-hi">K</text>
-  <rect x="290" y="84" width="36" height="28" rx="8" class="node-rect"/>
-  <text x="308" y="98" class="lbl">Z</text>
-  <rect x="290" y="118" width="36" height="28" rx="8" class="node-rect"/>
-  <text x="308" y="132" class="lbl">K</text>
-  <rect x="290" y="174" width="36" height="28" rx="8" class="node-rect"/>
-  <text x="308" y="188" class="lbl">Z</text>
-  <text x="245" y="48" class="prob">½</text>
-  <text x="245" y="91" class="prob">½</text>
-  <text x="245" y="136" class="prob">½</text>
-  <text x="245" y="180" class="prob">½</text>
-  <text x="338" y="37" class="res-lbl res-lbl-hi">KK  ½×½ = ¼ = 25% ✓</text>
-  <text x="338" y="98" class="res-lbl">KZ  ½×½ = ¼ = 25%</text>
-  <text x="338" y="132" class="res-lbl">ZK  ½×½ = ¼ = 25%</text>
-  <text x="338" y="188" class="res-lbl">ZZ  ½×½ = ¼ = 25%</text>
-  <line x1="20" y1="215" x2="500" y2="215" stroke="rgba(0,229,160,0.2)" stroke-width="1"/>
-  <text x="260" y="228" class="stage-lbl" text-anchor="middle" style="fill:#00e5a0;font-size:11px">Probe: ¼ + ¼ + ¼ + ¼ = 1 ✓</text>
-</svg>
-</div>
-<div class="info tip"><div class="ii">✅</div><div><strong>Pfadregel:</strong> Für KK → ½ × ½ = ¼. Der grüne Pfad zeigt den Weg für "zweimal Kopf".</div></div>
-${sBtn('Ich verstehe Baumdiagramme noch nicht. Erkläre mir von Anfang an: Wie zeichne ich ein Baumdiagramm für einen Münzwurf?','Baumdiagramm erklären 🤖')}
-</div>
-
-<div class="card" style="border-color:rgba(124,92,252,.2)">
-<div class="quiz-header"><div class="ct">⚡ Quiz</div>${sBtn('Ich mache das Quiz zu Baumdiagrammen. Was sind die wichtigsten Dinge, die ich wissen muss?','Quiz-Vorbereitung 🤖')}</div>
-<div id="qa0"></div>
-<button class="cbtn" id="cb0" onclick="complete(0)" disabled>Kapitel 1 abschließen 🔓</button>
-</div>`,
-
-1:`${BACK_BTN}
-<div class="hero c-purple"><div class="hero-tag">Kapitel 2</div><h2>✖️ Pfadregel</h2><p>Einem Weg im Baumdiagramm folgen = alle Zahlen auf dem Weg multiplizieren.</p><div class="hero-icon">✖️</div></div>
-
-<div class="card">
-<div class="ct">💡 Die Pfadregel</div>
-<div class="lese-block">
-Die Pfadregel ist die <strong>wichtigste Regel</strong> beim Baumdiagramm.
-Sie sagt: Wenn du einem bestimmten Ast (Pfad) von links nach rechts folgst,
-musst du alle Wahrscheinlichkeiten auf diesem Weg <strong>multiplizieren (×)</strong>.
-</div>
-
-<div class="erkl">
-<div class="erkl-label">📌 Pfadregel ${erklaerBtn('Erkläre mir die Pfadregel beim Baumdiagramm und warum man multiplizieren muss.')}</div>
-<div class="erkl-text">
-  <div class="big">P(Pfad) = P₁ × P₂ × P₃ × …</div>
-  <p>Folge einem Ast von links nach rechts. <strong>Multipliziere alle Zahlen</strong> auf diesem Weg miteinander.</p>
-</div>
-</div>
-
-<div class="card" style="background:var(--s2);border:none;padding:0;margin:0">
-<div style="padding:14px">
-<div class="info blue"><div class="ii">📋</div><div>Klassen-Aufgabe: 4 Karten — K, E, O, A. Jeder Schüler zieht 2 Karten nacheinander (ohne zurücklegen). Wer "OK" zieht, bekommt einen Kaugummi!</div></div>
-</div>
-</div>
-
-<div class="tree-wrap">
-<svg class="tree" width="520" height="260" viewBox="0 0 520 260">
-  <text x="55" y="18" class="stage-lbl">START</text>
-  <text x="160" y="18" class="stage-lbl">1. ZUG (4 Karten)</text>
-  <text x="300" y="18" class="stage-lbl">2. ZUG (3 Karten)</text>
-  <text x="440" y="18" class="stage-lbl">P = ?</text>
-  <circle cx="55" cy="135" r="20" class="node-circle"/>
-  <text x="55" y="135" class="lbl" style="font-size:9px">Start</text>
-  <line x1="75" y1="135" x2="158" y2="60" class="branch-hi"/>
-  <line x1="75" y1="135" x2="158" y2="110" class="branch"/>
-  <line x1="75" y1="135" x2="158" y2="160" class="branch"/>
-  <line x1="75" y1="135" x2="158" y2="210" class="branch"/>
-  <circle cx="172" cy="60" r="18" class="node-circle-hi"/>
-  <text x="172" y="60" class="lbl lbl-hi">O</text>
-  <circle cx="172" cy="110" r="18" class="node-circle"/>
-  <text x="172" y="110" class="lbl">K</text>
-  <circle cx="172" cy="160" r="18" class="node-circle"/>
-  <text x="172" y="160" class="lbl">E</text>
-  <circle cx="172" cy="210" r="18" class="node-circle"/>
-  <text x="172" y="210" class="lbl">A</text>
-  <text x="108" y="82" class="prob">¼</text>
-  <text x="108" y="118" class="prob">¼</text>
-  <text x="108" y="162" class="prob">¼</text>
-  <text x="108" y="202" class="prob">¼</text>
-  <line x1="190" y1="60" x2="290" y2="35" class="branch-hi"/>
-  <line x1="190" y1="60" x2="290" y2="65" class="branch"/>
-  <line x1="190" y1="60" x2="290" y2="90" class="branch"/>
-  <rect x="280" y="22" width="28" height="24" rx="6" class="node-rect-hi"/>
-  <text x="294" y="34" class="lbl lbl-hi">K</text>
-  <rect x="280" y="52" width="28" height="24" rx="6" class="node-rect"/>
-  <text x="294" y="64" class="lbl">E</text>
-  <rect x="280" y="78" width="28" height="24" rx="6" class="node-rect"/>
-  <text x="294" y="90" class="lbl">A</text>
-  <text x="238" y="36" class="prob">⅓</text>
-  <text x="238" y="60" class="prob">⅓</text>
-  <text x="238" y="88" class="prob">⅓</text>
-  <line x1="190" y1="110" x2="290" y2="125" class="branch"/>
-  <line x1="190" y1="110" x2="290" y2="148" class="branch"/>
-  <line x1="190" y1="110" x2="290" y2="170" class="branch"/>
-  <rect x="280" y="112" width="28" height="24" rx="6" class="node-rect"/>
-  <text x="294" y="124" class="lbl">O</text>
-  <rect x="280" y="136" width="28" height="24" rx="6" class="node-rect"/>
-  <text x="294" y="148" class="lbl">E</text>
-  <rect x="280" y="157" width="28" height="24" rx="6" class="node-rect"/>
-  <text x="294" y="169" class="lbl">A</text>
-  <text x="320" y="29" class="res-lbl res-lbl-hi">OK → ¼×⅓ = 1/12 🍬</text>
-  <text x="320" y="60" class="res-lbl">OE → 1/12</text>
-  <text x="320" y="86" class="res-lbl">OA → 1/12</text>
-  <text x="320" y="124" class="res-lbl">KO → 1/12</text>
-  <text x="320" y="148" class="res-lbl">KE → 1/12</text>
-  <text x="320" y="169" class="res-lbl">KA → 1/12</text>
-  <text x="260" y="245" class="stage-lbl" text-anchor="middle" style="fill:#00e5a0;font-size:11px">Probe: 12 Paare × 1/12 = 1 ✓   |   30 Schüler × 1/12 ≈ 3 Kaugummis 🍬</text>
-</svg>
-</div>
-
-<div class="steps">
-  <div class="step"><span class="sb">1. Zug</span><div style="flex:1"><div class="st">4 Karten, wir wollen O ziehen</div><div class="step-erkl">P(O) = 1 günstige Karte ÷ 4 Karten gesamt = 1/4</div></div><span class="sv">1/4</span></div>
-  <div class="step"><span class="sb">2. Zug</span><div style="flex:1"><div class="st">O liegt jetzt weg, noch 3 Karten übrig</div><div class="step-erkl">Wir wollen jetzt K → P(K) = 1/3 (O ist weg, also 3 Karten)</div></div><span class="sv">1/3</span></div>
-  <div class="step" style="border-left-color:var(--g)"><span class="sb" style="background:var(--g);color:#000">×</span><div style="flex:1"><div class="st">Pfadregel anwenden: alles multiplizieren</div><div class="step-erkl">P("OK") = 1/4 × 1/3 = 1/12</div></div><span class="sv" style="color:var(--g)">1/12</span></div>
-</div>
-<div class="res">P("OK") = 1/12 ≈ 8,3%   →   30 Schüler × 1/12 ≈ 3 Kaugummis 🍬</div>
-${sBtn('Ich verstehe nicht, warum man bei der Pfadregel multipliziert. Erkläre mir das mit einem einfachen Beispiel.','Warum multiplizieren? 🤖')}
-</div>
-
-<div class="card" style="border-color:rgba(124,92,252,.2)">
-<div class="quiz-header"><div class="ct">⚡ Quiz</div>${sBtn('Ich mache das Quiz zur Pfadregel. Erkläre mir nochmal kurz, wie die Pfadregel funktioniert.','Pfadregel nochmal 🤖')}</div>
-<div id="qa1"></div>
-<button class="cbtn" id="cb1" onclick="complete(1)" disabled>Kapitel 2 abschließen 🔓</button>
-</div>`,
-
-2:`${BACK_BTN}
-<div class="hero c-teal"><div class="hero-tag">Kapitel 3</div><h2>➕ Summenregel</h2><p>Mehrere verschiedene Wege zum selben Ziel? Dann addiere alle Wege!</p><div class="hero-icon">➕</div></div>
-
-<div class="card">
-<div class="ct">💡 Die Summenregel</div>
-<div class="lese-block">
-Manchmal gibt es <strong>mehrere Wege</strong>, wie ein Ereignis eintreten kann.
-Stell dir vor, du willst "gleichfarbig" berechnen — das kann WW oder SS sein.
-Du berechnest jeden günstigen Weg einzeln mit der Pfadregel (×) und addierst dann alle diese Wege zusammen.
-</div>
-
-<div class="erkl">
-<div class="erkl-label">📌 Summenregel ${erklaerBtn('Erkläre mir die Summenregel: Wann addiere ich Wahrscheinlichkeiten und wann multipliziere ich?')}</div>
-<div class="erkl-text">
-  <div class="big">P(Ereignis) = Pfad₁ + Pfad₂ + …</div>
-  <p>1. Erst jeden günstigen Weg mit der <strong>Pfadregel (×)</strong> berechnen.<br>
-  2. Dann alle günstigen Wege <span class="hl">addieren (+)</span>.</p>
-</div>
-</div>
-
-<div class="tree-wrap">
-<svg class="tree" width="500" height="230" viewBox="0 0 500 230">
-  <text x="55" y="18" class="stage-lbl">START</text>
-  <text x="170" y="18" class="stage-lbl">1. ZIEHT (10 Kugeln)</text>
-  <text x="310" y="18" class="stage-lbl">2. ZIEHT (9 Kugeln)</text>
-  <text x="435" y="18" class="stage-lbl">P</text>
-  <circle cx="55" cy="115" r="20" class="node-circle"/>
-  <text x="55" y="115" class="lbl" style="font-size:9px">Start</text>
-  <line x1="75" y1="115" x2="165" y2="70" class="branch-hi"/>
-  <line x1="75" y1="115" x2="165" y2="160" class="branch-hi"/>
-  <circle cx="180" cy="70" r="20" class="node-circle-hi"/>
-  <text x="180" y="70" class="lbl lbl-hi" style="font-size:11px">W</text>
-  <circle cx="180" cy="160" r="20" class="node-circle-hi"/>
-  <text x="180" y="160" class="lbl lbl-hi" style="font-size:11px">S</text>
-  <text x="115" y="82" class="prob">5/10</text>
-  <text x="115" y="155" class="prob">5/10</text>
-  <line x1="200" y1="70" x2="298" y2="42" class="branch-hi"/>
-  <line x1="200" y1="70" x2="298" y2="98" class="branch"/>
-  <rect x="288" y="28" width="34" height="26" rx="7" class="node-rect-hi"/>
-  <text x="305" y="41" class="lbl lbl-hi" style="font-size:11px">W</text>
-  <rect x="288" y="85" width="34" height="26" rx="7" class="node-rect"/>
-  <text x="305" y="98" class="lbl" style="font-size:11px">S</text>
-  <text x="247" y="46" class="prob">4/9</text>
-  <text x="247" y="86" class="prob">5/9</text>
-  <line x1="200" y1="160" x2="298" y2="132" class="branch"/>
-  <line x1="200" y1="160" x2="298" y2="180" class="branch-hi"/>
-  <rect x="288" y="118" width="34" height="26" rx="7" class="node-rect"/>
-  <text x="305" y="131" class="lbl" style="font-size:11px">W</text>
-  <rect x="288" y="167" width="34" height="26" rx="7" class="node-rect-hi"/>
-  <text x="305" y="181" class="lbl lbl-hi" style="font-size:11px">S</text>
-  <text x="247" y="128" class="prob">5/9</text>
-  <text x="247" y="176" class="prob">4/9</text>
-  <text x="334" y="37" class="res-lbl res-lbl-hi">WW → 5/10×4/9 = 2/9 ✓</text>
-  <text x="334" y="98" class="res-lbl">WS → 5/10×5/9</text>
-  <text x="334" y="132" class="res-lbl">SW → 5/10×5/9</text>
-  <text x="334" y="181" class="res-lbl res-lbl-hi">SS → 5/10×4/9 = 2/9 ✓</text>
-  <text x="250" y="218" class="stage-lbl" text-anchor="middle" style="fill:#00e5a0;font-size:11px">Gleichfarbig: WW + SS = 2/9 + 2/9 = 4/9 ≈ 44%</text>
-</svg>
-</div>
-
-<div class="steps">
-  <div class="step"><span class="sb">Pfad WW</span><div style="flex:1"><div class="st">5/10 × 4/9 = 20/90 = 2/9</div><div class="step-erkl">Erste weiße Kugel (5 von 10), dann nochmal weiß (4 von 9 übrigen)</div></div></div>
-  <div class="step"><span class="sb">Pfad SS</span><div style="flex:1"><div class="st">5/10 × 4/9 = 20/90 = 2/9</div><div class="step-erkl">Gleich wie WW, nur mit schwarzen Kugeln</div></div></div>
-  <div class="step" style="border-left-color:var(--g)"><span class="sb" style="background:var(--g);color:#000">+</span><div style="flex:1"><div class="st">Summenregel: beide günstigen Wege addieren</div><div class="step-erkl">P(gleichfarbig) = 2/9 + 2/9 = 4/9 ≈ 44,4%</div></div></div>
-</div>
-${sBtn('Ich verwechsle immer wann ich bei Wahrscheinlichkeit addieren und wann multiplizieren muss. Erkläre mir den Unterschied zwischen Pfadregel und Summenregel.','Addieren vs. Multiplizieren 🤖')}
-</div>
-
-<div class="card" style="border-color:rgba(124,92,252,.2)">
-<div class="quiz-header"><div class="ct">⚡ Quiz</div>${sBtn('Ich mache das Quiz zur Summenregel. Was ist der Unterschied zur Pfadregel?','Unterschied nochmal 🤖')}</div>
-<div id="qa2"></div>
-<button class="cbtn" id="cb2" onclick="complete(2)" disabled>Kapitel 3 abschließen 🔓</button>
-</div>`,
-
-3:`${BACK_BTN}
-<div class="hero c-green"><div class="hero-tag">Kapitel 4</div><h2>🔵 Kugeln ziehen</h2><p>MIT vs. OHNE Zurücklegen — der Unterschied beim Nenner!</p><div class="hero-icon">🔵</div></div>
-
-<div class="card">
-<div class="ct">💡 Der wichtige Unterschied</div>
-<div class="lese-block">
-Bei Kugeln-Aufgaben gibt es immer einen entscheidenden Unterschied:<br>
-<strong>Darf die gezogene Kugel zurückgelegt werden?</strong><br>
-Das klingt klein, verändert aber die Rechnung komplett!
-</div>
-
-<div class="split">
-  <div class="konzept-card blue" style="border-radius:12px;padding:14px">
-    <div class="k-label" style="color:var(--b)">MIT Zurücklegen ${erklaerBtn('Was bedeutet mit Zurücklegen beim Kugeln ziehen? Erkläre mir, warum der Nenner gleich bleibt.')}</div>
-    <div style="font-size:13px;font-weight:600;color:var(--text2);line-height:2;margin:8px 0">
-      Die Kugel kommt nach dem Ziehen wieder zurück in den Beutel.<br>
-      → Der <strong style="color:var(--b)">Nenner bleibt gleich</strong> bei jedem Zug!
-    </div>
-    <div style="font-family:'JetBrains Mono',monospace;font-size:13px;background:rgba(0,0,0,.3);border-radius:8px;padding:8px 10px;line-height:2">
-      1. Zug: <span style="color:var(--b)">4/12</span><br>
-      2. Zug: <span style="color:var(--b)">4/12</span> (gleich!)<br>
-      P(OO) = 4/12 × 4/12<br>
-      <span style="color:var(--g)">= 16/144 ≈ 11,1%</span>
-    </div>
-  </div>
-  <div class="konzept-card green" style="border-radius:12px;padding:14px">
-    <div class="k-label" style="color:var(--g)">OHNE Zurücklegen ${erklaerBtn('Was bedeutet ohne Zurücklegen beim Kugeln ziehen? Warum wird der Nenner kleiner?')}</div>
-    <div style="font-size:13px;font-weight:600;color:var(--text2);line-height:2;margin:8px 0">
-      Die Kugel bleibt weg nach dem Ziehen.<br>
-      → Der <strong style="color:var(--g)">Nenner wird kleiner</strong> bei jedem Zug!
-    </div>
-    <div style="font-family:'JetBrains Mono',monospace;font-size:13px;background:rgba(0,0,0,.3);border-radius:8px;padding:8px 10px;line-height:2">
-      1. Zug: <span style="color:var(--g)">4/12</span><br>
-      2. Zug: <span style="color:var(--g)">3/11</span> (kleiner!)<br>
-      P(OO) = 4/12 × 3/11<br>
-      <span style="color:var(--g)">= 12/132 ≈ 9,1%</span>
-    </div>
-  </div>
-</div>
-<div class="info warn"><div class="ii">⚠️</div><div>Merktrick: "Ohne Zurücklegen" = sowohl <strong>Zähler als auch Nenner</strong> werden kleiner (wenn du wieder dieselbe Farbe ziehst). ${erklaerBtn('Gib mir einen guten Merktrick für ohne Zurücklegen.')}</div></div>
-${sBtn('Erkläre mir den Unterschied zwischen mit und ohne Zurücklegen nochmal an einem Beispiel mit 5 roten und 3 blauen Kugeln.','Beispiel mit anderen Kugeln 🤖')}
-</div>
-
-<div class="card" style="border-color:rgba(124,92,252,.2)">
-<div class="quiz-header"><div class="ct">⚡ Quiz</div>${sBtn('Quiz zu Kugeln ziehen. Woran erkenne ich in einer Aufgabe, ob es mit oder ohne Zurücklegen ist?','Wie erkenne ich es? 🤖')}</div>
-<div id="qa3"></div>
-<button class="cbtn" id="cb3" onclick="complete(3)" disabled>Kapitel 4 abschließen 🔓</button>
-</div>`,
-
-4:`${BACK_BTN}
-<div class="hero c-orange"><div class="hero-tag">Kapitel 5</div><h2>🎲 Würfel 3×</h2><p>S.49 aus dem Buch — alle Lösungen mit vollständiger Erklärung.</p><div class="hero-icon">🎲</div></div>
-
-<div class="card">
-<div class="ct">💡 Grundinfo zum Würfel</div>
-<div class="lese-block">
-Ein normaler Würfel hat 6 Seiten (1 bis 6). Die Wahrscheinlichkeit, eine bestimmte Zahl zu würfeln, ist immer 1/6.
-Wenn du 3 Mal würfelst, gibt es insgesamt 6 × 6 × 6 = <strong>216 mögliche Ergebnisse</strong>.
-</div>
-
-<div class="steps">
-  <div class="step"><span class="sb" style="background:var(--g);color:#000">Basis</span><div style="flex:1"><div class="st">P(eine 1 würfeln) = 1/6 ≈ 16,7%</div><div class="step-erkl">Eine günstige Seite von 6 möglichen Seiten</div></div></div>
-  <div class="step"><span class="sb">Nicht 1</span><div style="flex:1"><div class="st">P(keine 1) = 5/6 ≈ 83,3%</div><div class="step-erkl">Fünf Seiten (2,3,4,5,6) die keine 1 sind</div></div></div>
-  <div class="step"><span class="sb">3 Würfe</span><div style="flex:1"><div class="st">Gesamte Möglichkeiten = 6³ = 216</div><div class="step-erkl">6 × 6 × 6 = 216</div></div></div>
-</div>
-</div>
-
-<div class="card">
-<div class="ct">📊 S.49 — Alle Lösungen erklärt</div>
-<div class="steps" style="margin-bottom:14px">
-  <div class="step" style="border-left-color:var(--g)"><span class="sb" style="background:var(--g);color:#000">a)</span>
-    <div style="flex:1"><div class="st">Alle drei Male eine 1 würfeln</div>
-    <div class="step-erkl">1/6 × 1/6 × 1/6 = 1/216 ≈ 0,46%<br>Es gibt nur 1 Weg: 1-1-1</div></div>
-    <span class="sv">0,46%</span>
-  </div>
-  <div class="step" style="border-left-color:var(--b)"><span class="sb" style="background:var(--b);color:#000">b)</span>
-    <div style="flex:1"><div class="st">Kein einziges Mal eine 1 würfeln</div>
-    <div class="step-erkl">5/6 × 5/6 × 5/6 = (5/6)³ = 125/216 ≈ 57,9%<br>Bei jedem Wurf "keine 1" → Pfadregel ×</div></div>
-    <span class="sv">57,9%</span>
-  </div>
-  <div class="step" style="border-left-color:var(--y)"><span class="sb" style="background:var(--y);color:#000">c)</span>
-    <div style="flex:1"><div class="st">Genau einmal eine 1 würfeln ${erklaerBtn('Erkläre mir, warum es bei c) auf S.49 drei verschiedene Wege gibt und was der Faktor 3 bedeutet.')}</div>
-    <div class="step-erkl">3 mögliche Positionen für die 1: (1,x,x) oder (x,1,x) oder (x,x,1)<br>Jeder Weg: 1/6 × 5/6 × 5/6 = 25/216<br>Gesamt: 3 × 25/216 = 75/216 ≈ 34,8%</div></div>
-    <span class="sv">34,8%</span>
-  </div>
-  <div class="step" style="border-left-color:var(--p2)"><span class="sb" style="background:var(--p2);color:#fff">d)</span>
-    <div style="flex:1"><div class="st">Genau zweimal eine 1 würfeln</div>
-    <div class="step-erkl">3 mögliche Positionen für die zwei 1en: (1,1,x) oder (1,x,1) oder (x,1,1)<br>Jeder Weg: 1/6 × 1/6 × 5/6 = 5/216<br>Gesamt: 3 × 5/216 = 15/216 ≈ 6,9%</div></div>
-    <span class="sv">6,9%</span>
-  </div>
-</div>
-<div class="info tip"><div class="ii">✅</div><div><strong>Probe:</strong> 1 + 125 + 75 + 15 = 216 ✓ Das ist 6³. Alle Möglichkeiten sind berücksichtigt!</div></div>
-${sBtn('Erkläre mir nochmal Aufgabe c) von S.49 zum Würfel: Warum multiplizieren wir mit 3?','Aufgabe c) erklären 🤖')}
-</div>
-
-<div class="card" style="border-color:rgba(124,92,252,.2)">
-<div class="quiz-header"><div class="ct">⚡ Quiz</div>${sBtn('Ich mache das Quiz zu Würfel dreimal würfeln. Welche Konzepte kommen dabei vor?','Quiz-Vorbereitung 🤖')}</div>
-<div id="qa4"></div>
-<button class="cbtn" id="cb4" onclick="complete(4)" disabled>Kapitel 5 abschließen 🔓</button>
-</div>`,
-
-5:`${BACK_BTN}
-<div class="hero c-pink"><div class="hero-tag">Kapitel 6</div><h2>🎴 Karten K, E, O, A</h2><p>Das vollständige Baumdiagramm — alle 12 möglichen Paare!</p><div class="hero-icon">🎴</div></div>
-
-<div class="card">
-<div class="ct">💡 Das Klassenbeispiel vollständig</div>
-<div class="lese-block">
-4 Karten: K (Kreuz), E (Eins), O (Ober), A (Ass) — 2 Züge ohne Zurücklegen.
-Es gibt 4 × 3 = <strong>12 mögliche Ergebnisse</strong>.
-Jedes hat dieselbe Wahrscheinlichkeit: 1/4 × 1/3 = <strong>1/12 ≈ 8,3%</strong>.
-</div>
-
-<div class="tree-wrap">
-<svg class="tree" width="500" height="310" viewBox="0 0 500 310">
-  <text x="40" y="18" class="stage-lbl">START</text>
-  <text x="140" y="18" class="stage-lbl">1. ZUG</text>
-  <text x="285" y="18" class="stage-lbl">2. ZUG</text>
-  <text x="400" y="18" class="stage-lbl">ERGEBNIS</text>
-  <circle cx="40" cy="158" r="18" class="node-circle"/>
-  <text x="40" y="158" class="lbl" style="font-size:9px">Start</text>
-  <line x1="58" y1="158" x2="148" y2="55" class="branch"/>
-  <line x1="58" y1="158" x2="148" y2="105" class="branch"/>
-  <line x1="58" y1="158" x2="148" y2="210" class="branch-hi"/>
-  <line x1="58" y1="158" x2="148" y2="260" class="branch"/>
-  <circle cx="162" cy="55" r="16" class="node-circle"/>
-  <text x="162" y="55" class="lbl">K</text>
-  <circle cx="162" cy="105" r="16" class="node-circle"/>
-  <text x="162" y="105" class="lbl">E</text>
-  <circle cx="162" cy="210" r="16" class="node-circle-hi"/>
-  <text x="162" y="210" class="lbl lbl-hi">O</text>
-  <circle cx="162" cy="260" r="16" class="node-circle"/>
-  <text x="162" y="260" class="lbl">A</text>
-  <text x="96" y="93" class="prob">¼</text>
-  <text x="96" y="120" class="prob">¼</text>
-  <text x="96" y="198" class="prob">¼</text>
-  <text x="96" y="245" class="prob">¼</text>
-  <line x1="178" y1="55" x2="272" y2="35" class="branch"/>
-  <line x1="178" y1="55" x2="272" y2="55" class="branch"/>
-  <line x1="178" y1="55" x2="272" y2="75" class="branch"/>
-  <rect x="264" y="23" width="24" height="20" rx="5" class="node-rect"/><text x="276" y="33" class="lbl" style="font-size:10px">E</text>
-  <rect x="264" y="44" width="24" height="20" rx="5" class="node-rect"/><text x="276" y="54" class="lbl" style="font-size:10px">O</text>
-  <rect x="264" y="64" width="24" height="20" rx="5" class="node-rect"/><text x="276" y="74" class="lbl" style="font-size:10px">A</text>
-  <line x1="178" y1="105" x2="272" y2="95" class="branch"/>
-  <line x1="178" y1="105" x2="272" y2="110" class="branch"/>
-  <line x1="178" y1="105" x2="272" y2="125" class="branch"/>
-  <rect x="264" y="84" width="24" height="20" rx="5" class="node-rect"/><text x="276" y="94" class="lbl" style="font-size:10px">K</text>
-  <rect x="264" y="99" width="24" height="20" rx="5" class="node-rect"/><text x="276" y="109" class="lbl" style="font-size:10px">O</text>
-  <rect x="264" y="114" width="24" height="20" rx="5" class="node-rect"/><text x="276" y="124" class="lbl" style="font-size:10px">A</text>
-  <line x1="178" y1="210" x2="272" y2="185" class="branch-hi"/>
-  <line x1="178" y1="210" x2="272" y2="205" class="branch"/>
-  <line x1="178" y1="210" x2="272" y2="225" class="branch"/>
-  <rect x="264" y="174" width="24" height="20" rx="5" class="node-rect-hi"/><text x="276" y="184" class="lbl lbl-hi" style="font-size:10px">K</text>
-  <rect x="264" y="194" width="24" height="20" rx="5" class="node-rect"/><text x="276" y="204" class="lbl" style="font-size:10px">E</text>
-  <rect x="264" y="214" width="24" height="20" rx="5" class="node-rect"/><text x="276" y="224" class="lbl" style="font-size:10px">A</text>
-  <line x1="178" y1="260" x2="272" y2="245" class="branch"/>
-  <line x1="178" y1="260" x2="272" y2="260" class="branch"/>
-  <line x1="178" y1="260" x2="272" y2="278" class="branch"/>
-  <rect x="264" y="234" width="24" height="20" rx="5" class="node-rect"/><text x="276" y="244" class="lbl" style="font-size:10px">K</text>
-  <rect x="264" y="249" width="24" height="20" rx="5" class="node-rect"/><text x="276" y="259" class="lbl" style="font-size:10px">E</text>
-  <rect x="264" y="267" width="24" height="20" rx="5" class="node-rect"/><text x="276" y="277" class="lbl" style="font-size:10px">O</text>
-  <text x="300" y="29" class="res-lbl">KE · KO · KA (je 1/12)</text>
-  <text x="300" y="94" class="res-lbl">EK · EO · EA (je 1/12)</text>
-  <text x="300" y="180" class="res-lbl res-lbl-hi">OK → 1/12 ≈ 8,3% 🍬</text>
-  <text x="300" y="200" class="res-lbl">OE · OA (je 1/12)</text>
-  <text x="300" y="240" class="res-lbl">AK · AE · AO (je 1/12)</text>
-  <text x="250" y="298" class="stage-lbl" text-anchor="middle" style="fill:#00e5a0;font-size:11px">12 Paare × 1/12 = 1 ✓  |  30 Schüler × 1/12 ≈ 3 Kaugummis 🍬</text>
-</svg>
-</div>
-<div class="res">P("OK") = 1/12 ≈ 8,3% → 30 Schüler → 3 Kaugummis! 🍬</div>
-${sBtn('Erkläre mir das Kaugummi-Beispiel mit den Karten K,E,O,A nochmal von Anfang an.','Alles nochmal erklären 🤖')}
-</div>
-
-<div class="card" style="border-color:rgba(124,92,252,.2)">
-<div class="quiz-header"><div class="ct">⚡ Quiz</div>${sBtn('Ich mache das Quiz zu den Karten K,E,O,A. Was muss ich beachten?','Worauf achten? 🤖')}</div>
-<div id="qa5"></div>
-<button class="cbtn" id="cb5" onclick="complete(5)" disabled>Kapitel 6 abschließen 🔓</button>
-</div>`,
-
-6:`${BACK_BTN}
-<div class="hero c-yellow"><div class="hero-tag">Kapitel 7</div><h2>📝 Übungsaufgaben</h2><p>S.35, S.38, S.49 — alle Lösungen mit Erklärungen</p><div class="hero-icon">📚</div></div>
-
-<div class="card">
-<div class="ct">📘 S.49 — Würfel 3× (alle Lösungen)</div>
-<table class="dtab">
-<tr><th>Teil</th><th>Ereignis</th><th>Rechnung</th><th>%</th></tr>
-<tr><td>a)</td><td>alle drei 1</td><td>1/216</td><td>0,46%</td></tr>
-<tr><td>b)</td><td>keinmal 1</td><td>125/216</td><td>57,9%</td></tr>
-<tr><td>c)</td><td>genau 1×</td><td>3×25/216</td><td>34,8%</td></tr>
-<tr><td>d)</td><td>genau 2×</td><td>3×5/216</td><td>6,9%</td></tr>
-</table>
-${sBtn('Erkläre mir alle vier Teile von S.49 (Würfel dreimal) nochmal ausführlich.','S.49 komplett erklären 🤖')}
-</div>
-
-<div class="card" style="border-color:rgba(124,92,252,.2)">
-<div class="quiz-header"><div class="ct">⚡ Abschluss-Quiz</div>${sBtn('Ich mache das finale Quiz zu Wahrscheinlichkeit. Was sind die drei wichtigsten Dinge, die ich unbedingt wissen muss?','Finale Vorbereitung 🤖')}</div>
-<div id="qa6"></div>
-<button class="cbtn" id="cb6" onclick="complete(6)" disabled>🏆 Alle Kapitel fertig!</button>
-</div>`,
-};
-
-// ══════════════════════════════════════════════
-// QUIZ ENGINE
-// ══════════════════════════════════════════════
-const lessonDiff={},answered={},qCache={};
+// ═══ QUIZ ENGINE ═══
 function rnd(a,b){return Math.floor(Math.random()*(b-a+1))+a;}
-function pick(a){return a[Math.floor(Math.random()*a.length)];}
 function shuf(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
-function fmt(n){if(Number.isInteger(n))return String(n);return String(Math.round(n*1000)/1000).replace('.',',');}
-function makeOpts(a){const s=new Set([a]);let t=0;const sp=Math.abs(a)>200?50:Math.abs(a)>50?12:Math.abs(a)>20?5:2;while(s.size<4&&t++<200){const d=rnd(1,sp);const c=pick([a+d,a-d,a+d*2,a-d*2]);if(c!==a)s.add(c);}return shuf([...s].slice(0,4));}
+function fmt(n){return Number.isInteger(n)?String(n):String(Math.round(n*1000)/1000).replace('.',',');}
+function makeOpts(a){const s=new Set([a]);let t=0;const sp=Math.abs(a)>100?30:Math.abs(a)>20?8:3;while(s.size<4&&t++<200){const c=a+pick([-sp,-sp*2,sp,sp*2]);if(c!==a)s.add(c);}return shuf([...s].slice(0,4));}
+function pick(a){return a[Math.floor(Math.random()*a.length)];}
 
-const GEN={
-0:{
-easy:[
-()=>({q:'Münzwurf 2× — wie viele Ergebnisse gibt es insgesamt?',a:4,hint:'KK, KZ, ZK, ZZ → 4',erkl:'Bei 2 Münzwürfen gibt es je 2 Möglichkeiten: 2 × 2 = 4'}),
-()=>({q:'Alle Äste einer Stufe zusammen = ?',a:1,hint:'Immer 1 = 100%',erkl:'Die Probe besagt: alle Wahrscheinlichkeiten einer Stufe ergeben zusammen immer 1'}),
-()=>({q:'Münzwurf 1×: wie viele Äste hat der Baum?',a:2,hint:'Kopf oder Zahl → 2',erkl:'Beim einmaligen Münzwurf gibt es zwei Möglichkeiten: Kopf oder Zahl'}),
-()=>({q:'Würfel 1×: wie viele verschiedene Ergebnisse?',a:6,hint:'1,2,3,4,5,6 → 6',erkl:'Ein Würfel hat 6 Seiten, also 6 mögliche Ergebnisse pro Wurf'}),
-],
-med:[
-()=>({q:'Münze 3×: wie viele Ergebnisse (Endäste)?',a:8,hint:'2³ = 8',erkl:'Bei 3 Würfen je 2 Möglichkeiten: 2×2×2 = 8'}),
-()=>({q:'Würfel 2×: wie viele Ergebnispaare?',a:36,hint:'6 × 6 = 36',erkl:'Beim zweimaligen Würfeln: 6 × 6 = 36 mögliche Paare'}),
-()=>({q:'P(Kopf) = 1/? → Nenner?',a:2,hint:'½ → Nenner 2',erkl:'Beim Münzwurf: 1 günstig von 2 möglichen Seiten = 1/2'}),
-()=>({q:'Münze 2×: P(KZ) Nenner?',a:4,hint:'½ × ½ = ¼ → 4',erkl:'Pfadregel: ½ × ½ = 1/4, Nenner ist 4'}),
-],
-hard:[
-()=>({q:'P(KK) × 4 = ?',a:1,hint:'¼ × 4 = 1',erkl:'P(KK) = ¼, und 4 × ¼ = 1'}),
-()=>({q:'Münze 3×: P(genau 2× Kopf) × 8 = ?',a:3,hint:'KKZ, KZK, ZKK → 3/8 × 8 = 3',erkl:'Es gibt 3 günstige Wege: KKZ, KZK, ZKK → P = 3/8'}),
-]},
-1:{
-easy:[
-()=>({q:'P(O) aus K,E,O,A = 1/? (Nenner)',a:4,hint:'4 Karten → 1/4',erkl:'4 gleichwahrscheinliche Karten, eine günstig → 1/4'}),
-()=>({q:'Nach O gezogen (ohne zurücklegen): wie viele Karten bleiben?',a:3,hint:'4 − 1 = 3',erkl:'O liegt weg, von 4 bleiben 3 Karten übrig'}),
-()=>({q:'P(E) aus K,E,O,A = 1/? (Nenner)',a:4,hint:'1/4 → Nenner 4',erkl:'4 Karten, 1 günstig = 1/4'}),
-],
-med:[
-()=>({q:'P("OK") = 1/? (Nenner)',a:12,hint:'1/4 × 1/3 = 1/12 → Nenner 12',erkl:'Pfadregel: P(O)=1/4, dann P(K|O)=1/3 → 1/4 × 1/3 = 1/12'}),
-()=>({q:'30 Schüler, P("OK")=1/12 → Kaugummis?',a:3,hint:'30/12 = 2,5 → 3',erkl:'Erwartungswert: 30 × 1/12 = 2,5 → runden auf 3'}),
-()=>({q:'P("KE") = 1/? (Nenner)',a:12,hint:'1/4 × 1/3 = 1/12',erkl:'Jedes Paar hat die gleiche Wahrscheinlichkeit 1/12'}),
-],
-hard:[
-()=>({q:'P("OK") ≈ ?% (gerundet)',a:8,hint:'1/12 ≈ 8,3% ≈ 8%',erkl:'1/12 = 0,0833... ≈ 8,3%'}),
-]},
-2:{
-easy:[
-()=>({q:'5 weiße + 5 schwarze Kugeln: Gesamt?',a:10,hint:'5 + 5 = 10',erkl:'Einfach addieren: 5 + 5 = 10 Kugeln'}),
-()=>({q:'P(weiß) aus 5W+5S = 1/? (Nenner)',a:2,hint:'5/10 = 1/2 → Nenner 2',erkl:'5 weiße von 10 gesamt = 5/10 = 1/2'}),
-],
-med:[
-()=>({q:'P(gleichfarbig) ≈ ?% (ohne Zurücklegen)',a:44,hint:'4/9 ≈ 44,4% ≈ 44%',erkl:'WW + SS = 2/9 + 2/9 = 4/9 ≈ 44,4%'}),
-()=>({q:'P(WW) ohne Zurücklegen × 90 = ?',a:20,hint:'5/10 × 4/9 = 20/90 → ×90 = 20',erkl:'5/10 × 4/9 = 20/90, mal 90 gibt den Zähler: 20'}),
-],
-hard:[
-()=>({q:'P(gleichfarbig) ÷ (4/9) × 9 = ?',a:4,hint:'4/9 × 9 = 4',erkl:'4/9 × 9 = 4'}),
-]},
-3:{
-easy:[
-()=>({q:'4 orange + 8 weiße: Gesamt?',a:12,hint:'4 + 8 = 12',erkl:'4 + 8 = 12 Kugeln total'}),
-()=>({q:'MIT Zurücklegen: ändert sich der Nenner? 1=Ja, 0=Nein',a:0,hint:'Nein! Immer gleich → 0',erkl:'Kugel kommt zurück → alles bleibt gleich → Nein = 0'}),
-()=>({q:'OHNE Zurücklegen: ändert sich der Nenner? 1=Ja, 0=Nein',a:1,hint:'Ja! Wird kleiner → 1',erkl:'Kugel bleibt weg → weniger Kugeln → Nenner kleiner → Ja = 1'}),
-],
-med:[
-()=>({q:'OHNE Zurücklegen: nach 1 orangen Kugel → ? Kugeln noch da',a:11,hint:'12 − 1 = 11',erkl:'1 Kugel ist weg: 12 − 1 = 11'}),
-()=>({q:'P(OO) OHNE Zurücklegen: Nenner (12 × 11)?',a:132,hint:'12 × 11 = 132',erkl:'1. Zug 12 Möglichkeiten, 2. Zug 11 → 12 × 11 = 132'}),
-],
-hard:[
-()=>({q:'P(OO) OHNE Zurücklegen × 132 = ?',a:12,hint:'4 × 3 = 12',erkl:'4/12 × 3/11 = 12/132, mal 132 gibt 12'}),
-]},
-4:{
-easy:[
-()=>({q:'Würfel 3×: Gesamtanzahl möglicher Ergebnisse?',a:216,hint:'6³ = 216',erkl:'6 × 6 × 6 = 216 mögliche Ergebnisse'}),
-()=>({q:'P(nicht 1) beim Würfel = ?/6',a:5,hint:'6 − 1 = 5 günstige → 5/6',erkl:'5 Seiten (2,3,4,5,6) sind "nicht 1"'}),
-()=>({q:'P(alle drei 1): Zähler?',a:1,hint:'Nur ein Weg: 1-1-1',erkl:'Es gibt nur genau eine Möglichkeit: 1-1-1'}),
-],
-med:[
-()=>({q:'Genau 1× eine 1: günstige Pfade?',a:3,hint:'1__ oder _1_ oder __1 → 3',erkl:'Die 1 kann an Position 1, 2 oder 3 stehen → 3 Wege'}),
-()=>({q:'P(keinmal 1): Zähler (5³)?',a:125,hint:'5³ = 125',erkl:'Kein 1 bei Wurf 1, 2 und 3: 5/6 × 5/6 × 5/6 = 125/216'}),
-],
-hard:[
-()=>({q:'P(mind. 1× eine 1) × 216 = ?',a:91,hint:'216 − 125 = 91',erkl:'Gegenwahrscheinlichkeit: 1 − P(keinmal) = 216−125 = 91 von 216'}),
-]},
-5:{
-easy:[
-()=>({q:'K,E,O,A: geordnete Paare ohne Zurücklegen?',a:12,hint:'4 × 3 = 12',erkl:'4 Karten × 3 verbleibende = 12 mögliche Paare'}),
-()=>({q:'P("KE") = 1/? (Nenner)',a:12,hint:'1/4 × 1/3 = 1/12',erkl:'Pfadregel: 1/4 × 1/3 = 1/12'}),
-],
-med:[
-()=>({q:'Kaugummis erwartet (30 Schüler, P=1/12)?',a:3,hint:'30 ÷ 12 = 2,5 → 3',erkl:'30 × 1/12 = 2,5 → aufgerundet 3'}),
-()=>({q:'Wie viele Paare starten mit K?',a:3,hint:'KE, KO, KA → 3',erkl:'Wenn K zuerst, dann können E, O oder A folgen → 3 Paare'}),
-],
-hard:[
-()=>({q:'Paare, die K enthalten (egal ob vorne oder hinten)?',a:6,hint:'KE,KO,KA + EK,OK,AK → 6',erkl:'K vorne: KE,KO,KA (3 Stück) + K hinten: EK,OK,AK (3 Stück) = 6'}),
-]},
-6:{
-easy:[
-()=>({q:'S.49 b) keinmal eine 1: ≈ ?%',a:58,hint:'125/216 ≈ 57,9% ≈ 58%',erkl:'(5/6)³ = 125/216 ≈ 57,9%'}),
-()=>({q:'P("OK") ≈ ?%',a:8,hint:'1/12 ≈ 8,3% ≈ 8%',erkl:'1/12 ≈ 0,083 ≈ 8%'}),
-],
-med:[
-()=>({q:'Summe a)+b)+c)+d) × 216 = ?',a:216,hint:'1+125+75+15 = 216 → Probe!',erkl:'Probe: 1+125+75+15 = 216 = 6³ ✓'}),
-],
-hard:[
-()=>({q:'P(mind. 1× eine 1) × 216 = ?',a:91,hint:'216 − 125 = 91',erkl:'Gegenwahrscheinlichkeit: 216−125=91'}),
-]},
+const QUIZ_DATA={
+  pot_0:[
+    {q:'2⁴ = ?',a:16,h:'2×2×2×2=16'},
+    {q:'3² = ?',a:9,h:'3×3=9'},
+    {q:'5⁰ = ?',a:1,h:'Alles hoch 0 = 1!'},
+    {q:'2³ = ?',a:8,h:'2×2×2=8'},
+    {q:'10² = ?',a:100,h:'10×10=100'},
+    {q:'(-2)² = ?',a:4,h:'Gerade → positiv!'},
+    {q:'(-2)³ = ?',a:-8,h:'Ungerade → negativ!'},
+    {q:'7¹ = ?',a:7,h:'Hoch 1 = die Zahl selbst'},
+  ],
+  pot_1:[
+    {q:'2³ × 2² = 2^? (Exponent)',a:5,h:'3+2=5'},
+    {q:'5² × 5³ = 5^? (Exponent)',a:5,h:'2+3=5'},
+    {q:'x⁷ × x² = x^? (Exponent)',a:9,h:'7+2=9'},
+    {q:'3⁴ × 3¹ = 3^? (Exponent)',a:5,h:'4+1=5'},
+    {q:'2³ × 2² = ? (Ergebnis)',a:32,h:'2⁵=32'},
+    {q:'3² × 3³ = ? (Ergebnis)',a:243,h:'3⁵=243'},
+  ],
+  pot_2:[
+    {q:'2⁵ ÷ 2² = 2^? (Exponent)',a:3,h:'5−2=3'},
+    {q:'3⁶ ÷ 3³ = 3^? (Exponent)',a:3,h:'6−3=3'},
+    {q:'a⁸ ÷ a⁵ = a^? (Exponent)',a:3,h:'8−5=3'},
+    {q:'2⁵ ÷ 2² = ? (Ergebnis)',a:8,h:'2³=8'},
+    {q:'3⁴ ÷ 3² = ? (Ergebnis)',a:9,h:'3²=9'},
+    {q:'a⁰ = ? (jedes a≠0)',a:1,h:'aⁿ÷aⁿ=a⁰=1'},
+  ],
+  pot_3:[
+    {q:'(2³)² = 2^? (Exponent)',a:6,h:'3×2=6'},
+    {q:'(3²)³ = 3^? (Exponent)',a:6,h:'2×3=6'},
+    {q:'(a⁴)² = a^? (Exponent)',a:8,h:'4×2=8'},
+    {q:'(2³)² = ? (Ergebnis)',a:64,h:'2⁶=64'},
+    {q:'(3²)² = ? (Ergebnis)',a:81,h:'3⁴=81'},
+    {q:'(5²)³ ÷ 5⁴ = 5^? (Exponent)',a:2,h:'5⁶÷5⁴=5²'},
+  ],
+  pot_4:[
+    {q:'5⁻² · 5³ = 5^? (Exponent)',a:1,h:'−2+3=1'},
+    {q:'(5⁻²)⁴ = 5^? (Exponent)',a:-8,h:'−2×4=−8'},
+    {q:'5⁻⁸ = 1/5^? (Exponent)',a:8,h:'Negativer Exponent → Kehrwert'},
+    {q:'1/5⁸ ≈ 2,56 × 10^? (Exponent)',a:-6,h:'0,00000256 = 2,56×10⁻⁶'},
+  ],
+  pot_5:[
+    {q:'3² × 3³ = ? (Ergebnis)',a:243,h:'3⁵=243'},
+    {q:'2⁸ ÷ 2³ = ? (Ergebnis)',a:32,h:'2⁵=32'},
+    {q:'(4²)³ = 4^? (Exponent)',a:6,h:'2×3=6'},
+    {q:'(-3)³ = ?',a:-27,h:'Ungerade → negativ!'},
+    {q:'(-2)⁴ = ?',a:16,h:'Gerade → positiv!'},
+    {q:'7⁰ × 7² = ?',a:49,h:'7⁰=1 → 1×49=49'},
+  ],
+  wahr_0:[
+    {q:'Münzwurf 2×: Wie viele Ergebnisse?',a:4,h:'2×2=4'},
+    {q:'Alle Pfade zusammen = ?',a:1,h:'Probe: immer 1'},
+    {q:'Würfel: Wie viele verschiedene Ergebnisse?',a:6,h:'1,2,3,4,5,6'},
+    {q:'P(Kopf) = 1/? (Nenner)',a:2,h:'½ → Nenner 2'},
+  ],
+  wahr_1:[
+    {q:'P(O) aus K,E,O,A = 1/? (Nenner)',a:4,h:'4 Karten → 1/4'},
+    {q:'Nach O gezogen (ohne zurücklegen): Karten übrig?',a:3,h:'4−1=3'},
+    {q:'P("OK") = 1/? (Nenner)',a:12,h:'1/4×1/3=1/12'},
+    {q:'30 Schüler, P=1/12 → Kaugummis?',a:3,h:'30/12≈2,5→3'},
+  ],
+  wahr_2:[
+    {q:'5W+5S: Gesamt?',a:10,h:'5+5=10'},
+    {q:'P(gleichfarbig) ≈ ?% (ohne Zurücklegen)',a:44,h:'4/9≈44%'},
+    {q:'P(WW) ohne Zurücklegen: Zähler (von /90)?',a:20,h:'5/10×4/9=20/90'},
+  ],
+  wahr_3:[
+    {q:'Würfel 3×: Gesamt mögliche Ergebnisse?',a:216,h:'6³=216'},
+    {q:'P(nicht 1) = ?/6',a:5,h:'5 Seiten sind nicht 1'},
+    {q:'P(alle drei 1): Zähler?',a:1,h:'Nur 1-1-1'},
+    {q:'Genau 1× eine 1: Anzahl günstiger Pfade?',a:3,h:'1xx, x1x, xx1'},
+    {q:'P(keinmal 1): Zähler?',a:125,h:'5³=125'},
+  ],
+  wahr_4:[
+    {q:'K,E,O,A: geordnete Paare ohne Zurücklegen?',a:12,h:'4×3=12'},
+    {q:'P("KE") = 1/? (Nenner)',a:12,h:'1/4×1/3=1/12'},
+    {q:'Wie viele Paare starten mit K?',a:3,h:'KE, KO, KA'},
+  ],
 };
 
-const POT_GEN={
-0:{
-easy:[
-()=>({q:'2⁴ = ?',a:16,hint:'2×2×2×2 = 16',erkl:'2 hoch 4: viermal die 2 multiplizieren: 2×2=4, ×2=8, ×2=16'}),
-()=>({q:'3² = ?',a:9,hint:'3×3 = 9',erkl:'3 hoch 2 = 3 × 3 = 9'}),
-()=>({q:'5⁰ = ?',a:1,hint:'Alles hoch 0 ist IMMER 1!',erkl:'Jede Zahl (außer 0) hoch 0 ist immer 1 — das ist eine grundlegende Regel!'}),
-()=>({q:'4² = ?',a:16,hint:'4×4 = 16',erkl:'4 × 4 = 16'}),
-()=>({q:'2³ = ?',a:8,hint:'2×2×2 = 8',erkl:'2 dreimal multiplizieren: 2×2=4, ×2=8'}),
-()=>({q:'7¹ = ?',a:7,hint:'Jede Zahl hoch 1 = sie selbst',erkl:'Hoch 1 bedeutet: einmal nehmen = die Zahl selbst'}),
-()=>({q:'10² = ?',a:100,hint:'10×10 = 100',erkl:'10 × 10 = 100'}),
-],
-med:[
-()=>({q:'2⁵ = ?',a:32,hint:'2⁴=16, ×2=32',erkl:'2 hoch 5: 2×2×2×2×2 = 32'}),
-()=>({q:'(-2)² = ?',a:4,hint:'Gerade Exponent → immer positiv!',erkl:'Minus mal Minus ist Plus: (-2)×(-2) = +4'}),
-()=>({q:'(-3)³ = ?',a:-27,hint:'Ungerade → negativ! (-3)×(-3)×(-3)=-27',erkl:'(-3)×(-3)=9, dann 9×(-3)=-27. Ungerade Exponent → negativ!'}),
-()=>({q:'(-2)³ = ?',a:-8,hint:'Ungerade → negativ! -8',erkl:'(-2)×(-2)=4, dann 4×(-2)=-8'}),
-()=>({q:'3³ = ?',a:27,hint:'3×3×3 = 27',erkl:'3 × 3 = 9, dann 9 × 3 = 27'}),
-()=>({q:'2⁶ = ?',a:64,hint:'2⁵=32, ×2=64',erkl:'2⁵=32, dann nochmal ×2 = 64'}),
-],
-hard:[
-()=>({q:'2⁸ = ?',a:256,hint:'2⁷=128, ×2=256',erkl:'2⁷=128, dann ×2=256'}),
-()=>({q:'4³ = ?',a:64,hint:'4×4×4 = 64',erkl:'4×4=16, dann 16×4=64'}),
-()=>({q:'3⁴ = ?',a:81,hint:'3×3×3×3 = 81',erkl:'3²=9, dann 9²=81'}),
-()=>({q:'-3² = ? (KEINE Klammern!)',a:-9,hint:'-(3²) = -9, NICHT (-3)²!',erkl:'Ohne Klammern: zuerst die Potenz 3²=9, dann das Minus dazu: -9'}),
-]},
-1:{
-easy:[
-()=>({q:'2³ × 2² = 2^? (Exponent)',a:5,hint:'3+2=5 → gleiche Basis: addieren!',erkl:'Gesetz 1: gleiche Basis multiplizieren → Exponenten addieren. 3+2=5'}),
-()=>({q:'3⁴ × 3¹ = 3^? (Exponent)',a:5,hint:'4+1=5',erkl:'Gleiche Basis (3) → 4+1=5'}),
-()=>({q:'5² × 5³ = 5^? (Exponent)',a:5,hint:'2+3=5',erkl:'Gleiche Basis (5) → 2+3=5'}),
-()=>({q:'x⁷ × x² = x^? (Exponent)',a:9,hint:'7+2=9',erkl:'Gleiche Basis (x) → 7+2=9'}),
-()=>({q:'a³ × a⁴ = a^? (Exponent)',a:7,hint:'3+4=7',erkl:'Gleiche Basis (a) → 3+4=7'}),
-],
-med:[
-()=>({q:'2³ × 2² = ? (Ergebnis)',a:32,hint:'2⁵ = 32',erkl:'2³×2²=2⁵, und 2⁵=32'}),
-()=>({q:'3² × 3³ = ? (Ergebnis)',a:243,hint:'3⁵ = 243',erkl:'3²×3³=3⁵=243'}),
-()=>({q:'2⁴ × 2¹ = ? (Ergebnis)',a:32,hint:'2⁵ = 32',erkl:'4+1=5 → 2⁵=32'}),
-()=>({q:'5¹ × 5² = ? (Ergebnis)',a:125,hint:'5³ = 125',erkl:'1+2=3 → 5³=125'}),
-],
-hard:[
-()=>({q:'2³ × 3³ = (2×3)^? → Ergebnis?',a:216,hint:'(2×3)³ = 6³ = 216',erkl:'Gleicher Exponent, verschiedene Basis: aⁿ×bⁿ=(a×b)ⁿ → 6³=216'}),
-()=>({q:'2³ × 2² × 2¹ = 2^? (Exponent)',a:6,hint:'3+2+1=6',erkl:'Gesetz 1 gilt auch für 3 Faktoren: 3+2+1=6'}),
-]},
-2:{
-easy:[
-()=>({q:'2⁵ ÷ 2² = 2^? (Exponent)',a:3,hint:'5−2=3 → gleiche Basis: subtrahieren!',erkl:'Gesetz 2: gleiche Basis dividieren → Exponenten subtrahieren. 5−2=3'}),
-()=>({q:'3⁶ ÷ 3³ = 3^? (Exponent)',a:3,hint:'6−3=3',erkl:'Gleiche Basis (3) → 6−3=3'}),
-()=>({q:'5⁴ ÷ 5² = 5^? (Exponent)',a:2,hint:'4−2=2',erkl:'Gleiche Basis (5) → 4−2=2'}),
-()=>({q:'a⁸ ÷ a⁵ = a^? (Exponent)',a:3,hint:'8−5=3',erkl:'Gleiche Basis (a) → 8−5=3'}),
-],
-med:[
-()=>({q:'2⁵ ÷ 2² = ? (Ergebnis)',a:8,hint:'2³ = 8',erkl:'2⁵÷2²=2³=8'}),
-()=>({q:'3⁴ ÷ 3² = ? (Ergebnis)',a:9,hint:'3² = 9',erkl:'4−2=2 → 3²=9'}),
-()=>({q:'2⁶ ÷ 2² = ? (Ergebnis)',a:16,hint:'2⁴ = 16',erkl:'6−2=4 → 2⁴=16'}),
-()=>({q:'5³ ÷ 5¹ = ? (Ergebnis)',a:25,hint:'5² = 25',erkl:'3−1=2 → 5²=25'}),
-],
-hard:[
-()=>({q:'a⁰ = ? (für jedes a≠0)',a:1,hint:'aⁿ÷aⁿ=a⁰=1 immer!',erkl:'Beweis: a³÷a³=a⁰ (Gesetz 2), aber auch a³÷a³=1 → a⁰=1'}),
-()=>({q:'2⁻² = 1/? (Nenner)',a:4,hint:'1/2² = 1/4 → Nenner 4',erkl:'Negativer Exponent: 2⁻²=1/2²=1/4, Nenner ist 4'}),
-()=>({q:'2³ ÷ 2⁵ = 2^? (kann negativ sein)',a:-2,hint:'3−5=−2 → 2⁻²',erkl:'3−5=−2 → negativer Exponent'}),
-]},
-3:{
-easy:[
-()=>({q:'(2³)² = 2^? (Exponent)',a:6,hint:'3×2=6 → Exponenten multiplizieren!',erkl:'Gesetz 3: Klammer hoch Potenz → Exponenten multiplizieren. 3×2=6'}),
-()=>({q:'(3²)³ = 3^? (Exponent)',a:6,hint:'2×3=6',erkl:'2×3=6'}),
-()=>({q:'(5²)² = 5^? (Exponent)',a:4,hint:'2×2=4',erkl:'2×2=4'}),
-()=>({q:'(a⁴)² = a^? (Exponent)',a:8,hint:'4×2=8',erkl:'4×2=8'}),
-()=>({q:'(x³)³ = x^? (Exponent)',a:9,hint:'3×3=9',erkl:'3×3=9'}),
-],
-med:[
-()=>({q:'(2³)² = ? (Ergebnis)',a:64,hint:'2⁶ = 64',erkl:'3×2=6 → 2⁶=64'}),
-()=>({q:'(2²)³ = ? (Ergebnis)',a:64,hint:'2⁶ = 64',erkl:'2×3=6 → 2⁶=64'}),
-()=>({q:'(3²)² = ? (Ergebnis)',a:81,hint:'3⁴ = 81',erkl:'2×2=4 → 3⁴=81'}),
-],
-hard:[
-()=>({q:'(5²)³ ÷ 5⁴ = 5^? (Exponent)',a:2,hint:'5⁶ ÷ 5⁴ = 5²',erkl:'Erst Gesetz 3: 2×3=6 → 5⁶. Dann Gesetz 2: 6−4=2'}),
-()=>({q:'(2³)² × 2¹ = 2^? (Exponent)',a:7,hint:'2⁶ × 2¹ = 2⁷',erkl:'Erst Gesetz 3: 3×2=6 → 2⁶. Dann Gesetz 1: 6+1=7'}),
-()=>({q:'(3²)³ = ? (Ergebnis)',a:729,hint:'3⁶ = 729',erkl:'2×3=6 → 3⁶=729'}),
-]},
-4:{
-easy:[
-()=>({q:'3² × 3³ = ? (Ergebnis)',a:243,hint:'3⁵ = 243',erkl:'Gesetz 1: 2+3=5 → 3⁵=243'}),
-()=>({q:'2⁸ ÷ 2³ = ? (Ergebnis)',a:32,hint:'2⁵ = 32',erkl:'Gesetz 2: 8−3=5 → 2⁵=32'}),
-()=>({q:'(-2)⁴ = ?',a:16,hint:'Gerade → positiv! 2⁴=16',erkl:'Gerade Zahl im Exponenten → Ergebnis positiv! 2⁴=16'}),
-()=>({q:'(-3)³ = ?',a:-27,hint:'Ungerade → negativ! -27',erkl:'Ungerade Zahl im Exponenten → Ergebnis negativ! -27'}),
-()=>({q:'7⁰ = ?',a:1,hint:'Alles hoch 0 = 1',erkl:'Jede Zahl hoch 0 = 1'}),
-],
-med:[
-()=>({q:'(4²)³ = 4^? (Exponent)',a:6,hint:'2×3=6',erkl:'Gesetz 3: 2×3=6'}),
-()=>({q:'2³ × 2⁵ = ? (Ergebnis)',a:256,hint:'2⁸ = 256',erkl:'3+5=8 → 2⁸=256'}),
-()=>({q:'(-2)² × (-2)³ = ? (Ergebnis)',a:-32,hint:'4×(−8)=−32 oder (−2)⁵=−32',erkl:'Gesetz 1: (−2)²⁺³=(−2)⁵, und ungerade → negativ: -32'}),
-],
-hard:[
-()=>({q:'2³ × 4² = 2^? (Tipp: 4=2²)',a:7,hint:'4²=(2²)²=2⁴ → 2³×2⁴=2⁷',erkl:'4=2² → 4²=(2²)²=2⁴. Dann 2³×2⁴=2⁷'}),
-()=>({q:'9³ ÷ 3² = 3^? (Tipp: 9=3²)',a:4,hint:'9³=(3²)³=3⁶ → 3⁶÷3²=3⁴',erkl:'9=3² → 9³=(3²)³=3⁶. Dann 3⁶÷3²=3⁴'}),
-()=>({q:'(2³×2²)² = ? (Ergebnis)',a:1024,hint:'(2⁵)²=2¹⁰=1024',erkl:'Erst Klammer: 2³×2²=2⁵. Dann (2⁵)²=2¹⁰=1024'}),
-]},
-};
-
-function getQs(l,topic,d){
-  d=d||lessonDiff[topic+'_'+l]||'easy';const key=topic+'_'+l+'_'+d;
-  if(qCache[key])return qCache[key];
-  const genMap=topic==='pot'?POT_GEN:GEN;
-  const pool=(genMap[l]&&genMap[l][d])||genMap[l]?.easy||[];
-  if(!pool.length)return[];
-  const qs=[];const seen=new Set();let t=0;
-  while(qs.length<4&&t++<200){const g=pool[Math.floor(Math.random()*pool.length)];const q=g();if(seen.has(q.q))continue;seen.add(q.q);q.opts=makeOpts(q.a);qs.push(q);}
-  qCache[key]=qs;return qs;
-}
-
-let currentLessonTopic='wahr';
-function buildQuiz(l,topic){
-  currentLessonTopic=topic;
-  const d=lessonDiff[topic+'_'+l]||'easy';
-  const pfx=topic==='pot'?'qa_pot_':'qa';
-  const cbPfx=topic==='pot'?'cb_pot_':'cb';
-  const wrap=document.getElementById(pfx+l);if(!wrap)return;
-  const qs=getQs(l,topic,d);
-  if(!qs.length){wrap.innerHTML='<div class="info tip"><div class="ii">✅</div><div>Klick auf Abschließen!</div></div>';const b=document.getElementById(cbPfx+l);if(b)b.disabled=false;return;}
-  const dots=qs.map((_,i)=>`<div class="dot" id="dot_${topic}_${l}_${i}"></div>`).join('');
-  let html=`<div class="diff-row">
-    <button class="db e${d==='easy'?' on':''}" onclick="rebuildQ(${l},'${topic}','easy',this)">😊 Leicht</button>
-    <button class="db m${d==='med'?' on':''}" onclick="rebuildQ(${l},'${topic}','med',this)">🔥 Mittel</button>
-    <button class="db h${d==='hard'?' on':''}" onclick="rebuildQ(${l},'${topic}','hard',this)">💀 Schwer</button>
-  </div><div class="dots-row">${dots}<span class="qs" id="qs_${topic}_${l}">0/${qs.length}</span></div>`;
-  const isH=d==='hard';
-  qs.forEach((q,qi)=>{
-    html+=`<div class="qcard" id="qc_${topic}_${l}_${qi}"><div class="qtext">${q.q}`;
-    // "Frag Sicks" Button bei jeder Frage
-    const esc=(q.q+' '+q.erkl).replace(/"/g,'&quot;').replace(/'/g,'&#39;');
-    html+=` <button class="erklaer-btn" onclick='fragSicks("Erkläre mir diese Aufgabe: ${esc}")'>🤖 Erklären</button>`;
-    html+='</div>';
-    if(!isH){html+=`<div class="mc-grid">`+q.opts.map(o=>`<button class="mc" onclick="chkMC('${topic}',${l},${qi},${o})">${fmt(o)}</button>`).join('')+`</div>`;}
-    else{html+=`<div class="inp-row"><input class="qi" id="inp_${topic}_${l}_${qi}" type="number" step="any" placeholder="Antwort…" onkeydown="if(event.key==='Enter')chkInp('${topic}',${l},${qi})"><button class="btn-check" onclick="chkInp('${topic}',${l},${qi})">✓</button></div>`;}
-    html+=`<div class="qfb" id="qfb_${topic}_${l}_${qi}"></div>`;
-    // Erklärung nach falsch
-    html+=`<div id="qerkl_${topic}_${l}_${qi}" style="display:none"></div>`;
-    html+=`</div>`;
+function buildQ(topic,id){
+  const key=topic+'_'+id;
+  const qs=QUIZ_DATA[key];
+  if(!qs||!qs.length){
+    const btn=document.getElementById('cbtn_'+key);
+    if(btn)btn.disabled=false;
+    return;
+  }
+  const wrap=document.getElementById('qa_'+key);
+  if(!wrap)return;
+  const pool=shuf([...qs]).slice(0,4);
+  let html='';
+  pool.forEach((q,i)=>{
+    const opts=makeOpts(q.a);
+    html+=`<div class="qcard" id="qc_${key}_${i}">
+      <div class="qtext">${q.q}
+        <button onclick='askSicks("Erkläre mir: ${q.q.replace(/'/g,"")}")' style="display:inline-flex;align-items:center;gap:4px;padding:3px 9px;background:#f0fdf4;border:1px solid #86efac;border-radius:20px;color:var(--accent);font-size:11px;font-weight:700;cursor:pointer;margin-left:6px;font-family:'DM Sans',sans-serif;vertical-align:middle">🤖 Sicks</button>
+      </div>
+      <div class="opts">${opts.map(o=>`<button class="opt" onclick="chk('${key}',${i},${o},${q.a},'${q.h}')">${fmt(o)}</button>`).join('')}</div>
+      <div class="qfb" id="qfb_${key}_${i}"></div>
+    </div>`;
   });
-  wrap.innerHTML=html;updateCbtn(l,topic);
+  wrap.innerHTML=html;
+  updateCbtn(key,pool.length);
+  // store pool for cbtn check
+  window['_pool_'+key]=pool;
 }
 
-function rebuildQ(l,topic,d,btn){
-  btn.closest('.diff-row').querySelectorAll('.db').forEach(b=>b.classList.remove('on'));btn.classList.add('on');
-  lessonDiff[topic+'_'+l]=d;delete qCache[topic+'_'+l+'_'+d];
-  const k=topic+'_'+l+'_';for(const key in answered){if(key.startsWith(k))delete answered[key];}
-  buildQuiz(l,topic);
-}
-
-function markRight(topic,l,qi){
-  const k=topic+'_'+l+'_'+qi;if(answered[k])return;
-  answered[k]=true;st.points+=10;st.qCorrect++;saveSt();updateStats();
-  document.getElementById('dot_'+topic+'_'+l+'_'+qi)?.classList.add('done');
-  const qs=getQs(l,topic,lessonDiff[topic+'_'+l]||'easy');
-  const cnt=qs.filter((_,i)=>answered[topic+'_'+l+'_'+i]).length;
-  const s=document.getElementById('qs_'+topic+'_'+l);if(s)s.textContent=cnt+'/'+qs.length;
-  updateCbtn(l,topic);toast('🎉 Richtig! +10 Punkte');
-}
-
-function showErklärung(topic,l,qi){
-  const q=getQs(l,topic,lessonDiff[topic+'_'+l]||'easy')[qi];
-  const erkl=document.getElementById('qerkl_'+topic+'_'+l+'_'+qi);
-  if(!erkl||!q.erkl)return;
-  erkl.style.display='block';
-  erkl.innerHTML=`<div style="margin-top:8px;padding:9px 12px;background:rgba(77,184,255,.07);border:1px solid rgba(77,184,255,.18);border-radius:9px;font-size:12px;font-weight:600;color:var(--text2);line-height:1.7">
-    💡 <strong style="color:var(--b)">Erklärung:</strong> ${q.erkl}
-    <button class="frag-sicks-btn" style="margin-top:8px;display:block" onclick='fragSicks("Ich hatte Probleme mit dieser Aufgabe: ${(q.q||'').replace(/"/g,'')} — Erkläre mir das nochmal auf einfache Weise.")'>
-      <span class="fs-ico">🤖</span> Sicks fragen
-    </button>
-  </div>`;
-}
-
-function chkMC(topic,l,qi,chosen){
-  const k=topic+'_'+l+'_'+qi;if(answered[k])return;
-  const q=getQs(l,topic,lessonDiff[topic+'_'+l]||'easy')[qi];
-  const card=document.getElementById('qc_'+topic+'_'+l+'_'+qi);
-  const fb=document.getElementById('qfb_'+topic+'_'+l+'_'+qi);
-  card.querySelectorAll('.mc').forEach(b=>b.disabled=true);
-  let cb=null;
-  card.querySelectorAll('.mc').forEach(b=>{if(Math.abs(parseFloat(b.textContent.replace(',','.'))-chosen)<0.01)cb=b;});
-  if(Math.abs(chosen-q.a)<0.6){
-    if(cb)cb.classList.add('ok');card.classList.add('ok');fb.textContent='🎉 Richtig!';fb.className='qfb ok';markRight(topic,l,qi);
-  }else{
-    if(cb)cb.classList.add('no');
-    card.querySelectorAll('.mc').forEach(b=>{if(Math.abs(parseFloat(b.textContent.replace(',','.'))-q.a)<0.01)b.classList.add('ok');});
-    card.classList.add('no');fb.innerHTML='❌ Richtig: <strong>'+fmt(q.a)+'</strong>';fb.className='qfb no';
-    showErklärung(topic,l,qi);
-    setTimeout(()=>{card.querySelectorAll('.mc').forEach(b=>{b.disabled=false;b.classList.remove('no','ok');});card.classList.remove('no');fb.textContent='';},3000);
+function chk(key,i,chosen,ans,hint){
+  const k=key+'_'+i;
+  if(answered[k])return;
+  const card=document.getElementById('qc_'+key+'_'+i);
+  const fb=document.getElementById('qfb_'+key+'_'+i);
+  card.querySelectorAll('.opt').forEach(b=>b.disabled=true);
+  let clickedBtn=null;
+  card.querySelectorAll('.opt').forEach(b=>{if(Math.abs(parseFloat(b.textContent.replace(',','.'))-chosen)<0.1)clickedBtn=b;});
+  if(Math.abs(chosen-ans)<0.6){
+    if(clickedBtn)clickedBtn.classList.add('ok');
+    card.classList.add('ok');
+    fb.textContent='✅ Richtig!';fb.className='qfb ok';
+    answered[k]=true;addPts(10);
+    updateCbtn(key,window['_pool_'+key]?.length||4);
+  } else {
+    if(clickedBtn)clickedBtn.classList.add('no');
+    card.querySelectorAll('.opt').forEach(b=>{if(Math.abs(parseFloat(b.textContent.replace(',','.'))-ans)<0.1)b.classList.add('ok');});
+    card.classList.add('no');
+    fb.innerHTML='❌ Richtig: <strong>'+fmt(ans)+'</strong> — Tipp: '+hint;
+    fb.className='qfb no';
+    card.style.animation='shake .3s';
+    setTimeout(()=>{card.style.animation='';card.querySelectorAll('.opt').forEach(b=>{b.disabled=false;b.classList.remove('no','ok');});card.classList.remove('no');fb.textContent='';},2800);
   }
 }
 
-function chkInp(topic,l,qi){
-  const k=topic+'_'+l+'_'+qi;if(answered[k])return;
-  const inp=document.getElementById('inp_'+topic+'_'+l+'_'+qi);
-  const fb=document.getElementById('qfb_'+topic+'_'+l+'_'+qi);
-  const card=document.getElementById('qc_'+topic+'_'+l+'_'+qi);
-  const q=getQs(l,topic,lessonDiff[topic+'_'+l]||'easy')[qi];
-  const val=parseFloat(inp.value.replace(',','.'));
-  if(isNaN(val)){fb.textContent='Zahl eingeben!';fb.className='qfb no';return;}
-  if(Math.abs(val-q.a)<0.7){fb.textContent='🎉 Richtig!';fb.className='qfb ok';card.classList.add('ok');inp.disabled=true;markRight(topic,l,qi);}
-  else{
-    fb.innerHTML='❌ Tipp: '+q.hint;fb.className='qfb no';card.style.animation='shake .3s';
-    setTimeout(()=>card.style.animation='',300);
-    showErklärung(topic,l,qi);
-  }
+function updateCbtn(key,total){
+  const btn=document.getElementById('cbtn_'+key);
+  if(!btn)return;
+  const done=Object.keys(answered).filter(k=>k.startsWith(key+'_')).length;
+  btn.disabled=done<total;
+  btn.textContent=done>=total?'✅ Kapitel abschließen & nächstes freischalten':'Kapitel abschließen ('+done+'/'+total+' richtig)';
 }
 
-function updateCbtn(l,topic){
-  const pfx=topic==='pot'?'cb_pot_':'cb';
-  const btn=document.getElementById(pfx+l);if(!btn)return;
-  const qs=getQs(l,topic,lessonDiff[topic+'_'+l]||'easy');if(!qs.length){btn.disabled=false;return;}
-  const cnt=qs.filter((_,i)=>answered[topic+'_'+l+'_'+i]).length;
-  btn.disabled=cnt<qs.length;
-  btn.textContent=cnt>=qs.length?'Kapitel abschließen & nächstes freischalten 🔓':'Kapitel abschließen ('+cnt+'/'+qs.length+' richtig)';
+function completeLesson(topic,id){
+  if(topic==='pot'){donePot[id]=true;if(id<5)unlockedPot[id+1]=true;toast('🔓 Kapitel '+(id+2)+' freigeschaltet! +50 Pkt');pts+=50;document.getElementById('pts').textContent=pts;}
+  else{doneWahr[id]=true;if(id<4)unlockedWahr[id+1]=true;toast('🔓 Kapitel '+(id+2)+' freigeschaltet! +50 Pkt');pts+=50;document.getElementById('pts').textContent=pts;}
+  setTimeout(()=>backToPicker(),500);
 }
 
-function complete(id){
-  if(st.completed[id])return;
-  st.completed[id]=true;st.points+=50;
-  if(id<6)st.unlocked[id+1]=true;
-  toast(id<6?'🔓 Kapitel '+(id+2)+' freigeschaltet! +50 Pkt':'🏆 Alles fertig! +50 Pkt');
-  saveSt();updateStats();setTimeout(()=>backToLessons(),600);
-}
-function completePot(id){
-  if(st.completedPot[id])return;
-  st.completedPot[id]=true;st.points+=50;
-  if(id<4)st.unlockedPot[id+1]=true;
-  toast(id<4?'🔓 P-Kapitel '+(id+2)+' freigeschaltet! +50 Pkt':'🏆 Potenzen gemeistert! +50 Pkt');
-  saveSt();updateStats();setTimeout(()=>backToLessons(),600);
-}
-function updateStats(){
-  document.getElementById('pts').textContent=st.points;
-  document.getElementById('qCount').textContent=st.qCorrect;
-  const doneW=Object.values(st.completed).filter(Boolean).length;
-  const doneP=Object.values(st.completedPot).filter(Boolean).length;
-  document.getElementById('progFill').style.width=((doneW+doneP)/12*100)+'%';
-}
+// ═══ LESSON CONTENT ═══
+const POT_CONTENT={
+0:`${BACK}
+<div class="hero" style="background:linear-gradient(135deg,#2d4a2d,#1a3a1a)">${''}<div class="hero-tag">Kapitel 1 · Potenzen</div><h2>🔢 Was ist eine Potenz?</h2><p>Kurz schreiben statt ewig zu multiplizieren!</p><div class="hero-ico">⚡</div></div>
+<div class="tcard">
+<div class="tcard-head">💡 Grundidee</div>
+<div style="font-size:14px;font-weight:600;line-height:2;padding:10px 14px;background:#fafaf8;border-radius:9px;border-left:3px solid var(--accent);margin-bottom:10px">
+Statt 2 × 2 × 2 × 2 × 2 zu schreiben, kürzt man ab: <strong>2⁵</strong><br>
+Die <strong style="color:var(--accent)">Basis</strong> (2) wird <strong style="color:var(--accent2)">Exponent</strong> (5) mal multipliziert.
+</div>
+<div class="fbox"><div class="fm">2⁵ = 2 × 2 × 2 × 2 × 2 = 32</div><div class="fs">Basis = 2 (unten) · Exponent = 5 (oben)</div></div>
+<div class="sec">Sonderfälle — auswendig lernen!</div>
+<div class="steps">
+<div class="step"><span class="sn">a⁰</span><div class="st">Jede Zahl hoch 0 = immer 1<br><span style="font-size:12px;color:var(--muted)">Beweis: a³÷a³ = a⁰ UND = 1 → muss 1 sein!</span></div><div class="sv">= 1</div></div>
+<div class="step"><span class="sn">a¹</span><div class="st">Jede Zahl hoch 1 = sie selbst</div><div class="sv">= a</div></div>
+<div class="step" style="border-left-color:var(--red)"><span class="sn" style="background:var(--red)">(-a)²</span><div class="st">Negativ hoch GERADE → POSITIV<br><span style="font-size:12px;color:var(--muted)">(-3)² = (-3)×(-3) = +9</span></div><div class="sv" style="color:var(--green)">→ +</div></div>
+<div class="step" style="border-left-color:var(--red)"><span class="sn" style="background:var(--red)">(-a)³</span><div class="st">Negativ hoch UNGERADE → NEGATIV<br><span style="font-size:12px;color:var(--muted)">(-2)³ = -8</span></div><div class="sv" style="color:var(--red)">→ −</div></div>
+</div>
+<div class="info warn">⚠️ <strong>Klammern!</strong> −3² = −(3²) = −9 ABER (-3)² = +9</div>
+</div>
+<div class="tcard">
+<div class="tcard-head">⚡ Quiz</div>
+<div id="qa_pot_0"></div>
+<button class="cbtn" id="cbtn_pot_0" onclick="completeLesson('pot',0)" disabled>Kapitel abschließen</button>
+</div>`,
 
-// ══════════════════════════════════════════════
-// SICKS AI
-// ══════════════════════════════════════════════
-const SINGH_API='https://sicks-madebysamuelsingh.up.railway.app/api';
-let sicksOpen=false;let sicksHistory=[];let sicksWaiting=false;let sicksGreeted=false;
-let singhToken=localStorage.getItem('mm_tok')||null;
-let singhChatId='mm_'+Date.now();
+1:`${BACK}
+<div class="hero" style="background:linear-gradient(135deg,#1a3a5c,#0f2438)"><div class="hero-tag">Kapitel 2 · Potenzen</div><h2>✖️ Potenz × Potenz</h2><p>Gleiche Basis? Exponenten addieren!</p><div class="hero-ico">+</div></div>
+<div class="tcard">
+<div class="tcard-head">📌 Gesetz 1</div>
+<div class="fbox"><div class="fm">aⁿ × aᵐ = aⁿ⁺ᵐ</div><div class="fs">Gleiche Basis multiplizieren → Exponenten ADDIEREN</div></div>
+<div style="font-size:14px;font-weight:600;background:#fafaf8;border-radius:9px;padding:12px;border-left:3px solid var(--accent3);margin:10px 0">
+<strong>Warum?</strong> 2³ × 2² = (2×2×2) × (2×2) = 2×2×2×2×2 = 2⁵<br>
+3 Zweien + 2 Zweien = 5 Zweien → einfach zählen!
+</div>
+<div class="steps">
+<div class="step"><span class="sn">Bsp 1</span><div class="st">3⁴ × 3² = 3⁶</div><div class="sv">4+2=6</div></div>
+<div class="step"><span class="sn">Bsp 2</span><div class="st">5² × 5³ = 5⁵</div><div class="sv">2+3=5</div></div>
+<div class="step"><span class="sn">Bsp 3</span><div class="st">x⁷ × x² = x⁹</div><div class="sv">7+2=9</div></div>
+</div>
+<div class="info danger">❌ <strong>Nur bei gleicher Basis!</strong> 2³ × 3² → kann man NICHT vereinfachen!</div>
+</div>
+<div class="tcard">
+<div class="tcard-head">⚡ Quiz</div>
+<div id="qa_pot_1"></div>
+<button class="cbtn" id="cbtn_pot_1" onclick="completeLesson('pot',1)" disabled>Kapitel abschließen</button>
+</div>`,
 
-const SICKS_SYSTEM=`Du bist SICKS, der beste Mathe-Erklärer für Klasse 9 Deutschland. Du erklärst IMMER:
-1. DIE REGEL zuerst (knackig, auf Deutsch)
-2. WARUM sie funktioniert (Intuition/Beweis)
-3. Ein BEISPIEL Schritt für Schritt
-4. Einen MERKTRICK
+2:`${BACK}
+<div class="hero" style="background:linear-gradient(135deg,#5c2a1a,#3a1a0f)"><div class="hero-tag">Kapitel 3 · Potenzen</div><h2>➗ Potenz ÷ Potenz</h2><p>Gleiche Basis? Exponenten subtrahieren!</p><div class="hero-ico">−</div></div>
+<div class="tcard">
+<div class="tcard-head">📌 Gesetz 2</div>
+<div class="fbox"><div class="fm">aⁿ ÷ aᵐ = aⁿ⁻ᵐ</div><div class="fs">Gleiche Basis dividieren → Exponenten SUBTRAHIEREN</div></div>
+<div style="font-size:14px;font-weight:600;background:#fafaf8;border-radius:9px;padding:12px;border-left:3px solid var(--accent2);margin:10px 0">
+<strong>Warum?</strong> 2⁵ ÷ 2³ = (2×2×2×2×2) ÷ (2×2×2)<br>
+3 kürzen sich weg → 2 übrig → 2² (= 5−3)
+</div>
+<div class="steps">
+<div class="step"><span class="sn">Bsp 1</span><div class="st">2⁶ ÷ 2² = 2⁴</div><div class="sv">6−2=4</div></div>
+<div class="step"><span class="sn">Bsp 2</span><div class="st">5⁷ ÷ 5³ = 5⁴</div><div class="sv">7−3=4</div></div>
+<div class="step" style="border-left-color:var(--yellow)"><span class="sn" style="background:var(--yellow)">Bonus</span><div class="st">a⁰ = 1 Beweis: a³÷a³ = a⁰ = 1</div><div class="sv">✓</div></div>
+</div>
+<div class="info tip">💡 Negativer Exponent: 2⁻³ = 1/2³ = 1/8</div>
+</div>
+<div class="tcard">
+<div class="tcard-head">⚡ Quiz</div>
+<div id="qa_pot_2"></div>
+<button class="cbtn" id="cbtn_pot_2" onclick="completeLesson('pot',2)" disabled>Kapitel abschließen</button>
+</div>`,
 
-=== VOLLSTÄNDIGES WISSEN: POTENZEN ===
+3:`${BACK}
+<div class="hero" style="background:linear-gradient(135deg,#3a1a5c,#250f3a)"><div class="hero-tag">Kapitel 4 · Potenzen</div><h2>🏗️ Potenz hoch Potenz</h2><p>Klammer mit Exponent → Exponenten multiplizieren!</p><div class="hero-ico">×</div></div>
+<div class="tcard">
+<div class="tcard-head">📌 Gesetz 3</div>
+<div class="fbox"><div class="fm">(aⁿ)ᵐ = aⁿˣᵐ</div><div class="fs">Potenz in Klammern hoch Zahl → Exponenten MULTIPLIZIEREN</div></div>
+<div style="font-size:14px;font-weight:600;background:#fafaf8;border-radius:9px;padding:12px;border-left:3px solid #6d28d9;margin:10px 0">
+<strong>Warum?</strong> (2³)² = 2³ × 2³ = 2⁶<br>
+Der äußere Exponent (2) sagt: nimm 2³ genau 2 Mal → 3×2=6
+</div>
+<div class="steps">
+<div class="step"><span class="sn">Bsp 1</span><div class="st">(3²)³ = 3⁶</div><div class="sv">2×3=6</div></div>
+<div class="step"><span class="sn">Bsp 2</span><div class="st">(x⁴)² = x⁸</div><div class="sv">4×2=8</div></div>
+<div class="step"><span class="sn">Bsp 3</span><div class="st">(5²)³ ÷ 5⁴ = 5⁶ ÷ 5⁴ = 5²</div><div class="sv">erst ×, dann −</div></div>
+</div>
+<div class="sec">Alle 3 Gesetze auf einen Blick</div>
+<div style="display:flex;flex-direction:column;gap:7px">
+<div style="padding:11px 14px;background:#f0fdf4;border-radius:9px;border-left:3px solid var(--green);display:flex;justify-content:space-between"><span style="font-weight:700">✖️ aⁿ × aᵐ = aⁿ⁺ᵐ</span><span style="font-family:'DM Mono',monospace;font-weight:700;color:var(--green)">× → +</span></div>
+<div style="padding:11px 14px;background:#fff7ed;border-radius:9px;border-left:3px solid var(--accent2);display:flex;justify-content:space-between"><span style="font-weight:700">➗ aⁿ ÷ aᵐ = aⁿ⁻ᵐ</span><span style="font-family:'DM Mono',monospace;font-weight:700;color:var(--accent2)">÷ → −</span></div>
+<div style="padding:11px 14px;background:#faf5ff;border-radius:9px;border-left:3px solid #6d28d9;display:flex;justify-content:space-between"><span style="font-weight:700">🏗️ (aⁿ)ᵐ = aⁿˣᵐ</span><span style="font-family:'DM Mono',monospace;font-weight:700;color:#6d28d9">()ᵐ → ×</span></div>
+</div>
+</div>
+<div class="tcard">
+<div class="tcard-head">⚡ Quiz</div>
+<div id="qa_pot_3"></div>
+<button class="cbtn" id="cbtn_pot_3" onclick="completeLesson('pot',3)" disabled>Kapitel abschließen</button>
+</div>`,
 
-DEFINITION: aⁿ = a × a × ... × a (n-mal). Basis=a (unten), Exponent=n (oben, klein).
-AUSSPRACHE: "a hoch n"
+4:`${BACK}
+<div class="hero" style="background:linear-gradient(135deg,#3a2a0a,#2a1a00)"><div class="hero-tag">Kapitel 5 · Tafelbild vom 17.03.2026</div><h2>📸 Was heute an der Tafel stand</h2><p>Genau das, was ihr in der Stunde gemacht habt!</p><div class="hero-ico">🏫</div></div>
+<div class="tcard">
+<div class="tcard-head">📝 Tafel — obere Hälfte (Negative Exponenten)</div>
+<div class="steps">
+<div class="step"><span class="sn">1</span><div class="st"><strong>5⁻² · 5³ = ?</strong><br>Gleiche Basis → Exponenten addieren<br>−2 + 3 = 1 → 5¹ = 5</div><div class="sv">= 5</div></div>
+<div class="step"><span class="sn">2</span><div class="st"><strong>(5⁻²)⁴ = ?</strong><br>Potenz hoch Potenz → multiplizieren<br>−2 × 4 = −8 → 5⁻⁸</div><div class="sv">= 5⁻⁸</div></div>
+<div class="step"><span class="sn">3</span><div class="st"><strong>5⁻⁸ = 1/5⁸ = 0,00000256</strong><br>= 2,56 · 10⁻⁶ (Wissenschaftliche Notation)</div><div class="sv">2,56·10⁻⁶</div></div>
+</div>
+<div class="info tip">💡 Negativer Exponent = Kehrwert: a⁻ⁿ = 1/aⁿ</div>
+</div>
+<div class="tcard">
+<div class="tcard-head">📝 Tafel — untere Hälfte (Terme & Runden)</div>
+<div class="steps">
+<div class="step"><span class="sn">Term</span><div class="st"><strong>Denke an x, addiere 5, multipliziere mit 4, subtrahiere 2</strong><br>(x + 5) · 4 − 2 = 4x + 20 − 2 = 4x + 18</div><div class="sv">4x+18</div></div>
+<div class="step"><span class="sn">Runden</span><div class="st"><strong>721 + 389 + 333 ≈ ?</strong><br>700 + 400 + 300 = 1400</div><div class="sv">≈ 1400</div></div>
+<div class="step"><span class="sn">Summe</span><div class="st">Summe von 5 und 4 = 5 + 4 = 9</div><div class="sv">= 9</div></div>
+<div class="step"><span class="sn">Produkt</span><div class="st">Produkt von 5 und 4 = 5 · 4 = 20</div><div class="sv">= 20</div></div>
+</div>
+</div>
+<div class="tcard">
+<div class="tcard-head">⚡ Quiz — Tafelbild</div>
+<div id="qa_pot_4"></div>
+<button class="cbtn" id="cbtn_pot_4" onclick="completeLesson('pot',4)" disabled>Kapitel abschließen</button>
+</div>`,
 
-SONDERFÄLLE (auswendig lernen!):
-• a⁰ = 1 immer! (außer 0⁰ undefiniert) → BEWEIS: a³÷a³=a⁰ UND =1 → muss 1 sein
-• a¹ = a (einmal nehmen = die Zahl selbst)
-• 1ⁿ = 1 immer (1 mal sich selbst ist immer 1)
-• (-a)^gerade = POSITIV → (-3)² = +9 (minus×minus=plus)
-• (-a)^ungerade = NEGATIV → (-2)³ = -8
-• ACHTUNG: -3² = -(3²) = -9 aber (-3)² = +9 (Klammern ändern alles!)
-• a⁻ⁿ = 1/aⁿ (negativer Exponent = Kehrwert)
+5:`${BACK}
+<div class="hero" style="background:linear-gradient(135deg,#2d4a2d,#1a3a1a)"><div class="hero-tag">Kapitel 6 · Übungsaufgaben</div><h2>🎯 Alle 3 Gesetze gemischt</h2><p>Gemischte Aufgaben — teste alles!</p><div class="hero-ico">🏆</div></div>
+<div class="tcard">
+<div class="tcard-head">📝 Ausrechnen</div>
+<div class="steps">
+<div class="step"><span class="sn">A1</span><div class="st">3² × 3³ = ?</div><div class="sv">= 243</div></div>
+<div class="step"><span class="sn">A2</span><div class="st">2⁸ ÷ 2³ = ?</div><div class="sv">= 32</div></div>
+<div class="step"><span class="sn">A3</span><div class="st">(4²)³ = ?</div><div class="sv">= 4096</div></div>
+<div class="step"><span class="sn">A4</span><div class="st">(-2)⁴ = ? (gerade → positiv!)</div><div class="sv">= 16</div></div>
+<div class="step"><span class="sn">A5</span><div class="st">(-3)³ = ? (ungerade → negativ!)</div><div class="sv">= -27</div></div>
+<div class="step"><span class="sn">A6</span><div class="st">7⁰ × 7² = ? (7⁰ = 1)</div><div class="sv">= 49</div></div>
+</div>
+</div>
+<div class="tcard">
+<div class="tcard-head">⚡ Abschluss-Quiz</div>
+<div id="qa_pot_5"></div>
+<button class="cbtn" id="cbtn_pot_5" onclick="completeLesson('pot',5)" disabled>🏆 Potenzen gemeistert!</button>
+</div>`,
+};
 
-WICHTIGE POTENZEN (auswendig!):
-2¹=2, 2²=4, 2³=8, 2⁴=16, 2⁵=32, 2⁶=64, 2⁷=128, 2⁸=256, 2⁹=512, 2¹⁰=1024
-3²=9, 3³=27, 3⁴=81, 3⁵=243
-4²=16, 4³=64
-5²=25, 5³=125
-10²=100, 10³=1000, 10⁴=10000
+const WAHR_CONTENT={
+0:`${BACK}
+<div class="hero" style="background:linear-gradient(135deg,#1a3a5c,#0f2438)"><div class="hero-tag">Kapitel 1 · Wahrscheinlichkeit</div><h2>🌳 Baumdiagramm</h2><p>Alle Möglichkeiten übersichtlich darstellen!</p><div class="hero-ico">🌳</div></div>
+<div class="tcard">
+<div class="tcard-head">💡 Die 3 Grundregeln</div>
+<div class="fbox"><div class="fm">Pfadregel: P₁ × P₂ × P₃</div><div class="fs">Einem Ast folgen → alles multiplizieren</div></div>
+<div class="fbox"><div class="fm">Summenregel: Pfad₁ + Pfad₂</div><div class="fs">Mehrere günstige Wege → addieren</div></div>
+<div class="fbox"><div class="fm">Probe: alle Äste = 1</div><div class="fs">Kontrollrechnung — immer 100%!</div></div>
+<div class="info tip">💡 Merktrick: Auf einem Ast → ×  |  Verschiedene Äste → +</div>
+</div>
+<div class="tcard">
+<div class="tcard-head">⚡ Quiz</div>
+<div id="qa_wahr_0"></div>
+<button class="cbtn" id="cbtn_wahr_0" onclick="completeLesson('wahr',0)" disabled>Kapitel abschließen</button>
+</div>`,
 
-GESETZ 1 — Multiplizieren (GLEICHE BASIS):
-Regel: aⁿ × aᵐ = aⁿ⁺ᵐ
-Warum: 2³×2² = (2×2×2)×(2×2) = 2⁵ — 3 Zweien + 2 Zweien = 5 Zweien
-MERKTRICK: × → Exponenten addieren (+)
-ACHTUNG: Nur bei gleicher Basis! 2³×3² NICHT möglich!
-Bonus: gleicher Exponent, verschiedene Basis: aⁿ×bⁿ = (a×b)ⁿ → 2³×3³=6³
+1:`${BACK}
+<div class="hero" style="background:linear-gradient(135deg,#5c1a3a,#3a0f25)"><div class="hero-tag">Kapitel 2 · Wahrscheinlichkeit</div><h2>✖️ Pfadregel</h2><p>Einem Pfad folgen = alles multiplizieren!</p><div class="hero-ico">×</div></div>
+<div class="tcard">
+<div class="tcard-head">📋 Klassenaufgabe: Karten K, E, O, A</div>
+<div style="font-size:13px;font-weight:600;background:#fafaf8;border-radius:9px;padding:12px;border-left:3px solid var(--accent);margin-bottom:10px">
+4 Karten: K, E, O, A. Jeder zieht 2 Karten <strong>ohne Zurücklegen</strong>. Wer „OK" zieht, bekommt einen Kaugummi!
+</div>
+<div class="steps">
+<div class="step"><span class="sn">1. Zug</span><div class="st">P(O) = 1/4 (1 von 4 Karten)</div><div class="sv">1/4</div></div>
+<div class="step"><span class="sn">2. Zug</span><div class="st">O liegt weg → noch 3 Karten<br>P(K) = 1/3</div><div class="sv">1/3</div></div>
+<div class="step" style="border-left-color:var(--green)"><span class="sn" style="background:var(--green)">×</span><div class="st">Pfadregel: P("OK") = 1/4 × 1/3 = 1/12</div><div class="sv" style="color:var(--green)">≈ 8,3%</div></div>
+</div>
+<div style="background:#f0fdf4;border:1.5px solid #86efac;border-radius:9px;padding:12px;text-align:center;font-weight:800;font-size:15px">P("OK") = 1/12 ≈ 8,3% → 30 Schüler × 1/12 ≈ 3 Kaugummis 🍬</div>
+</div>
+<div class="tcard">
+<div class="tcard-head">⚡ Quiz</div>
+<div id="qa_wahr_1"></div>
+<button class="cbtn" id="cbtn_wahr_1" onclick="completeLesson('wahr',1)" disabled>Kapitel abschließen</button>
+</div>`,
 
-GESETZ 2 — Dividieren (GLEICHE BASIS):
-Regel: aⁿ ÷ aᵐ = aⁿ⁻ᵐ
-Warum: 2⁵÷2³ = (2×2×2×2×2)/(2×2×2) → 3 kürzen sich weg → 2² (=5−3)
-MERKTRICK: ÷ → Exponenten subtrahieren (−)
-SPEZIALFALL: aⁿ÷aⁿ = a⁰ = 1 → Beweis für a⁰=1!
+2:`${BACK}
+<div class="hero" style="background:linear-gradient(135deg,#1a5c3a,#0f3a25)"><div class="hero-tag">Kapitel 3 · Wahrscheinlichkeit</div><h2>➕ Summenregel</h2><p>Mehrere Wege zum Ziel? Addieren!</p><div class="hero-ico">+</div></div>
+<div class="tcard">
+<div class="tcard-head">🔵 5 weiße + 5 schwarze Kugeln (ohne Zurücklegen)</div>
+<div class="steps">
+<div class="step"><span class="sn">Pfad WW</span><div class="st">5/10 × 4/9 = 20/90 = 2/9</div><div class="sv">2/9</div></div>
+<div class="step"><span class="sn">Pfad SS</span><div class="st">5/10 × 4/9 = 20/90 = 2/9</div><div class="sv">2/9</div></div>
+<div class="step" style="border-left-color:var(--green)"><span class="sn" style="background:var(--green)">+</span><div class="st">Summenregel: P(gleichfarbig) = 2/9 + 2/9 = 4/9</div><div class="sv" style="color:var(--green)">≈ 44%</div></div>
+</div>
+<div class="info tip">💡 Schritt 1: jeden Weg mit Pfadregel (×) berechnen. Schritt 2: alle addieren (+).</div>
+</div>
+<div class="tcard">
+<div class="tcard-head">⚡ Quiz</div>
+<div id="qa_wahr_2"></div>
+<button class="cbtn" id="cbtn_wahr_2" onclick="completeLesson('wahr',2)" disabled>Kapitel abschließen</button>
+</div>`,
 
-GESETZ 3 — Potenz hoch Potenz:
-Regel: (aⁿ)ᵐ = aⁿˣᵐ
-Warum: (2³)² = 2³×2³ = 2⁶ (Gesetz 1: 3+3=6) — oder Exponent 2 bedeutet "2 mal nehmen"
-MERKTRICK: Klammer + äußerer Exponent → Exponenten multiplizieren (×)
+3:`${BACK}
+<div class="hero" style="background:linear-gradient(135deg,#5c3a1a,#3a250f)"><div class="hero-tag">Kapitel 4 · Wahrscheinlichkeit</div><h2>🎲 Würfel 3×</h2><p>S.49 — alle Lösungen erklärt!</p><div class="hero-ico">🎲</div></div>
+<div class="tcard">
+<div class="tcard-head">📊 S.49 — alle Teile</div>
+<div class="steps">
+<div class="step" style="border-left-color:var(--green)"><span class="sn" style="background:var(--green)">a)</span><div class="st">Alle drei 1: 1/6 × 1/6 × 1/6 = 1/216</div><div class="sv">≈ 0,5%</div></div>
+<div class="step"><span class="sn">b)</span><div class="st">Keinmal 1: 5/6 × 5/6 × 5/6 = 125/216</div><div class="sv">≈ 57,9%</div></div>
+<div class="step"><span class="sn">c)</span><div class="st">Genau 1× eine 1:<br>3 Positionen (1xx, x1x, xx1) × 1/6 × 5/6 × 5/6<br>= 3 × 25/216 = 75/216</div><div class="sv">≈ 34,7%</div></div>
+<div class="step"><span class="sn">d)</span><div class="st">Genau 2× eine 1:<br>3 Positionen × 1/6 × 1/6 × 5/6 = 15/216</div><div class="sv">≈ 6,9%</div></div>
+</div>
+<div class="info tip">✅ Probe: 1 + 125 + 75 + 15 = 216 = 6³ ✓</div>
+</div>
+<div class="tcard">
+<div class="tcard-head">⚡ Quiz</div>
+<div id="qa_wahr_3"></div>
+<button class="cbtn" id="cbtn_wahr_3" onclick="completeLesson('wahr',3)" disabled>Kapitel abschließen</button>
+</div>`,
 
-ZUSAMMENFASSUNG DER 3 GESETZE:
-× → + (Basis gleich, multiplizieren → Exp addieren)
-÷ → − (Basis gleich, dividieren → Exp subtrahieren)
-()ᵐ → × (Potenz hoch Potenz → Exp multiplizieren)
+4:`${BACK}
+<div class="hero" style="background:linear-gradient(135deg,#3a1a5c,#250f3a)"><div class="hero-tag">Kapitel 5 · Wahrscheinlichkeit</div><h2>🎴 Karten K, E, O, A</h2><p>Das vollständige Baumdiagramm!</p><div class="hero-ico">🎴</div></div>
+<div class="tcard">
+<div class="tcard-head">📋 Alle 12 Paare</div>
+<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:5px;margin:10px 0;font-family:'DM Mono',monospace;font-size:12px;font-weight:700">
+${['KE','KO','KA','EK','EO','EA','OK','OE','OA','AK','AE','AO'].map(p=>`<div style="padding:7px;background:${p==='OK'?'#f0fdf4':'#fafaf8'};border:1.5px solid ${p==='OK'?'#86efac':'var(--border)'};border-radius:7px;text-align:center;color:${p==='OK'?'var(--green)':'var(--text)'}">${p}${p==='OK'?' 🍬':''}</div>`).join('')}
+</div>
+<div style="text-align:center;font-weight:800;padding:10px;background:#f0fdf4;border-radius:9px;border:1.5px solid #86efac">Jedes Paar: 1/12 ≈ 8,3%   |   Probe: 12 × 1/12 = 1 ✓</div>
+</div>
+<div class="tcard">
+<div class="tcard-head">⚡ Abschluss-Quiz</div>
+<div id="qa_wahr_4"></div>
+<button class="cbtn" id="cbtn_wahr_4" onclick="completeLesson('wahr',4)" disabled>🏆 Wahrscheinlichkeit gemeistert!</button>
+</div>`,
+};
 
-KNIFFLIGE AUFGABEN (umschreiben!):
-• 2³ × 4²: 4=2² → (2²)²=2⁴ → 2³×2⁴=2⁷=128
-• 9³ ÷ 3²: 9=3² → (3²)³=3⁶ → 3⁶÷3²=3⁴=81
-• 8²: 8=2³ → (2³)²=2⁶=64
-• (2³×2²)²: Klammer erst: 2⁵ → (2⁵)²=2¹⁰=1024
+// ═══ SICKS AI ═══
+const API='https://sicks-madebysamuelsingh.up.railway.app/api';
+let sOpen=false,sWait=false,sTok=localStorage.getItem('mm_tok2')||null,sHist=[];
+let sGreeted=false,sChatId='mm_'+Date.now();
 
-=== VOLLSTÄNDIGES WISSEN: WAHRSCHEINLICHKEIT ===
+const SYSTEM=`Du bist SICKS, ein Mathe-Erklärer für Klasse 9.
+Erkläre IMMER: 1) Die Regel kurz 2) Warum sie funktioniert 3) Beispiel Schritt für Schritt 4) Merktrick.
 
-BAUMDIAGRAMM: Zeigt alle möglichen Ergebnisse eines Zufallsexperiments. Links→rechts = Stufen/Schritte.
+POTENZEN: aⁿ×aᵐ=aⁿ⁺ᵐ | aⁿ÷aᵐ=aⁿ⁻ᵐ | (aⁿ)ᵐ=aⁿˣᵐ
+Sonderfälle: a⁰=1 (immer!) | a⁻ⁿ=1/aⁿ | (-a)^gerade=+ | (-a)^ungerade=-
+TAFELBILD 17.03: 5⁻²·5³=5¹=5 | (5⁻²)⁴=5⁻⁸=1/5⁸=2,56·10⁻⁶ | Term: (x+5)·4-2=4x+18
 
-3 GRUNDREGELN:
-1. PFADREGEL (×): Einem Ast folgen → alle Wahrscheinlichkeiten multiplizieren
-   P(Pfad) = P₁ × P₂ × P₃ × ...
-   Warum: unabhängige Ereignisse hintereinander → Schnittmenge → Multiplikation
-2. SUMMENREGEL (+): Mehrere günstige Wege → alle Pfadwahrsch. addieren
-   P(Ereignis) = Pfad₁ + Pfad₂ + ...
-3. PROBE: Alle Pfadwahrscheinlichkeiten zusammen = 1 (= 100%) — IMMER!
+WAHRSCHEINLICHKEIT: Pfadregel (×) | Summenregel (+) | Probe=1
+Karten OK: P=1/4×1/3=1/12≈8,3% | 30 Schüler → 3 Kaugummis
+5W+5S: P(gleichfarbig)=4/9≈44%
+Würfel 3×: a)1/216 b)125/216 c)75/216 d)15/216
 
-KARTEN K, E, O, A (Klassenaufgabe):
-- 4 Karten, 2 Züge ohne Zurücklegen
-- Alle Paare: 4×3 = 12
-- Jedes Paar: P = 1/4 × 1/3 = 1/12 ≈ 8,3%
-- P("OK") = 1/12 ≈ 8,3%
-- Erwartungswert bei 30 Schülern: 30 × 1/12 = 2,5 → 3 Kaugummis
-- Probe: 12 × 1/12 = 1 ✓
-
-KUGELN 5 WEISS + 5 SCHWARZ (ohne Zurücklegen):
-- P(W) = 5/10 = 1/2
-- P(W,W) = 5/10 × 4/9 = 20/90 = 2/9
-- P(S,S) = 5/10 × 4/9 = 20/90 = 2/9
-- P(gleichfarbig) = P(WW) + P(SS) = 2/9 + 2/9 = 4/9 ≈ 44,4%
-- P(verschiedenfarb.) = 1 − 4/9 = 5/9 ≈ 55,6%
-
-KUGELN 4 ORANGE + 8 WEISS = 12:
-MIT Zurücklegen: P(OO) = 4/12 × 4/12 = 16/144 ≈ 11,1%
-OHNE Zurücklegen: P(OO) = 4/12 × 3/11 = 12/132 ≈ 9,1%
-UNTERSCHIED: Ohne Zurücklegen → Nenner wird kleiner (12→11)
-
-WÜRFEL 3× (S.49):
-Gesamt: 6³ = 216 Möglichkeiten
-P(1) = 1/6, P(nicht 1) = 5/6
-a) alle drei 1: 1/6³ = 1/216 ≈ 0,46%
-b) keinmal 1: (5/6)³ = 125/216 ≈ 57,9%
-c) genau 1× eine 1: 3 × (1/6) × (5/6)² = 3×25/216 = 75/216 ≈ 34,8%
-   WARUM ×3: die 1 kann an Pos. 1, 2 oder 3 stehen → 3 verschiedene Pfade
-d) genau 2× eine 1: 3 × (1/6)² × (5/6) = 3×5/216 = 15/216 ≈ 6,9%
-   WARUM ×3: zwei 1en können auf (1,2), (1,3), (2,3) stehen
-PROBE: 1 + 125 + 75 + 15 = 216 ✓
-
-MADN (Mensch ärgere dich nicht):
-1. Wurf: P(6) = 1/6 ≈ 16,7%
-2. Wurf (1. nicht): P(nicht 6) × P(6) = 5/6 × 1/6 = 5/36 ≈ 13,8%
-3. Wurf: (5/6)² × 1/6 = 25/216 ≈ 11,57%
-
-MIT vs OHNE ZURÜCKLEGEN (Merkregel):
-MIT Zurücklegen: Nenner bleibt gleich (Kugel kommt zurück)
-OHNE Zurücklegen: Nenner wird kleiner (Kugel bleibt weg)
-
-HÄUFIGE FEHLER:
-❌ Pfadwahrscheinlichkeiten addieren → IMMER multiplizieren!
-❌ Nur einen Pfad berechnen bei mehreren günstigen Wegen → alle addieren!
-❌ Bei Exponenten mit gleicher Basis multiplizieren → ADDIEREN!
-❌ a⁰ = 0 denken → a⁰ = 1 IMMER!
-❌ Klammern vergessen: -3² ≠ (-3)²
-
-STIL: Du bist wie ein cooler älterer Bruder/Schwester — direkt, witzig, mit Emojis.
-Max 4 kurze Schritte. Keine langen Aufsätze. IMMER konkretes Beispiel.
-Du antwortest NUR auf Mathe-Fragen (Klasse 9: Potenzen, Wahrscheinlichkeit).
-Bei Nicht-Mathe-Fragen: "Ich bin nur für Mathe da! 🧮 Was ist deine Mathe-Frage?"
-Keine Bildgenerierung, keine anderen Fächer.`;
-
-function showSicksPane(id){
-  ['sicksCodePrompt','sicksNamePrompt','sicksInputRow'].forEach(p=>{
-    document.getElementById(p).style.display=p===id?(id==='sicksInputRow'?'flex':'block'):'none';
-  });
-}
+Antworte auf DEUTSCH. Max 5 Zeilen. Klar und einfach. Nur Mathe-Fragen beantworten.`;
 
 function toggleSicks(){
-  sicksOpen=!sicksOpen;
-  document.getElementById('sicksPanel').classList.toggle('open',sicksOpen);
-  if(sicksOpen&&!sicksGreeted){
-    sicksGreeted=true;
-    document.querySelector('.sicks-btn .notif')?.remove();
+  sOpen=!sOpen;
+  document.getElementById('sicksPanel').classList.toggle('open',sOpen);
+  if(sOpen&&!sGreeted){
+    sGreeted=true;
     setTimeout(()=>{
-      if(!singhToken){
-        appendSicks('ai','Hey! 👋 Ich bin **Sicks**, dein Mathe-Assistent!\n\nGib deinen **Sicks-Code** ein und ich erkläre dir alles! 🚀');
-        showSicksPane('sicksCodePrompt');
-        setTimeout(()=>document.getElementById('sicksCodeInput').focus(),100);
-      } else if(!st.name){
-        appendSicks('ai','Hey! 👋 Wie soll ich dich nennen?');
-        showSicksPane('sicksNamePrompt');
-      } else {
-        openSicksChat();
-      }
-    },250);
+      if(!sTok){addMsg('ai','Hey! 👋 Ich bin **Sicks**, dein Mathe-Assistent!\nGib deinen Code ein 🔑');showArea('code');}
+      else openChat();
+    },200);
   }
 }
-
-async function submitSicksCode(){
-  const inp=document.getElementById('sicksCodeInput');
-  const err=document.getElementById('sicksCodeErr');
-  const code=inp.value.trim().toUpperCase();
-  if(!code){err.textContent='Bitte Code eingeben!';return;}
-  if(!code.startsWith('SINGH-')){err.textContent='❌ Ungültiges Format (SINGH-XXXX)';return;}
-  err.textContent='⏳ Wird aktiviert...';
-  const user='mm_'+code.replace('SINGH-','').toLowerCase();
-  const pass='sicks_'+code+'_2026';
+function showArea(a){
+  document.getElementById('sCodeArea').style.display=a==='code'?'block':'none';
+  document.getElementById('sInpRow').style.display=a==='chat'?'flex':'none';
+}
+async function submitCode(){
+  const c=document.getElementById('sCodeInp').value.trim().toUpperCase();
+  const err=document.getElementById('sErr');
+  if(!c.startsWith('SINGH-')){err.textContent='Format: SINGH-XXXX';return;}
+  err.textContent='⏳ Aktiviere...';
+  const u='mm_'+c.replace('SINGH-','').toLowerCase(),p='sicks_'+c+'_2026';
   try{
-    const r=await fetch(SINGH_API+'/client/login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({username:user,password:pass})});
-    const d=await r.json();
-    if(d.success){singhToken=d.token;localStorage.setItem('mm_tok',d.token);localStorage.setItem('mm_usr',user);localStorage.setItem('mm_pw',pass);err.textContent='';appendSicks('user',code);appendSicks('ai','✅ **Code aktiviert!** Wie soll ich dich nennen?');showSicksPane('sicksNamePrompt');return;}
-    const r2=await fetch(SINGH_API+'/client/register',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({code,username:user,password:pass})});
-    const d2=await r2.json();
-    if(d2.success){singhToken=d2.token;localStorage.setItem('mm_tok',d2.token);localStorage.setItem('mm_usr',user);localStorage.setItem('mm_pw',pass);err.textContent='';appendSicks('user',code);appendSicks('ai','🎉 **Willkommen!** Wie soll ich dich nennen?');showSicksPane('sicksNamePrompt');}
-    else err.textContent='❌ '+(d2.message||'Ungültiger Code');
+    let r=await fetch(API+'/client/login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({username:u,password:p})});
+    let d=await r.json();
+    if(!d.success){r=await fetch(API+'/client/register',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({code:c,username:u,password:p})});d=await r.json();}
+    if(d.success){sTok=d.token;localStorage.setItem('mm_tok2',d.token);localStorage.setItem('mm_u2',u);localStorage.setItem('mm_p2',p);err.textContent='';addMsg('user',c);openChat();}
+    else err.textContent='❌ '+( d.message||'Ungültiger Code');
   }catch(e){err.textContent='❌ Server nicht erreichbar';}
 }
-
-function openSicksChat(){
-  showSicksPane('sicksInputRow');
-  appendSicks('ai','Hey **'+(st.name||'du')+'**! 👋\n\nIch kenne **alle** eure Aufgaben auswendig:\n🔢 Potenzen (alle 3 Gesetze)\n🌳 Baumdiagramme, Pfadregel, Summenregel\n🎲 Würfel S.49, Kugeln, Karten K,E,O,A\n\nWas möchtest du verstehen?');
-  setTimeout(()=>document.getElementById('sicksInput').focus(),100);
+function openChat(){
+  showArea('chat');
+  addMsg('ai','Hey! 🤖 Ich kenne **alles** was ihr gemacht habt:\n⚡ Potenzen (alle Gesetze + Tafelbild)\n🌳 Baumdiagramme, Pfadregel, Summenregel\n🎲 Würfel S.49, Karten K,E,O,A\n\nWas willst du verstehen?');
+  setTimeout(()=>document.getElementById('sInp').focus(),100);
 }
-
-function confirmSicksName(){
-  const inp=document.getElementById('sicksNameInput');
-  const name=inp.value.trim();if(!name)return;
-  st.name=name;saveSt();showGreeting();buildLessonGrid();buildPotGrid();updateStats();
-  appendSicks('user',name);
-  setTimeout(openSicksChat,200);
+function addMsg(role,text){
+  const c=document.getElementById('sMsgs');
+  const d=document.createElement('div');d.className='smsg '+role;
+  const html=text.replace(/\n/g,'<br>').replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>');
+  d.innerHTML=`<div class="s-av2">${role==='ai'?'🤖':'Du'}</div><div class="s-bbl">${html}</div>`;
+  c.appendChild(d);c.scrollTop=c.scrollHeight;
 }
-
-function appendSicks(role,text){
-  const container=document.getElementById('sicksMsgs');
-  const div=document.createElement('div');div.className='smsg '+role;
-  const name=st.name||'Du';const initial=(name[0]||'D').toUpperCase();
-  const rendered=text.replace(/\n/g,'<br>').replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>').replace(/`([^`]+)`/g,'<code style="background:#1a1a2e;padding:2px 5px;border-radius:4px;font-family:monospace;font-size:12px;color:#a78bfa">$1</code>');
-  div.innerHTML=`<div class="smsg-av">${role==='ai'?'🤖':initial}</div><div class="smsg-bubble">${rendered}</div>`;
-  container.appendChild(div);container.scrollTop=container.scrollHeight;
+function addTyping(){
+  const c=document.getElementById('sMsgs');
+  const d=document.createElement('div');d.className='smsg ai';d.id='s-typing';
+  d.innerHTML=`<div class="s-av2">🤖</div><div class="s-bbl"><div class="s-typing"><span></span><span></span><span></span></div></div>`;
+  c.appendChild(d);c.scrollTop=c.scrollHeight;
 }
-function appendSicksTyping(){
-  const container=document.getElementById('sicksMsgs');
-  const div=document.createElement('div');div.className='smsg ai';div.id='sicks-typing';
-  div.innerHTML=`<div class="smsg-av">🤖</div><div class="smsg-bubble"><div class="sicks-typing"><span></span><span></span><span></span></div></div>`;
-  container.appendChild(div);container.scrollTop=container.scrollHeight;
+function askSicks(prompt){
+  if(!sOpen)toggleSicks();
+  setTimeout(()=>{
+    if(document.getElementById('sInpRow').style.display!=='flex'){toast('🔑 Bitte Sicks-Code eingeben!');return;}
+    document.getElementById('sInp').value=prompt;sendMsg();
+  },300);
 }
-
-async function sendSicks(){
-  if(sicksWaiting)return;
-  const inp=document.getElementById('sicksInput');
+async function sendMsg(){
+  if(sWait)return;
+  const inp=document.getElementById('sInp');
   const msg=inp.value.trim();if(!msg)return;
   inp.value='';inp.style.height='auto';
-  const btn=document.getElementById('sicksSend');
-  btn.disabled=true;sicksWaiting=true;
-  appendSicks('user',msg);appendSicksTyping();
-
-  if(!singhToken){
-    const u=localStorage.getItem('mm_usr'),p=localStorage.getItem('mm_pw');
-    if(u&&p){try{const r=await fetch(SINGH_API+'/client/login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({username:u,password:p})});const d=await r.json();if(d.success){singhToken=d.token;localStorage.setItem('mm_tok',d.token);}}catch(e){}}
-  }
-  if(!singhToken){document.getElementById('sicks-typing')?.remove();appendSicks('ai','❌ Bitte zuerst deinen Sicks-Code eingeben! 🔑');showSicksPane('sicksCodePrompt');sicksWaiting=false;btn.disabled=false;return;}
-
+  const btn=document.getElementById('sSend');
+  btn.disabled=true;sWait=true;
+  addMsg('user',msg);addTyping();
+  if(!sTok){const u=localStorage.getItem('mm_u2'),p=localStorage.getItem('mm_p2');if(u&&p)try{const r=await fetch(API+'/client/login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({username:u,password:p})});const d=await r.json();if(d.success){sTok=d.token;localStorage.setItem('mm_tok2',d.token);}}catch(e){}}
+  if(!sTok){document.getElementById('s-typing')?.remove();addMsg('ai','❌ Bitte Code eingeben!');showArea('code');sWait=false;btn.disabled=false;return;}
   try{
-    const fullMsg=SICKS_SYSTEM+'\n\n'+('Schüler: '+(st.name||'unbekannt'))+'\n\nFRAGE: '+msg;
-    const res=await fetch(SINGH_API+'/client/chat',{
-      method:'POST',headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({token:singhToken,message:fullMsg,chat_id:singhChatId,history:sicksHistory.map(h=>({user:h.u,assistant:h.a}))})
-    });
+    const fullMsg=SYSTEM+'\n\nFRAGE: '+msg;
+    const res=await fetch(API+'/client/chat',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({token:sTok,message:fullMsg,chat_id:sChatId,history:sHist.map(h=>({user:h.u,assistant:h.a}))})});
     const data=await res.json();
-    document.getElementById('sicks-typing')?.remove();
-    if(data.error==='LIMIT'||data.error==='TOKEN_EXPIRED'){
-      singhToken=null;localStorage.removeItem('mm_tok');
-      appendSicks('ai','⏳ Kurze Pause, gleich wieder da...');
-      setTimeout(()=>sendSicksRetry(msg),1500);
-      sicksWaiting=false;btn.disabled=false;return;
-    }
-    if(data.error){appendSicks('ai','❌ Fehler: '+data.error);}
-    else{
-      const reply=(data.response||'').replace(/FRAGE:.*/s,'').trim()||'Ups, leere Antwort!';
-      sicksHistory.push({u:msg,a:reply});
-      if(sicksHistory.length>8)sicksHistory.splice(0,sicksHistory.length-8);
-      appendSicks('ai',reply);
-    }
-  }catch(e){document.getElementById('sicks-typing')?.remove();appendSicks('ai','❌ Server nicht erreichbar. Verbindung prüfen! 🔧');}
-  sicksWaiting=false;btn.disabled=false;
-  document.getElementById('sicksInput').focus();
+    document.getElementById('s-typing')?.remove();
+    if(data.error==='LIMIT'||data.error==='TOKEN_EXPIRED'){sTok=null;localStorage.removeItem('mm_tok2');addMsg('ai','⏳ Kurze Pause, gleich wieder da...');setTimeout(()=>retryMsg(msg),1500);sWait=false;btn.disabled=false;return;}
+    if(data.error){addMsg('ai','❌ '+data.error);}
+    else{const reply=(data.response||'').replace(/FRAGE:.*/s,'').trim()||'Leere Antwort';sHist.push({u:msg,a:reply});if(sHist.length>6)sHist.splice(0,sHist.length-6);addMsg('ai',reply);}
+  }catch(e){document.getElementById('s-typing')?.remove();addMsg('ai','❌ Server nicht erreichbar 🔧');}
+  sWait=false;btn.disabled=false;
+  document.getElementById('sInp').focus();
+}
+async function retryMsg(msg){
+  sChatId='mm_'+Date.now();sHist=[];
+  const u=localStorage.getItem('mm_u2'),p=localStorage.getItem('mm_p2');
+  if(!u||!p){addMsg('ai','❌ Code neu eingeben!');showArea('code');return;}
+  try{const r=await fetch(API+'/client/login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({username:u,password:p})});const d=await r.json();if(d.success){sTok=d.token;localStorage.setItem('mm_tok2',d.token);document.getElementById('sInp').value=msg;sendMsg();}else addMsg('ai','❌ Seite neu laden! 🔄');}catch(e){addMsg('ai','❌ Server nicht erreichbar 🔧');}
 }
 
-async function sendSicksRetry(msg){
-  singhChatId='mm_'+Date.now();sicksHistory=[];
-  const u=localStorage.getItem('mm_usr'),p=localStorage.getItem('mm_pw');
-  if(!u||!p){appendSicks('ai','❌ Bitte Code neu eingeben! 🔑');showSicksPane('sicksCodePrompt');return;}
-  try{
-    const r=await fetch(SINGH_API+'/client/login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({username:u,password:p})});
-    const d=await r.json();
-    if(d.success){singhToken=d.token;localStorage.setItem('mm_tok',d.token);document.getElementById('sicksInput').value=msg;sendSicks();}
-    else appendSicks('ai','❌ Sitzung abgelaufen. Seite neu laden! 🔄');
-  }catch(e){appendSicks('ai','❌ Server nicht erreichbar. 🔧');}
-}
+// ═══ TOAST ═══
+let tt;
+function toast(msg){const el=document.getElementById('toast');el.textContent=msg;el.classList.add('show');clearTimeout(tt);tt=setTimeout(()=>el.classList.remove('show'),2600);}
 
-let toastTimer;
-function toast(msg){
-  const el=document.getElementById('toast');el.textContent=msg;el.classList.add('show');
-  clearTimeout(toastTimer);toastTimer=setTimeout(()=>el.classList.remove('show'),2800);
-}
-
-if(activeCode&&st.name){
-  document.getElementById('welcome').classList.add('hidden');
-  showGreeting();buildLessonGrid();buildPotGrid();updateStats();
-}else{
-  setTimeout(()=>document.getElementById('codeInput').focus(),300);
-}
+// CSS shake
+const sty=document.createElement('style');
+sty.textContent='@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}';
+document.head.appendChild(sty);
 </script>
 </body>
 </html>
