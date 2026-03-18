@@ -324,17 +324,10 @@ function wcLogin(){
   localStorage.setItem('mm_code',v);
   document.getElementById('welcome').classList.add('hidden');
   document.getElementById('app').style.display='block';
-  setTimeout(()=>document.getElementById('wcInp')&&(document.getElementById('wcInp').value=''),100);
 }
 // Auto-login if code saved
 window.addEventListener('DOMContentLoaded',()=>{
-  const saved=localStorage.getItem('mm_code');
-  if(saved&&saved.startsWith('SINGH-')&&saved.length>=8){
-    document.getElementById('welcome').classList.add('hidden');
-    document.getElementById('app').style.display='block';
-  } else {
-    setTimeout(()=>document.getElementById('wcInp')?.focus(),200);
-  }
+  setTimeout(()=>document.getElementById('wcInp')?.focus(),200);
 });
 
 // ═══ STATE ═══
