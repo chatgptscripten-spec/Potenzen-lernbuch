@@ -193,7 +193,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
       onkeypress="if(event.key==='Enter')wcLogin()">
     <div class="wc-err" id="wcErr"></div>
     <button class="wc-btn" onclick="wcLogin()">Einloggen →</button>
-    <div class="wc-hint">Du bekommst deinen Code von Samuel Singh.</div>
+    <div class="wc-hint"><!-- HIER TEXT ÄNDERN --> Der code muss von Samuel angefragt werden.</div>
   </div>
 </div>
 
@@ -312,27 +312,52 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 </div><!-- /app -->
 
 <script>
-// ═══ LOGIN ═══
-const VALID_CODES=['SINGH-2025','SINGH-2026','SINGH-9A','SINGH-9B','SINGH-9C','SINGH-MATHE','SINGH-TEST'];
+// ═══ LOGIN & SPEICHERN ═══
+let activeCode='';
+
+function saveAll(){
+  if(!activeCode)return;
+  const data={pts,qcnt,answered,donePot,doneWahr,unlockedPot,unlockedWahr};
+  localStorage.setItem('mm_save_'+activeCode,JSON.stringify(data));
+}
+
+function loadAll(code){
+  try{
+    const raw=localStorage.getItem('mm_save_'+code);
+    if(!raw)return;
+    const d=JSON.parse(raw);
+    pts=d.pts||0;
+    qcnt=d.qcnt||0;
+    answered=d.answered||{};
+    donePot=d.donePot||{};
+    doneWahr=d.doneWahr||{};
+    unlockedPot=d.unlockedPot||{0:true,1:false,2:false,3:false,4:false,5:false};
+    unlockedWahr=d.unlockedWahr||{0:true,1:false,2:false,3:false,4:false};
+    document.getElementById('pts').textContent=pts;
+    document.getElementById('qc').textContent=qcnt;
+  }catch(e){}
+}
+
 function wcLogin(){
   const v=document.getElementById('wcInp').value.trim().toUpperCase();
   const err=document.getElementById('wcErr');
   if(!v){err.textContent='Bitte Code eingeben!';return;}
   if(!v.startsWith('SINGH-')){err.textContent='❌ Format falsch — muss mit SINGH- anfangen';return;}
   if(v.length<8){err.textContent='❌ Code zu kurz';return;}
-  // Accept any SINGH-XXXX format (4+ chars after SINGH-)
-  localStorage.setItem('mm_code',v);
+  activeCode=v;
+  loadAll(activeCode);
   document.getElementById('welcome').classList.add('hidden');
   document.getElementById('app').style.display='block';
+  buildPicker();
 }
-// Auto-login if code saved
+
 window.addEventListener('DOMContentLoaded',()=>{
   setTimeout(()=>document.getElementById('wcInp')?.focus(),200);
 });
 
 // ═══ STATE ═══
 let pts=0,qcnt=0,answered={};
-function addPts(n){pts+=n;qcnt++;document.getElementById('pts').textContent=pts;document.getElementById('qc').textContent=qcnt;toast('+'+n+' Punkte! 🎉');}
+function addPts(n){pts+=n;qcnt++;document.getElementById('pts').textContent=pts;document.getElementById('qc').textContent=qcnt;toast('+'+n+' Punkte! 🎉');saveAll();}
 
 // ═══ COUNTDOWN ═══
 function updateCountdown(){
@@ -588,6 +613,7 @@ function updateCbtn(key,total){
 function completeLesson(topic,id){
   if(topic==='pot'){donePot[id]=true;if(id<5)unlockedPot[id+1]=true;toast('🔓 Kapitel '+(id+2)+' freigeschaltet! +50 Pkt');pts+=50;document.getElementById('pts').textContent=pts;}
   else{doneWahr[id]=true;if(id<4)unlockedWahr[id+1]=true;toast('🔓 Kapitel '+(id+2)+' freigeschaltet! +50 Pkt');pts+=50;document.getElementById('pts').textContent=pts;}
+  saveAll();
   setTimeout(()=>backToPicker(),500);
 }
 
