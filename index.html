@@ -166,9 +166,39 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 /* PAGE VISIBILITY */
 [data-page]{display:none}
 [data-page].active{display:block}
+/* WELCOME */
+.welcome{position:fixed;inset:0;background:var(--bg);z-index:500;display:flex;align-items:center;justify-content:center;padding:20px}
+.welcome.hidden{display:none}
+.wc-box{background:var(--card);border:1.5px solid var(--border);border-radius:20px;padding:32px 28px;max-width:380px;width:100%;text-align:center;box-shadow:0 8px 32px rgba(0,0,0,.1)}
+.wc-ico{font-size:48px;margin-bottom:8px}
+.wc-title{font-size:22px;font-weight:900;color:var(--accent);margin-bottom:4px}
+.wc-sub{font-size:13px;color:var(--muted);font-weight:600;margin-bottom:20px;line-height:1.6}
+.wc-inp{width:100%;padding:12px 14px;background:#fafaf8;border:1.5px solid var(--border);border-radius:10px;color:var(--text);font-size:15px;font-family:'DM Mono',monospace;font-weight:700;outline:none;transition:border-color .15s;margin-bottom:8px;letter-spacing:.06em}
+.wc-inp:focus{border-color:var(--accent)}
+.wc-btn{width:100%;padding:13px;background:var(--accent);border:none;border-radius:10px;color:#fff;font-size:14px;font-weight:900;cursor:pointer;font-family:'DM Sans',sans-serif;transition:background .15s}
+.wc-btn:hover{background:#1d3520}
+.wc-err{font-size:12px;color:var(--red);min-height:16px;margin-bottom:6px;font-weight:700;text-align:left}
+.wc-hint{font-size:11px;color:var(--muted);margin-top:10px;font-weight:600}
 </style>
 </head>
 <body>
+
+<!-- LOGIN OVERLAY -->
+<div class="welcome" id="welcome">
+  <div class="wc-box">
+    <div class="wc-ico">🧮</div>
+    <div class="wc-title">Mathe Klasse 9</div>
+    <div class="wc-sub">Gib deinen Code ein um reinzukommen! 🔑<br>Potenzen · Wahrscheinlichkeit · Sicks KI</div>
+    <input class="wc-inp" id="wcInp" placeholder="SINGH-XXXX" maxlength="20"
+      onkeypress="if(event.key==='Enter')wcLogin()">
+    <div class="wc-err" id="wcErr"></div>
+    <button class="wc-btn" onclick="wcLogin()">Einloggen →</button>
+    <div class="wc-hint">Du bekommst deinen Code von deinem Lehrer.</div>
+  </div>
+</div>
+
+<!-- APP (versteckt bis Login) -->
+<div id="app" style="display:none">
 
 <header class="hdr">
   <div class="hdr-logo">Mathe <span>⚡</span> Klasse 9</div>
@@ -279,7 +309,34 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 
 <div class="toast" id="toast"></div>
 
+</div><!-- /app -->
+
 <script>
+// ═══ LOGIN ═══
+const VALID_CODES=['SINGH-2025','SINGH-2026','SINGH-9A','SINGH-9B','SINGH-9C','SINGH-MATHE','SINGH-TEST'];
+function wcLogin(){
+  const v=document.getElementById('wcInp').value.trim().toUpperCase();
+  const err=document.getElementById('wcErr');
+  if(!v){err.textContent='Bitte Code eingeben!';return;}
+  if(!v.startsWith('SINGH-')){err.textContent='❌ Format falsch — muss mit SINGH- anfangen';return;}
+  if(v.length<8){err.textContent='❌ Code zu kurz';return;}
+  // Accept any SINGH-XXXX format (4+ chars after SINGH-)
+  localStorage.setItem('mm_code',v);
+  document.getElementById('welcome').classList.add('hidden');
+  document.getElementById('app').style.display='block';
+  setTimeout(()=>document.getElementById('wcInp')&&(document.getElementById('wcInp').value=''),100);
+}
+// Auto-login if code saved
+window.addEventListener('DOMContentLoaded',()=>{
+  const saved=localStorage.getItem('mm_code');
+  if(saved&&saved.startsWith('SINGH-')&&saved.length>=8){
+    document.getElementById('welcome').classList.add('hidden');
+    document.getElementById('app').style.display='block';
+  } else {
+    setTimeout(()=>document.getElementById('wcInp')?.focus(),200);
+  }
+});
+
 // ═══ STATE ═══
 let pts=0,qcnt=0,answered={};
 function addPts(n){pts+=n;qcnt++;document.getElementById('pts').textContent=pts;document.getElementById('qc').textContent=qcnt;toast('+'+n+' Punkte! 🎉');}
