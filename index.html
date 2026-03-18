@@ -3,968 +3,836 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Mathe Klasse 9</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700;900&family=DM+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<title>Mathe Arbeit 19.3.2026</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;600;700;900&family=DM+Mono:wght@500;700&display=swap" rel="stylesheet">
 <style>
-*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
-:root{
-  --bg:#f5f0e8;
-  --card:#fff;
-  --text:#1a1a1a;
-  --muted:#888;
-  --border:#e0d8cc;
-  --accent:#2d4a2d;
-  --accent2:#c8430a;
-  --accent3:#1a3a5c;
-  --green:#2d7a2d;
-  --red:#c8430a;
-  --yellow:#c89a0a;
-  --radius:12px;
-}
-body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;line-height:1.6}
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#f3f0ea;--card:#fff;--text:#1a1a1a;--muted:#777;--brd:#ddd6c8;--grn:#2a5c2a;--grn2:#1d3f1d;--red:#c23b0a;--blu:#1a3a5c;--ylw:#b8870a;--pur:#5b21b6;--r:10px}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
 
-/* HEADER */
-.hdr{background:var(--accent);color:#fff;padding:14px 20px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
-.hdr-logo{font-size:18px;font-weight:900;letter-spacing:-.02em}
-.hdr-logo span{color:#a8d8a8;font-family:'DM Mono',monospace}
+/* LOGIN */
+.login{position:fixed;inset:0;background:var(--bg);z-index:999;display:flex;align-items:center;justify-content:center;padding:20px}
+.login.hide{display:none}
+.lbox{background:var(--card);border:1.5px solid var(--brd);border-radius:16px;padding:28px 22px;max-width:340px;width:100%;text-align:center;box-shadow:0 6px 24px rgba(0,0,0,.09)}
+.lico{font-size:40px;margin-bottom:5px}
+.ltit{font-size:18px;font-weight:900;color:var(--grn);margin-bottom:3px}
+.lsub{font-size:11px;color:var(--muted);font-weight:600;margin-bottom:14px;line-height:1.7}
+.linp{width:100%;padding:10px 12px;background:#fafaf7;border:1.5px solid var(--brd);border-radius:8px;color:var(--text);font-size:14px;font-family:'DM Mono',monospace;font-weight:700;outline:none;transition:border .15s;margin-bottom:5px;letter-spacing:.05em}
+.linp:focus{border-color:var(--grn)}
+.lbtn{width:100%;padding:11px;background:var(--grn);border:none;border-radius:8px;color:#fff;font-size:14px;font-weight:900;cursor:pointer;font-family:'DM Sans',sans-serif}
+.lbtn:hover{background:var(--grn2)}
+.lerr{font-size:11px;color:var(--red);min-height:14px;margin-bottom:4px;font-weight:700;text-align:left}
+.lhnt{font-size:10px;color:var(--muted);margin-top:6px;font-weight:600}
+
+/* APP */
+#app{display:none}
+.hdr{background:var(--grn);color:#fff;padding:10px 15px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:6px}
+.hlogo{font-size:14px;font-weight:900}
+.hstat{display:flex;gap:5px}
+.st{background:rgba(255,255,255,.15);border-radius:5px;padding:3px 8px;font-size:11px;font-weight:700;font-family:'DM Mono',monospace}
 
 /* COUNTDOWN */
-.countdown-bar{background:var(--accent3);color:#fff;padding:10px 20px;text-align:center;font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;gap:10px}
-.cd-label{opacity:.7}
-.cd-time{font-family:'DM Mono',monospace;font-size:16px;font-weight:700;color:#7dd3fc}
-.cd-expired{color:#fca5a5}
+.cdb{background:var(--red);color:#fff;padding:7px 15px;text-align:center;font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center;gap:8px}
+.cdt{font-family:'DM Mono',monospace;font-size:15px;font-weight:900}
+.cdo{font-size:10px;opacity:.8}
 
-/* TABS */
-.tabs{display:flex;gap:2px;padding:12px 16px 0;background:var(--card);border-bottom:2px solid var(--border)}
-.tab{padding:10px 18px;font-size:13px;font-weight:700;cursor:pointer;border:none;background:transparent;color:var(--muted);border-bottom:3px solid transparent;margin-bottom:-2px;font-family:'DM Sans',sans-serif;transition:all .15s}
-.tab.on{color:var(--accent);border-bottom-color:var(--accent)}
-.tab:hover:not(.on){color:var(--text)}
+/* NAV */
+.nav{display:flex;padding:0 14px;background:var(--card);border-bottom:2px solid var(--brd);overflow-x:auto}
+.nbt{padding:9px 12px;font-size:12px;font-weight:700;cursor:pointer;border:none;background:none;color:var(--muted);border-bottom:3px solid transparent;margin-bottom:-2px;font-family:'DM Sans',sans-serif;white-space:nowrap}
+.nbt.on{color:var(--grn);border-bottom-color:var(--grn)}
 
-/* MAIN */
-.main{max-width:780px;margin:0 auto;padding:20px 16px 100px}
+.wrap{max-width:700px;margin:0 auto;padding:14px 12px 120px}
+[data-pg]{display:none}[data-pg].show{display:block}
 
-/* SECTION TITLE */
-.sec{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:20px 0 10px;display:flex;align-items:center;gap:8px}
-.sec::after{content:'';flex:1;height:1px;background:var(--border)}
+/* CARDS */
+.card{background:var(--card);border:1.5px solid var(--brd);border-radius:var(--r);padding:13px;margin-bottom:9px}
+.ch{font-weight:800;font-size:13px;margin-bottom:8px;display:flex;align-items:center;gap:6px}
 
-/* THEORY CARD */
-.tcard{background:var(--card);border:1.5px solid var(--border);border-radius:var(--radius);padding:16px;margin-bottom:10px}
-.tcard-head{font-weight:800;font-size:15px;margin-bottom:10px;display:flex;align-items:center;gap:8px}
-.tag{font-size:10px;font-weight:700;padding:3px 8px;border-radius:20px;letter-spacing:.05em}
-.tag.green{background:#dcfce7;color:#15803d}
-.tag.blue{background:#dbeafe;color:#1d4ed8}
-.tag.orange{background:#ffedd5;color:#c2410c}
-.tag.purple{background:#ede9fe;color:#6d28d9}
+/* THEMEN GRID */
+.tgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:7px;margin-bottom:4px}
+.tc{background:var(--card);border:1.5px solid var(--brd);border-radius:var(--r);padding:11px;cursor:pointer;transition:all .14s;position:relative}
+.tc:hover:not(.lk){border-color:var(--grn);transform:translateY(-2px)}
+.tc.dn{border-color:#86efac}
+.tc.lk{opacity:.3;cursor:not-allowed}
+.tc-n{font-size:9px;font-weight:700;color:var(--muted);margin-bottom:2px;font-family:'DM Mono',monospace}
+.tc-i{font-size:20px;margin-bottom:3px}
+.tc-t{font-size:11px;font-weight:800;line-height:1.3}
 
-/* FORMEL BOX */
-.fbox{background:#f0fdf4;border:1.5px solid #86efac;border-radius:10px;padding:12px 16px;margin:8px 0;text-align:center}
-.fm{font-family:'DM Mono',monospace;font-size:19px;font-weight:700;color:var(--accent)}
-.fs{font-size:12px;color:var(--muted);margin-top:4px}
-
-/* STEPS */
-.steps{display:flex;flex-direction:column;gap:6px;margin:10px 0}
-.step{display:flex;gap:10px;align-items:flex-start;padding:10px 12px;background:#fafaf8;border-radius:8px;border-left:3px solid var(--accent)}
-.sn{font-family:'DM Mono',monospace;font-size:10px;font-weight:700;background:var(--accent);color:#fff;padding:3px 8px;border-radius:5px;flex-shrink:0;margin-top:2px}
-.st{font-size:13px;font-weight:600;flex:1;line-height:1.6}
-.sv{font-family:'DM Mono',monospace;font-size:13px;font-weight:700;color:var(--green);flex-shrink:0}
-
-/* INFO */
-.info{display:flex;gap:10px;padding:10px 14px;border-radius:9px;font-size:13px;font-weight:600;line-height:1.7;margin:8px 0}
-.info.tip{background:#f0fdf4;border:1px solid #86efac}
-.info.warn{background:#fffbeb;border:1px solid #fcd34d}
-.info.danger{background:#fff1f2;border:1px solid #fca5a5}
-
-/* QUIZ */
-.qcard{background:var(--card);border:1.5px solid var(--border);border-radius:var(--radius);padding:16px;margin-bottom:10px}
-.qcard.ok{border-color:#86efac}.qcard.no{border-color:#fca5a5}
-.qtext{font-weight:700;font-size:14px;margin-bottom:10px;line-height:1.5}
-.opts{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-bottom:8px}
-.opt{padding:11px;border-radius:9px;border:1.5px solid var(--border);background:#fafaf8;font-family:'DM Mono',monospace;font-size:13px;font-weight:700;cursor:pointer;transition:all .12s;text-align:center}
-.opt:hover:not(:disabled){border-color:var(--accent);background:#f0fdf4;color:var(--accent)}
-.opt.ok{border-color:#86efac!important;background:#f0fdf4!important;color:var(--green)!important}
-.opt.no{border-color:#fca5a5!important;background:#fff1f2!important;color:var(--red)!important}
-.opt:disabled{cursor:default}
-.inp-row{display:flex;gap:7px;margin-bottom:8px}
-.qi{flex:1;font-family:'DM Mono',monospace;font-size:14px;font-weight:600;border:1.5px solid var(--border);border-radius:9px;padding:10px 13px;background:#fafaf8;color:var(--text);outline:none;transition:border-color .15s}
-.qi:focus{border-color:var(--accent)}
-.chk-btn{padding:10px 16px;border-radius:9px;background:var(--accent);color:#fff;border:none;font-weight:800;font-size:13px;cursor:pointer;font-family:'DM Sans',sans-serif}
-.qfb{font-size:12px;font-weight:700;min-height:18px;line-height:1.5}
-.qfb.ok{color:var(--green)}.qfb.no{color:var(--red)}
-
-/* PUNKTE */
-.pts-bar{display:flex;align-items:center;gap:8px;margin-bottom:12px}
-.pts-box{background:var(--card);border:1.5px solid var(--border);border-radius:8px;padding:6px 12px;font-family:'DM Mono',monospace;font-size:12px;font-weight:700}
-.pts-val{color:var(--accent);font-size:15px}
-
-/* COMPLETE BTN */
-.cbtn{width:100%;margin-top:12px;padding:13px;border-radius:var(--radius);border:none;background:var(--accent);color:#fff;font-size:14px;font-weight:900;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .15s}
-.cbtn:hover:not(:disabled){background:#1d3520}
-.cbtn:disabled{opacity:.4;cursor:not-allowed}
-
-/* PICKER */
-.picker-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;margin:8px 0}
-.pcard{background:var(--card);border:1.5px solid var(--border);border-radius:var(--radius);padding:14px;cursor:pointer;transition:all .15s;position:relative}
-.pcard:hover:not(.locked){border-color:var(--accent);transform:translateY(-2px);box-shadow:0 6px 18px rgba(0,0,0,.08)}
-.pcard.done{border-color:#86efac}
-.pcard.locked{opacity:.35;cursor:not-allowed}
-.pc-tag{font-size:10px;font-weight:700;color:var(--muted);margin-bottom:4px;font-family:'DM Mono',monospace}
-.pc-ico{font-size:24px;margin-bottom:5px}
-.pc-title{font-size:13px;font-weight:800;line-height:1.3}
-
-/* BACK BTN */
-.back-btn{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;background:var(--card);border:1.5px solid var(--border);border-radius:9px;color:var(--muted);font-size:13px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;margin-bottom:14px;transition:all .13s}
-.back-btn:hover{color:var(--text);border-color:var(--text)}
+/* BACK */
+.back{display:inline-flex;align-items:center;gap:4px;padding:6px 10px;background:var(--card);border:1.5px solid var(--brd);border-radius:7px;color:var(--muted);font-size:12px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;margin-bottom:10px}
+.back:hover{color:var(--text)}
 
 /* HERO */
-.hero{border-radius:var(--radius);padding:18px 20px;margin-bottom:14px;color:#fff;position:relative;overflow:hidden}
-.hero-tag{font-size:10px;font-weight:800;opacity:.6;letter-spacing:.15em;text-transform:uppercase;margin-bottom:4px}
-.hero h2{font-size:20px;font-weight:900;margin-bottom:2px}
-.hero p{font-size:13px;opacity:.7;font-weight:500}
-.hero-ico{position:absolute;right:16px;top:50%;transform:translateY(-50%);font-size:48px;opacity:.12}
+.hero{border-radius:var(--r);padding:13px 15px;margin-bottom:10px;color:#fff;position:relative;overflow:hidden}
+.htag{font-size:9px;font-weight:800;opacity:.55;letter-spacing:.13em;text-transform:uppercase;margin-bottom:2px}
+.hero h2{font-size:16px;font-weight:900;margin-bottom:1px}
+.hero p{font-size:11px;opacity:.65}
+.hi{position:absolute;right:12px;top:50%;transform:translateY(-50%);font-size:38px;opacity:.1}
 
-/* SICKS CHAT */
-.sicks-btn{position:fixed;bottom:24px;right:20px;z-index:100;width:56px;height:56px;border-radius:50%;background:var(--accent);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:24px;box-shadow:0 4px 20px rgba(0,0,0,.25);transition:all .18s}
-.sicks-btn:hover{transform:scale(1.08);background:#1d3520}
-.sicks-panel{position:fixed;bottom:92px;right:20px;z-index:99;width:340px;max-height:520px;background:var(--card);border:1.5px solid var(--border);border-radius:16px;display:flex;flex-direction:column;box-shadow:0 16px 48px rgba(0,0,0,.15);transform:scale(.92) translateY(16px);opacity:0;pointer-events:none;transition:all .22s;overflow:hidden}
-.sicks-panel.open{transform:scale(1) translateY(0);opacity:1;pointer-events:all}
-@media(max-width:420px){.sicks-panel{width:calc(100vw - 24px);right:12px}}
-.sicks-head{padding:12px 14px;background:var(--accent);color:#fff;display:flex;align-items:center;gap:8px}
-.s-av{width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
-.s-info h4{font-size:13px;font-weight:800}
-.s-info p{font-size:10px;opacity:.6;font-weight:600}
-.s-close{margin-left:auto;background:none;border:none;color:rgba(255,255,255,.6);cursor:pointer;font-size:16px;padding:2px}
-.s-close:hover{color:#fff}
-.s-msgs{flex:1;overflow-y:auto;padding:10px;display:flex;flex-direction:column;gap:8px}
-.smsg{display:flex;gap:7px;max-width:94%}
+/* FORMEL BOX */
+.fbox{background:#f0fdf4;border:1.5px solid #86efac;border-radius:8px;padding:10px 13px;margin:6px 0;text-align:center}
+.fm{font-family:'DM Mono',monospace;font-size:15px;font-weight:700;color:var(--grn)}
+.fs{font-size:11px;color:var(--muted);margin-top:2px}
+
+/* STEPS */
+.steps{display:flex;flex-direction:column;gap:5px;margin:7px 0}
+.step{display:flex;gap:7px;align-items:flex-start;padding:8px 10px;background:#fafaf7;border-radius:7px;border-left:3px solid var(--grn)}
+.sn{font-family:'DM Mono',monospace;font-size:9px;font-weight:700;background:var(--grn);color:#fff;padding:2px 6px;border-radius:4px;flex-shrink:0;margin-top:2px}
+.st2{font-size:12px;font-weight:600;flex:1;line-height:1.65}
+.sv{font-family:'DM Mono',monospace;font-size:11px;font-weight:700;color:var(--grn);flex-shrink:0}
+
+.tip{background:#f0fdf4;border:1px solid #86efac;border-radius:7px;padding:8px 10px;font-size:12px;font-weight:600;line-height:1.6;margin:6px 0}
+.warn{background:#fffbeb;border:1px solid #fcd34d;border-radius:7px;padding:8px 10px;font-size:12px;font-weight:600;line-height:1.6;margin:6px 0}
+.danger{background:#fff1f2;border:1px solid #fca5a5;border-radius:7px;padding:8px 10px;font-size:12px;font-weight:600;line-height:1.6;margin:6px 0}
+
+/* QUIZ */
+.qcard{background:var(--card);border:1.5px solid var(--brd);border-radius:var(--r);padding:12px;margin-bottom:8px}
+.qcard.ok{border-color:#86efac}.qcard.no{border-color:#fca5a5}
+.qtxt{font-weight:700;font-size:13px;margin-bottom:7px;line-height:1.5;display:flex;align-items:flex-start;flex-wrap:wrap;gap:5px}
+.dbg{font-size:9px;font-weight:800;padding:2px 6px;border-radius:8px;flex-shrink:0;margin-top:2px}
+.db-b{background:#dbeafe;color:#1d4ed8}
+.db-h{background:#ffedd5;color:#c2410c}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:5px;margin-bottom:5px}
+.opt{padding:9px;border-radius:7px;border:1.5px solid var(--brd);background:#fafaf7;font-family:'DM Mono',monospace;font-size:12px;font-weight:700;cursor:pointer;transition:all .12s;text-align:center}
+.opt:hover:not(:disabled){border-color:var(--grn);background:#f0fdf4;color:var(--grn)}
+.opt.ok{border-color:#86efac!important;background:#f0fdf4!important;color:var(--grn)!important}
+.opt.no{border-color:#fca5a5!important;background:#fff1f2!important;color:var(--red)!important}
+.opt:disabled{cursor:default}
+.qfb{font-size:11px;font-weight:700;min-height:15px;margin-bottom:4px}
+.qfb.ok{color:var(--grn)}.qfb.no{color:var(--red)}
+.nub{display:inline-flex;align-items:center;gap:4px;padding:4px 9px;background:#fffbeb;border:1px solid #fcd34d;border-radius:16px;color:var(--ylw);font-size:10px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;margin-top:3px}
+
+.cbtn{width:100%;margin-top:9px;padding:11px;border-radius:var(--r);border:none;background:var(--grn);color:#fff;font-size:13px;font-weight:900;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .14s}
+.cbtn:hover:not(:disabled){background:var(--grn2)}
+.cbtn:disabled{opacity:.35;cursor:not-allowed}
+
+/* PROBEARBEIT */
+.probe-header{background:linear-gradient(135deg,#1a0a2e,#2d1260);color:#fff;border-radius:var(--r);padding:16px;margin-bottom:12px;text-align:center}
+.probe-header h2{font-size:18px;font-weight:900;margin-bottom:3px}
+.probe-header p{font-size:11px;opacity:.7}
+.probe-aufgabe{background:var(--card);border:1.5px solid var(--brd);border-radius:var(--r);padding:14px;margin-bottom:10px}
+.pa-head{font-weight:800;font-size:13px;margin-bottom:10px;padding-bottom:7px;border-bottom:1px solid var(--brd);display:flex;justify-content:space-between;align-items:center}
+.pa-pts{font-size:11px;font-weight:700;background:#fafaf7;border-radius:6px;padding:2px 8px;color:var(--muted);font-family:'DM Mono',monospace}
+.pa-q{margin-bottom:10px}
+.pa-q .frage{font-size:13px;font-weight:700;margin-bottom:6px;line-height:1.5}
+.pa-inp{width:100%;padding:9px 11px;background:#fafaf7;border:1.5px solid var(--brd);border-radius:8px;color:var(--text);font-size:14px;font-family:'DM Mono',monospace;font-weight:700;outline:none;transition:border .15s}
+.pa-inp:focus{border-color:var(--pur)}
+.pa-inp.ok{border-color:#86efac;background:#f0fdf4}
+.pa-inp.no{border-color:#fca5a5;background:#fff1f2}
+.pa-fb{font-size:11px;font-weight:700;margin-top:4px;min-height:14px}
+.pa-fb.ok{color:var(--grn)}.pa-fb.no{color:var(--red)}
+.pa-check{padding:7px 14px;border-radius:7px;background:var(--pur);border:none;color:#fff;font-size:12px;font-weight:800;cursor:pointer;font-family:'DM Sans',sans-serif;margin-top:5px}
+
+.probe-score{background:linear-gradient(135deg,#1a0a2e,#2d1260);color:#fff;border-radius:var(--r);padding:20px;text-align:center;margin-bottom:10px}
+.ps-pts{font-size:48px;font-weight:900;font-family:'DM Mono',monospace}
+.ps-max{font-size:14px;opacity:.7;margin-top:2px}
+.ps-note{font-size:22px;font-weight:900;margin-top:8px}
+.ps-msg{font-size:13px;opacity:.8;margin-top:4px}
+.ps-bar{background:rgba(255,255,255,.15);border-radius:20px;height:8px;margin:12px 0;overflow:hidden}
+.ps-fill{height:100%;background:linear-gradient(90deg,#86efac,#22c55e);border-radius:20px;transition:width 1s}
+
+/* SICKS */
+.sfab{position:fixed;bottom:20px;right:16px;z-index:100;width:52px;height:52px;border-radius:50%;background:var(--grn);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:22px;box-shadow:0 4px 18px rgba(0,0,0,.22);transition:all .18s}
+.sfab:hover{transform:scale(1.09);background:var(--grn2)}
+.spanel{position:fixed;bottom:84px;right:16px;z-index:99;width:310px;max-height:470px;background:var(--card);border:1.5px solid var(--brd);border-radius:13px;display:flex;flex-direction:column;box-shadow:0 12px 40px rgba(0,0,0,.13);transform:scale(.92) translateY(13px);opacity:0;pointer-events:none;transition:all .2s;overflow:hidden}
+.spanel.open{transform:scale(1) translateY(0);opacity:1;pointer-events:all}
+@media(max-width:370px){.spanel{width:calc(100vw - 18px);right:9px}}
+.sh{padding:10px 12px;background:var(--grn);color:#fff;display:flex;align-items:center;gap:7px}
+.sav{width:28px;height:28px;border-radius:50%;background:rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0}
+.si h4{font-size:12px;font-weight:800}
+.si p{font-size:9px;opacity:.5;font-weight:600}
+.sx{margin-left:auto;background:none;border:none;color:rgba(255,255,255,.6);cursor:pointer;font-size:14px;padding:2px}
+.smsgs{flex:1;overflow-y:auto;padding:8px;display:flex;flex-direction:column;gap:6px}
+.smsg{display:flex;gap:5px;max-width:96%}
 .smsg.user{align-self:flex-end;flex-direction:row-reverse}
-.s-av2{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0;font-weight:800}
-.smsg.ai .s-av2{background:var(--accent);color:#fff;font-size:14px}
-.smsg.user .s-av2{background:#e8ede8;color:var(--accent)}
-.s-bbl{border-radius:10px;padding:8px 11px;font-size:12px;font-weight:600;line-height:1.6;word-break:break-word}
-.smsg.ai .s-bbl{background:#f5f0e8;border:1px solid var(--border)}
-.smsg.user .s-bbl{background:var(--accent);color:#fff}
-.s-typing{display:flex;gap:3px;padding:8px 11px;background:#f5f0e8;border:1px solid var(--border);border-radius:10px}
-.s-typing span{width:5px;height:5px;background:var(--accent);border-radius:50%;animation:sbounce .65s infinite}
-.s-typing span:nth-child(2){animation-delay:.13s}
-.s-typing span:nth-child(3){animation-delay:.26s}
-@keyframes sbounce{0%,80%,100%{transform:translateY(0)}40%{transform:translateY(-5px)}}
-.s-inp-row{padding:8px 10px;border-top:1px solid var(--border);display:flex;gap:6px}
-.s-inp{flex:1;background:#fafaf8;border:1.5px solid var(--border);border-radius:8px;padding:8px 10px;color:var(--text);font-size:12px;font-family:'DM Sans',sans-serif;font-weight:600;outline:none;resize:none;max-height:70px;transition:border-color .13s}
-.s-inp:focus{border-color:var(--accent)}
-.s-send{background:var(--accent);border:none;border-radius:8px;color:#fff;padding:8px 12px;font-size:14px;cursor:pointer;flex-shrink:0;transition:opacity .13s}
-.s-send:disabled{opacity:.4;cursor:not-allowed}
-.s-code-area{padding:10px;border-top:1px solid var(--border)}
-.s-code-inp{width:100%;padding:8px 10px;background:#fafaf8;border:1.5px solid var(--border);border-radius:8px;color:var(--text);font-size:12px;font-family:'DM Mono',monospace;outline:none;margin-bottom:6px;transition:border-color .13s}
-.s-code-inp:focus{border-color:var(--accent)}
-.s-code-btn{width:100%;padding:9px;background:var(--accent);border:none;border-radius:8px;color:#fff;font-size:13px;font-weight:800;cursor:pointer;font-family:'DM Sans',sans-serif}
-.s-err{font-size:11px;color:var(--red);margin-top:4px;text-align:center;min-height:14px}
+.sav2{width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;flex-shrink:0;font-weight:800}
+.smsg.ai .sav2{background:var(--grn);color:#fff;font-size:13px}
+.smsg.user .sav2{background:#e8ede8;color:var(--grn)}
+.sbbl{border-radius:8px;padding:7px 9px;font-size:11px;font-weight:600;line-height:1.6;word-break:break-word}
+.smsg.ai .sbbl{background:#f3f0ea;border:1px solid var(--brd)}
+.smsg.user .sbbl{background:var(--grn);color:#fff}
+.sdots{display:flex;gap:3px;padding:7px 9px;background:#f3f0ea;border:1px solid var(--brd);border-radius:8px}
+.sdots span{width:4px;height:4px;background:var(--grn);border-radius:50%;animation:sd .65s infinite}
+.sdots span:nth-child(2){animation-delay:.13s}
+.sdots span:nth-child(3){animation-delay:.26s}
+@keyframes sd{0%,80%,100%{transform:translateY(0)}40%{transform:translateY(-5px)}}
+.sirow{padding:7px 8px;border-top:1px solid var(--brd);display:flex;gap:5px}
+.sinp{flex:1;background:#fafaf7;border:1.5px solid var(--brd);border-radius:7px;padding:7px 8px;color:var(--text);font-size:11px;font-family:'DM Sans',sans-serif;font-weight:600;outline:none;resize:none;max-height:60px;transition:border .13s}
+.sinp:focus{border-color:var(--grn)}
+.ssend{background:var(--grn);border:none;border-radius:7px;color:#fff;padding:7px 10px;font-size:12px;cursor:pointer;flex-shrink:0}
+.ssend:disabled{opacity:.4;cursor:not-allowed}
+.sca{padding:8px;border-top:1px solid var(--brd)}
+.sci{width:100%;padding:7px 9px;background:#fafaf7;border:1.5px solid var(--brd);border-radius:7px;color:var(--text);font-size:11px;font-family:'DM Mono',monospace;outline:none;margin-bottom:5px}
+.sci:focus{border-color:var(--grn)}
+.scb{width:100%;padding:7px;background:var(--grn);border:none;border-radius:7px;color:#fff;font-size:11px;font-weight:800;cursor:pointer;font-family:'DM Sans',sans-serif}
+.serr{font-size:10px;color:var(--red);text-align:center;margin-top:3px;min-height:12px}
 
-/* TOAST */
-.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(60px);background:var(--accent);color:#fff;padding:9px 20px;border-radius:50px;font-weight:800;font-size:13px;z-index:200;transition:transform .3s;pointer-events:none;font-family:'DM Sans',sans-serif}
+.toast{position:fixed;bottom:16px;left:50%;transform:translateX(-50%) translateY(50px);background:var(--grn);color:#fff;padding:7px 16px;border-radius:36px;font-weight:800;font-size:12px;z-index:200;transition:transform .26s;pointer-events:none;font-family:'DM Sans',sans-serif}
 .toast.show{transform:translateX(-50%) translateY(0)}
 
-/* PAGE VISIBILITY */
-[data-page]{display:none}
-[data-page].active{display:block}
-/* WELCOME */
-.welcome{position:fixed;inset:0;background:var(--bg);z-index:500;display:flex;align-items:center;justify-content:center;padding:20px}
-.welcome.hidden{display:none}
-.wc-box{background:var(--card);border:1.5px solid var(--border);border-radius:20px;padding:32px 28px;max-width:380px;width:100%;text-align:center;box-shadow:0 8px 32px rgba(0,0,0,.1)}
-.wc-ico{font-size:48px;margin-bottom:8px}
-.wc-title{font-size:22px;font-weight:900;color:var(--accent);margin-bottom:4px}
-.wc-sub{font-size:13px;color:var(--muted);font-weight:600;margin-bottom:20px;line-height:1.6}
-.wc-inp{width:100%;padding:12px 14px;background:#fafaf8;border:1.5px solid var(--border);border-radius:10px;color:var(--text);font-size:15px;font-family:'DM Mono',monospace;font-weight:700;outline:none;transition:border-color .15s;margin-bottom:8px;letter-spacing:.06em}
-.wc-inp:focus{border-color:var(--accent)}
-.wc-btn{width:100%;padding:13px;background:var(--accent);border:none;border-radius:10px;color:#fff;font-size:14px;font-weight:900;cursor:pointer;font-family:'DM Sans',sans-serif;transition:background .15s}
-.wc-btn:hover{background:#1d3520}
-.wc-err{font-size:12px;color:var(--red);min-height:16px;margin-bottom:6px;font-weight:700;text-align:left}
-.wc-hint{font-size:11px;color:var(--muted);margin-top:10px;font-weight:600}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
 </style>
 </head>
 <body>
 
-<!-- LOGIN OVERLAY -->
-<div class="welcome" id="welcome">
-  <div class="wc-box">
-    <div class="wc-ico">🧮</div>
-    <div class="wc-title">Mathe Klasse 9</div>
-    <div class="wc-sub">Gib deinen Code ein um reinzukommen! 🔑<br>Potenzen · Wahrscheinlichkeit · Sicks KI</div>
-    <input class="wc-inp" id="wcInp" placeholder="SINGH-XXXX" maxlength="20"
-      onkeypress="if(event.key==='Enter')wcLogin()">
-    <div class="wc-err" id="wcErr"></div>
-    <button class="wc-btn" onclick="wcLogin()">Einloggen →</button>
-    <div class="wc-hint"><!-- HIER TEXT ÄNDERN --> Der code muss von Samuel angefragt werden.</div>
+<div class="login" id="login">
+  <div class="lbox">
+    <div class="lico">📚</div>
+    <div class="ltit">Mathe Arbeit 19.3.2026</div>
+    <div class="lsub">Potenzen · Wissenschaftliche Schreibweise<br>Wahrscheinlichkeit · Probearbeit<br><br>Code eingeben → loslegen! 🔑</div>
+    <input class="linp" id="lcI" placeholder="SINGH-XXXX" maxlength="20" onkeypress="if(event.key==='Enter')doLogin()">
+    <div class="lerr" id="lcE"></div>
+    <button class="lbtn" onclick="doLogin()">Einloggen →</button>
+    <div class="lhnt">Den Code bekommst du von Samuel.</div>
   </div>
 </div>
 
-<!-- APP (versteckt bis Login) -->
-<div id="app" style="display:none">
-
-<header class="hdr">
-  <div class="hdr-logo">Mathe <span>⚡</span> Klasse 9</div>
-  <div style="display:flex;align-items:center;gap:8px">
-    <div class="pts-box">🏆 <span class="pts-val" id="pts">0</span> Pkt</div>
-    <div class="pts-box">✅ <span class="pts-val" id="qc">0</span></div>
+<div id="app">
+  <header class="hdr">
+    <div class="hlogo">📚 Mathe Klasse 9</div>
+    <div class="hstat">
+      <div class="st">🏆 <span id="pts">0</span></div>
+      <div class="st">✅ <span id="qc">0</span></div>
+    </div>
+  </header>
+  <div class="cdb">
+    <span class="cdo">Arbeit morgen um 12:40:</span>
+    <span class="cdt" id="cdt">--:--:--</span>
+    <span class="cdo" id="cdlbl">Do. 19.03.2026</span>
   </div>
-</header>
+  <div class="nav">
+    <button class="nbt on" onclick="switchPg('lernen',this)">📚 Lernen</button>
+    <button class="nbt" onclick="switchPg('probe',this)">📝 Probearbeit</button>
+    <button class="nbt" onclick="switchPg('spick',this)">📋 Spickzettel</button>
+  </div>
+  <div class="wrap">
 
-<div class="countdown-bar">
-  <span class="cd-label">Bis morgen 12:40 Uhr:</span>
-  <span class="cd-time" id="cdTime">--:--:--</span>
-  <span id="cdLabel" style="font-size:11px;opacity:.6">Donnerstag, 19.03.2026</span>
+    <!-- LERNEN -->
+    <div data-pg="lernen" class="show">
+      <div id="picker">
+        <div style="background:linear-gradient(135deg,var(--grn),var(--grn2));color:#fff;border-radius:var(--r);padding:12px 14px;margin-bottom:12px;font-size:12px;font-weight:600;line-height:1.7">
+          📋 <strong>Checkliste 19.3.2026:</strong><br>
+          ⚡ Potenzgesetze (Zahlen + Variablen)<br>
+          🔬 Wissenschaftliche Schreibweise<br>
+          🎲 Wahrscheinlichkeit (Baumdiagramm, Pfad-, Summenregel)
+        </div>
+        <div class="tgrid" id="tgrid"></div>
+      </div>
+      <div id="lesson" style="display:none"><div id="li"></div></div>
+    </div>
+
+    <!-- PROBEARBEIT -->
+    <div data-pg="probe">
+      <div class="probe-header">
+        <div style="font-size:10px;font-weight:800;opacity:.6;letter-spacing:.13em;text-transform:uppercase;margin-bottom:3px">Probearbeit · Klasse 9</div>
+        <h2>📝 Mathe Probearbeit</h2>
+        <p>Genau wie morgen — Basisteil + Hauptteil</p>
+      </div>
+      <div id="probe-content"></div>
+    </div>
+
+    <!-- SPICKZETTEL -->
+    <div data-pg="spick">
+      <div class="card">
+        <div class="ch">⚡ Potenzgesetze — die 3 Regeln</div>
+        <div class="fbox"><div class="fm">aⁿ × aᵐ = aⁿ⁺ᵐ</div><div class="fs">gleiche Basis mal → Exponenten addieren (+)</div></div>
+        <div class="fbox"><div class="fm">aⁿ ÷ aᵐ = aⁿ⁻ᵐ</div><div class="fs">gleiche Basis geteilt → Exponenten subtrahieren (−)</div></div>
+        <div class="fbox"><div class="fm">(aⁿ)ᵐ = aⁿˣᵐ</div><div class="fs">Potenz hoch Potenz → Exponenten multiplizieren (×)</div></div>
+        <div class="tip">💡 Merktrick: <strong>× → +</strong> &nbsp;|&nbsp; <strong>÷ → −</strong> &nbsp;|&nbsp; <strong>( )ᵐ → ×</strong></div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:5px;margin-top:6px;font-size:11px;font-family:'DM Mono',monospace;font-weight:700">
+          <div style="background:#fafaf7;border-radius:6px;padding:6px 9px;border:1px solid var(--brd)">a⁰ = <strong style="color:var(--grn)">1</strong> (immer!)</div>
+          <div style="background:#fafaf7;border-radius:6px;padding:6px 9px;border:1px solid var(--brd)">a⁻ⁿ = <strong style="color:var(--grn)">1/aⁿ</strong></div>
+          <div style="background:#fff1f2;border-radius:6px;padding:6px 9px;border:1px solid #fca5a5">(-a)gerade → <strong style="color:var(--grn)">+</strong></div>
+          <div style="background:#fff1f2;border-radius:6px;padding:6px 9px;border:1px solid #fca5a5">(-a)ungerade → <strong style="color:var(--red)">−</strong></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="ch">🔬 Wissenschaftliche Schreibweise</div>
+        <div class="fbox"><div class="fm">a · 10ⁿ</div><div class="fs">mit 1 ≤ a &lt; 10</div></div>
+        <div class="steps">
+          <div class="step"><span class="sn">Bsp 1</span><div class="st2">4.700.000 = 4,7 × 10⁶ <br><small style="color:var(--muted)">Komma 6 Stellen nach links</small></div></div>
+          <div class="step"><span class="sn">Bsp 2</span><div class="st2">0,00035 = 3,5 × 10⁻⁴ <br><small style="color:var(--muted)">Komma 4 Stellen nach rechts</small></div></div>
+          <div class="step"><span class="sn">Bsp 3</span><div class="st2">1/5⁸ = 0,00000256 = 2,56 × 10⁻⁶</div></div>
+        </div>
+        <div class="tip">💡 Große Zahl → positiver Exponent &nbsp;|&nbsp; Kleine Zahl → negativer Exponent</div>
+      </div>
+      <div class="card">
+        <div class="ch">🌳 Wahrscheinlichkeit</div>
+        <div class="fbox"><div class="fm">Pfadregel: P = P₁ × P₂ × …</div><div class="fs">Einem Ast folgen → multiplizieren</div></div>
+        <div class="fbox"><div class="fm">Summenregel: P = Pfad₁ + Pfad₂</div><div class="fs">Mehrere günstige Wege → addieren</div></div>
+        <div class="tip">✅ Probe: alle Äste zusammen = 1 (100%)</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:5px;margin-top:7px">
+          <div style="background:#fafaf7;border-radius:7px;padding:7px 9px;border:1px solid var(--brd);font-size:11px;font-weight:600"><strong>MIT Zurücklegen</strong><br>Nenner bleibt gleich</div>
+          <div style="background:#fafaf7;border-radius:7px;padding:7px 9px;border:1px solid var(--brd);font-size:11px;font-weight:600"><strong>OHNE Zurücklegen</strong><br>Nenner wird −1 kleiner</div>
+        </div>
+      </div>
+      <div class="card" style="border-color:#fca5a5">
+        <div class="ch" style="color:var(--red)">🚨 Typische Fehler</div>
+        <div style="display:flex;flex-direction:column;gap:4px;font-size:11px;font-weight:600">
+          <div style="padding:7px;background:#fff1f2;border-radius:6px">❌ Bei × Exponenten multiplizieren → <strong style="color:var(--grn)">ADDIEREN ✅</strong></div>
+          <div style="padding:7px;background:#fff1f2;border-radius:6px">❌ a⁰ = 0 → <strong style="color:var(--grn)">a⁰ = 1 IMMER ✅</strong></div>
+          <div style="padding:7px;background:#fff1f2;border-radius:6px">❌ −3² = (−3)² → <strong style="color:var(--grn)">−3² = −9, (−3)² = +9 ✅</strong></div>
+          <div style="padding:7px;background:#fff1f2;border-radius:6px">❌ Wissenschaftl.: Komma vergessen → <strong style="color:var(--grn)">a muss zwischen 1 und 10 sein ✅</strong></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
 </div>
 
-<div class="tabs">
-  <button class="tab on" onclick="switchTab('lernen',this)">📚 Lernen</button>
-  <button class="tab" onclick="switchTab('spick',this)">📋 Spickzettel</button>
-</div>
-
-<div class="main">
-
-  <!-- LERNEN -->
-  <div data-page="lernen" class="active">
-    <div id="picker">
-      <div class="sec">Thema wählen</div>
-      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px">
-        <button class="tab on" style="border:1.5px solid var(--border);border-radius:8px;padding:8px 14px" id="tp-pot" onclick="switchTopic('pot',this)">⚡ Potenzen</button>
-        <button class="tab" style="border:1.5px solid var(--border);border-radius:8px;padding:8px 14px" id="tp-wahr" onclick="switchTopic('wahr',this)">🎲 Wahrscheinlichkeit</button>
-      </div>
-      <div id="grid-pot"><div class="picker-grid" id="pgrid-pot"></div></div>
-      <div id="grid-wahr" style="display:none"><div class="picker-grid" id="pgrid-wahr"></div></div>
-    </div>
-    <div id="content" style="display:none">
-      <div id="content-inner"></div>
-    </div>
+<button class="sfab" onclick="toggleS()">🤖</button>
+<div class="spanel" id="spanel">
+  <div class="sh"><div class="sav">🤖</div><div class="si"><h4>Sicks</h4><p>Mathe-Assistent</p></div><button class="sx" onclick="toggleS()">✕</button></div>
+  <div class="smsgs" id="smsgs"></div>
+  <div id="sca" class="sca" style="display:none">
+    <input class="sci" id="sci" placeholder="SINGH-XXXX" maxlength="20" onkeypress="if(event.key==='Enter')sAct()">
+    <button class="scb" onclick="sAct()">Code aktivieren →</button>
+    <div class="serr" id="serr"></div>
   </div>
-
-  <!-- SPICKZETTEL -->
-  <div data-page="spick">
-    <div class="sec">Alle Formeln</div>
-
-    <div class="tcard">
-      <div class="tcard-head">⚡ Potenzgesetze <span class="tag green">3 Regeln</span></div>
-      <div class="fbox"><div class="fm">aⁿ × aᵐ = aⁿ⁺ᵐ</div><div class="fs">Gleiche Basis mal → Exponenten addieren</div></div>
-      <div class="fbox"><div class="fm">aⁿ ÷ aᵐ = aⁿ⁻ᵐ</div><div class="fs">Gleiche Basis geteilt → Exponenten subtrahieren</div></div>
-      <div class="fbox"><div class="fm">(aⁿ)ᵐ = aⁿˣᵐ</div><div class="fs">Potenz hoch Potenz → Exponenten multiplizieren</div></div>
-      <div class="info tip">💡 <strong>Merktrick:</strong> × → + &nbsp;|&nbsp; ÷ → − &nbsp;|&nbsp; ()ᵐ → ×</div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:10px;font-family:'DM Mono',monospace;font-size:12px">
-        <div style="background:#fafaf8;border-radius:8px;padding:8px 10px;border:1px solid var(--border)">a⁰ = <strong style="color:var(--accent)">1</strong> <span style="color:var(--muted)">(immer!)</span></div>
-        <div style="background:#fafaf8;border-radius:8px;padding:8px 10px;border:1px solid var(--border)">a⁻ⁿ = <strong style="color:var(--accent)">1/aⁿ</strong></div>
-        <div style="background:#fff1f2;border-radius:8px;padding:8px 10px;border:1px solid #fca5a5">(-a)² = <strong style="color:var(--green)">+</strong> (gerade)</div>
-        <div style="background:#fff1f2;border-radius:8px;padding:8px 10px;border:1px solid #fca5a5">(-a)³ = <strong style="color:var(--red)">−</strong> (ungerade)</div>
-      </div>
-    </div>
-
-    <div class="tcard">
-      <div class="tcard-head">🌳 Wahrscheinlichkeit <span class="tag blue">Baumdiagramm</span></div>
-      <div class="fbox"><div class="fm">Pfadregel: P = P₁ × P₂ × …</div><div class="fs">Einem Ast folgen → alles multiplizieren</div></div>
-      <div class="fbox"><div class="fm">Summenregel: P = Pfad₁ + Pfad₂</div><div class="fs">Mehrere günstige Wege → addieren</div></div>
-      <div class="info tip">✅ Probe: alle Pfade zusammen = 1 (100%)</div>
-    </div>
-
-    <div class="tcard">
-      <div class="tcard-head">📝 Beispielaufgaben vom Unterricht <span class="tag orange">Aktuell</span></div>
-      <div class="steps">
-        <div class="step"><span class="sn">1</span><div class="st">5⁻² · 5³ = 5^(−2+3) = 5¹ = 5</div><div class="sv">= 5</div></div>
-        <div class="step"><span class="sn">2</span><div class="st">(5⁻²)⁴ = 5^(−2·4) = 5⁻⁸ = 1/5⁸</div><div class="sv">= 0,00000256</div></div>
-        <div class="step"><span class="sn">3</span><div class="st">1/5⁸ = 0,00000256 = 2,56 · 10⁻⁶</div><div class="sv">Wissensch. Notation</div></div>
-      </div>
-    </div>
-
-    <div class="tcard" style="border-color:#fca5a5">
-      <div class="tcard-head" style="color:var(--red)">🚨 Häufige Fehler</div>
-      <div style="display:flex;flex-direction:column;gap:6px;font-size:13px;font-weight:600">
-        <div style="padding:9px;background:#fff1f2;border-radius:8px">❌ Exponenten MULTIPLIZIEREN bei gleicher Basis → <strong style="color:var(--green)">addieren! ✅</strong></div>
-        <div style="padding:9px;background:#fff1f2;border-radius:8px">❌ a⁰ = 0 → <strong style="color:var(--green)">a⁰ = 1 immer! ✅</strong></div>
-        <div style="padding:9px;background:#fff1f2;border-radius:8px">❌ −3² = (−3)² → <strong style="color:var(--green)">−3² = −9, aber (−3)² = +9 ✅</strong></div>
-        <div style="padding:9px;background:#fff1f2;border-radius:8px">❌ Pfade addieren → <strong style="color:var(--green)">Pfade multiplizieren! ✅</strong></div>
-      </div>
-    </div>
-  </div>
-
-</div>
-
-<!-- SICKS -->
-<button class="sicks-btn" onclick="toggleSicks()" id="sicksBtn">🤖</button>
-<div class="sicks-panel" id="sicksPanel">
-  <div class="sicks-head">
-    <div class="s-av">🤖</div>
-    <div class="s-info"><h4>Sicks</h4><p>Dein Mathe-Assistent</p></div>
-    <button class="s-close" onclick="toggleSicks()">✕</button>
-  </div>
-  <div class="s-msgs" id="sMsgs"></div>
-  <div id="sCodeArea" class="s-code-area" style="display:none">
-    <div style="font-size:11px;font-weight:700;color:var(--muted);margin-bottom:6px;text-align:center">🔑 Sicks-Code eingeben</div>
-    <input class="s-code-inp" id="sCodeInp" placeholder="SINGH-XXXX" maxlength="20" onkeypress="if(event.key==='Enter')submitCode()">
-    <button class="s-code-btn" onclick="submitCode()">Aktivieren 🚀</button>
-    <div class="s-err" id="sErr"></div>
-  </div>
-  <div class="s-inp-row" id="sInpRow" style="display:none">
-    <textarea class="s-inp" id="sInp" placeholder="Frage stellen..." rows="1"
-      onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendMsg()}"
-      oninput="this.style.height='auto';this.style.height=Math.min(this.scrollHeight,70)+'px'"></textarea>
-    <button class="s-send" id="sSend" onclick="sendMsg()">➤</button>
+  <div class="sirow" id="sirow" style="display:none">
+    <textarea class="sinp" id="sinp" rows="1" placeholder="Frage stellen..."
+      onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sSend()}"
+      oninput="this.style.height='auto';this.style.height=Math.min(this.scrollHeight,60)+'px'"></textarea>
+    <button class="ssend" id="ssend" onclick="sSend()">➤</button>
   </div>
 </div>
 
 <div class="toast" id="toast"></div>
 
-</div><!-- /app -->
-
 <script>
-// ═══ LOGIN & SPEICHERN ═══
-let activeCode='';
+function br(z,n){return`<span style="display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;margin:0 2px;font-family:'DM Mono',monospace;font-weight:700;line-height:1.15;font-size:.9em"><span style="border-bottom:2px solid currentColor;padding:0 3px">${z}</span><span style="padding:0 3px">${n}</span></span>`;}
 
-function saveAll(){
-  if(!activeCode)return;
-  const data={pts,qcnt,answered,donePot,doneWahr,unlockedPot,unlockedWahr};
-  localStorage.setItem('mm_save_'+activeCode,JSON.stringify(data));
-}
+let CODE='',pts=0,qcnt=0,ans={},dT={};
+let uT={0:true,1:false,2:false,3:false,4:false,5:false};
 
-function loadAll(code){
-  try{
-    const raw=localStorage.getItem('mm_save_'+code);
-    if(!raw)return;
-    const d=JSON.parse(raw);
-    pts=d.pts||0;
-    qcnt=d.qcnt||0;
-    answered=d.answered||{};
-    donePot=d.donePot||{};
-    doneWahr=d.doneWahr||{};
-    unlockedPot=d.unlockedPot||{0:true,1:false,2:false,3:false,4:false,5:false};
-    unlockedWahr=d.unlockedWahr||{0:true,1:false,2:false,3:false,4:false};
-    document.getElementById('pts').textContent=pts;
-    document.getElementById('qc').textContent=qcnt;
-  }catch(e){}
-}
+function sv(){if(!CODE)return;localStorage.setItem('mm5_'+CODE,JSON.stringify({pts,qcnt,ans,dT,uT}));}
+function ld(c){try{const d=JSON.parse(localStorage.getItem('mm5_'+c)||'{}');pts=d.pts||0;qcnt=d.qcnt||0;ans=d.ans||{};dT=d.dT||{};uT=d.uT||{0:true,1:false,2:false,3:false,4:false,5:false};}catch(e){}}
 
-function wcLogin(){
-  const v=document.getElementById('wcInp').value.trim().toUpperCase();
-  const err=document.getElementById('wcErr');
-  if(!v){err.textContent='Bitte Code eingeben!';return;}
-  if(!v.startsWith('SINGH-')){err.textContent='❌ Format falsch — muss mit SINGH- anfangen';return;}
-  if(v.length<8){err.textContent='❌ Code zu kurz';return;}
-  activeCode=v;
-  loadAll(activeCode);
-  document.getElementById('welcome').classList.add('hidden');
+function doLogin(){
+  const v=document.getElementById('lcI').value.trim().toUpperCase();
+  const e=document.getElementById('lcE');
+  if(!v){e.textContent='Bitte Code eingeben!';return;}
+  if(!v.startsWith('SINGH-')||v.length<8){e.textContent='❌ Format: SINGH-XXXX';return;}
+  CODE=v;ld(CODE);
+  document.getElementById('login').classList.add('hide');
   document.getElementById('app').style.display='block';
-  buildPicker();
+  document.getElementById('pts').textContent=pts;
+  document.getElementById('qc').textContent=qcnt;
+  buildGrid();buildProbe();startCD();
+}
+window.addEventListener('DOMContentLoaded',()=>setTimeout(()=>document.getElementById('lcI')?.focus(),150));
+
+function startCD(){
+  function t(){
+    const d=new Date('2026-03-19T12:40:00')-new Date();
+    const el=document.getElementById('cdt');
+    const lbl=document.getElementById('cdlbl');
+    if(d<=0){el.textContent='⏰ Jetzt!';lbl&&(lbl.textContent='');return;}
+    const h=Math.floor(d/3600000),m=Math.floor(d%3600000/60000),s=Math.floor(d%60000/1000);
+    el.textContent=`${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+  }
+  t();setInterval(t,1000);
 }
 
-window.addEventListener('DOMContentLoaded',()=>{
-  setTimeout(()=>document.getElementById('wcInp')?.focus(),200);
-});
-
-// ═══ STATE ═══
-let pts=0,qcnt=0,answered={};
-function addPts(n){pts+=n;qcnt++;document.getElementById('pts').textContent=pts;document.getElementById('qc').textContent=qcnt;toast('+'+n+' Punkte! 🎉');saveAll();}
-
-// ═══ COUNTDOWN ═══
-function updateCountdown(){
-  const target=new Date('2026-03-19T12:40:00');
-  const now=new Date();
-  const diff=target-now;
-  const el=document.getElementById('cdTime');
-  const lbl=document.getElementById('cdLabel');
-  if(diff<=0){el.textContent='00:00:00';el.className='cd-time cd-expired';lbl.textContent='Abgelaufen ❌';return;}
-  const h=Math.floor(diff/3600000);
-  const m=Math.floor((diff%3600000)/60000);
-  const s=Math.floor((diff%60000)/1000);
-  el.textContent=String(h).padStart(2,'0')+':'+String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');
-}
-updateCountdown();
-setInterval(updateCountdown,1000);
-
-// ═══ TABS ═══
-function switchTab(name,btn){
-  document.querySelectorAll('.tabs .tab').forEach(b=>b.classList.remove('on'));
-  btn.classList.add('on');
-  document.querySelectorAll('[data-page]').forEach(p=>p.classList.remove('active'));
-  document.querySelector('[data-page="'+name+'"]').classList.add('active');
+function switchPg(n,btn){
+  document.querySelectorAll('.nbt').forEach(b=>b.classList.remove('on'));btn.classList.add('on');
+  document.querySelectorAll('[data-pg]').forEach(p=>p.classList.remove('show'));
+  document.querySelector(`[data-pg="${n}"]`).classList.add('show');
 }
 
-// ═══ TOPIC ═══
-let curTopic='pot';
-function switchTopic(t,btn){
-  curTopic=t;
-  document.getElementById('tp-pot').classList.toggle('on',t==='pot');
-  document.getElementById('tp-wahr').classList.toggle('on',t==='wahr');
-  document.getElementById('grid-pot').style.display=t==='pot'?'block':'none';
-  document.getElementById('grid-wahr').style.display=t==='wahr'?'block':'none';
-}
-
-// ═══ LESSONS ═══
-const POT_LESSONS=[
-  {id:0,ico:'🔢',title:'Was ist eine Potenz?'},
-  {id:1,ico:'✖️',title:'Potenz × Potenz'},
-  {id:2,ico:'➗',title:'Potenz ÷ Potenz'},
-  {id:3,ico:'🏗️',title:'Potenz hoch Potenz'},
-  {id:4,ico:'⚡',title:'Negative Exponenten'},
-  {id:5,ico:'🎯',title:'Übungsaufgaben'},
-];
-const WAHR_LESSONS=[
-  {id:0,ico:'🌳',title:'Baumdiagramm'},
-  {id:1,ico:'✖️',title:'Pfadregel'},
-  {id:2,ico:'➕',title:'Summenregel'},
-  {id:3,ico:'🎲',title:'Würfel mehrfach'},
-  {id:4,ico:'🎴',title:'Karten ziehen'},
+const THEMEN=[
+  {id:0,i:'⚡',n:'Potenzgesetze — Zahlen'},
+  {id:1,i:'🔤',n:'Potenzgesetze — Variablen'},
+  {id:2,i:'🔬',n:'Wissenschaftl. Schreibweise'},
+  {id:3,i:'🎲',n:'Wahrscheinlichkeit Grundlagen'},
+  {id:4,i:'✖️',n:'Pfadregel & Summenregel'},
+  {id:5,i:'🎯',n:'Gemischte Übungen'},
 ];
 
-let unlockedPot={0:true,1:false,2:false,3:false,4:false,5:false};
-let unlockedWahr={0:true,1:false,2:false,3:false,4:false};
-let donePot={};let doneWahr={};
-
-function buildPicker(){
-  document.getElementById('pgrid-pot').innerHTML=POT_LESSONS.map(l=>{
-    const lk=!unlockedPot[l.id],dn=!!donePot[l.id];
-    return`<div class="pcard${lk?' locked':''}${dn?' done':''}" onclick="openLesson('pot',${l.id})">
-      <div class="pc-tag">Kapitel ${l.id+1}</div>
-      <div class="pc-ico">${l.ico}</div>
-      <div class="pc-title">${l.title}</div>
-      ${dn?'<div style="position:absolute;top:8px;right:8px">✅</div>':''}
-      ${lk?'<div style="position:absolute;top:8px;right:8px">🔒</div>':''}
-    </div>`;
-  }).join('');
-  document.getElementById('pgrid-wahr').innerHTML=WAHR_LESSONS.map(l=>{
-    const lk=!unlockedWahr[l.id],dn=!!doneWahr[l.id];
-    return`<div class="pcard${lk?' locked':''}${dn?' done':''}" onclick="openLesson('wahr',${l.id})">
-      <div class="pc-tag">Kapitel ${l.id+1}</div>
-      <div class="pc-ico">${l.ico}</div>
-      <div class="pc-title">${l.title}</div>
-      ${dn?'<div style="position:absolute;top:8px;right:8px">✅</div>':''}
-      ${lk?'<div style="position:absolute;top:8px;right:8px">🔒</div>':''}
+function buildGrid(){
+  document.getElementById('tgrid').innerHTML=THEMEN.map(c=>{
+    const lk=!uT[c.id],dn=!!dT[c.id];
+    return`<div class="tc${lk?' lk':''}${dn?' dn':''}" onclick="openT(${c.id})">
+      <div class="tc-n">Thema ${c.id+1}</div>
+      <div class="tc-i">${c.i}</div>
+      <div class="tc-t">${c.n}</div>
+      ${dn?'<div style="position:absolute;top:6px;right:6px;font-size:12px">✅</div>':''}
+      ${lk?'<div style="position:absolute;top:6px;right:6px;font-size:12px">🔒</div>':''}
     </div>`;
   }).join('');
 }
-buildPicker();
 
-function openLesson(topic,id){
-  const unlocked=topic==='pot'?unlockedPot:unlockedWahr;
-  if(!unlocked[id]){toast('🔒 Erst vorheriges Kapitel fertig machen!');return;}
-  const content=topic==='pot'?POT_CONTENT[id]:WAHR_CONTENT[id];
-  if(!content)return;
+function openT(id){
+  if(!uT[id]){toast('🔒 Erst vorheriges Thema abschließen!');return;}
+  const ct=TCONTENT[id];if(!ct)return;
   document.getElementById('picker').style.display='none';
-  document.getElementById('content').style.display='block';
-  document.getElementById('content-inner').innerHTML=content;
-  buildQ(topic,id);
+  document.getElementById('lesson').style.display='block';
+  document.getElementById('li').innerHTML=ct;
+  buildQ(id);
   window.scrollTo({top:0,behavior:'smooth'});
 }
-function backToPicker(){
+function goBack(){
   document.getElementById('picker').style.display='block';
-  document.getElementById('content').style.display='none';
-  buildPicker();
+  document.getElementById('lesson').style.display='none';
+  buildGrid();
 }
-const BACK=`<button class="back-btn" onclick="backToPicker()">← Zurück</button>`;
+const BK=`<button class="back" onclick="goBack()">← Zurück</button>`;
 
-// ═══ QUIZ ENGINE ═══
-function rnd(a,b){return Math.floor(Math.random()*(b-a+1))+a;}
-function shuf(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+// QUIZ ENGINE
+function shuf(a){const r=[...a];for(let i=r.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[r[i],r[j]]=[r[j],r[i]];}return r;}
 function fmt(n){return Number.isInteger(n)?String(n):String(Math.round(n*1000)/1000).replace('.',',');}
-function makeOpts(a){const s=new Set([a]);let t=0;const sp=Math.abs(a)>100?30:Math.abs(a)>20?8:3;while(s.size<4&&t++<200){const c=a+pick([-sp,-sp*2,sp,sp*2]);if(c!==a)s.add(c);}return shuf([...s].slice(0,4));}
-function pick(a){return a[Math.floor(Math.random()*a.length)];}
+function mkO(a){const s=new Set([a]);let t=0;const d=Math.abs(a)>100?25:Math.abs(a)>20?7:Math.abs(a)>5?3:2;while(s.size<4&&t++<300){const c=a+[-d,-d*2,d,d*2][Math.floor(Math.random()*4)];if(c!==a)s.add(c);}return shuf([...s].slice(0,4));}
 
-// Bruch-Darstellung wie im Bild
-function br(z,n){return`<span style="display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;margin:0 3px;font-family:'DM Mono',monospace;font-weight:700;line-height:1.1"><span style="border-bottom:2px solid currentColor;padding:0 4px;font-size:.9em">${z}</span><span style="padding:0 4px;font-size:.9em">${n}</span></span>`;}
-
-const QUIZ_DATA={
-  pot_0:[
-    {q:'2⁴ = ?',a:16,h:'2×2×2×2 = 16'},
-    {q:'3² = ?',a:9,h:'3×3 = 9'},
-    {q:'5⁰ = ?',a:1,h:'Jede Zahl hoch 0 ist immer 1!'},
-    {q:'2³ = ?',a:8,h:'2×2×2 = 8'},
-    {q:'10² = ?',a:100,h:'10×10 = 100'},
-    {q:'(-2)² = ?',a:4,h:'Gerade Exponent → Ergebnis positiv!'},
-    {q:'(-2)³ = ?',a:-8,h:'Ungerader Exponent → Ergebnis negativ!'},
-    {q:'7¹ = ?',a:7,h:'Hoch 1 = die Zahl selbst'},
-    {q:'4² = ?',a:16,h:'4×4 = 16'},
-    {q:'(-3)² = ?',a:9,h:'Gerade → positiv: (-3)×(-3) = 9'},
+const QD={
+  t0:[
+    {q:'2³ = ?',a:8,d:'B',h:'2×2×2 = 8'},
+    {q:'3² = ?',a:9,d:'B',h:'3×3 = 9'},
+    {q:'4² = ?',a:16,d:'B',h:'4×4 = 16'},
+    {q:'5⁰ = ?',a:1,d:'B',h:'Jede Zahl hoch 0 = 1!'},
+    {q:'2⁴ = ?',a:16,d:'B',h:'2×2×2×2 = 16'},
+    {q:'10² = ?',a:100,d:'B',h:'10×10 = 100'},
+    {q:'(-2)² = ?',a:4,d:'H',h:'Gerade Exponent → positiv: (+4)'},
+    {q:'(-3)³ = ?',a:-27,d:'H',h:'Ungerade Exponent → negativ: -27'},
+    {q:'2³ × 2² = 2<sup>?</sup>',a:5,d:'B',h:'gleiche Basis × → addieren: 3+2=5'},
+    {q:'3⁵ ÷ 3² = 3<sup>?</sup>',a:3,d:'B',h:'gleiche Basis ÷ → subtrahieren: 5-2=3'},
+    {q:'(2³)² = 2<sup>?</sup>',a:6,d:'H',h:'Potenz hoch Potenz → multiplizieren: 3×2=6'},
+    {q:'2³ × 2² = ? (Ergebnis)',a:32,d:'H',h:'2⁵ = 32'},
+    {q:'3⁴ ÷ 3² = ? (Ergebnis)',a:9,d:'H',h:'3² = 9'},
+    {q:'(-2)⁴ = ?',a:16,d:'H',h:'Gerade → positiv: +16'},
   ],
-  pot_1:[
-    {q:'2³ × 2² = 2<sup>?</sup> — Welcher Exponent?',a:5,h:'Gleiche Basis → addieren: 3+2 = 5'},
-    {q:'5² × 5³ = 5<sup>?</sup> — Welcher Exponent?',a:5,h:'2+3 = 5'},
-    {q:'x⁷ × x² = x<sup>?</sup> — Welcher Exponent?',a:9,h:'7+2 = 9'},
-    {q:'3⁴ × 3¹ = 3<sup>?</sup> — Welcher Exponent?',a:5,h:'4+1 = 5'},
-    {q:'2³ × 2² = ? — Ergebnis berechnen',a:32,h:'2⁵ = 32'},
-    {q:'3² × 3³ = ? — Ergebnis berechnen',a:243,h:'3⁵ = 243'},
+  t1:[
+    {q:'x³ × x² = x<sup>?</sup>',a:5,d:'B',h:'gleiche Basis → addieren: 3+2=5'},
+    {q:'a⁷ ÷ a³ = a<sup>?</sup>',a:4,d:'B',h:'gleiche Basis ÷ → subtrahieren: 7-3=4'},
+    {q:'(b²)⁴ = b<sup>?</sup>',a:8,d:'B',h:'Exponenten multiplizieren: 2×4=8'},
+    {q:'y⁵ × y³ = y<sup>?</sup>',a:8,d:'B',h:'5+3=8'},
+    {q:'x⁶ ÷ x² = x<sup>?</sup>',a:4,d:'B',h:'6-2=4'},
+    {q:'(a³)³ = a<sup>?</sup>',a:9,d:'H',h:'3×3=9'},
+    {q:'x⁴ × x⁰ = x<sup>?</sup>',a:4,d:'H',h:'x⁰=1 → x⁴×1=x⁴, oder 4+0=4'},
+    {q:'a⁸ ÷ a⁸ = ?',a:1,d:'H',h:'a⁰ = 1 — immer!'},
+    {q:'(x²)³ × x² = x<sup>?</sup>',a:8,d:'H',h:'erst 2×3=6, dann 6+2=8'},
+    {q:'b⁵ × b⁻² = b<sup>?</sup>',a:3,d:'H',h:'5+(-2)=3'},
   ],
-  pot_2:[
-    {q:'2⁵ ÷ 2² = 2<sup>?</sup> — Welcher Exponent?',a:3,h:'Gleiche Basis → subtrahieren: 5−2 = 3'},
-    {q:'3⁶ ÷ 3³ = 3<sup>?</sup> — Welcher Exponent?',a:3,h:'6−3 = 3'},
-    {q:'a⁸ ÷ a⁵ = a<sup>?</sup> — Welcher Exponent?',a:3,h:'8−5 = 3'},
-    {q:'2⁵ ÷ 2² = ? — Ergebnis berechnen',a:8,h:'2³ = 8'},
-    {q:'3⁴ ÷ 3² = ? — Ergebnis berechnen',a:9,h:'3² = 9'},
-    {q:'a⁰ = ? für jedes a ≠ 0',a:1,h:'aⁿ ÷ aⁿ = a⁰ = 1 — immer!'},
+  t2:[
+    {q:'4.700.000 = 4,7 × 10<sup>?</sup>',a:6,d:'B',h:'Komma 6 Stellen nach links → 10⁶'},
+    {q:'0,0035 = 3,5 × 10<sup>?</sup>',a:-3,d:'B',h:'Komma 3 Stellen nach rechts → 10⁻³'},
+    {q:'2,56 × 10⁻⁶ = 0,00000? (Ziffer)',a:256,d:'B',h:'0,00000256 → 256'},
+    {q:'6.800 = 6,8 × 10<sup>?</sup>',a:3,d:'B',h:'Komma 3 Stellen nach links → 10³'},
+    {q:'0,00041 = 4,1 × 10<sup>?</sup>',a:-4,d:'H',h:'Komma 4 Stellen nach rechts → 10⁻⁴'},
+    {q:'3,2 × 10⁴ = ?',a:32000,d:'H',h:'10⁴ = 10.000 → 3,2 × 10.000 = 32.000'},
+    {q:'1,5 × 10⁻³ × 10³ = ?',a:1,d:'H',h:'10⁻³ × 10³ = 10⁰ = 1 → 1,5×1 = 1,5 ≈ 2'},
+    {q:'5⁻⁸ ≈ 2,56 × 10<sup>?</sup>',a:-6,d:'H',h:'1/5⁸ = 0,00000256 = 2,56 × 10⁻⁶'},
   ],
-  pot_3:[
-    {q:'(2³)² = 2<sup>?</sup> — Welcher Exponent?',a:6,h:'Exponenten multiplizieren: 3×2 = 6'},
-    {q:'(3²)³ = 3<sup>?</sup> — Welcher Exponent?',a:6,h:'2×3 = 6'},
-    {q:'(a⁴)² = a<sup>?</sup> — Welcher Exponent?',a:8,h:'4×2 = 8'},
-    {q:'(2³)² = ? — Ergebnis berechnen',a:64,h:'2⁶ = 64'},
-    {q:'(3²)² = ? — Ergebnis berechnen',a:81,h:'3⁴ = 81'},
-    {q:'(5²)³ ÷ 5⁴ = 5<sup>?</sup> — Welcher Exponent?',a:2,h:'Erst 2×3=6, dann 6−4=2'},
+  t3:[
+    {q:'Münze 2×: Wie viele Ergebnisse?',a:4,d:'B',h:'2×2 = 4'},
+    {q:'Würfel: Wie viele Seiten?',a:6,d:'B',h:'1,2,3,4,5,6 → 6'},
+    {q:`P(Kopf) = ${br(1,'?')} — Zahl unten?`,a:2,d:'B',h:'1 von 2 → Nenner 2'},
+    {q:'Alle Äste addiert = ?',a:1,d:'B',h:'Probe: immer 1 = 100%'},
+    {q:`P(6 beim Würfel) = ${br(1,'?')} — Zahl unten?`,a:6,d:'B',h:'1 von 6 → Nenner 6'},
+    {q:'Münze 3×: Wie viele Ergebnisse?',a:8,d:'H',h:'2³ = 8'},
+    {q:'Würfel 2×: Wie viele Paare?',a:36,d:'H',h:'6×6 = 36'},
+    {q:'P(gerade Zahl beim Würfel) = ?%',a:50,d:'H',h:'3 von 6 → 50%'},
   ],
-  pot_4:[
-    {q:'5⁻² · 5³ = 5<sup>?</sup> — Welcher Exponent?',a:1,h:'Gleiche Basis → addieren: −2+3 = 1'},
-    {q:'(5⁻²)⁴ = 5<sup>?</sup> — Welcher Exponent?',a:-8,h:'Exponenten multiplizieren: −2×4 = −8'},
-    {q:`5⁻⁸ = ${br(1,'5<sup>?</sup>')} — Welche Zahl steht unten?`,a:8,h:'Negativer Exponent = Kehrwert: 5⁻⁸ = 1/5⁸'},
-    {q:`${br(1,'5⁸')} ≈ 2,56 · 10<sup>?</sup> — Welcher Exponent?`,a:-6,h:'0,00000256 = 2,56 × 10⁻⁶'},
+  t4:[
+    {q:`P(O) aus K,E,O,A = ${br(1,'?')} — Zahl unten?`,a:4,d:'B',h:'4 Karten → Nenner 4'},
+    {q:'O weg (ohne zurücklegen): Karten übrig?',a:3,d:'B',h:'4-1=3'},
+    {q:`P(„OK") = ${br(1,'?')} — Zahl unten?`,a:12,d:'B',h:'1/4×1/3 = 1/12'},
+    {q:'30 Schüler, P=1/12: Kaugummis erwartet?',a:3,d:'B',h:'30×1/12=2,5≈3'},
+    {q:'5W+5S Kugeln: P(gleichfarbig) ≈ ?%',a:44,d:'H',h:'4/9≈44%'},
+    {q:`P(WW) ohne Zurücklegen = ${br(20,'?')} — Nenner?`,a:90,d:'H',h:'5/10×4/9=20/90'},
+    {q:'K,E,O,A ohne Zurücklegen: Anzahl Paare?',a:12,d:'H',h:'4×3=12'},
+    {q:'P(verschiedenfarbig) ≈ ?%',a:56,d:'H',h:'1-4/9=5/9≈56%'},
   ],
-  pot_5:[
-    {q:'3² × 3³ = ? — Ergebnis berechnen',a:243,h:'3⁵ = 243'},
-    {q:'2⁸ ÷ 2³ = ? — Ergebnis berechnen',a:32,h:'2⁵ = 32'},
-    {q:'(4²)³ = 4<sup>?</sup> — Welcher Exponent?',a:6,h:'2×3 = 6'},
-    {q:'(-3)³ = ? — Vorzeichen beachten!',a:-27,h:'Ungerade → negativ: −27'},
-    {q:'(-2)⁴ = ? — Vorzeichen beachten!',a:16,h:'Gerade → positiv: +16'},
-    {q:'7⁰ × 7² = ?',a:49,h:'7⁰ = 1, dann 1 × 49 = 49'},
-  ],
-  wahr_0:[
-    {q:'Münze 2× werfen: Wie viele verschiedene Ergebnisse gibt es?',a:4,h:'KK, KZ, ZK, ZZ → 2×2 = 4'},
-    {q:'Alle Pfade in einem Baumdiagramm zusammen addiert = ?',a:1,h:'Probe: alle zusammen = 1 = 100%'},
-    {q:'Würfel: Wie viele Seiten hat er?',a:6,h:'1, 2, 3, 4, 5, 6 → 6 Seiten'},
-    {q:`P(Kopf) = ${br(1,'?')} — Welche Zahl steht unten?`,a:2,h:'1 günstig von 2 möglichen → Nenner 2'},
-  ],
-  wahr_1:[
-    {q:`P(O) aus 4 Karten = ${br(1,'?')} — Welche Zahl steht unten?`,a:4,h:'4 Karten → Nenner 4'},
-    {q:'Nach O gezogen (ohne zurücklegen): Wie viele Karten sind noch übrig?',a:3,h:'4 − 1 = 3 Karten'},
-    {q:`P(„OK") = ${br(1,'?')} — Welche Zahl steht unten?`,a:12,h:'1/4 × 1/3 = 1/12 → Nenner 12'},
-    {q:'30 Schüler, jeder zieht. Wie viele Kaugummis gibt es ungefähr?',a:3,h:'30 × 1/12 = 2,5 ≈ 3'},
-  ],
-  wahr_2:[
-    {q:'5 weiße + 5 schwarze Kugeln: Wie viele insgesamt?',a:10,h:'5 + 5 = 10'},
-    {q:'P(gleichfarbig) ohne Zurücklegen ≈ ? %',a:44,h:'4/9 ≈ 44,4%'},
-    {q:`P(WW) = ${br(20,'?')} — Welche Zahl steht unten?`,a:90,h:'5/10 × 4/9 = 20/90 → Nenner 90'},
-  ],
-  wahr_3:[
-    {q:'Würfel dreimal würfeln: Wie viele Ergebnisse gibt es insgesamt?',a:216,h:'6 × 6 × 6 = 6³ = 216'},
-    {q:`P(keine 1 beim Würfel) = ${br('?','6')} — Welche Zahl steht oben?`,a:5,h:'5 Seiten sind nicht 1 → 5/6'},
-    {q:'Dreimal würfeln, alle drei Male eine 1: Wie viele günstige Wege gibt es?',a:1,h:'Nur ein Weg: 1−1−1'},
-    {q:'Genau einmal eine 1 würfeln: Wie viele verschiedene Positionen gibt es?',a:3,h:'1xx, x1x, xx1 → 3 Positionen'},
-    {q:`P(keinmal eine 1) = ${br('?','216')} — Welche Zahl steht oben?`,a:125,h:'5³ = 125 → also 125/216'},
-  ],
-  wahr_4:[
-    {q:'4 Karten K,E,O,A: Wie viele geordnete Paare gibt es ohne Zurücklegen?',a:12,h:'4 × 3 = 12 Paare'},
-    {q:`P(„KE") = ${br(1,'?')} — Welche Zahl steht unten?`,a:12,h:'1/4 × 1/3 = 1/12 → Nenner 12'},
-    {q:'Wie viele Paare beginnen mit dem Buchstaben K?',a:3,h:'KE, KO, KA → 3 Paare'},
+  t5:[
+    {q:'3² × 3³ = ? (Ergebnis)',a:243,d:'B',h:'3⁵=243'},
+    {q:'2⁸ ÷ 2⁵ = ? (Ergebnis)',a:8,d:'B',h:'2³=8'},
+    {q:'(-2)⁴ = ?',a:16,d:'B',h:'Gerade→positiv: +16'},
+    {q:'x⁵ × x³ = x<sup>?</sup>',a:8,d:'B',h:'5+3=8'},
+    {q:'4.500 = 4,5 × 10<sup>?</sup>',a:3,d:'B',h:'10³'},
+    {q:'(a³)² = a<sup>?</sup>',a:6,d:'B',h:'3×2=6'},
+    {q:'2³ × 2⁴ ÷ 2⁵ = 2<sup>?</sup>',a:2,d:'H',h:'3+4=7, 7-5=2'},
+    {q:'(-3)⁵ = ?',a:-243,d:'H',h:'Ungerade→negativ: -243'},
+    {q:'0,000056 = 5,6 × 10<sup>?</sup>',a:-5,d:'H',h:'Komma 5 nach rechts → 10⁻⁵'},
+    {q:`Würfel 3×: Gesamt Ergebnisse?`,a:216,d:'H',h:'6³=216'},
+    {q:`P(keinmal 1) = ${br('?','216')} — Zähler?`,a:125,d:'H',h:'(5/6)³=125/216'},
   ],
 };
 
-function buildQ(topic,id){
-  const key=topic+'_'+id;
-  const qs=QUIZ_DATA[key];
-  if(!qs||!qs.length){
-    const btn=document.getElementById('cbtn_'+key);
-    if(btn)btn.disabled=false;
-    return;
-  }
-  const wrap=document.getElementById('qa_'+key);
-  if(!wrap)return;
-  const pool=shuf([...qs]).slice(0,4);
+function buildQ(id){
+  const key='t'+id;
+  const all=QD[key];
+  if(!all){const b=document.getElementById('cb_'+key);if(b)b.disabled=false;return;}
+  const wrap=document.getElementById('qa_'+key);if(!wrap)return;
+  const basis=shuf(all.filter(q=>q.d==='B')).slice(0,3);
+  const haupt=shuf(all.filter(q=>q.d==='H')).slice(0,3);
+  const pool=shuf([...basis,...haupt]);
+  window['_p_'+key]=pool;
   let html='';
   pool.forEach((q,i)=>{
-    const opts=makeOpts(q.a);
-    const qEsc=(q.q||'').replace(/"/g,'&quot;').replace(/'/g,'&#39;').replace(/<[^>]+>/g,'');
+    const opts=mkO(q.a);
+    const qc=(q.q||'').replace(/<[^>]+>/g,'').replace(/"/g,'\\"');
     html+=`<div class="qcard" id="qc_${key}_${i}">
-      <div class="qtext" style="display:flex;align-items:center;flex-wrap:wrap;gap:6px">
-        <span>${q.q}</span>
-        <button onclick='askSicks("Erkläre mir diese Aufgabe: ${qEsc}")' style="display:inline-flex;align-items:center;gap:4px;padding:3px 9px;background:#f0fdf4;border:1px solid #86efac;border-radius:20px;color:var(--accent);font-size:11px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;white-space:nowrap">🤖 Sicks</button>
-      </div>
-      <div class="opts">${opts.map(o=>`<button class="opt" onclick="chk('${key}',${i},${o},${q.a},'${(q.h||'').replace(/'/g,'&#39;')}')">${fmt(o)}</button>`).join('')}</div>
-      <div class="qfb" id="qfb_${key}_${i}"></div>
+      <div class="qtxt"><span>${q.q}</span><span class="dbg ${q.d==='B'?'db-b':'db-h'}">${q.d}</span></div>
+      <div class="opts">${opts.map(o=>`<button class="opt" onclick="chk('${key}',${i},${o},${q.a},'${(q.h||'').replace(/'/g,"&#39;")}')">${fmt(o)}</button>`).join('')}</div>
+      <div class="qfb" id="qf_${key}_${i}"></div>
+      <button class="nub" onclick='sAsk("Ich verstehe diese Aufgabe nicht: ${qc}. Erkläre bitte einfach.")'>🤔 Nicht verstanden</button>
     </div>`;
   });
-  wrap.innerHTML=html;
-  updateCbtn(key,pool.length);
-  window['_pool_'+key]=pool;
+  wrap.innerHTML=html;updCb(key,pool.length);
 }
 
-function chk(key,i,chosen,ans,hint){
-  const k=key+'_'+i;
-  if(answered[k])return;
+function chk(key,i,chosen,a,hint){
+  const k=key+'_'+i;if(ans[k])return;
   const card=document.getElementById('qc_'+key+'_'+i);
-  const fb=document.getElementById('qfb_'+key+'_'+i);
+  const fb=document.getElementById('qf_'+key+'_'+i);
   card.querySelectorAll('.opt').forEach(b=>b.disabled=true);
-  let clickedBtn=null;
-  card.querySelectorAll('.opt').forEach(b=>{if(Math.abs(parseFloat(b.textContent.replace(',','.'))-chosen)<0.1)clickedBtn=b;});
-  if(Math.abs(chosen-ans)<0.6){
-    if(clickedBtn)clickedBtn.classList.add('ok');
-    card.classList.add('ok');
+  let cl=null;
+  card.querySelectorAll('.opt').forEach(b=>{if(Math.abs(parseFloat(b.textContent.replace(',','.'))-chosen)<0.1)cl=b;});
+  if(Math.abs(chosen-a)<0.6){
+    if(cl)cl.classList.add('ok');card.classList.add('ok');
     fb.textContent='✅ Richtig!';fb.className='qfb ok';
-    answered[k]=true;addPts(10);
-    updateCbtn(key,window['_pool_'+key]?.length||4);
+    ans[k]=true;pts+=10;qcnt++;
+    document.getElementById('pts').textContent=pts;
+    document.getElementById('qc').textContent=qcnt;
+    sv();toast('+10 Punkte! 🎉');
+    updCb(key,window['_p_'+key]?.length||6);
   } else {
-    if(clickedBtn)clickedBtn.classList.add('no');
-    card.querySelectorAll('.opt').forEach(b=>{if(Math.abs(parseFloat(b.textContent.replace(',','.'))-ans)<0.1)b.classList.add('ok');});
+    if(cl)cl.classList.add('no');
+    card.querySelectorAll('.opt').forEach(b=>{if(Math.abs(parseFloat(b.textContent.replace(',','.'))-a)<0.1)b.classList.add('ok');});
     card.classList.add('no');
-    fb.innerHTML='❌ Richtig: <strong>'+fmt(ans)+'</strong> — Tipp: '+hint;
-    fb.className='qfb no';
+    fb.innerHTML='❌ Richtig: <strong>'+fmt(a)+'</strong> — '+hint;fb.className='qfb no';
     card.style.animation='shake .3s';
-    setTimeout(()=>{card.style.animation='';card.querySelectorAll('.opt').forEach(b=>{b.disabled=false;b.classList.remove('no','ok');});card.classList.remove('no');fb.textContent='';},2800);
+    setTimeout(()=>{card.style.animation='';card.querySelectorAll('.opt').forEach(b=>{b.disabled=false;b.classList.remove('no','ok');});card.classList.remove('no');fb.textContent='';},3000);
   }
 }
 
-function updateCbtn(key,total){
-  const btn=document.getElementById('cbtn_'+key);
-  if(!btn)return;
-  const done=Object.keys(answered).filter(k=>k.startsWith(key+'_')).length;
+function updCb(key,total){
+  const btn=document.getElementById('cb_'+key);if(!btn)return;
+  const done=Object.keys(ans).filter(k=>k.startsWith(key+'_')).length;
   btn.disabled=done<total;
-  btn.textContent=done>=total?'✅ Kapitel abschließen & nächstes freischalten':'Kapitel abschließen ('+done+'/'+total+' richtig)';
+  btn.textContent=done>=total?'✅ Thema abschließen & nächstes freischalten':`Noch ${total-done} Aufgaben richtig lösen`;
 }
 
-function completeLesson(topic,id){
-  if(topic==='pot'){donePot[id]=true;if(id<5)unlockedPot[id+1]=true;toast('🔓 Kapitel '+(id+2)+' freigeschaltet! +50 Pkt');pts+=50;document.getElementById('pts').textContent=pts;}
-  else{doneWahr[id]=true;if(id<4)unlockedWahr[id+1]=true;toast('🔓 Kapitel '+(id+2)+' freigeschaltet! +50 Pkt');pts+=50;document.getElementById('pts').textContent=pts;}
-  saveAll();
-  setTimeout(()=>backToPicker(),500);
+function finT(id){
+  dT[id]=true;if(id<5)uT[id+1]=true;
+  pts+=50;document.getElementById('pts').textContent=pts;
+  sv();toast('🔓 Nächstes Thema freigeschaltet! +50 Pkt');
+  setTimeout(()=>goBack(),600);
 }
 
-// ═══ LESSON CONTENT ═══
-const POT_CONTENT={
-0:`${BACK}
-<div class="hero" style="background:linear-gradient(135deg,#2d4a2d,#1a3a1a)">${''}<div class="hero-tag">Kapitel 1 · Potenzen</div><h2>🔢 Was ist eine Potenz?</h2><p>Kurz schreiben statt ewig zu multiplizieren!</p><div class="hero-ico">⚡</div></div>
-<div class="tcard">
-<div class="tcard-head">💡 Grundidee</div>
-<div style="font-size:14px;font-weight:600;line-height:2;padding:10px 14px;background:#fafaf8;border-radius:9px;border-left:3px solid var(--accent);margin-bottom:10px">
-Statt 2 × 2 × 2 × 2 × 2 zu schreiben, kürzt man ab: <strong>2⁵</strong><br>
-Die <strong style="color:var(--accent)">Basis</strong> (2) wird <strong style="color:var(--accent2)">Exponent</strong> (5) mal multipliziert.
-</div>
-<div class="fbox"><div class="fm">2⁵ = 2 × 2 × 2 × 2 × 2 = 32</div><div class="fs">Basis = 2 (unten) · Exponent = 5 (oben)</div></div>
-<div class="sec">Sonderfälle — auswendig lernen!</div>
+// THEMA CONTENT
+const TCONTENT={
+0:`${BK}
+<div class="hero" style="background:linear-gradient(135deg,#2a5c2a,#1a3a1a)"><div class="htag">Thema 1 · Potenzen</div><h2>⚡ Potenzgesetze — Zahlen</h2><p>Alle 3 Gesetze mit konkreten Zahlen!</p><div class="hi">⚡</div></div>
+<div class="card"><div class="ch">📌 Die 3 Gesetze</div>
+<div class="fbox"><div class="fm">aⁿ × aᵐ = aⁿ⁺ᵐ</div><div class="fs">gleiche Basis × → Exponenten ADDIEREN</div></div>
+<div class="fbox"><div class="fm">aⁿ ÷ aᵐ = aⁿ⁻ᵐ</div><div class="fs">gleiche Basis ÷ → Exponenten SUBTRAHIEREN</div></div>
+<div class="fbox"><div class="fm">(aⁿ)ᵐ = aⁿˣᵐ</div><div class="fs">Potenz hoch Potenz → Exponenten MULTIPLIZIEREN</div></div>
 <div class="steps">
-<div class="step"><span class="sn">a⁰</span><div class="st">Jede Zahl hoch 0 = immer 1<br><span style="font-size:12px;color:var(--muted)">Beweis: a³÷a³ = a⁰ UND = 1 → muss 1 sein!</span></div><div class="sv">= 1</div></div>
-<div class="step"><span class="sn">a¹</span><div class="st">Jede Zahl hoch 1 = sie selbst</div><div class="sv">= a</div></div>
-<div class="step" style="border-left-color:var(--red)"><span class="sn" style="background:var(--red)">(-a)²</span><div class="st">Negativ hoch GERADE → POSITIV<br><span style="font-size:12px;color:var(--muted)">(-3)² = (-3)×(-3) = +9</span></div><div class="sv" style="color:var(--green)">→ +</div></div>
-<div class="step" style="border-left-color:var(--red)"><span class="sn" style="background:var(--red)">(-a)³</span><div class="st">Negativ hoch UNGERADE → NEGATIV<br><span style="font-size:12px;color:var(--muted)">(-2)³ = -8</span></div><div class="sv" style="color:var(--red)">→ −</div></div>
+<div class="step"><span class="sn">Bsp ×</span><div class="st2">2³ × 2² = 2<sup>3+2</sup> = 2⁵ = <strong>32</strong></div><div class="sv">= 32</div></div>
+<div class="step"><span class="sn">Bsp ÷</span><div class="st2">3⁵ ÷ 3² = 3<sup>5−2</sup> = 3³ = <strong>27</strong></div><div class="sv">= 27</div></div>
+<div class="step"><span class="sn">Bsp ()</span><div class="st2">(2³)² = 2<sup>3×2</sup> = 2⁶ = <strong>64</strong></div><div class="sv">= 64</div></div>
 </div>
-<div class="info warn">⚠️ <strong>Klammern!</strong> −3² = −(3²) = −9 ABER (-3)² = +9</div>
+<div class="warn">⚠️ <strong>−3²</strong> = −9 ABER <strong>(−3)²</strong> = +9 — Klammern entscheiden!</div>
+<div class="steps">
+<div class="step" style="border-left-color:var(--ylw)"><span class="sn" style="background:var(--ylw)">a⁰</span><div class="st2">Jede Zahl hoch 0 = <strong>1</strong><br><small style="color:var(--muted)">Beweis: a³÷a³ = a⁰ = 1</small></div><div class="sv">= 1</div></div>
+<div class="step" style="border-left-color:var(--red)"><span class="sn" style="background:var(--red)">negativ</span><div class="st2">(-a) gerader Exp. → <strong style="color:var(--grn)">+</strong> &nbsp;|&nbsp; ungerader Exp. → <strong style="color:var(--red)">−</strong></div></div>
 </div>
-<div class="tcard">
-<div class="tcard-head">⚡ Quiz</div>
-<div id="qa_pot_0"></div>
-<button class="cbtn" id="cbtn_pot_0" onclick="completeLesson('pot',0)" disabled>Kapitel abschließen</button>
-</div>`,
+</div>
+<div class="card"><div class="ch">⚡ Quiz — Basis (B) + Haupt (H)</div>
+<div id="qa_t0"></div><button class="cbtn" id="cb_t0" onclick="finT(0)" disabled>Thema abschließen</button></div>`,
 
-1:`${BACK}
-<div class="hero" style="background:linear-gradient(135deg,#1a3a5c,#0f2438)"><div class="hero-tag">Kapitel 2 · Potenzen</div><h2>✖️ Potenz × Potenz</h2><p>Gleiche Basis? Exponenten addieren!</p><div class="hero-ico">+</div></div>
-<div class="tcard">
-<div class="tcard-head">📌 Gesetz 1</div>
-<div class="fbox"><div class="fm">aⁿ × aᵐ = aⁿ⁺ᵐ</div><div class="fs">Gleiche Basis multiplizieren → Exponenten ADDIEREN</div></div>
-<div style="font-size:14px;font-weight:600;background:#fafaf8;border-radius:9px;padding:12px;border-left:3px solid var(--accent3);margin:10px 0">
-<strong>Warum?</strong> 2³ × 2² = (2×2×2) × (2×2) = 2×2×2×2×2 = 2⁵<br>
-3 Zweien + 2 Zweien = 5 Zweien → einfach zählen!
+1:`${BK}
+<div class="hero" style="background:linear-gradient(135deg,#1a3a5c,#0f2438)"><div class="htag">Thema 2 · Potenzen</div><h2>🔤 Potenzgesetze — Variablen</h2><p>Dieselben Regeln — aber mit Buchstaben!</p><div class="hi">x</div></div>
+<div class="card"><div class="ch">📌 Genau wie mit Zahlen!</div>
+<div style="font-size:12px;font-weight:600;padding:9px 11px;background:#fafaf7;border-radius:7px;border-left:3px solid var(--blu);margin-bottom:8px">
+Die <strong>gleichen 3 Gesetze</strong> gelten auch für Variablen (x, a, b, y …).<br>
+Es ist genau das Gleiche — nur mit Buchstaben statt Zahlen!
 </div>
 <div class="steps">
-<div class="step"><span class="sn">Bsp 1</span><div class="st">3⁴ × 3² = 3⁶</div><div class="sv">4+2=6</div></div>
-<div class="step"><span class="sn">Bsp 2</span><div class="st">5² × 5³ = 5⁵</div><div class="sv">2+3=5</div></div>
-<div class="step"><span class="sn">Bsp 3</span><div class="st">x⁷ × x² = x⁹</div><div class="sv">7+2=9</div></div>
+<div class="step"><span class="sn">Gesetz 1</span><div class="st2">x⁴ × x³ = x<sup>4+3</sup> = x⁷</div><div class="sv">× → +</div></div>
+<div class="step"><span class="sn">Gesetz 2</span><div class="st2">a⁷ ÷ a³ = a<sup>7−3</sup> = a⁴</div><div class="sv">÷ → −</div></div>
+<div class="step"><span class="sn">Gesetz 3</span><div class="st2">(b²)⁵ = b<sup>2×5</sup> = b¹⁰</div><div class="sv">() → ×</div></div>
+<div class="step" style="border-left-color:var(--ylw)"><span class="sn" style="background:var(--ylw)">Kombi</span><div class="st2">(x³)² × x² = x⁶ × x² = x<sup>6+2</sup> = x⁸</div><div class="sv">x⁸</div></div>
 </div>
-<div class="info danger">❌ <strong>Nur bei gleicher Basis!</strong> 2³ × 3² → kann man NICHT vereinfachen!</div>
+<div class="tip">💡 Immer prüfen: Sind die Basen gleich? Nur dann kann man vereinfachen!</div>
 </div>
-<div class="tcard">
-<div class="tcard-head">⚡ Quiz</div>
-<div id="qa_pot_1"></div>
-<button class="cbtn" id="cbtn_pot_1" onclick="completeLesson('pot',1)" disabled>Kapitel abschließen</button>
-</div>`,
+<div class="card"><div class="ch">⚡ Quiz</div>
+<div id="qa_t1"></div><button class="cbtn" id="cb_t1" onclick="finT(1)" disabled>Thema abschließen</button></div>`,
 
-2:`${BACK}
-<div class="hero" style="background:linear-gradient(135deg,#5c2a1a,#3a1a0f)"><div class="hero-tag">Kapitel 3 · Potenzen</div><h2>➗ Potenz ÷ Potenz</h2><p>Gleiche Basis? Exponenten subtrahieren!</p><div class="hero-ico">−</div></div>
-<div class="tcard">
-<div class="tcard-head">📌 Gesetz 2</div>
-<div class="fbox"><div class="fm">aⁿ ÷ aᵐ = aⁿ⁻ᵐ</div><div class="fs">Gleiche Basis dividieren → Exponenten SUBTRAHIEREN</div></div>
-<div style="font-size:14px;font-weight:600;background:#fafaf8;border-radius:9px;padding:12px;border-left:3px solid var(--accent2);margin:10px 0">
-<strong>Warum?</strong> 2⁵ ÷ 2³ = (2×2×2×2×2) ÷ (2×2×2)<br>
-3 kürzen sich weg → 2 übrig → 2² (= 5−3)
+2:`${BK}
+<div class="hero" style="background:linear-gradient(135deg,#3a1a5c,#250f3a)"><div class="htag">Thema 3 · Wissenschaftliche Schreibweise</div><h2>🔬 Sehr große & kleine Zahlen</h2><p>Immer in der Form: a · 10ⁿ</p><div class="hi">10ⁿ</div></div>
+<div class="card"><div class="ch">📌 Die Regel</div>
+<div class="fbox"><div class="fm">a · 10ⁿ</div><div class="fs">a liegt immer zwischen 1 und 10 (d.h. 1 ≤ a &lt; 10)</div></div>
+<div style="font-size:12px;font-weight:600;padding:9px 11px;background:#fafaf7;border-radius:7px;border-left:3px solid var(--pur);margin:8px 0">
+<strong>Trick:</strong> Zähle, wie viele Stellen das Komma verschoben wird.<br>
+→ Komma nach <strong>links</strong> (große Zahl) = <strong>positiver</strong> Exponent<br>
+→ Komma nach <strong>rechts</strong> (kleine Zahl) = <strong>negativer</strong> Exponent
 </div>
 <div class="steps">
-<div class="step"><span class="sn">Bsp 1</span><div class="st">2⁶ ÷ 2² = 2⁴</div><div class="sv">6−2=4</div></div>
-<div class="step"><span class="sn">Bsp 2</span><div class="st">5⁷ ÷ 5³ = 5⁴</div><div class="sv">7−3=4</div></div>
-<div class="step" style="border-left-color:var(--yellow)"><span class="sn" style="background:var(--yellow)">Bonus</span><div class="st">a⁰ = 1 Beweis: a³÷a³ = a⁰ = 1</div><div class="sv">✓</div></div>
+<div class="step"><span class="sn">Groß</span><div class="st2"><strong>4.700.000</strong> → Komma 6× nach links<br>= 4,7 × 10<sup>6</sup></div><div class="sv">10⁶</div></div>
+<div class="step"><span class="sn">Klein</span><div class="st2"><strong>0,0035</strong> → Komma 3× nach rechts<br>= 3,5 × 10<sup>−3</sup></div><div class="sv">10⁻³</div></div>
+<div class="step"><span class="sn">Zurück</span><div class="st2"><strong>2,56 × 10⁻⁶</strong> → Komma 6× nach links<br>= 0,00000256</div><div class="sv">winzig!</div></div>
+<div class="step"><span class="sn">Potenz</span><div class="st2">1/5⁸ = 0,00000256 = <strong>2,56 × 10⁻⁶</strong></div><div class="sv">≈ 0</div></div>
 </div>
-<div class="info tip">💡 Negativer Exponent: 2⁻³ = 1/2³ = 1/8</div>
+<div class="danger">❌ Wenn a ≥ 10 oder a &lt; 1 → nicht korrekt! z.B. 47 × 10⁵ ist FALSCH → richtig: 4,7 × 10⁶</div>
 </div>
-<div class="tcard">
-<div class="tcard-head">⚡ Quiz</div>
-<div id="qa_pot_2"></div>
-<button class="cbtn" id="cbtn_pot_2" onclick="completeLesson('pot',2)" disabled>Kapitel abschließen</button>
-</div>`,
+<div class="card"><div class="ch">⚡ Quiz</div>
+<div id="qa_t2"></div><button class="cbtn" id="cb_t2" onclick="finT(2)" disabled>Thema abschließen</button></div>`,
 
-3:`${BACK}
-<div class="hero" style="background:linear-gradient(135deg,#3a1a5c,#250f3a)"><div class="hero-tag">Kapitel 4 · Potenzen</div><h2>🏗️ Potenz hoch Potenz</h2><p>Klammer mit Exponent → Exponenten multiplizieren!</p><div class="hero-ico">×</div></div>
-<div class="tcard">
-<div class="tcard-head">📌 Gesetz 3</div>
-<div class="fbox"><div class="fm">(aⁿ)ᵐ = aⁿˣᵐ</div><div class="fs">Potenz in Klammern hoch Zahl → Exponenten MULTIPLIZIEREN</div></div>
-<div style="font-size:14px;font-weight:600;background:#fafaf8;border-radius:9px;padding:12px;border-left:3px solid #6d28d9;margin:10px 0">
-<strong>Warum?</strong> (2³)² = 2³ × 2³ = 2⁶<br>
-Der äußere Exponent (2) sagt: nimm 2³ genau 2 Mal → 3×2=6
-</div>
+3:`${BK}
+<div class="hero" style="background:linear-gradient(135deg,#1a4a3a,#0f2a20)"><div class="htag">Thema 4 · Wahrscheinlichkeit</div><h2>🌳 Baumdiagramm & Grundregeln</h2><p>Alle Möglichkeiten sichtbar machen!</p><div class="hi">🌳</div></div>
+<div class="card"><div class="ch">💡 Die 3 Grundregeln</div>
+<div class="fbox"><div class="fm">Pfadregel: P = P₁ × P₂ × …</div><div class="fs">Einem Ast folgen → MULTIPLIZIEREN</div></div>
+<div class="fbox"><div class="fm">Summenregel: P = Pfad₁ + Pfad₂</div><div class="fs">Mehrere günstige Wege → ADDIEREN</div></div>
+<div class="fbox"><div class="fm">Probe: alle Äste = 1 = 100%</div><div class="fs">Kontrollrechnung — immer!</div></div>
 <div class="steps">
-<div class="step"><span class="sn">Bsp 1</span><div class="st">(3²)³ = 3⁶</div><div class="sv">2×3=6</div></div>
-<div class="step"><span class="sn">Bsp 2</span><div class="st">(x⁴)² = x⁸</div><div class="sv">4×2=8</div></div>
-<div class="step"><span class="sn">Bsp 3</span><div class="st">(5²)³ ÷ 5⁴ = 5⁶ ÷ 5⁴ = 5²</div><div class="sv">erst ×, dann −</div></div>
+<div class="step"><span class="sn">MIT</span><div class="st2"><strong>MIT Zurücklegen:</strong> Nenner bleibt immer gleich<br>Beispiel: 1. Zug 4/12 → 2. Zug auch 4/12</div></div>
+<div class="step"><span class="sn">OHNE</span><div class="st2"><strong>OHNE Zurücklegen:</strong> Nenner wird −1 kleiner<br>Beispiel: 1. Zug 4/12 → 2. Zug 3/11</div></div>
 </div>
-<div class="sec">Alle 3 Gesetze auf einen Blick</div>
-<div style="display:flex;flex-direction:column;gap:7px">
-<div style="padding:11px 14px;background:#f0fdf4;border-radius:9px;border-left:3px solid var(--green);display:flex;justify-content:space-between"><span style="font-weight:700">✖️ aⁿ × aᵐ = aⁿ⁺ᵐ</span><span style="font-family:'DM Mono',monospace;font-weight:700;color:var(--green)">× → +</span></div>
-<div style="padding:11px 14px;background:#fff7ed;border-radius:9px;border-left:3px solid var(--accent2);display:flex;justify-content:space-between"><span style="font-weight:700">➗ aⁿ ÷ aᵐ = aⁿ⁻ᵐ</span><span style="font-family:'DM Mono',monospace;font-weight:700;color:var(--accent2)">÷ → −</span></div>
-<div style="padding:11px 14px;background:#faf5ff;border-radius:9px;border-left:3px solid #6d28d9;display:flex;justify-content:space-between"><span style="font-weight:700">🏗️ (aⁿ)ᵐ = aⁿˣᵐ</span><span style="font-family:'DM Mono',monospace;font-weight:700;color:#6d28d9">()ᵐ → ×</span></div>
+<div class="tip">💡 Auf einem Ast → × &nbsp;|&nbsp; Verschiedene Äste → +</div>
 </div>
-</div>
-<div class="tcard">
-<div class="tcard-head">⚡ Quiz</div>
-<div id="qa_pot_3"></div>
-<button class="cbtn" id="cbtn_pot_3" onclick="completeLesson('pot',3)" disabled>Kapitel abschließen</button>
-</div>`,
+<div class="card"><div class="ch">⚡ Quiz</div>
+<div id="qa_t3"></div><button class="cbtn" id="cb_t3" onclick="finT(3)" disabled>Thema abschließen</button></div>`,
 
-4:`${BACK}
-<div class="hero" style="background:linear-gradient(135deg,#3a2a0a,#2a1a00)"><div class="hero-tag">Kapitel 5 · Potenzen</div><h2>⚡ Negative Exponenten</h2><p>Was bedeutet ein negativer Exponent? Alles erklärt!</p><div class="hero-ico">⁻</div></div>
-<div class="tcard">
-<div class="tcard-head">📌 Negative Exponenten — Schritt für Schritt</div>
+4:`${BK}
+<div class="hero" style="background:linear-gradient(135deg,#5c1a3a,#3a0f25)"><div class="htag">Thema 5 · Wahrscheinlichkeit</div><h2>✖️ Pfadregel & Summenregel</h2><p>Die wichtigsten Rechenregeln!</p><div class="hi">×+</div></div>
+<div class="card"><div class="ch">📋 Aufgabe: Karten K, E, O, A</div>
+<div style="font-size:12px;font-weight:600;background:#fafaf7;border-radius:7px;padding:9px 11px;border-left:3px solid var(--grn);margin-bottom:7px">
+4 Karten: K, E, O, A — man zieht 2 Stück <strong>ohne Zurücklegen</strong>.<br>
+Kombination „OK" = Kaugummi! 🍬
+</div>
 <div class="steps">
-<div class="step"><span class="sn">1</span><div class="st"><strong>5⁻² · 5³ = ?</strong><br>Gleiche Basis → Exponenten addieren<br>−2 + 3 = 1 → 5¹ = 5</div><div class="sv">= 5</div></div>
-<div class="step"><span class="sn">2</span><div class="st"><strong>(5⁻²)⁴ = ?</strong><br>Potenz hoch Potenz → multiplizieren<br>−2 × 4 = −8 → 5⁻⁸</div><div class="sv">= 5⁻⁸</div></div>
-<div class="step"><span class="sn">3</span><div class="st"><strong>5⁻⁸ = ?</strong><br>Negativer Exponent = Kehrwert bilden!<br>5⁻⁸ = 1/5⁸ = 0,00000256 = 2,56 · 10⁻⁶</div><div class="sv">2,56·10⁻⁶</div></div>
+<div class="step"><span class="sn">1. Zug</span><div class="st2">P(O) = 1 von 4 Karten</div><div class="sv">= 1/4</div></div>
+<div class="step"><span class="sn">2. Zug</span><div class="st2">O weg → 3 Karten übrig → P(K) = 1/3</div><div class="sv">= 1/3</div></div>
+<div class="step" style="border-left-color:var(--grn)"><span class="sn" style="background:var(--grn)">×</span><div class="st2">P(„OK") = 1/4 × 1/3 = 1/12</div><div class="sv">≈ 8,3%</div></div>
 </div>
-<div class="fbox"><div class="fm">a⁻ⁿ = 1 / aⁿ</div><div class="fs">Negativer Exponent → Kehrwert! Zahl kommt in den Nenner.</div></div>
-</div>
-<div class="tcard">
-<div class="tcard-head">📌 Terme & Grundbegriffe</div>
+<div style="background:#f0fdf4;border:1.5px solid #86efac;border-radius:7px;padding:9px;text-align:center;font-weight:800;font-size:13px;margin:8px 0">30 Schüler × 1/12 ≈ 3 Kaugummis 🍬</div>
+<div class="ch" style="margin-top:10px">📋 Aufgabe: 5 weiße + 5 schwarze Kugeln</div>
 <div class="steps">
-<div class="step"><span class="sn">Term</span><div class="st"><strong>Denke an x, addiere 5, multipliziere mit 4, subtrahiere 2</strong><br>(x + 5) · 4 − 2 = 4x + 20 − 2 = 4x + 18</div><div class="sv">4x+18</div></div>
-<div class="step"><span class="sn">Runden</span><div class="st"><strong>721 + 389 + 333 ≈ ?</strong><br>700 + 400 + 300 = 1400</div><div class="sv">≈ 1400</div></div>
-<div class="step"><span class="sn">Summe</span><div class="st">Summe von 5 und 4 = 5 + 4 = 9</div><div class="sv">= 9</div></div>
-<div class="step"><span class="sn">Produkt</span><div class="st">Produkt von 5 und 4 = 5 · 4 = 20</div><div class="sv">= 20</div></div>
+<div class="step"><span class="sn">WW</span><div class="st2">5/10 × 4/9 = 20/90 = 2/9</div><div class="sv">2/9</div></div>
+<div class="step"><span class="sn">SS</span><div class="st2">5/10 × 4/9 = 20/90 = 2/9</div><div class="sv">2/9</div></div>
+<div class="step" style="border-left-color:var(--grn)"><span class="sn" style="background:var(--grn)">+</span><div class="st2">P(gleichfarbig) = 2/9 + 2/9 = 4/9 ≈ 44%</div><div class="sv">≈ 44%</div></div>
 </div>
 </div>
-<div class="tcard">
-<div class="tcard-head">⚡ Quiz</div>
-<div id="qa_pot_4"></div>
-<button class="cbtn" id="cbtn_pot_4" onclick="completeLesson('pot',4)" disabled>Kapitel abschließen</button>
-</div>`,
+<div class="card"><div class="ch">⚡ Quiz</div>
+<div id="qa_t4"></div><button class="cbtn" id="cb_t4" onclick="finT(4)" disabled>Thema abschließen</button></div>`,
 
-5:`${BACK}
-<div class="hero" style="background:linear-gradient(135deg,#2d4a2d,#1a3a1a)"><div class="hero-tag">Kapitel 6 · Übungsaufgaben</div><h2>🎯 Alle 3 Gesetze gemischt</h2><p>Gemischte Aufgaben — teste alles!</p><div class="hero-ico">🏆</div></div>
-<div class="tcard">
-<div class="tcard-head">📝 Ausrechnen</div>
+5:`${BK}
+<div class="hero" style="background:linear-gradient(135deg,#2a5c2a,#1a3a1a)"><div class="htag">Thema 6 · Alles zusammen</div><h2>🎯 Gemischte Übungen</h2><p>Potenzen + Wiss. Schreibweise + Wahrscheinlichkeit!</p><div class="hi">🏆</div></div>
+<div class="card"><div class="ch">📝 Schnell-Zusammenfassung</div>
 <div class="steps">
-<div class="step"><span class="sn">A1</span><div class="st">3² × 3³ = ?</div><div class="sv">= 243</div></div>
-<div class="step"><span class="sn">A2</span><div class="st">2⁸ ÷ 2³ = ?</div><div class="sv">= 32</div></div>
-<div class="step"><span class="sn">A3</span><div class="st">(4²)³ = ?</div><div class="sv">= 4096</div></div>
-<div class="step"><span class="sn">A4</span><div class="st">(-2)⁴ = ? (gerade → positiv!)</div><div class="sv">= 16</div></div>
-<div class="step"><span class="sn">A5</span><div class="st">(-3)³ = ? (ungerade → negativ!)</div><div class="sv">= -27</div></div>
-<div class="step"><span class="sn">A6</span><div class="st">7⁰ × 7² = ? (7⁰ = 1)</div><div class="sv">= 49</div></div>
+<div class="step"><span class="sn">× → +</span><div class="st2">aⁿ × aᵐ = aⁿ⁺ᵐ — gleiche Basis mal → Exponenten addieren</div></div>
+<div class="step"><span class="sn">÷ → −</span><div class="st2">aⁿ ÷ aᵐ = aⁿ⁻ᵐ — gleiche Basis geteilt → Exponenten subtrahieren</div></div>
+<div class="step"><span class="sn">() → ×</span><div class="st2">(aⁿ)ᵐ = aⁿˣᵐ — Potenz hoch Potenz → multiplizieren</div></div>
+<div class="step"><span class="sn">10ⁿ</span><div class="st2">Groß→ positiver Exp. | Klein→ negativer Exp.</div></div>
+<div class="step"><span class="sn">P</span><div class="st2">Pfadregel: × | Summenregel: + | Probe: = 1</div></div>
 </div>
 </div>
-<div class="tcard">
-<div class="tcard-head">⚡ Abschluss-Quiz</div>
-<div id="qa_pot_5"></div>
-<button class="cbtn" id="cbtn_pot_5" onclick="completeLesson('pot',5)" disabled>🏆 Potenzen gemeistert!</button>
-</div>`,
+<div class="card"><div class="ch">⚡ Abschluss-Quiz</div>
+<div id="qa_t5"></div><button class="cbtn" id="cb_t5" onclick="finT(5)" disabled>🏆 Alles abgeschlossen!</button></div>`,
 };
 
-const WAHR_CONTENT={
-0:`${BACK}
-<div class="hero" style="background:linear-gradient(135deg,#1a3a5c,#0f2438)"><div class="hero-tag">Kapitel 1 · Wahrscheinlichkeit</div><h2>🌳 Baumdiagramm</h2><p>Alle Möglichkeiten übersichtlich darstellen!</p><div class="hero-ico">🌳</div></div>
-<div class="tcard">
-<div class="tcard-head">💡 Die 3 Grundregeln</div>
-<div class="fbox"><div class="fm">Pfadregel: P₁ × P₂ × P₃</div><div class="fs">Einem Ast folgen → alles multiplizieren</div></div>
-<div class="fbox"><div class="fm">Summenregel: Pfad₁ + Pfad₂</div><div class="fs">Mehrere günstige Wege → addieren</div></div>
-<div class="fbox"><div class="fm">Probe: alle Äste = 1</div><div class="fs">Kontrollrechnung — immer 100%!</div></div>
-<div class="info tip">💡 Merktrick: Auf einem Ast → ×  |  Verschiedene Äste → +</div>
-</div>
-<div class="tcard">
-<div class="tcard-head">⚡ Quiz</div>
-<div id="qa_wahr_0"></div>
-<button class="cbtn" id="cbtn_wahr_0" onclick="completeLesson('wahr',0)" disabled>Kapitel abschließen</button>
-</div>`,
+// PROBEARBEIT
+let probeAns={},probeDone=false;
+const PROBE_AUFGABEN=[
+  {nr:'1',titel:'Potenzgesetze — Zahlen',pts:8,typ:'B',fragen:[
+    {id:'p1a',frage:'2⁵ ÷ 2² = 2<sup>?</sup> — Welcher Exponent?',a:3,h:'5−2 = 3'},
+    {id:'p1b',frage:'3² × 3⁴ = 3<sup>?</sup> — Welcher Exponent?',a:6,h:'2+4 = 6'},
+    {id:'p1c',frage:'(2³)² = 2<sup>?</sup> — Welcher Exponent?',a:6,h:'3×2 = 6'},
+    {id:'p1d',frage:'(-3)² = ? — Ergebnis',a:9,h:'Gerade → positiv: 9'},
+  ]},
+  {nr:'2',titel:'Potenzgesetze — Variablen',pts:6,typ:'B',fragen:[
+    {id:'p2a',frage:'x⁵ × x³ = x<sup>?</sup>',a:8,h:'5+3 = 8'},
+    {id:'p2b',frage:'a⁸ ÷ a³ = a<sup>?</sup>',a:5,h:'8−3 = 5'},
+    {id:'p2c',frage:'(b²)⁴ = b<sup>?</sup>',a:8,h:'2×4 = 8'},
+  ]},
+  {nr:'3',titel:'Wissenschaftliche Schreibweise',pts:8,typ:'H',fragen:[
+    {id:'p3a',frage:'56.000 = 5,6 × 10<sup>?</sup> — Exponent?',a:4,h:'Komma 4× nach links → 10⁴'},
+    {id:'p3b',frage:'0,0072 = 7,2 × 10<sup>?</sup> — Exponent?',a:-3,h:'Komma 3× nach rechts → 10⁻³'},
+    {id:'p3c',frage:'3,5 × 10³ = ? — Ergebnis',a:3500,h:'10³=1000 → 3,5×1000 = 3500'},
+    {id:'p3d',frage:'5⁻² · 5³ = 5<sup>?</sup> — Exponent?',a:1,h:'−2+3 = 1'},
+  ]},
+  {nr:'4',titel:'Wahrscheinlichkeit',pts:8,typ:'H',fragen:[
+    {id:'p4a',frage:`P(O) aus 4 Karten = ${br(1,'?')} — Zahl unten?`,a:4,h:'4 Karten → Nenner 4'},
+    {id:'p4b',frage:`P(„OK") = ${br(1,'?')} — Zahl unten?`,a:12,h:'1/4 × 1/3 = 1/12'},
+    {id:'p4c',frage:'Würfel 3×: Gesamtzahl möglicher Ergebnisse?',a:216,h:'6³ = 216'},
+    {id:'p4d',frage:`P(keinmal eine 1 beim 3× Würfeln) = ${br('?','216')} — Zähler?`,a:125,h:'(5/6)³ = 125/216'},
+  ]},
+];
 
-1:`${BACK}
-<div class="hero" style="background:linear-gradient(135deg,#5c1a3a,#3a0f25)"><div class="hero-tag">Kapitel 2 · Wahrscheinlichkeit</div><h2>✖️ Pfadregel</h2><p>Einem Pfad folgen = alles multiplizieren!</p><div class="hero-ico">×</div></div>
-<div class="tcard">
-<div class="tcard-head">📋 Klassenaufgabe: Karten K, E, O, A</div>
-<div style="font-size:13px;font-weight:600;background:#fafaf8;border-radius:9px;padding:12px;border-left:3px solid var(--accent);margin-bottom:10px">
-4 Karten: K, E, O, A. Jeder zieht 2 Karten <strong>ohne Zurücklegen</strong>. Wer „OK" zieht, bekommt einen Kaugummi!
-</div>
-<div class="steps">
-<div class="step"><span class="sn">1. Zug</span><div class="st">P(O) = 1/4 (1 von 4 Karten)</div><div class="sv">1/4</div></div>
-<div class="step"><span class="sn">2. Zug</span><div class="st">O liegt weg → noch 3 Karten<br>P(K) = 1/3</div><div class="sv">1/3</div></div>
-<div class="step" style="border-left-color:var(--green)"><span class="sn" style="background:var(--green)">×</span><div class="st">Pfadregel: P("OK") = 1/4 × 1/3 = 1/12</div><div class="sv" style="color:var(--green)">≈ 8,3%</div></div>
-</div>
-<div style="background:#f0fdf4;border:1.5px solid #86efac;border-radius:9px;padding:12px;text-align:center;font-weight:800;font-size:15px">P("OK") = 1/12 ≈ 8,3% → 30 Schüler × 1/12 ≈ 3 Kaugummis 🍬</div>
-</div>
-<div class="tcard">
-<div class="tcard-head">⚡ Quiz</div>
-<div id="qa_wahr_1"></div>
-<button class="cbtn" id="cbtn_wahr_1" onclick="completeLesson('wahr',1)" disabled>Kapitel abschließen</button>
-</div>`,
+function buildProbe(){
+  const c=document.getElementById('probe-content');
+  if(probeDone)return;
+  let html='';
+  PROBE_AUFGABEN.forEach(auf=>{
+    html+=`<div class="probe-aufgabe">
+      <div class="pa-head">
+        <span>Aufgabe ${auf.nr}: ${auf.titel}</span>
+        <span class="pa-pts">${auf.pts} Pkt · ${auf.typ==='B'?'Basisteil':'Hauptteil'}</span>
+      </div>`;
+    auf.fragen.forEach((f,i)=>{
+      html+=`<div class="pa-q">
+        <div class="frage">${String.fromCharCode(97+i)}) ${f.frage}</div>
+        <input class="pa-inp" id="pi_${f.id}" type="number" placeholder="Antwort eingeben..." onkeypress="if(event.key==='Enter')checkProbeQ('${f.id}',${f.a},'${(f.h||'').replace(/'/g,"&#39;")}')">
+        <div class="pa-fb" id="pf_${f.id}"></div>
+        <button class="pa-check" onclick="checkProbeQ('${f.id}',${f.a},'${(f.h||'').replace(/'/g,"&#39;")}')">Prüfen ✓</button>
+      </div>`;
+    });
+    html+='</div>';
+  });
+  const totalPts=PROBE_AUFGABEN.reduce((s,a)=>s+a.pts,0);
+  html+=`<button style="width:100%;padding:13px;background:linear-gradient(135deg,#1a0a2e,#5b21b6);border:none;border-radius:var(--r);color:#fff;font-size:14px;font-weight:900;cursor:pointer;font-family:'DM Sans',sans-serif;margin-bottom:10px" onclick="auswertung()">
+    📊 Probearbeit auswerten (${totalPts} Punkte möglich)
+  </button>`;
+  c.innerHTML=html;
+}
 
-2:`${BACK}
-<div class="hero" style="background:linear-gradient(135deg,#1a5c3a,#0f3a25)"><div class="hero-tag">Kapitel 3 · Wahrscheinlichkeit</div><h2>➕ Summenregel</h2><p>Mehrere Wege zum Ziel? Addieren!</p><div class="hero-ico">+</div></div>
-<div class="tcard">
-<div class="tcard-head">🔵 5 weiße + 5 schwarze Kugeln (ohne Zurücklegen)</div>
-<div class="steps">
-<div class="step"><span class="sn">Pfad WW</span><div class="st">5/10 × 4/9 = 20/90 = 2/9</div><div class="sv">2/9</div></div>
-<div class="step"><span class="sn">Pfad SS</span><div class="st">5/10 × 4/9 = 20/90 = 2/9</div><div class="sv">2/9</div></div>
-<div class="step" style="border-left-color:var(--green)"><span class="sn" style="background:var(--green)">+</span><div class="st">Summenregel: P(gleichfarbig) = 2/9 + 2/9 = 4/9</div><div class="sv" style="color:var(--green)">≈ 44%</div></div>
-</div>
-<div class="info tip">💡 Schritt 1: jeden Weg mit Pfadregel (×) berechnen. Schritt 2: alle addieren (+).</div>
-</div>
-<div class="tcard">
-<div class="tcard-head">⚡ Quiz</div>
-<div id="qa_wahr_2"></div>
-<button class="cbtn" id="cbtn_wahr_2" onclick="completeLesson('wahr',2)" disabled>Kapitel abschließen</button>
-</div>`,
-
-3:`${BACK}
-<div class="hero" style="background:linear-gradient(135deg,#5c3a1a,#3a250f)"><div class="hero-tag">Kapitel 4 · Wahrscheinlichkeit</div><h2>🎲 Würfel mehrfach werfen</h2><p>Alle Fälle berechnen — Schritt für Schritt erklärt!</p><div class="hero-ico">🎲</div></div>
-<div class="tcard">
-<div class="tcard-head">📊 Würfel dreimal werfen — alle Fälle</div>
-<div class="steps">
-<div class="step" style="border-left-color:var(--green)"><span class="sn" style="background:var(--green)">a)</span><div class="st">Alle drei Male eine 1 würfeln<br>1/6 × 1/6 × 1/6 = 1/216</div><div class="sv">≈ 0,5%</div></div>
-<div class="step"><span class="sn">b)</span><div class="st">Keinmal eine 1 würfeln<br>5/6 × 5/6 × 5/6 = 125/216</div><div class="sv">≈ 57,9%</div></div>
-<div class="step"><span class="sn">c)</span><div class="st">Genau einmal eine 1 würfeln<br>3 Positionen (1xx, x1x, xx1) × 1/6 × 5/6 × 5/6<br>= 3 × 25/216 = 75/216</div><div class="sv">≈ 34,7%</div></div>
-<div class="step"><span class="sn">d)</span><div class="st">Genau zweimal eine 1 würfeln<br>3 Positionen × 1/6 × 1/6 × 5/6 = 15/216</div><div class="sv">≈ 6,9%</div></div>
-</div>
-<div class="info tip">✅ Probe: 1 + 125 + 75 + 15 = 216 = 6³ ✓</div>
-</div>
-<div class="tcard">
-<div class="tcard-head">⚡ Quiz</div>
-<div id="qa_wahr_3"></div>
-<button class="cbtn" id="cbtn_wahr_3" onclick="completeLesson('wahr',3)" disabled>Kapitel abschließen</button>
-</div>`,
-
-4:`${BACK}
-<div class="hero" style="background:linear-gradient(135deg,#3a1a5c,#250f3a)"><div class="hero-tag">Kapitel 5 · Wahrscheinlichkeit</div><h2>🎴 Karten K, E, O, A</h2><p>Das vollständige Baumdiagramm!</p><div class="hero-ico">🎴</div></div>
-<div class="tcard">
-<div class="tcard-head">📋 Alle 12 Paare</div>
-<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:5px;margin:10px 0;font-family:'DM Mono',monospace;font-size:12px;font-weight:700">
-${['KE','KO','KA','EK','EO','EA','OK','OE','OA','AK','AE','AO'].map(p=>`<div style="padding:7px;background:${p==='OK'?'#f0fdf4':'#fafaf8'};border:1.5px solid ${p==='OK'?'#86efac':'var(--border)'};border-radius:7px;text-align:center;color:${p==='OK'?'var(--green)':'var(--text)'}">${p}${p==='OK'?' 🍬':''}</div>`).join('')}
-</div>
-<div style="text-align:center;font-weight:800;padding:10px;background:#f0fdf4;border-radius:9px;border:1.5px solid #86efac">Jedes Paar: 1/12 ≈ 8,3%   |   Probe: 12 × 1/12 = 1 ✓</div>
-</div>
-<div class="tcard">
-<div class="tcard-head">⚡ Abschluss-Quiz</div>
-<div id="qa_wahr_4"></div>
-<button class="cbtn" id="cbtn_wahr_4" onclick="completeLesson('wahr',4)" disabled>🏆 Wahrscheinlichkeit gemeistert!</button>
-</div>`,
-};
-
-// ═══ SICKS AI ═══
-const API='https://sicks-madebysamuelsingh.up.railway.app/api';
-let sOpen=false,sWait=false,sTok=localStorage.getItem('mm_tok2')||null,sHist=[];
-let sGreeted=false,sChatId='mm_'+Date.now();
-
-const SYSTEM=`Du bist SICKS, ein Mathe-Erklärer für Klasse 9. 
-WICHTIG: Nenne NIEMALS Seitenzahlen, Tafelbild, Tafel, Heft oder Buchtitel. Erkläre nur die Mathematik.
-Wenn du Brüche schreibst, schreibe sie IMMER so: Zähler oben, Strich, Nenner unten — also als gestapelten Bruch, nicht als 1/2.
-Erkläre IMMER: 1) Regel kurz 2) Warum 3) Beispiel Schritt für Schritt 4) Merktrick.
-
-POTENZEN:
-- Multiplizieren (gleiche Basis): aⁿ × aᵐ = aⁿ⁺ᵐ — Exponenten addieren
-- Dividieren (gleiche Basis): aⁿ ÷ aᵐ = aⁿ⁻ᵐ — Exponenten subtrahieren  
-- Potenz hoch Potenz: (aⁿ)ᵐ = aⁿˣᵐ — Exponenten multiplizieren
-- Sonderfälle: a⁰=1 immer | a⁻ⁿ = 1/aⁿ | (-a)^gerade=positiv | (-a)^ungerade=negativ
-- Beispiel negat. Exponent: 5⁻² · 5³ = 5¹ = 5 | (5⁻²)⁴ = 5⁻⁸ = 1/5⁸
-
-WAHRSCHEINLICHKEIT:
-- Pfadregel: einem Ast folgen → alles multiplizieren
-- Summenregel: mehrere günstige Wege → addieren
-- Probe: alle Äste zusammen = 1
-- 4 Karten (K,E,O,A) ziehen: P(OK) = 1/4 × 1/3 = 1/12 ≈ 8,3% → 30 Schüler → ca. 3 Treffer
-- 5 weiße + 5 schwarze Kugeln: P(gleichfarbig) = 4/9 ≈ 44%
-- Würfel dreimal: P(alle 1)=1/216 | P(keine 1)=125/216 | P(genau 1×)=75/216 | P(genau 2×)=15/216
-
-Antworte NUR auf Deutsch. Maximal 6 kurze Zeilen. Keine Seitenzahlen, keine Buchtitel, keine Tafelbilder erwähnen.`;
-
-function toggleSicks(){
-  sOpen=!sOpen;
-  document.getElementById('sicksPanel').classList.toggle('open',sOpen);
-  if(sOpen&&!sGreeted){
-    sGreeted=true;
-    setTimeout(()=>{
-      if(!sTok){addMsg('ai','Hey! 👋 Ich bin **Sicks**, dein Mathe-Assistent!\nGib deinen Code ein 🔑');showArea('code');}
-      else openChat();
-    },200);
+function checkProbeQ(id,a,hint){
+  const inp=document.getElementById('pi_'+id);
+  const fb=document.getElementById('pf_'+id);
+  if(!inp)return;
+  const v=parseFloat(inp.value.replace(',','.'));
+  if(isNaN(v)){fb.textContent='Bitte Zahl eingeben!';fb.className='pa-fb no';return;}
+  if(Math.abs(v-a)<0.6){
+    inp.classList.add('ok');inp.disabled=true;
+    fb.textContent='✅ Richtig!';fb.className='pa-fb ok';
+    probeAns[id]={ok:true,a};
+  } else {
+    inp.classList.add('no');
+    fb.innerHTML='❌ Richtig: <strong>'+fmt(a)+'</strong> — '+hint;fb.className='pa-fb no';
+    inp.classList.remove('no');
+    setTimeout(()=>{inp.classList.add('no');},50);
+    probeAns[id]={ok:false,a};
   }
 }
-function showArea(a){
-  document.getElementById('sCodeArea').style.display=a==='code'?'block':'none';
-  document.getElementById('sInpRow').style.display=a==='chat'?'flex':'none';
+
+function auswertung(){
+  let got=0,total=0;
+  PROBE_AUFGABEN.forEach(auf=>{
+    auf.fragen.forEach(f=>{
+      total+=auf.pts/auf.fragen.length;
+      if(probeAns[f.id]?.ok)got+=auf.pts/auf.fragen.length;
+    });
+  });
+  got=Math.round(got);total=Math.round(total);
+  const pct=got/total;
+  let note,msg,farbe;
+  if(pct>=0.875){note='1 🏆';msg='Ausgezeichnet! Bestens vorbereitet!';farbe='#22c55e';}
+  else if(pct>=0.75){note='2 😊';msg='Sehr gut! Kleine Lücken noch schließen.';farbe='#84cc16';}
+  else if(pct>=0.625){note='3 👍';msg='Gut! Noch ein bisschen üben.';farbe='#eab308';}
+  else if(pct>=0.5){note='4 📚';msg='Ausreichend. Heute noch Sicks fragen!';farbe='#f97316';}
+  else{note='5 💪';msg='Noch üben! Sicks kann helfen!';farbe='#ef4444';}
+
+  const scoreHtml=`<div class="probe-score">
+    <div style="font-size:10px;font-weight:800;opacity:.6;letter-spacing:.13em;text-transform:uppercase;margin-bottom:6px">Dein Ergebnis</div>
+    <div class="ps-pts" style="color:${farbe}">${got}</div>
+    <div class="ps-max">von ${total} Punkten</div>
+    <div class="ps-bar"><div class="ps-fill" style="width:${Math.round(pct*100)}%"></div></div>
+    <div class="ps-note" style="color:${farbe}">Note ${note}</div>
+    <div class="ps-msg">${msg}</div>
+  </div>
+  <button style="width:100%;padding:11px;background:var(--grn);border:none;border-radius:var(--r);color:#fff;font-size:13px;font-weight:900;cursor:pointer;font-family:'DM Sans',sans-serif;margin-bottom:8px" onclick="probeReset()">🔄 Nochmal üben</button>`;
+
+  document.getElementById('probe-content').insertAdjacentHTML('afterbegin',scoreHtml);
+  window.scrollTo({top:0,behavior:'smooth'});
 }
-async function submitCode(){
-  const c=document.getElementById('sCodeInp').value.trim().toUpperCase();
-  const err=document.getElementById('sErr');
+
+function probeReset(){
+  probeAns={};
+  document.getElementById('probe-content').innerHTML='';
+  buildProbe();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+// SICKS
+const API='https://sicks-madebysamuelsingh.up.railway.app/api';
+let sO=false,sW=false,sTok=localStorage.getItem('stok5')||null,sH=[];
+let sHi=false,sCid='mm_'+Date.now();
+
+const SYS=`Du bist SICKS, Mathe-Assistent für Klasse 9 Realschule.
+REGELN: Keine Seitenzahlen, kein Tafelbild, keine Buchtitel.
+Brüche: Zähler OBEN, Strich, Nenner UNTEN.
+Antworte einfach, kurz, auf Deutsch: 1) Regel 2) Warum 3) Beispiel 4) Merktrick. Max 5 Zeilen.
+
+PRÜFUNGSTHEMEN (Arbeit 19.3.2026):
+POTENZEN: aⁿ×aᵐ=aⁿ⁺ᵐ(+) | aⁿ÷aᵐ=aⁿ⁻ᵐ(-) | (aⁿ)ᵐ=aⁿˣᵐ(×) | a⁰=1 | a⁻ⁿ=1/aⁿ | gerade→+ | ungerade→-
+WISSENSCHAFTL. SCHREIBWEISE: a·10ⁿ mit 1≤a<10 | groß→+ | klein→-
+WAHRSCHEINLICHKEIT: Pfadregel(×) | Summenregel(+) | Probe=1 | P(OK)=1/12≈8,3% | 5W+5S: 4/9≈44% | Würfel3×: 1/216|125/216|75/216|15/216`;
+
+function toggleS(){
+  sO=!sO;document.getElementById('spanel').classList.toggle('open',sO);
+  if(sO&&!sHi){sHi=true;setTimeout(()=>{if(!sTok){sM('ai','Hey! 👋 Ich bin **Sicks**.\nGib deinen Code ein 🔑');showSa('code');}else sOpen2();},180);}
+}
+function showSa(a){
+  document.getElementById('sca').style.display=a==='code'?'block':'none';
+  document.getElementById('sirow').style.display=a==='chat'?'flex':'none';
+}
+async function sAct(){
+  const c=document.getElementById('sci').value.trim().toUpperCase();
+  const err=document.getElementById('serr');
   if(!c.startsWith('SINGH-')){err.textContent='Format: SINGH-XXXX';return;}
-  err.textContent='⏳ Aktiviere...';
+  err.textContent='⏳ ...';
   const u='mm_'+c.replace('SINGH-','').toLowerCase(),p='sicks_'+c+'_2026';
   try{
     let r=await fetch(API+'/client/login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({username:u,password:p})});
     let d=await r.json();
     if(!d.success){r=await fetch(API+'/client/register',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({code:c,username:u,password:p})});d=await r.json();}
-    if(d.success){sTok=d.token;localStorage.setItem('mm_tok2',d.token);localStorage.setItem('mm_u2',u);localStorage.setItem('mm_p2',p);err.textContent='';addMsg('user',c);openChat();}
-    else err.textContent='❌ '+( d.message||'Ungültiger Code');
+    if(d.success){sTok=d.token;localStorage.setItem('stok5',d.token);localStorage.setItem('su5',u);localStorage.setItem('sp5',p);err.textContent='';sM('user',c);sOpen2();}
+    else err.textContent='❌ '+(d.message||'Ungültiger Code');
   }catch(e){err.textContent='❌ Server nicht erreichbar';}
 }
-function openChat(){
-  showArea('chat');
-  addMsg('ai','Hey! 🤖 Ich bin **Sicks** — frag mich alles zu:\n⚡ **Potenzen** — alle 3 Gesetze, negative Exponenten\n🌳 **Wahrscheinlichkeit** — Baumdiagramm, Pfadregel, Summenregel\n🎲 **Aufgaben** — Würfel, Kugeln, Karten K,E,O,A\n\nWas möchtest du verstehen?');
-  setTimeout(()=>document.getElementById('sInp').focus(),100);
+function sOpen2(){
+  showSa('chat');
+  sM('ai','Hey! 🤖 Ich helfe dir für die Arbeit morgen:\n⚡ **Potenzen** — alle 3 Gesetze\n🔬 **Wissenschaftliche Schreibweise**\n🌳 **Wahrscheinlichkeit** — Pfad-, Summenregel\n\nWas möchtest du verstehen?');
+  setTimeout(()=>document.getElementById('sinp').focus(),80);
 }
-function addMsg(role,text){
-  const c=document.getElementById('sMsgs');
+function sM(role,text){
+  const c=document.getElementById('smsgs');
   const d=document.createElement('div');d.className='smsg '+role;
   const html=text.replace(/\n/g,'<br>').replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>');
-  d.innerHTML=`<div class="s-av2">${role==='ai'?'🤖':'Du'}</div><div class="s-bbl">${html}</div>`;
+  d.innerHTML=`<div class="sav2">${role==='ai'?'🤖':'Du'}</div><div class="sbbl">${html}</div>`;
   c.appendChild(d);c.scrollTop=c.scrollHeight;
 }
-function addTyping(){
-  const c=document.getElementById('sMsgs');
-  const d=document.createElement('div');d.className='smsg ai';d.id='s-typing';
-  d.innerHTML=`<div class="s-av2">🤖</div><div class="s-bbl"><div class="s-typing"><span></span><span></span><span></span></div></div>`;
+function sDts(){
+  const c=document.getElementById('smsgs');
+  const d=document.createElement('div');d.className='smsg ai';d.id='sdots';
+  d.innerHTML=`<div class="sav2">🤖</div><div class="sbbl"><div class="sdots"><span></span><span></span><span></span></div></div>`;
   c.appendChild(d);c.scrollTop=c.scrollHeight;
 }
-function askSicks(prompt){
-  if(!sOpen)toggleSicks();
+function sAsk(prompt){
+  if(!sO)toggleS();
   setTimeout(()=>{
-    if(document.getElementById('sInpRow').style.display!=='flex'){toast('🔑 Bitte Sicks-Code eingeben!');return;}
-    document.getElementById('sInp').value=prompt;sendMsg();
-  },300);
+    if(document.getElementById('sirow').style.display!=='flex'){toast('🔑 Sicks-Code eingeben!');return;}
+    document.getElementById('sinp').value=prompt;sSend();
+  },280);
 }
-async function sendMsg(){
-  if(sWait)return;
-  const inp=document.getElementById('sInp');
-  const msg=inp.value.trim();if(!msg)return;
+async function sSend(){
+  if(sW)return;
+  const inp=document.getElementById('sinp');const msg=inp.value.trim();if(!msg)return;
   inp.value='';inp.style.height='auto';
-  const btn=document.getElementById('sSend');
-  btn.disabled=true;sWait=true;
-  addMsg('user',msg);addTyping();
-  if(!sTok){const u=localStorage.getItem('mm_u2'),p=localStorage.getItem('mm_p2');if(u&&p)try{const r=await fetch(API+'/client/login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({username:u,password:p})});const d=await r.json();if(d.success){sTok=d.token;localStorage.setItem('mm_tok2',d.token);}}catch(e){}}
-  if(!sTok){document.getElementById('s-typing')?.remove();addMsg('ai','❌ Bitte Code eingeben!');showArea('code');sWait=false;btn.disabled=false;return;}
+  const btn=document.getElementById('ssend');btn.disabled=true;sW=true;
+  sM('user',msg);sDts();
+  if(!sTok){const u=localStorage.getItem('su5'),p=localStorage.getItem('sp5');if(u&&p)try{const r=await fetch(API+'/client/login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({username:u,password:p})});const d=await r.json();if(d.success){sTok=d.token;localStorage.setItem('stok5',d.token);}}catch(e){}}
+  if(!sTok){document.getElementById('sdots')?.remove();sM('ai','❌ Bitte Code eingeben!');showSa('code');sW=false;btn.disabled=false;return;}
   try{
-    const fullMsg=SYSTEM+'\n\nFRAGE: '+msg;
-    const res=await fetch(API+'/client/chat',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({token:sTok,message:fullMsg,chat_id:sChatId,history:sHist.map(h=>({user:h.u,assistant:h.a}))})});
+    const res=await fetch(API+'/client/chat',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({token:sTok,message:SYS+'\n\nFRAGE: '+msg,chat_id:sCid,history:sH.map(h=>({user:h.u,assistant:h.a}))})});
     const data=await res.json();
-    document.getElementById('s-typing')?.remove();
-    if(data.error==='LIMIT'||data.error==='TOKEN_EXPIRED'){sTok=null;localStorage.removeItem('mm_tok2');addMsg('ai','⏳ Kurze Pause, gleich wieder da...');setTimeout(()=>retryMsg(msg),1500);sWait=false;btn.disabled=false;return;}
-    if(data.error){addMsg('ai','❌ '+data.error);}
-    else{const reply=(data.response||'').replace(/FRAGE:.*/s,'').trim()||'Leere Antwort';sHist.push({u:msg,a:reply});if(sHist.length>6)sHist.splice(0,sHist.length-6);addMsg('ai',reply);}
-  }catch(e){document.getElementById('s-typing')?.remove();addMsg('ai','❌ Server nicht erreichbar 🔧');}
-  sWait=false;btn.disabled=false;
-  document.getElementById('sInp').focus();
+    document.getElementById('sdots')?.remove();
+    if(data.error==='LIMIT'||data.error==='TOKEN_EXPIRED'){sTok=null;localStorage.removeItem('stok5');sM('ai','⏳ Kurze Pause...');setTimeout(()=>sRet(msg),1500);sW=false;btn.disabled=false;return;}
+    if(data.error){sM('ai','❌ '+data.error);}
+    else{const r=(data.response||'').replace(/FRAGE:.*/s,'').trim()||'?';sH.push({u:msg,a:r});if(sH.length>6)sH.splice(0,6);sM('ai',r);}
+  }catch(e){document.getElementById('sdots')?.remove();sM('ai','❌ Server nicht erreichbar 🔧');}
+  sW=false;btn.disabled=false;document.getElementById('sinp').focus();
 }
-async function retryMsg(msg){
-  sChatId='mm_'+Date.now();sHist=[];
-  const u=localStorage.getItem('mm_u2'),p=localStorage.getItem('mm_p2');
-  if(!u||!p){addMsg('ai','❌ Code neu eingeben!');showArea('code');return;}
-  try{const r=await fetch(API+'/client/login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({username:u,password:p})});const d=await r.json();if(d.success){sTok=d.token;localStorage.setItem('mm_tok2',d.token);document.getElementById('sInp').value=msg;sendMsg();}else addMsg('ai','❌ Seite neu laden! 🔄');}catch(e){addMsg('ai','❌ Server nicht erreichbar 🔧');}
+async function sRet(msg){
+  sCid='mm_'+Date.now();sH=[];
+  const u=localStorage.getItem('su5'),p=localStorage.getItem('sp5');
+  if(!u||!p){sM('ai','❌ Code neu eingeben!');showSa('code');return;}
+  try{const r=await fetch(API+'/client/login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({username:u,password:p})});const d=await r.json();if(d.success){sTok=d.token;localStorage.setItem('stok5',d.token);document.getElementById('sinp').value=msg;sSend();}else sM('ai','❌ Seite neu laden!');}catch(e){sM('ai','❌ Server nicht erreichbar 🔧');}
 }
 
-// ═══ TOAST ═══
 let tt;
-function toast(msg){const el=document.getElementById('toast');el.textContent=msg;el.classList.add('show');clearTimeout(tt);tt=setTimeout(()=>el.classList.remove('show'),2600);}
-
-// CSS shake
-const sty=document.createElement('style');
-sty.textContent='@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}';
-document.head.appendChild(sty);
+function toast(msg){const el=document.getElementById('toast');el.textContent=msg;el.classList.add('show');clearTimeout(tt);tt=setTimeout(()=>el.classList.remove('show'),2400);}
 </script>
 </body>
 </html>
