@@ -642,28 +642,27 @@ Kombination „OK" = Kaugummi! 🍬
 // PROBEARBEIT
 let probeAns={},probeDone=false;
 const PROBE_AUFGABEN=[
-  {nr:'1',titel:'Potenzgesetze — Zahlen',pts:8,typ:'B',fragen:[
-    {id:'p1a',frage:'2⁵ ÷ 2² = 2<sup>?</sup> — Welcher Exponent?',a:3,h:'5−2 = 3'},
-    {id:'p1b',frage:'3² × 3⁴ = 3<sup>?</sup> — Welcher Exponent?',a:6,h:'2+4 = 6'},
-    {id:'p1c',frage:'(2³)² = 2<sup>?</sup> — Welcher Exponent?',a:6,h:'3×2 = 6'},
-    {id:'p1d',frage:'(-3)² = ? — Ergebnis',a:9,h:'Gerade → positiv: 9'},
+  {nr:'1',titel:'Potenzgesetze',pts:8,typ:'B',fragen:[
+    {id:'p1a',frage:'5⁵ ÷ 5² = 5<sup>?</sup> — Welcher Exponent?',a:3,h:'5−2 = 3'},
+    {id:'p1b',frage:'2 · 10⁴ = ? — Ergebnis ausrechnen',a:20000,h:'10⁴ = 10.000 → 2 × 10.000 = 20.000'},
+    {id:'p1c',frage:'(b³)⁻² = b<sup>?</sup> — Welcher Exponent?',a:-6,h:'3 × (−2) = −6'},
+    {id:'p1d',frage:'x⁻³ · x⁻⁹ = x<sup>?</sup> — Welcher Exponent?',a:-12,h:'−3 + (−9) = −12'},
   ]},
-  {nr:'2',titel:'Potenzgesetze — Variablen',pts:6,typ:'B',fragen:[
-    {id:'p2a',frage:'x⁵ × x³ = x<sup>?</sup>',a:8,h:'5+3 = 8'},
-    {id:'p2b',frage:'a⁸ ÷ a³ = a<sup>?</sup>',a:5,h:'8−3 = 5'},
-    {id:'p2c',frage:'(b²)⁴ = b<sup>?</sup>',a:8,h:'2×4 = 8'},
+  {nr:'2',titel:'Wahrscheinlichkeit — Würfel',pts:6,typ:'B',fragen:[
+    {id:'p2a',frage:'Absolute Wahrscheinlichkeit: Wie viele gerade Zahlen hat ein Würfel?',a:3,h:'2, 4, 6 → 3 gerade Zahlen'},
+    {id:'p2b',frage:`Relative Wahrscheinlichkeit: P(gerade) = ${br(1,'?')} — Zahl unten?`,a:2,h:'3/6 = 1/2 → Nenner 2'},
+    {id:'p2c',frage:'Wahrscheinlichkeit in Prozent: P(gerade) = ?%',a:50,h:'1/2 = 50%'},
   ]},
-  {nr:'3',titel:'Wissenschaftliche Schreibweise',pts:8,typ:'H',fragen:[
-    {id:'p3a',frage:'56.000 = 5,6 × 10<sup>?</sup> — Exponent?',a:4,h:'Komma 4× nach links → 10⁴'},
-    {id:'p3b',frage:'0,0072 = 7,2 × 10<sup>?</sup> — Exponent?',a:-3,h:'Komma 3× nach rechts → 10⁻³'},
-    {id:'p3c',frage:'3,5 × 10³ = ? — Ergebnis',a:3500,h:'10³=1000 → 3,5×1000 = 3500'},
-    {id:'p3d',frage:'5⁻² · 5³ = 5<sup>?</sup> — Exponent?',a:1,h:'−2+3 = 1'},
+  {nr:'3',titel:'Terme & Runden',pts:6,typ:'B',fragen:[
+    {id:'p3a',frage:'x addieren 5, mal 4, minus 2 → Term vereinfacht: 4x + ?',a:18,h:'(x+5)·4−2 = 4x+20−2 = 4x+18'},
+    {id:'p3b',frage:'721 + 389 + 333 ≈ ? (auf Hunderter gerundet)',a:1400,h:'700+400+300 = 1400'},
   ]},
-  {nr:'4',titel:'Wahrscheinlichkeit',pts:8,typ:'H',fragen:[
-    {id:'p4a',frage:`P(O) aus 4 Karten = ${br(1,'?')} — Zahl unten?`,a:4,h:'4 Karten → Nenner 4'},
-    {id:'p4b',frage:`P(„OK") = ${br(1,'?')} — Zahl unten?`,a:12,h:'1/4 × 1/3 = 1/12'},
-    {id:'p4c',frage:'Würfel 3×: Gesamtzahl möglicher Ergebnisse?',a:216,h:'6³ = 216'},
-    {id:'p4d',frage:`P(keinmal eine 1 beim 3× Würfeln) = ${br('?','216')} — Zähler?`,a:125,h:'(5/6)³ = 125/216'},
+  {nr:'4',titel:'Gemischte Aufgaben',pts:10,typ:'H',fragen:[
+    {id:'p4a',frage:'(5⁻²)⁴ = 5<sup>?</sup> — Welcher Exponent?',a:-8,h:'−2 × 4 = −8'},
+    {id:'p4b',frage:'3,7 × 10⁵ = ? — Ergebnis',a:370000,h:'10⁵ = 100.000 → 3,7 × 100.000 = 370.000'},
+    {id:'p4c',frage:'P(gerade Zahl beim Würfel) = ?%',a:50,h:'3 von 6 → 50%'},
+    {id:'p4d',frage:`P(„OK") aus K,E,O,A = ${br(1,'?')} — Nenner?`,a:12,h:'1/4 × 1/3 = 1/12'},
+    {id:'p4e',frage:'Würfel 3×: Gesamtzahl möglicher Ergebnisse?',a:216,h:'6³ = 216'},
   ]},
 ];
 
