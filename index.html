@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Mathe Arbeit 19.3.2026</title>
+<title>Mathe Lernapp</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;600;700;900&family=DM+Mono:wght@500;700&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
@@ -177,9 +177,9 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 
 <div class="login" id="login">
   <div class="lbox">
-    <div class="lico">📚</div>
-    <div class="ltit">Mathe Arbeit 19.3.2026</div>
-    <div class="lsub">Potenzen · Wissenschaftliche Schreibweise<br>Wahrscheinlichkeit · Probearbeit<br><br>Code eingeben → loslegen! 🔑</div>
+    <div class="lico">🧮</div>
+    <div class="ltit">Mathe Lernapp</div>
+    <div class="lsub">Code eingeben und loslegen! 🔑</div>
     <input class="linp" id="lcI" placeholder="SINGH-XXXX" maxlength="20" onkeypress="if(event.key==='Enter')doLogin()">
     <div class="lerr" id="lcE"></div>
     <button class="lbtn" onclick="doLogin()">Einloggen →</button>
@@ -189,16 +189,16 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 
 <div id="app">
   <header class="hdr">
-    <div class="hlogo">📚 Mathe Klasse 9</div>
+    <div class="hlogo">🧮 Mathe Lernapp</div>
     <div class="hstat">
       <div class="st">🏆 <span id="pts">0</span></div>
       <div class="st">✅ <span id="qc">0</span></div>
     </div>
   </header>
   <div class="cdb">
-    <span class="cdo">Arbeit morgen um 12:40:</span>
+    <span class="cdo">⏳ Verfügbar noch:</span>
     <span class="cdt" id="cdt">--:--:--</span>
-    <span class="cdo" id="cdlbl">Do. 19.03.2026</span>
+    <span class="cdo" id="cdlbl"></span>
   </div>
   <div class="nav">
     <button class="nbt on" onclick="switchPg('lernen',this)">📚 Lernen</button>
@@ -211,7 +211,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
     <div data-pg="lernen" class="show">
       <div id="picker">
         <div style="background:linear-gradient(135deg,var(--grn),var(--grn2));color:#fff;border-radius:var(--r);padding:12px 14px;margin-bottom:12px;font-size:12px;font-weight:600;line-height:1.7">
-          📋 <strong>Checkliste 19.3.2026:</strong><br>
+          📋 <strong>Themen:</strong><br>
           ⚡ Potenzgesetze (Zahlen + Variablen)<br>
           🔬 Wissenschaftliche Schreibweise<br>
           🎲 Wahrscheinlichkeit (Baumdiagramm, Pfad-, Summenregel)
@@ -224,9 +224,9 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
     <!-- PROBEARBEIT -->
     <div data-pg="probe">
       <div class="probe-header">
-        <div style="font-size:10px;font-weight:800;opacity:.6;letter-spacing:.13em;text-transform:uppercase;margin-bottom:3px">Probearbeit · Klasse 9</div>
-        <h2>📝 Mathe Probearbeit</h2>
-        <p>Genau wie morgen — Basisteil + Hauptteil</p>
+        <div style="font-size:10px;font-weight:800;opacity:.6;letter-spacing:.13em;text-transform:uppercase;margin-bottom:3px">Probetest</div>
+        <h2>📝 Probetest</h2>
+        <p>Basisteil + Hauptteil — alles auf einmal testen!</p>
       </div>
       <div id="probe-content"></div>
     </div>
@@ -235,44 +235,47 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
     <div data-pg="spick">
       <div class="card">
         <div class="ch">⚡ Potenzgesetze — die 3 Regeln</div>
-        <div class="fbox"><div class="fm">aⁿ × aᵐ = aⁿ⁺ᵐ</div><div class="fs">gleiche Basis mal → Exponenten addieren (+)</div></div>
-        <div class="fbox"><div class="fm">aⁿ ÷ aᵐ = aⁿ⁻ᵐ</div><div class="fs">gleiche Basis geteilt → Exponenten subtrahieren (−)</div></div>
-        <div class="fbox"><div class="fm">(aⁿ)ᵐ = aⁿˣᵐ</div><div class="fs">Potenz hoch Potenz → Exponenten multiplizieren (×)</div></div>
+        <div class="fbox"><div class="fm">aⁿ × aᵐ = aⁿ⁺ᵐ</div><div class="fs">gleiche Basis × → Exponenten addieren &nbsp;|&nbsp; Beispiel: 2³ × 2² = 2⁵ = 32</div></div>
+        <div class="fbox"><div class="fm">aⁿ ÷ aᵐ = aⁿ⁻ᵐ</div><div class="fs">gleiche Basis ÷ → Exponenten subtrahieren &nbsp;|&nbsp; Beispiel: 3⁵ ÷ 3² = 3³ = 27</div></div>
+        <div class="fbox"><div class="fm">(aⁿ)ᵐ = aⁿˣᵐ</div><div class="fs">Potenz hoch Potenz → Exponenten multiplizieren &nbsp;|&nbsp; Beispiel: (2³)² = 2⁶ = 64</div></div>
         <div class="tip">💡 Merktrick: <strong>× → +</strong> &nbsp;|&nbsp; <strong>÷ → −</strong> &nbsp;|&nbsp; <strong>( )ᵐ → ×</strong></div>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:5px;margin-top:6px;font-size:11px;font-family:'DM Mono',monospace;font-weight:700">
-          <div style="background:#fafaf7;border-radius:6px;padding:6px 9px;border:1px solid var(--brd)">a⁰ = <strong style="color:var(--grn)">1</strong> (immer!)</div>
-          <div style="background:#fafaf7;border-radius:6px;padding:6px 9px;border:1px solid var(--brd)">a⁻ⁿ = <strong style="color:var(--grn)">1/aⁿ</strong></div>
-          <div style="background:#fff1f2;border-radius:6px;padding:6px 9px;border:1px solid #fca5a5">(-a)gerade → <strong style="color:var(--grn)">+</strong></div>
-          <div style="background:#fff1f2;border-radius:6px;padding:6px 9px;border:1px solid #fca5a5">(-a)ungerade → <strong style="color:var(--red)">−</strong></div>
+          <div style="background:#fafaf7;border-radius:6px;padding:7px 9px;border:1px solid var(--brd)">a⁰ = <strong style="color:var(--grn)">1</strong><br><span style="font-family:'DM Sans',sans-serif;font-size:10px;color:var(--muted)">z.B. 5⁰ = 1, 100⁰ = 1</span></div>
+          <div style="background:#fafaf7;border-radius:6px;padding:7px 9px;border:1px solid var(--brd)">a⁻ⁿ = <strong style="color:var(--grn)">1/aⁿ</strong><br><span style="font-family:'DM Sans',sans-serif;font-size:10px;color:var(--muted)">z.B. 2⁻³ = 1/8</span></div>
+          <div style="background:#fff1f2;border-radius:6px;padding:7px 9px;border:1px solid #fca5a5">(-a)² → <strong style="color:var(--grn)">+</strong><br><span style="font-family:'DM Sans',sans-serif;font-size:10px;color:var(--muted)">(-3)² = +9 (gerade)</span></div>
+          <div style="background:#fff1f2;border-radius:6px;padding:7px 9px;border:1px solid #fca5a5">(-a)³ → <strong style="color:var(--red)">−</strong><br><span style="font-family:'DM Sans',sans-serif;font-size:10px;color:var(--muted)">(-2)³ = -8 (ungerade)</span></div>
         </div>
+        <div class="warn" style="margin-top:7px">⚠️ <strong>−3²</strong> = −9 &nbsp;≠&nbsp; <strong>(−3)²</strong> = +9 — Klammern beachten!</div>
       </div>
       <div class="card">
         <div class="ch">🔬 Wissenschaftliche Schreibweise</div>
-        <div class="fbox"><div class="fm">a · 10ⁿ</div><div class="fs">mit 1 ≤ a &lt; 10</div></div>
+        <div class="fbox"><div class="fm">a · 10ⁿ &nbsp;(mit 1 ≤ a &lt; 10)</div></div>
         <div class="steps">
-          <div class="step"><span class="sn">Bsp 1</span><div class="st2">4.700.000 = 4,7 × 10⁶ <br><small style="color:var(--muted)">Komma 6 Stellen nach links</small></div></div>
-          <div class="step"><span class="sn">Bsp 2</span><div class="st2">0,00035 = 3,5 × 10⁻⁴ <br><small style="color:var(--muted)">Komma 4 Stellen nach rechts</small></div></div>
-          <div class="step"><span class="sn">Bsp 3</span><div class="st2">1/5⁸ = 0,00000256 = 2,56 × 10⁻⁶</div></div>
+          <div class="step"><span class="sn">→ groß</span><div class="st2"><strong>4.700.000</strong> = 4,7 × 10⁶<br><small style="color:var(--muted)">Komma 6 Stellen nach links → positiver Exponent</small></div><div class="sv">10⁶</div></div>
+          <div class="step"><span class="sn">→ klein</span><div class="st2"><strong>0,00035</strong> = 3,5 × 10⁻⁴<br><small style="color:var(--muted)">Komma 4 Stellen nach rechts → negativer Exponent</small></div><div class="sv">10⁻⁴</div></div>
+          <div class="step" style="border-left-color:var(--red)"><span class="sn" style="background:var(--red)">❌ Falsch</span><div class="st2">47 × 10⁵ — a ist 47, also ≥ 10!</div></div>
+          <div class="step" style="border-left-color:var(--grn)"><span class="sn" style="background:var(--grn)">✅ Richtig</span><div class="st2">4,7 × 10⁶ — a ist 4,7, also zwischen 1 und 10 ✓</div></div>
         </div>
-        <div class="tip">💡 Große Zahl → positiver Exponent &nbsp;|&nbsp; Kleine Zahl → negativer Exponent</div>
       </div>
       <div class="card">
         <div class="ch">🌳 Wahrscheinlichkeit</div>
-        <div class="fbox"><div class="fm">Pfadregel: P = P₁ × P₂ × …</div><div class="fs">Einem Ast folgen → multiplizieren</div></div>
+        <div class="fbox"><div class="fm">Pfadregel: P = P₁ × P₂ × …</div><div class="fs">Einem Ast folgen → alles multiplizieren</div></div>
         <div class="fbox"><div class="fm">Summenregel: P = Pfad₁ + Pfad₂</div><div class="fs">Mehrere günstige Wege → addieren</div></div>
-        <div class="tip">✅ Probe: alle Äste zusammen = 1 (100%)</div>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:5px;margin-top:7px">
-          <div style="background:#fafaf7;border-radius:7px;padding:7px 9px;border:1px solid var(--brd);font-size:11px;font-weight:600"><strong>MIT Zurücklegen</strong><br>Nenner bleibt gleich</div>
-          <div style="background:#fafaf7;border-radius:7px;padding:7px 9px;border:1px solid var(--brd);font-size:11px;font-weight:600"><strong>OHNE Zurücklegen</strong><br>Nenner wird −1 kleiner</div>
+        <div class="tip">✅ Probe: alle Äste zusammen = 1 (= 100%)</div>
+        <div class="steps" style="margin-top:8px">
+          <div class="step"><span class="sn">MIT</span><div class="st2"><strong>Mit Zurücklegen:</strong> Nenner bleibt gleich<br><small style="color:var(--muted)">1. Zug 4/12 → 2. Zug auch 4/12</small></div></div>
+          <div class="step"><span class="sn">OHNE</span><div class="st2"><strong>Ohne Zurücklegen:</strong> Nenner wird −1 kleiner<br><small style="color:var(--muted)">1. Zug 4/12 → 2. Zug 3/11</small></div></div>
+          <div class="step"><span class="sn">Bsp</span><div class="st2">P(„OK") aus K,E,O,A: 1/4 × 1/3 = 1/12 ≈ 8,3%</div><div class="sv">1/12</div></div>
         </div>
       </div>
       <div class="card" style="border-color:#fca5a5">
         <div class="ch" style="color:var(--red)">🚨 Typische Fehler</div>
         <div style="display:flex;flex-direction:column;gap:4px;font-size:11px;font-weight:600">
-          <div style="padding:7px;background:#fff1f2;border-radius:6px">❌ Bei × Exponenten multiplizieren → <strong style="color:var(--grn)">ADDIEREN ✅</strong></div>
+          <div style="padding:7px;background:#fff1f2;border-radius:6px">❌ Bei × die Exponenten multiplizieren → <strong style="color:var(--grn)">ADDIEREN ✅</strong></div>
           <div style="padding:7px;background:#fff1f2;border-radius:6px">❌ a⁰ = 0 → <strong style="color:var(--grn)">a⁰ = 1 IMMER ✅</strong></div>
           <div style="padding:7px;background:#fff1f2;border-radius:6px">❌ −3² = (−3)² → <strong style="color:var(--grn)">−3² = −9, (−3)² = +9 ✅</strong></div>
-          <div style="padding:7px;background:#fff1f2;border-radius:6px">❌ Wissenschaftl.: Komma vergessen → <strong style="color:var(--grn)">a muss zwischen 1 und 10 sein ✅</strong></div>
+          <div style="padding:7px;background:#fff1f2;border-radius:6px">❌ 47 × 10⁵ (a zu groß) → <strong style="color:var(--grn)">4,7 × 10⁶ ✅</strong></div>
+          <div style="padding:7px;background:#fff1f2;border-radius:6px">❌ Pfade addieren → <strong style="color:var(--grn)">MULTIPLIZIEREN ✅</strong></div>
         </div>
       </div>
     </div>
@@ -326,8 +329,12 @@ function startCD(){
   function t(){
     const d=new Date('2026-03-19T12:40:00')-new Date();
     const el=document.getElementById('cdt');
-    const lbl=document.getElementById('cdlbl');
-    if(d<=0){el.textContent='⏰ Jetzt!';lbl&&(lbl.textContent='');return;}
+    if(d<=0){
+      el.textContent='Nicht mehr verfügbar ❌';
+      el.style.color='#fca5a5';
+      document.getElementById('app').innerHTML='<div style="text-align:center;padding:60px 20px;font-family:DM Sans,sans-serif"><div style="font-size:48px;margin-bottom:12px">🔒</div><div style="font-size:20px;font-weight:900;color:#c23b0a;margin-bottom:8px">Nicht mehr verfügbar</div><div style="font-size:14px;color:#777">Diese Lernapp ist abgelaufen.</div></div>';
+      return;
+    }
     const h=Math.floor(d/3600000),m=Math.floor(d%3600000/60000),s=Math.floor(d%60000/1000);
     el.textContent=`${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
   }
@@ -749,14 +756,14 @@ const API='https://sicks-madebysamuelsingh.up.railway.app/api';
 let sO=false,sW=false,sTok=localStorage.getItem('stok5')||null,sH=[];
 let sHi=false,sCid='mm_'+Date.now();
 
-const SYS=`Du bist SICKS, Mathe-Assistent für Klasse 9 Realschule.
+const SYS=`Du bist SICKS, Mathe-Assistent.
 REGELN: Keine Seitenzahlen, kein Tafelbild, keine Buchtitel.
 Brüche: Zähler OBEN, Strich, Nenner UNTEN.
 Antworte einfach, kurz, auf Deutsch: 1) Regel 2) Warum 3) Beispiel 4) Merktrick. Max 5 Zeilen.
 
-PRÜFUNGSTHEMEN (Arbeit 19.3.2026):
+THEMEN:
 POTENZEN: aⁿ×aᵐ=aⁿ⁺ᵐ(+) | aⁿ÷aᵐ=aⁿ⁻ᵐ(-) | (aⁿ)ᵐ=aⁿˣᵐ(×) | a⁰=1 | a⁻ⁿ=1/aⁿ | gerade→+ | ungerade→-
-WISSENSCHAFTL. SCHREIBWEISE: a·10ⁿ mit 1≤a<10 | groß→+ | klein→-
+WISSENSCHAFTL. SCHREIBWEISE: a·10ⁿ mit 1≤a<10 | groß→positiver Exp. | klein→negativer Exp.
 WAHRSCHEINLICHKEIT: Pfadregel(×) | Summenregel(+) | Probe=1 | P(OK)=1/12≈8,3% | 5W+5S: 4/9≈44% | Würfel3×: 1/216|125/216|75/216|15/216`;
 
 function toggleS(){
@@ -783,7 +790,7 @@ async function sAct(){
 }
 function sOpen2(){
   showSa('chat');
-  sM('ai','Hey! 🤖 Ich helfe dir für die Arbeit morgen:\n⚡ **Potenzen** — alle 3 Gesetze\n🔬 **Wissenschaftliche Schreibweise**\n🌳 **Wahrscheinlichkeit** — Pfad-, Summenregel\n\nWas möchtest du verstehen?');
+  sM('ai','Hey! 🤖 Ich bin **Sicks** — frag mich alles zu:\n⚡ **Potenzen** — alle 3 Gesetze\n🔬 **Wissenschaftliche Schreibweise**\n🌳 **Wahrscheinlichkeit** — Pfad-, Summenregel\n\nWas möchtest du verstehen?');
   setTimeout(()=>document.getElementById('sinp').focus(),80);
 }
 function sM(role,text){
