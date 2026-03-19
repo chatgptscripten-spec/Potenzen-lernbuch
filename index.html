@@ -431,34 +431,125 @@ const TCONTENT={
 <div class="card"><div class="ch">⚡ Quiz</div><div id="qa_t0"></div><button class="cbtn" id="cb_t0" onclick="finT(0)" disabled>Abschließen</button></div>`,
 
 1:`${BK}
-<div class="hero" style="background:linear-gradient(135deg,#1a3a5c,#0f2438)"><div class="htag">Thema 2</div><h2>🔤 Potenzgesetze — Variablen</h2><p>Gleiche Regeln, nur mit Buchstaben!</p><div class="hi">x</div></div>
-<div class="card"><div class="ch">💡 Genau dasselbe — nur mit x, a, b!</div>
-<div class="steps">
-<div class="step"><span class="sn">×</span><div class="st2">x⁴ × x³ = x<sup>4+3</sup> = <strong>x⁷</strong></div><div class="sv">× → +</div></div>
-<div class="step"><span class="sn">÷</span><div class="st2">a⁷ ÷ a³ = a<sup>7−3</sup> = <strong>a⁴</strong></div><div class="sv">÷ → −</div></div>
-<div class="step"><span class="sn">()</span><div class="st2">(b²)⁵ = b<sup>2×5</sup> = <strong>b¹⁰</strong></div><div class="sv">() → ×</div></div>
-<div class="step" style="border-left-color:var(--ylw)"><span class="sn" style="background:var(--ylw)">Kombi</span><div class="st2">(x³)² × x² = x⁶ × x² = x<sup>6+2</sup> = <strong>x⁸</strong></div><div class="sv">x⁸</div></div>
+<div class="hero" style="background:linear-gradient(135deg,#1a3a5c,#0f2438)"><div class="htag">Thema 2</div><h2>🔤 Potenzgesetze — Variablen</h2><p>Genau dasselbe, nur mit Buchstaben!</p><div class="hi">x</div></div>
+
+<div class="card">
+<div class="ch">💡 Buchstaben statt Zahlen — kein Unterschied!</div>
+<div style="font-size:13px;font-weight:600;line-height:2;padding:6px 0">
+Statt 2 schreibst du x.<br>
+Statt 3 schreibst du a.<br>
+<strong>Die Regeln sind genau gleich!</strong>
 </div>
-<div class="tip">💡 Nur vereinfachen wenn die Basis gleich ist! x³ × y² → KANN man nicht vereinfachen!</div>
 </div>
+
+<div class="card">
+<div class="ch">✅ Mal rechnen mit Buchstaben</div>
+<div style="font-size:14px;font-weight:700;background:#f0fdf4;border-radius:8px;padding:12px;text-align:center;border:2px solid #86efac;margin-bottom:8px">
+x⁴ × x³ = x<sup>4+3</sup> = x⁷
+</div>
+<div style="font-size:13px;font-weight:600;line-height:2">
+👉 Gleicher Buchstabe × gleicher Buchstabe?<br>
+→ Exponenten <strong>addieren!</strong> &nbsp; 4+3=7
+</div>
+</div>
+
+<div class="card">
+<div class="ch">✅ Geteilt rechnen mit Buchstaben</div>
+<div style="font-size:14px;font-weight:700;background:#f0fdf4;border-radius:8px;padding:12px;text-align:center;border:2px solid #86efac;margin-bottom:8px">
+a⁷ ÷ a³ = a<sup>7−3</sup> = a⁴
+</div>
+<div style="font-size:13px;font-weight:600;line-height:2">
+👉 Gleicher Buchstabe ÷ gleicher Buchstabe?<br>
+→ Exponenten <strong>subtrahieren!</strong> &nbsp; 7−3=4
+</div>
+</div>
+
+<div class="card">
+<div class="ch">✅ Klammer hoch Zahl</div>
+<div style="font-size:14px;font-weight:700;background:#f0fdf4;border-radius:8px;padding:12px;text-align:center;border:2px solid #86efac;margin-bottom:8px">
+(b²)⁵ = b<sup>2×5</sup> = b¹⁰
+</div>
+<div style="font-size:13px;font-weight:600;line-height:2">
+👉 Potenz nochmal hoch eine Zahl?<br>
+→ Exponenten <strong>multiplizieren!</strong> &nbsp; 2×5=10
+</div>
+</div>
+
+<div class="card">
+<div class="ch">⚠️ Wichtig — nur gleiche Buchstaben!</div>
+<div style="font-size:13px;font-weight:600;line-height:2;background:#fff1f2;border-radius:8px;padding:10px 12px;border-left:3px solid var(--red)">
+x³ × x² = x⁵ ✅ (gleicher Buchstabe)<br>
+x³ × y² = <strong>KANN MAN NICHT</strong> vereinfachen ❌<br>
+<span style="color:var(--muted)">Nur wenn der Buchstabe gleich ist!</span>
+</div>
+</div>
+
 <div class="card"><div class="ch">⚡ Quiz</div><div id="qa_t1"></div><button class="cbtn" id="cb_t1" onclick="finT(1)" disabled>Abschließen</button></div>`,
 
 2:`${BK}
-<div class="hero" style="background:linear-gradient(135deg,#3a1a5c,#250f3a)"><div class="htag">Thema 3</div><h2>🔬 Wissenschaftliche Schreibweise</h2><p>Sehr große & kleine Zahlen kompakt!</p><div class="hi">10ⁿ</div></div>
-<div class="card"><div class="ch">📌 Die Regel</div>
-<div class="fbox"><div class="fm">a · 10ⁿ</div><div class="fs">a muss zwischen 1 und 10 liegen (1 ≤ a &lt; 10)</div></div>
-<div style="font-size:12px;font-weight:600;padding:9px 11px;background:#fafaf7;border-radius:7px;border-left:3px solid var(--pur);margin:8px 0;line-height:1.7">
-<strong>Trick:</strong> Zähle Stellen die das Komma wandert.<br>
-→ Komma nach <strong>links</strong> (große Zahl) = Exponent <strong>positiv</strong><br>
-→ Komma nach <strong>rechts</strong> (kleine Zahl) = Exponent <strong>negativ</strong>
+<div class="hero" style="background:linear-gradient(135deg,#3a1a5c,#250f3a)"><div class="htag">Thema 3</div><h2>🔬 Wissenschaftliche Schreibweise</h2><p>Große & kleine Zahlen einfach schreiben!</p><div class="hi">10ⁿ</div></div>
+
+<div class="card">
+<div class="ch">💡 Warum braucht man das?</div>
+<div style="font-size:13px;font-weight:600;line-height:2">
+0,000000000001 ist super unhandlich zu schreiben.<br>
+Deswegen schreibt man: <strong>1 × 10⁻¹²</strong><br>
+Viel kürzer und übersichtlicher! 😊
 </div>
-<div class="steps">
-<div class="step"><span class="sn">groß</span><div class="st2"><strong>4.700.000</strong> → Komma 6× nach links = 4,7 × 10⁶</div><div class="sv">+6</div></div>
-<div class="step"><span class="sn">klein</span><div class="st2"><strong>0,0035</strong> → Komma 3× nach rechts = 3,5 × 10⁻³</div><div class="sv">−3</div></div>
-<div class="step"><span class="sn">zurück</span><div class="st2"><strong>2,56 × 10⁻⁶</strong> → Komma 6× nach links = 0,00000256</div></div>
 </div>
-<div class="danger">❌ 47 × 10⁵ ist FALSCH (47 ≥ 10) → richtig: 4,7 × 10⁶</div>
+
+<div class="card">
+<div class="ch">📌 Die eine Regel</div>
+<div style="font-size:14px;font-weight:700;background:#f0fdf4;border-radius:8px;padding:12px;text-align:center;border:2px solid #86efac;margin-bottom:8px">
+a · 10ⁿ &nbsp; &nbsp;(a muss zwischen 1 und 10 sein!)
 </div>
+<div style="font-size:13px;font-weight:600;line-height:2">
+✅ 4,7 × 10⁶ &nbsp; → a=4,7 (zwischen 1 und 10) OK!<br>
+❌ 47 × 10⁵ &nbsp; → a=47 (zu groß!) FALSCH!
+</div>
+</div>
+
+<div class="card">
+<div class="ch">✅ Große Zahl → positiver Exponent</div>
+<div style="font-size:14px;font-weight:700;background:#f0fdf4;border-radius:8px;padding:12px;text-align:center;border:2px solid #86efac;margin-bottom:8px">
+4.700.000 = 4,7 × 10⁶
+</div>
+<div style="font-size:13px;font-weight:600;line-height:2">
+👉 Schreib 4,7 (Komma nach dem ersten Buchstaben)<br>
+👉 Zähle: wie viele Stellen hast du das Komma<br>
+&nbsp;&nbsp;&nbsp;&nbsp;nach <strong>links</strong> verschoben? → 6 Stellen<br>
+👉 → 10⁶ (positiv weil große Zahl)
+</div>
+</div>
+
+<div class="card">
+<div class="ch">✅ Kleine Zahl → negativer Exponent</div>
+<div style="font-size:14px;font-weight:700;background:#f0fdf4;border-radius:8px;padding:12px;text-align:center;border:2px solid #86efac;margin-bottom:8px">
+0,0035 = 3,5 × 10⁻³
+</div>
+<div style="font-size:13px;font-weight:600;line-height:2">
+👉 Schreib 3,5<br>
+👉 Zähle: wie viele Stellen nach <strong>rechts</strong>? → 3 Stellen<br>
+👉 → 10⁻³ (negativ weil kleine Zahl)
+</div>
+</div>
+
+<div class="card">
+<div class="ch">🧠 Merktrick</div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:13px;font-weight:700">
+<div style="background:#f0fdf4;border-radius:8px;padding:10px;text-align:center;border:1.5px solid #86efac">
+Große Zahl<br>
+Komma nach links<br>
+<strong style="color:var(--grn)">Exponent +</strong>
+</div>
+<div style="background:#fff1f2;border-radius:8px;padding:10px;text-align:center;border:1.5px solid #fca5a5">
+Kleine Zahl<br>
+Komma nach rechts<br>
+<strong style="color:var(--red)">Exponent −</strong>
+</div>
+</div>
+</div>
+
 <div class="card"><div class="ch">⚡ Quiz</div><div id="qa_t2"></div><button class="cbtn" id="cb_t2" onclick="finT(2)" disabled>Abschließen</button></div>`,
 
 3:`${BK}
