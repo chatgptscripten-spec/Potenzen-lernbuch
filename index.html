@@ -790,4 +790,510 @@ Frage: Wie wahrscheinlich sind <strong>2 rote</strong>?
 <div class="step"><span class="sn">2. Zug</span><div class="st2">1 rote weg → 4 übrig, 2 rot → P(rot) = 2/4</div><div class="sv">2/4</div></div>
 <div class="step" style="border-left-color:var(--grn)"><span class="sn">Pfad ×</span><div class="st2">P(rr) = 3/5 × 2/4 = 6/20 = <strong>3/10 = 30%</strong></div><div class="sv">30%</div></div>
 </div>
-<div class="warn">⚠️ OHNE Zurücklegen → nach jedem Zug Nenner −1 und gezogene Kugel
+<div class="warn">⚠️ OHNE Zurücklegen → nach jedem Zug Nenner −1 und gezogene Kugel abziehen!</div>
+</div>
+
+<div class="card"><div class="ch">🎯 Aufgabe 3 — Mindestens 1 Treffer</div>
+<div style="font-size:12px;font-weight:700;padding:9px 12px;background:#e0f2fe;border-radius:7px;margin-bottom:9px;border-left:3px solid #0ea5e9;line-height:1.7;color:#0c4a6e">
+Ein Schütze trifft mit P = 2/3.<br>
+Er schießt <strong>2×</strong>.<br>
+Frage: Wie wahrscheinlich ist <strong>mindestens 1 Treffer</strong>?
+</div>
+<div class="steps">
+<div class="step"><span class="sn">Trick!</span><div class="st2"><strong>Mindestens 1</strong> = 1 − P(gar kein Treffer)<br><small style="color:var(--muted)">Das ist viel einfacher zu rechnen!</small></div></div>
+<div class="step"><span class="sn">Kein T.</span><div class="st2">P(kein Treffer) = 1/3 × 1/3 = <strong>1/9</strong></div><div class="sv">1/9</div></div>
+<div class="step" style="border-left-color:var(--grn)"><span class="sn">Antwort</span><div class="st2">P(mind. 1) = 1 − 1/9 = <strong>8/9 ≈ 89%</strong></div><div class="sv">89%</div></div>
+</div>
+<div class="tip">💡 "Mindestens 1" → immer: 1 − P(gar keiner). Merken!</div>
+</div>
+
+<div class="card"><div class="ch">⚡ Quiz</div><div id="qa_t3"></div><button class="cbtn" id="cb_t3" onclick="finT(3)" disabled>Abschließen</button></div>`,
+
+4:`${BK}
+<div class="hero" style="background:linear-gradient(135deg,#5c1a3a,#3a0f25)"><div class="htag">Thema 5</div><h2>✖️ Summen- & Pfadregel</h2><p>Mehrere Aufgaben mit Baumdiagramm!</p><div class="hi">×+</div></div>
+
+<div class="card"><div class="ch">🎯 Aufgabe 1 — Karten K, E, O, A (aus deiner Klasse!)</div>
+<div style="font-size:12px;font-weight:700;padding:9px 12px;background:#e0f2fe;border-radius:7px;margin-bottom:9px;border-left:3px solid #0ea5e9;line-height:1.7;color:#0c4a6e">
+4 Karten: K, E, O, A. Man zieht <strong>2× ohne Zurücklegen</strong>.<br>
+Kombination „OK" (erst O, dann K) = Kaugummi 🍬<br>
+Frage: Wie wahrscheinlich ist „OK"?
+</div>
+<svg viewBox="0 0 340 220" style="width:100%;border-radius:8px;background:#f0fdf4;border:1.5px solid #86efac;margin-bottom:9px">
+  <circle cx="40" cy="110" r="18" fill="#2a5c2a"/>
+  <text x="40" y="116" text-anchor="middle" fill="white" font-size="18">🃏</text>
+  <!-- K -->
+  <line x1="58" y1="100" x2="118" y2="35" stroke="#888" stroke-width="1.5"/>
+  <text x="83" y="58" text-anchor="middle" fill="#888" font-size="10" font-weight="700">1/4</text>
+  <circle cx="130" cy="30" r="16" fill="#888"/>
+  <text x="130" y="35" text-anchor="middle" fill="white" font-size="11" font-weight="700">K</text>
+  <!-- E -->
+  <line x1="58" y1="105" x2="118" y2="85" stroke="#888" stroke-width="1.5"/>
+  <text x="83" y="90" text-anchor="middle" fill="#888" font-size="10" font-weight="700">1/4</text>
+  <circle cx="130" cy="80" r="16" fill="#888"/>
+  <text x="130" y="85" text-anchor="middle" fill="white" font-size="11" font-weight="700">E</text>
+  <!-- O -->
+  <line x1="58" y1="115" x2="118" y2="135" stroke="#c23b0a" stroke-width="2.5"/>
+  <text x="83" y="130" text-anchor="middle" fill="#c23b0a" font-size="10" font-weight="700">1/4</text>
+  <circle cx="130" cy="140" r="16" fill="#c23b0a"/>
+  <text x="130" y="145" text-anchor="middle" fill="white" font-size="11" font-weight="700">O</text>
+  <!-- A -->
+  <line x1="58" y1="120" x2="118" y2="185" stroke="#888" stroke-width="1.5"/>
+  <text x="83" y="170" text-anchor="middle" fill="#888" font-size="10" font-weight="700">1/4</text>
+  <circle cx="130" cy="190" r="16" fill="#888"/>
+  <text x="130" y="195" text-anchor="middle" fill="white" font-size="11" font-weight="700">A</text>
+  <!-- O → K ✅ -->
+  <line x1="146" y1="133" x2="206" y2="118" stroke="#c23b0a" stroke-width="2.5"/>
+  <text x="172" y="118" text-anchor="middle" fill="#c23b0a" font-size="10" font-weight="700">1/3</text>
+  <rect x="210" y="104" width="118" height="28" rx="7" fill="#dcfce7" stroke="#86efac" stroke-width="2"/>
+  <text x="269" y="122" text-anchor="middle" fill="#166534" font-size="12" font-weight="700">OK ✅ 🍬 8,3%</text>
+  <!-- O → E -->
+  <line x1="146" y1="140" x2="206" y2="148" stroke="#888" stroke-width="1.5"/>
+  <text x="172" y="150" text-anchor="middle" fill="#888" font-size="10" font-weight="700">1/3</text>
+  <rect x="210" y="138" width="55" height="22" rx="5" fill="#f3f0ea" stroke="#ddd6c8" stroke-width="1.5"/>
+  <text x="237" y="153" text-anchor="middle" fill="#555" font-size="11" font-weight="700">OE</text>
+  <!-- O → A -->
+  <line x1="146" y1="147" x2="206" y2="175" stroke="#888" stroke-width="1.5"/>
+  <text x="172" y="175" text-anchor="middle" fill="#888" font-size="10" font-weight="700">1/3</text>
+  <rect x="210" y="165" width="55" height="22" rx="5" fill="#f3f0ea" stroke="#ddd6c8" stroke-width="1.5"/>
+  <text x="237" y="180" text-anchor="middle" fill="#555" font-size="11" font-weight="700">OA</text>
+</svg>
+<div class="steps">
+<div class="step"><span class="sn">1. Zug</span><div class="st2">P(O) = 1 von 4 Karten = 1/4</div><div class="sv">1/4</div></div>
+<div class="step"><span class="sn">2. Zug</span><div class="st2">O weg → 3 Karten übrig → P(K) = 1/3</div><div class="sv">1/3</div></div>
+<div class="step" style="border-left-color:var(--grn)"><span class="sn">Pfad ×</span><div class="st2">P(OK) = 1/4 × 1/3 = <strong>1/12 ≈ 8,3%</strong></div><div class="sv">1/12</div></div>
+<div class="step"><span class="sn">Erwartet</span><div class="st2">30 Schüler × 1/12 ≈ <strong>2,5 ≈ 3 Kaugummis</strong></div><div class="sv">≈3</div></div>
+</div></div>
+
+<div class="card"><div class="ch">🎯 Aufgabe 2 — Würfel: gerade oder ungerade</div>
+<div style="font-size:12px;font-weight:700;padding:9px 12px;background:#e0f2fe;border-radius:7px;margin-bottom:9px;border-left:3px solid #0ea5e9;line-height:1.7;color:#0c4a6e">
+Ein Würfel wird <strong>2× geworfen</strong>.<br>
+Frage: Wie wahrscheinlich ist <strong>mindestens 1× gerade Zahl</strong>?
+</div>
+<div class="steps">
+<div class="step"><span class="sn">P(gerade)</span><div class="st2">2,4,6 → 3 von 6 → P(gerade) = 1/2</div><div class="sv">1/2</div></div>
+<div class="step"><span class="sn">Trick</span><div class="st2">Mindestens 1 gerade = 1 − P(beide ungerade)</div></div>
+<div class="step"><span class="sn">Beide ug.</span><div class="st2">P(ug,ug) = 1/2 × 1/2 = 1/4</div><div class="sv">1/4</div></div>
+<div class="step" style="border-left-color:var(--grn)"><span class="sn">Antwort</span><div class="st2">P(mind. 1 gerade) = 1 − 1/4 = <strong>3/4 = 75%</strong></div><div class="sv">75%</div></div>
+</div></div>
+
+<div class="card"><div class="ch">🎯 Aufgabe 3 — 5 weiße + 5 schwarze Kugeln</div>
+<div style="font-size:12px;font-weight:700;padding:9px 12px;background:#e0f2fe;border-radius:7px;margin-bottom:9px;border-left:3px solid #0ea5e9;line-height:1.7;color:#0c4a6e">
+Säckchen: <strong>5 weiße + 5 schwarze</strong> Kugeln.<br>
+Man zieht <strong>2× ohne Zurücklegen</strong>.<br>
+Frage: Wie wahrscheinlich sind <strong>gleichfarbige</strong> Kugeln?
+</div>
+<div class="steps">
+<div class="step"><span class="sn">WW</span><div class="st2">5/10 × 4/9 = 20/90 = <strong>2/9</strong></div><div class="sv">2/9</div></div>
+<div class="step"><span class="sn">SS</span><div class="st2">5/10 × 4/9 = 20/90 = <strong>2/9</strong></div><div class="sv">2/9</div></div>
+<div class="step" style="border-left-color:var(--grn)"><span class="sn">+ (Summe)</span><div class="st2">P(gleichf.) = 2/9 + 2/9 = <strong>4/9 ≈ 44%</strong></div><div class="sv">44%</div></div>
+<div class="step"><span class="sn">Rest</span><div class="st2">P(verschiedf.) = 1 − 4/9 = <strong>5/9 ≈ 56%</strong></div><div class="sv">56%</div></div>
+</div>
+<div class="tip">💡 Beide gleich = WW ODER SS → Summenregel: WW + SS addieren!</div>
+</div>
+
+<div class="card"><div class="ch">⚡ Quiz</div><div id="qa_t4"></div><button class="cbtn" id="cb_t4" onclick="finT(4)" disabled>Abschließen</button></div>`,
+
+5:`${BK}
+<div class="hero" style="background:linear-gradient(135deg,#2a5c2a,#1a3a1a)"><div class="htag">Thema 6 — Finale</div><h2>🎯 Alles zusammen!</h2><p>Letzter Test vor der Arbeit 💪</p><div class="hi">🏆</div></div>
+<div class="card"><div class="ch">📝 Schnell-Zusammenfassung</div>
+<div class="steps">
+<div class="step"><span class="sn">× → +</span><div class="st2">aⁿ × aᵐ = aⁿ⁺ᵐ — gleiche Basis × → Exponenten addieren</div></div>
+<div class="step"><span class="sn">÷ → −</span><div class="st2">aⁿ ÷ aᵐ = aⁿ⁻ᵐ — gleiche Basis ÷ → Exponenten subtrahieren</div></div>
+<div class="step"><span class="sn">() → ×</span><div class="st2">(aⁿ)ᵐ = aⁿ×ᵐ — Potenz hoch Potenz → multiplizieren</div></div>
+<div class="step"><span class="sn">10ⁿ</span><div class="st2">Groß → positiv | Klein → negativ | a muss 1–10 sein</div></div>
+<div class="step"><span class="sn">P</span><div class="st2">Pfadregel × | Summenregel + | Probe = 1</div></div>
+</div></div>
+<div class="card"><div class="ch">⚡ Abschluss-Quiz</div><div id="qa_t5"></div><button class="cbtn" id="cb_t5" onclick="finT(5)" disabled>🏆 Fertig! Viel Erfolg!</button></div>`,
+};
+
+// PROBEARBEIT
+let probeAns={};
+const PROBE=[
+  // ══════════════ BASISTEIL ══════════════
+  {nr:'1',titel:'Grundrechenarten mit Potenzen',pts:8,typ:'Basisteil',badge:'🟦',fragen:[
+    {id:'p1a',frage:'2³ × 2⁴ = 2<sup>?</sup> — Welcher Exponent?',a:7,h:'Gleiche Basis × → addieren: 3+4=7'},
+    {id:'p1b',frage:'5⁶ ÷ 5² = 5<sup>?</sup> — Welcher Exponent?',a:4,h:'Gleiche Basis ÷ → subtrahieren: 6−2=4'},
+    {id:'p1c',frage:'(3²)⁴ = 3<sup>?</sup> — Welcher Exponent?',a:8,h:'Potenz hoch Potenz → multiplizieren: 2×4=8'},
+    {id:'p1d',frage:'7⁰ = ? — Ergebnis',a:1,h:'Jede Zahl hoch 0 = 1 immer!'},
+  ]},
+  {nr:'2',titel:'Multiplizieren & Addieren mit Variablen',pts:8,typ:'Basisteil',badge:'🟦',fragen:[
+    {id:'p2a',frage:'x³ × x⁵ = x<sup>?</sup> — Welcher Exponent?',a:8,h:'3+5=8'},
+    {id:'p2b',frage:'a⁸ ÷ a³ = a<sup>?</sup> — Welcher Exponent?',a:5,h:'8−3=5'},
+    {id:'p2c',frage:'(b²)³ = b<sup>?</sup> — Welcher Exponent?',a:6,h:'2×3=6'},
+    {id:'p2d',frage:'x⁻³ · x⁻⁴ = x<sup>?</sup> — Welcher Exponent?',a:-7,h:'−3+(−4)=−7'},
+  ]},
+  {nr:'3',titel:'Wissenschaftliche Schreibweise',pts:6,typ:'Basisteil',badge:'🟦',fragen:[
+    {id:'p3a',frage:'3.500.000 = 3,5 × 10<sup>?</sup> — Exponent?',a:6,h:'Komma 6 Stellen nach links → 10⁶'},
+    {id:'p3b',frage:'0,0042 = 4,2 × 10<sup>?</sup> — Exponent?',a:-3,h:'Komma 3 Stellen nach rechts → 10⁻³'},
+    {id:'p3c',frage:'2,5 × 10³ = ? — Ergebnis ausrechnen',a:2500,h:'10³=1000 → 2,5×1000=2500'},
+  ]},
+  {nr:'4',titel:'Terme & Runden',pts:4,typ:'Basisteil',badge:'🟦',fragen:[
+    {id:'p4a',frage:'Denk an x, +5, ×4, −2 → Term: 4x + ?',a:18,h:'(x+5)·4−2=4x+20−2=4x+18'},
+    {id:'p4b',frage:'721+389+333 ≈ ? (auf Hundert runden)',a:1400,h:'700+400+300=1400'},
+  ]},
+  // ══════════════ HAUPTTEIL ══════════════
+  {nr:'5',titel:'Schwierigere Potenzaufgaben',pts:8,typ:'Hauptteil',badge:'🟧',fragen:[
+    {id:'p5a',frage:'(5⁻²)⁴ = 5<sup>?</sup> — Exponent?',a:-8,h:'−2×4=−8'},
+    {id:'p5b',frage:'(-3)⁴ = ? — Ergebnis',a:81,h:'Gerade Exponent → positiv: 3⁴=81'},
+    {id:'p5c',frage:'(-2)⁵ = ? — Ergebnis',a:-32,h:'Ungerade Exponent → negativ: −32'},
+    {id:'p5d',frage:'2⁻³ = ? — Als Bruch: 1/?',a:8,h:'2⁻³=1/2³=1/8 → Nenner 8'},
+  ]},
+  {nr:'6',titel:'Baumdiagramm — Würfel',pts:8,typ:'Hauptteil',badge:'🟧',fragen:[
+    {id:'p6a',frage:'Würfel 1×: Wie viele mögliche Ergebnisse?',a:6,h:'1,2,3,4,5,6 → 6 Ergebnisse'},
+    {id:'p6b',frage:'P(gerade Zahl) beim Würfel = ?% (Prozent)',a:50,h:'2,4,6 → 3 von 6 → 50%'},
+    {id:'p6c',frage:'Würfel 2×: Wie viele Ergebnis-Paare insgesamt?',a:36,h:'6×6=36'},
+    {id:'p6d',frage:'Würfel 3×: Wie viele Ergebnisse insgesamt?',a:216,h:'6×6×6=6³=216'},
+  ]},
+  {nr:'7',titel:'Baumdiagramm — Karten K,E,O,A',pts:10,typ:'Hauptteil',badge:'🟧',fragen:[
+    {id:'p7a',frage:'4 Karten K,E,O,A. Man zieht 1. P(O) = 1/? — Nenner?',a:4,h:'4 Karten → Nenner 4'},
+    {id:'p7b',frage:'O wurde gezogen (ohne Zurücklegen). Wie viele Karten noch?',a:3,h:'4−1=3 Karten übrig'},
+    {id:'p7c',frage:'P(K nach O) = 1/? — Nenner?',a:3,h:'3 Karten übrig → Nenner 3'},
+    {id:'p7d',frage:'P("OK") = 1/4 × 1/3 = 1/? — Nenner?',a:12,h:'1/4×1/3=1/12'},
+    {id:'p7e',frage:'30 Schüler × P("OK") ≈ ? Kaugummis (runden)',a:3,h:'30×1/12=2,5≈3'},
+  ]},
+  {nr:'8',titel:'Baumdiagramm — Kugeln',pts:8,typ:'Hauptteil',badge:'🟧',fragen:[
+    {id:'p8a',frage:'5 weiße + 5 schwarze Kugeln. P(weiß 1.Zug) = ?/10 — Zähler?',a:5,h:'5 von 10 → Zähler 5'},
+    {id:'p8b',frage:'1 weiße weg (ohne Zurücklegen). Wie viele weiße noch?',a:4,h:'5−1=4 weiße übrig'},
+    {id:'p8c',frage:'P(WW) = 5/10 × 4/9 = ?/90 — Zähler?',a:20,h:'5×4=20 → 20/90'},
+    {id:'p8d',frage:'P(gleichfarbig) = P(WW)+P(SS) = 4/? — Nenner?',a:9,h:'20/90+20/90=40/90=4/9'},
+    {id:'p8e',frage:'P(gleichfarbig) ≈ ?% (runden)',a:44,h:'4/9≈0,444≈44%'},
+  ]},
+];
+function treeMuenze(){
+  return `<svg viewBox="0 0 360 210" style="width:100%;border-radius:8px;background:#f0fdf4;border:1.5px solid #86efac;margin:8px 0">
+  <text x="50" y="108" text-anchor="middle" font-size="22">🪙</text>
+  <line x1="62" y1="98" x2="138" y2="58" stroke="#2a5c2a" stroke-width="2.5"/>
+  <text x="93" y="65" text-anchor="middle" fill="#2a5c2a" font-size="11" font-weight="bold">1/2</text>
+  <rect x="140" y="38" width="64" height="28" rx="8" fill="#2a5c2a"/>
+  <text x="172" y="57" text-anchor="middle" fill="white" font-size="12" font-weight="bold">Kopf</text>
+  <line x1="62" y1="118" x2="138" y2="158" stroke="#888" stroke-width="2.5"/>
+  <text x="93" y="153" text-anchor="middle" fill="#888" font-size="11" font-weight="bold">1/2</text>
+  <rect x="140" y="140" width="64" height="28" rx="8" fill="#888"/>
+  <text x="172" y="159" text-anchor="middle" fill="white" font-size="12" font-weight="bold">Zahl</text>
+  <line x1="204" y1="52" x2="258" y2="32" stroke="#2a5c2a" stroke-width="2"/>
+  <text x="226" y="32" text-anchor="middle" fill="#2a5c2a" font-size="10" font-weight="bold">1/2</text>
+  <rect x="262" y="16" width="85" height="26" rx="7" fill="#dcfce7" stroke="#22c55e" stroke-width="2"/>
+  <text x="304" y="33" text-anchor="middle" fill="#166534" font-size="11" font-weight="bold">KK ✅ 25%</text>
+  <line x1="204" y1="62" x2="258" y2="76" stroke="#888" stroke-width="2"/>
+  <text x="226" y="72" text-anchor="middle" fill="#888" font-size="10" font-weight="bold">1/2</text>
+  <rect x="262" y="63" width="55" height="24" rx="7" fill="#f3f0ea" stroke="#ddd6c8" stroke-width="1.5"/>
+  <text x="289" y="79" text-anchor="middle" fill="#555" font-size="11" font-weight="bold">KZ</text>
+  <line x1="204" y1="148" x2="258" y2="132" stroke="#888" stroke-width="2"/>
+  <text x="226" y="133" text-anchor="middle" fill="#888" font-size="10" font-weight="bold">1/2</text>
+  <rect x="262" y="118" width="55" height="24" rx="7" fill="#f3f0ea" stroke="#ddd6c8" stroke-width="1.5"/>
+  <text x="289" y="134" text-anchor="middle" fill="#555" font-size="11" font-weight="bold">ZK</text>
+  <line x1="204" y1="162" x2="258" y2="176" stroke="#888" stroke-width="2"/>
+  <text x="226" y="178" text-anchor="middle" fill="#888" font-size="10" font-weight="bold">1/2</text>
+  <rect x="262" y="163" width="55" height="24" rx="7" fill="#f3f0ea" stroke="#ddd6c8" stroke-width="1.5"/>
+  <text x="289" y="179" text-anchor="middle" fill="#555" font-size="11" font-weight="bold">ZZ</text>
+</svg>`;
+}
+
+function treeKarten(){
+  return `<svg viewBox="0 0 380 240" style="width:100%;border-radius:8px;background:#f0fdf4;border:1.5px solid #86efac;margin:8px 0">
+  <text x="30" y="122" text-anchor="middle" font-size="22">🃏</text>
+  <line x1="42" y1="108" x2="100" y2="45" stroke="#888" stroke-width="1.5"/>
+  <rect x="103" y="30" width="36" height="26" rx="7" fill="#888"/>
+  <text x="121" y="47" text-anchor="middle" fill="white" font-size="12" font-weight="bold">K</text>
+  <line x1="42" y1="113" x2="100" y2="88" stroke="#888" stroke-width="1.5"/>
+  <rect x="103" y="74" width="36" height="26" rx="7" fill="#888"/>
+  <text x="121" y="91" text-anchor="middle" fill="white" font-size="12" font-weight="bold">E</text>
+  <line x1="42" y1="120" x2="100" y2="150" stroke="#c23b0a" stroke-width="3"/>
+  <rect x="103" y="135" width="36" height="26" rx="7" fill="#c23b0a"/>
+  <text x="121" y="152" text-anchor="middle" fill="white" font-size="12" font-weight="bold">O</text>
+  <line x1="42" y1="128" x2="100" y2="195" stroke="#888" stroke-width="1.5"/>
+  <rect x="103" y="181" width="36" height="26" rx="7" fill="#888"/>
+  <text x="121" y="198" text-anchor="middle" fill="white" font-size="12" font-weight="bold">A</text>
+  <text x="75" y="105" fill="#c23b0a" font-size="9" font-weight="bold" text-anchor="middle">1/4</text>
+  <text x="75" y="125" fill="#888" font-size="9" font-weight="bold" text-anchor="middle">1/4</text>
+  <text x="75" y="145" fill="#c23b0a" font-size="9" font-weight="bold" text-anchor="middle">1/4</text>
+  <text x="75" y="188" fill="#888" font-size="9" font-weight="bold" text-anchor="middle">1/4</text>
+  <line x1="139" y1="145" x2="195" y2="125" stroke="#c23b0a" stroke-width="2.5"/>
+  <text x="163" y="123" fill="#c23b0a" font-size="9" font-weight="bold" text-anchor="middle">1/3</text>
+  <rect x="198" y="108" width="165" height="28" rx="8" fill="#dcfce7" stroke="#22c55e" stroke-width="2"/>
+  <text x="280" y="126" text-anchor="middle" fill="#166534" font-size="12" font-weight="bold">OK ✅ 🍬 = 1/12</text>
+  <line x1="139" y1="153" x2="195" y2="163" stroke="#888" stroke-width="1.5"/>
+  <text x="163" y="162" fill="#888" font-size="9" font-weight="bold" text-anchor="middle">1/3</text>
+  <rect x="198" y="151" width="60" height="24" rx="7" fill="#f3f0ea" stroke="#ddd6c8" stroke-width="1.5"/>
+  <text x="228" y="167" text-anchor="middle" fill="#555" font-size="11" font-weight="bold">OE</text>
+  <line x1="139" y1="161" x2="195" y2="198" stroke="#888" stroke-width="1.5"/>
+  <text x="163" y="192" fill="#888" font-size="9" font-weight="bold" text-anchor="middle">1/3</text>
+  <rect x="198" y="186" width="60" height="24" rx="7" fill="#f3f0ea" stroke="#ddd6c8" stroke-width="1.5"/>
+  <text x="228" y="202" text-anchor="middle" fill="#555" font-size="11" font-weight="bold">OA</text>
+</svg>`;
+}
+
+function treeKugeln(){
+  return `<svg viewBox="0 0 380 220" style="width:100%;border-radius:8px;background:#f0fdf4;border:1.5px solid #86efac;margin:8px 0">
+  <text x="30" y="112" text-anchor="middle" font-size="22">👜</text>
+  <line x1="42" y1="100" x2="110" y2="62" stroke="#e53e3e" stroke-width="3"/>
+  <text x="71" y="70" fill="#e53e3e" font-size="10" font-weight="bold" text-anchor="middle">3/5</text>
+  <circle cx="126" cy="55" r="22" fill="#e53e3e"/>
+  <text x="126" y="51" text-anchor="middle" fill="white" font-size="10" font-weight="bold">5</text>
+  <text x="126" y="64" text-anchor="middle" fill="white" font-size="9">weiß</text>
+  <line x1="42" y1="124" x2="110" y2="162" stroke="#1a3a5c" stroke-width="3"/>
+  <text x="71" y="156" fill="#1a3a5c" font-size="10" font-weight="bold" text-anchor="middle">2/5</text>
+  <circle cx="126" cy="169" r="22" fill="#1a3a5c"/>
+  <text x="126" y="165" text-anchor="middle" fill="white" font-size="10" font-weight="bold">5</text>
+  <text x="126" y="178" text-anchor="middle" fill="white" font-size="9">schwarz</text>
+  <line x1="148" y1="47" x2="204" y2="30" stroke="#e53e3e" stroke-width="2"/>
+  <text x="173" y="29" fill="#e53e3e" font-size="9" font-weight="bold" text-anchor="middle">4/9</text>
+  <rect x="208" y="14" width="155" height="28" rx="7" fill="#dcfce7" stroke="#22c55e" stroke-width="2"/>
+  <text x="285" y="32" text-anchor="middle" fill="#166534" font-size="11" font-weight="bold">WW ✅ = 20/90</text>
+  <line x1="148" y1="63" x2="204" y2="80" stroke="#1a3a5c" stroke-width="2"/>
+  <text x="173" y="78" fill="#1a3a5c" font-size="9" font-weight="bold" text-anchor="middle">2/9</text>
+  <rect x="208" y="67" width="80" height="24" rx="7" fill="#f3f0ea" stroke="#ddd6c8" stroke-width="1.5"/>
+  <text x="248" y="83" text-anchor="middle" fill="#555" font-size="11" font-weight="bold">WS</text>
+  <line x1="148" y1="161" x2="204" y2="143" stroke="#e53e3e" stroke-width="2"/>
+  <text x="173" y="143" fill="#e53e3e" font-size="9" font-weight="bold" text-anchor="middle">3/9</text>
+  <rect x="208" y="129" width="80" height="24" rx="7" fill="#f3f0ea" stroke="#ddd6c8" stroke-width="1.5"/>
+  <text x="248" y="145" text-anchor="middle" fill="#555" font-size="11" font-weight="bold">SW</text>
+  <line x1="148" y1="177" x2="204" y2="193" stroke="#1a3a5c" stroke-width="2"/>
+  <text x="173" y="196" fill="#1a3a5c" font-size="9" font-weight="bold" text-anchor="middle">1/9</text>
+  <rect x="208" y="181" width="155" height="28" rx="7" fill="#dcfce7" stroke="#22c55e" stroke-width="2"/>
+  <text x="285" y="199" text-anchor="middle" fill="#166534" font-size="11" font-weight="bold">SS ✅ = 20/90</text>
+</svg>`;
+}
+
+function buildProbe(){
+  const c=document.getElementById('probe-content');
+  let html='';
+  let lastTyp='';
+  PROBE.forEach(auf=>{
+    if(auf.typ!==lastTyp){
+      lastTyp=auf.typ;
+      const isBasis=auf.typ==='Basisteil';
+      html+=`<div style="display:flex;align-items:center;gap:8px;margin:14px 0 8px;padding:8px 12px;border-radius:8px;background:${isBasis?'#dbeafe':'#ffedd5'};border-left:4px solid ${isBasis?'#1d4ed8':'#c2410c'}">
+        <span style="font-size:16px">${isBasis?'🟦':'🟧'}</span>
+        <div>
+          <div style="font-size:13px;font-weight:900;color:${isBasis?'#1d4ed8':'#c2410c'}">${auf.typ.toUpperCase()}</div>
+          <div style="font-size:11px;color:${isBasis?'#1e40af':'#9a3412'}">${isBasis?'Grundlagen — jeder kann das!':'Schwieriger — zeig was du kannst!'}</div>
+        </div>
+      </div>`;
+    }
+    const treeSvg = auf.nr==='6'?treeMuenze():auf.nr==='7'?treeKarten():auf.nr==='8'?treeKugeln():'';
+    html+=`<div class="probe-aufgabe" style="border-left:3px solid ${auf.typ==='Basisteil'?'#3b82f6':'#f97316'}">
+      <div class="pa-head">
+        <span>${auf.badge} Aufgabe ${auf.nr}: ${auf.titel}</span>
+        <span class="pa-pts">${auf.pts} Pkt</span>
+      </div>${treeSvg}`;
+    auf.fragen.forEach((f,i)=>{
+      html+=`<div class="pa-q">
+        <div class="frage">${String.fromCharCode(97+i)}) ${f.frage}</div>
+        <input class="pa-inp" id="pi_${f.id}" type="number" placeholder="Antwort eingeben..." onkeypress="if(event.key==='Enter')chkP('${f.id}',${f.a},'${(f.h||'').replace(/'/g,"&#39;")}')">
+        <div class="pa-fb" id="pf_${f.id}"></div>
+        <div style="display:flex;gap:7px;margin-top:5px;flex-wrap:wrap">
+          <button class="pa-check" onclick="chkP('${f.id}',${f.a},'${(f.h||'').replace(/'/g,"&#39;")}')">Prüfen ✓</button>
+          <button style="padding:6px 11px;border-radius:7px;background:#fffbeb;border:1px solid #fcd34d;color:#b8870a;font-size:11px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif" onclick='sAsk("Ich stecke bei dieser Aufgabe fest und brauche einen Tipp (keine Lösung!): ${(f.frage||'').replace(/'/g,"").replace(/<[^>]+>/g,'')}")'>🤖 Tipp von Sicks</button>
+        </div>
+      </div>`;
+    });
+    html+='</div>';
+  });
+  const total=PROBE.reduce((s,a)=>s+a.pts,0);
+  const basisPts=PROBE.filter(a=>a.typ==='Basisteil').reduce((s,a)=>s+a.pts,0);
+  const hauptPts=PROBE.filter(a=>a.typ==='Hauptteil').reduce((s,a)=>s+a.pts,0);
+  html+=`<div style="background:#fafaf7;border:1.5px solid var(--brd);border-radius:8px;padding:10px 13px;margin:10px 0;font-size:12px;font-weight:700;display:flex;justify-content:space-between">
+    <span>🟦 Basisteil: ${basisPts} Pkt</span>
+    <span>🟧 Hauptteil: ${hauptPts} Pkt</span>
+    <span>Gesamt: ${total} Pkt</span>
+  </div>`;
+  html+=`<button style="width:100%;padding:13px;background:linear-gradient(135deg,#1a0a2e,#5b21b6);border:none;border-radius:var(--r);color:#fff;font-size:14px;font-weight:900;cursor:pointer;font-family:'DM Sans',sans-serif;margin-bottom:10px" onclick="auswert()">📊 Auswerten (${total} Pkt möglich)</button>`;
+  c.innerHTML=html;
+}
+function chkP(id,a,hint){
+  const inp=document.getElementById('pi_'+id);const fb=document.getElementById('pf_'+id);
+  if(!inp)return;
+  const v=parseFloat(inp.value.replace(',','.'));
+  if(isNaN(v)){fb.textContent='Zahl eingeben!';fb.className='pa-fb no';return;}
+  if(Math.abs(v-a)<0.6){
+    inp.classList.add('ok');inp.disabled=true;
+    fb.textContent='✅ Richtig!';fb.className='pa-fb ok';
+    probeAns[id]={ok:true};
+  } else {
+    inp.classList.add('no');
+    fb.innerHTML='❌ Richtig: <strong>'+fmt(a)+'</strong> — '+hint;fb.className='pa-fb no';
+    probeAns[id]={ok:false};
+  }
+}
+function auswert(){
+  let got=0,total=0;
+  PROBE.forEach(auf=>{auf.fragen.forEach(f=>{total+=auf.pts/auf.fragen.length;if(probeAns[f.id]?.ok)got+=auf.pts/auf.fragen.length;});});
+  got=Math.round(got);total=Math.round(total);
+  const pct=got/total;
+  let note,farbe;
+  if(pct>=0.875){note='1 🏆';farbe='#22c55e';}
+  else if(pct>=0.75){note='2 😊';farbe='#84cc16';}
+  else if(pct>=0.625){note='3 👍';farbe='#eab308';}
+  else if(pct>=0.5){note='4 📚';farbe='#f97316';}
+  else{note='5 💪';farbe='#ef4444';}
+  const msg=pct>=0.75?'Super vorbereitet!':pct>=0.5?'Noch ein bisschen üben!':'Sicks um Hilfe bitten! 🤖';
+  document.getElementById('probe-content').insertAdjacentHTML('afterbegin',`<div class="probe-score">
+    <div style="font-size:10px;opacity:.6;letter-spacing:.1em;text-transform:uppercase;margin-bottom:5px">Dein Ergebnis</div>
+    <div class="ps-pts" style="color:${farbe}">${got}</div>
+    <div style="font-size:13px;opacity:.7;margin-top:2px">von ${total} Punkten</div>
+    <div class="ps-bar"><div class="ps-fill" style="width:${Math.round(pct*100)}%"></div></div>
+    <div style="font-size:22px;font-weight:900;color:${farbe}">Note ${note}</div>
+    <div style="font-size:13px;opacity:.8;margin-top:5px">${msg}</div>
+  </div>
+  <button style="width:100%;padding:11px;background:var(--grn);border:none;border-radius:var(--r);color:#fff;font-size:13px;font-weight:900;cursor:pointer;font-family:'DM Sans',sans-serif;margin-bottom:8px" onclick="probeReset()">🔄 Nochmal</button>`);
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function probeReset(){probeAns={};document.getElementById('probe-content').innerHTML='';buildProbe();window.scrollTo({top:0,behavior:'smooth'});}
+
+// SICKS AI
+let sO=false,sW=false,sH=[];
+function toggleS(){
+  sO=!sO;
+  document.getElementById('spanel').classList.toggle('open',sO);
+  if(sO)setTimeout(()=>document.getElementById('sinp').focus(),200);
+}
+function sM(role,text){
+  const c=document.getElementById('smsgs');
+  const d=document.createElement('div');d.className='smsg '+role;
+  const html=text.replace(/\n/g,'<br>').replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>');
+  d.innerHTML=`<div class="sav2">${role==='ai'?'🤖':'Du'}</div><div class="sbbl">${html}</div>`;
+  c.appendChild(d);c.scrollTop=c.scrollHeight;
+}
+function sDots(){
+  const c=document.getElementById('smsgs');
+  const d=document.createElement('div');d.className='smsg ai';d.id='sdots_';
+  d.innerHTML=`<div class="sav2">🤖</div><div class="sbbl"><div class="sdots"><span></span><span></span><span></span></div></div>`;
+  c.appendChild(d);c.scrollTop=c.scrollHeight;
+}
+function sAsk(prompt){
+  if(!sO)toggleS();
+  setTimeout(()=>{document.getElementById('sinp').value=prompt;sSend();},300);
+}
+
+const SICKS_SYSTEM=`Du bist SICKS, ein freundlicher Mathe-Lernhelfer für Schüler.
+
+WICHTIGSTE REGEL: Sag NIEMALS die Lösung oder das Ergebnis direkt!
+Stattdessen: Gib einen Hinweis, stelle eine Frage, erkläre den nächsten Schritt.
+Beispiel: Wenn jemand fragt "Was ist 2³×2²?" sage NICHT "32". Sage: "Schau: gleiche Basis? Dann addiere die Exponenten! Was ist 3+2?"
+
+WEITERE REGELN:
+- Immer auf Deutsch
+- Max 4 Zeilen — kurz und einfach wie für einen 10-Jährigen
+- Helfe mit Tipps und Fragen, nicht mit fertigen Antworten
+- Motiviere den Schüler ("Fast!", "Super Ansatz!", "Denk nochmal nach...")
+- Brüche als Zähler/Nenner schreiben
+
+THEMEN:
+POTENZEN: aⁿ×aᵐ → Exponenten addieren | aⁿ÷aᵐ → subtrahieren | (aⁿ)ᵐ → multiplizieren | a⁰=1 | negativ=Bruch
+WISS. SCHREIBWEISE: a·10ⁿ, a zwischen 1 und 10 | groß→+ | klein→-
+WAHRSCHEINLICHKEIT: Ast folgen=× | verschiedene Äste=+ | Probe=1`;
+
+async function sSend(){
+  if(sW)return;
+  const inp=document.getElementById('sinp');
+  const msg=inp.value.trim();if(!msg)return;
+  inp.value='';inp.style.height='auto';
+  document.getElementById('ssend').disabled=true;sW=true;
+  sM('user',msg);sDots();
+
+  try{
+    const messages=[
+      {role:'user',content:SICKS_SYSTEM+'\n\nFRAGE: '+msg}
+    ];
+    // Add history
+    sH.slice(-4).forEach(h=>{
+      messages.push({role:'user',content:h.u});
+      messages.push({role:'assistant',content:h.a});
+    });
+    messages.push({role:'user',content:msg});
+
+    const res=await fetch('https://api.anthropic.com/v1/messages',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({
+        model:'claude-sonnet-4-20250514',
+        max_tokens:300,
+        system:SICKS_SYSTEM,
+        messages:[...sH.slice(-4).flatMap(h=>[{role:'user',content:h.u},{role:'assistant',content:h.a}]),{role:'user',content:msg}]
+      })
+    });
+    const data=await res.json();
+    document.getElementById('sdots_')?.remove();
+    const r=data.content?.[0]?.text||'Entschuldigung, ich konnte nicht antworten.';
+    sH.push({u:msg,a:r});if(sH.length>6)sH=sH.slice(-6);
+    sM('ai',r);
+  }catch(e){
+    document.getElementById('sdots_')?.remove();
+    sM('ai','❌ Verbindungsfehler. Versuch es nochmal!');
+  }
+  sW=false;document.getElementById('ssend').disabled=false;
+  document.getElementById('sinp').focus();
+}
+
+
+// CALCULATOR
+let cCur='0', cPrev='', cOpr='', cNew=true, cHist=[];
+function cDisp(){
+  document.getElementById('cval').textContent=cCur;
+  document.getElementById('cexpr').textContent=cPrev&&cOpr?cPrev+' '+cOpr:'\u00a0';
+}
+function cNum(n){
+  if(cNew){cCur=n;cNew=false;}
+  else cCur=cCur==='0'?n:cCur+n;
+  cDisp();
+}
+function cDot(){
+  if(cNew){cCur='0,';cNew=false;}
+  else if(!cCur.includes(','))cCur+=',';
+  cDisp();
+}
+function cOp(op){
+  if(cPrev&&cOpr&&!cNew)cEqInternal();
+  cPrev=cCur;cOpr=op;cNew=true;cDisp();
+}
+function cEqInternal(){
+  const a=parseFloat(cPrev.replace(',','.')),b=parseFloat(cCur.replace(',','.'));
+  let r;
+  if(cOpr==='+'||cOpr==='＋')r=a+b;
+  else if(cOpr==='−'||cOpr==='-')r=a-b;
+  else if(cOpr==='×'||cOpr==='*')r=a*b;
+  else if(cOpr==='÷'||cOpr==='/')r=b!==0?a/b:0;
+  else r=b;
+  const rStr=String(Math.round(r*1e10)/1e10).replace('.',',');
+  const entry=cPrev+' '+cOpr+' '+cCur+' = '+rStr;
+  cHist.unshift(entry);if(cHist.length>5)cHist.pop();
+  const hEl=document.getElementById('chist');
+  hEl.innerHTML=cHist.map(h=>`<div class="ch-item">${h}</div>`).join('');
+  cCur=rStr;cPrev='';cOpr='';cNew=true;
+}
+function cEq(){if(cOpr)cEqInternal();cDisp();}
+function cAC(){cCur='0';cPrev='';cOpr='';cNew=true;cDisp();}
+function cDel(){
+  if(cNew||cCur.length<=1){cCur='0';cNew=true;}
+  else cCur=cCur.slice(0,-1);
+  cDisp();
+}
+function cSign(){cCur=String(-parseFloat(cCur.replace(',','.'))).replace('.',',');cDisp();}
+function cPct(){cCur=String(parseFloat(cCur.replace(',','.'))/100).replace('.',',');cDisp();}
+function cPow(n){
+  const v=parseFloat(cCur.replace(',','.'));
+  const r=Math.pow(v,n);
+  const rStr=String(Math.round(r*1e10)/1e10).replace('.',',');
+  cHist.unshift(cCur+' ^ '+n+' = '+rStr);if(cHist.length>5)cHist.pop();
+  document.getElementById('chist').innerHTML=cHist.map(h=>`<div class="ch-item">${h}</div>`).join('');
+  cCur=rStr;cNew=true;cDisp();
+}
+function cPowN(){
+  const n=parseInt(document.getElementById('powN').value)||2;
+  cPow(n);
+}
+function cSqrt(){
+  const v=parseFloat(cCur.replace(',','.'));
+  const r=Math.sqrt(v);
+  const rStr=String(Math.round(r*1e10)/1e10).replace('.',',');
+  cHist.unshift('√'+cCur+' = '+rStr);if(cHist.length>5)cHist.pop();
+  document.getElementById('chist').innerHTML=cHist.map(h=>`<div class="ch-item">${h}</div>`).join('');
+  cCur=rStr;cNew=true;cDisp();
+}
+
+let tt;
+function toast(msg){const el=document.getElementById('toast');el.textContent=msg;el.classList.add('show');clearTimeout(tt);tt=setTimeout(()=>el.classList.remove('show'),2400);}
+</script>
+</body>
+</html>
