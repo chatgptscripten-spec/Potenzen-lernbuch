@@ -462,39 +462,131 @@ const TCONTENT={
 <div class="card"><div class="ch">⚡ Quiz</div><div id="qa_t2"></div><button class="cbtn" id="cb_t2" onclick="finT(2)" disabled>Abschließen</button></div>`,
 
 3:`${BK}
-<div class="hero" style="background:linear-gradient(135deg,#1a4a3a,#0f2a20)"><div class="htag">Thema 4</div><h2>🌳 Wahrscheinlichkeit Grundlagen</h2><p>Baumdiagramm, Pfad- und Summenregel!</p><div class="hi">🌳</div></div>
-<div class="card"><div class="ch">💡 Die 3 Grundregeln</div>
-<div class="fbox"><div class="fm">Pfadregel: P = P₁ × P₂ ×…</div><div class="fs">Einem Ast folgen → MULTIPLIZIEREN</div></div>
-<div class="fbox"><div class="fm">Summenregel: P = Pfad₁ + Pfad₂</div><div class="fs">Mehrere günstige Wege → ADDIEREN</div></div>
-<div class="fbox"><div class="fm">Probe: alle Äste = 1 = 100%</div><div class="fs">Kontrollrechnung am Ende — immer machen!</div></div>
-<div class="steps" style="margin-top:8px">
-<div class="step"><span class="sn">MIT</span><div class="st2">MIT Zurücklegen → Nenner bleibt immer gleich</div></div>
-<div class="step"><span class="sn">OHNE</span><div class="st2">OHNE Zurücklegen → nach jedem Zug Nenner −1</div></div>
+<div class="hero" style="background:linear-gradient(135deg,#1a4a3a,#0f2a20)"><div class="htag">Thema 4</div><h2>🌳 Baumdiagramm</h2><p>Mit echten Aufgaben Schritt für Schritt!</p><div class="hi">🌳</div></div>
+
+<div class="card"><div class="ch">📌 So liest man ein Baumdiagramm</div>
+<div style="font-size:12px;font-weight:600;background:#fafaf7;border-radius:7px;padding:10px 12px;border-left:3px solid var(--grn);line-height:1.9;margin-bottom:8px">
+👉 Jeder <strong>Ast</strong> = eine Möglichkeit<br>
+👉 Einem Ast folgen → Wahrscheinlichkeiten <strong>multiplizieren (×)</strong><br>
+👉 Mehrere Äste wollen → Ergebnisse <strong>addieren (+)</strong><br>
+👉 Am Ende: alle Äste zusammen = <strong>1 (Probe!)</strong>
 </div>
-<div class="tip">💡 Merktrick: Auf einem Ast → × &nbsp;|&nbsp; Verschiedene Äste → +</div>
+<div class="fbox"><div class="fm">Pfad: P₁ × P₂ × …</div><div class="fs">Einem Ast folgen = multiplizieren</div></div>
+<div class="fbox"><div class="fm">Summe: Pfad₁ + Pfad₂</div><div class="fs">Mehrere günstige Wege = addieren</div></div>
 </div>
+
+<div class="card"><div class="ch">🎯 Aufgabe 1 — Münze 2× werfen</div>
+<div style="font-size:12px;font-weight:700;padding:9px 12px;background:#e0f2fe;border-radius:7px;margin-bottom:9px;border-left:3px solid #0ea5e9;line-height:1.7;color:#0c4a6e">
+Eine Münze wird <strong>2× geworfen</strong>.<br>
+Frage: Wie wahrscheinlich ist es, <strong>genau 2× Kopf</strong> zu werfen?
+</div>
+<div style="font-family:'DM Mono',monospace;font-size:11px;background:#f0fdf4;border-radius:8px;padding:11px 13px;line-height:2.2;border:1px solid #86efac;margin-bottom:9px">
+Münze<br>
+├─ Kopf (1/2)<br>
+│&nbsp;&nbsp;&nbsp;├─ Kopf (1/2) → KK ✅<br>
+│&nbsp;&nbsp;&nbsp;└─ Zahl (1/2) → KZ<br>
+└─ Zahl (1/2)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;├─ Kopf (1/2) → ZK<br>
+&nbsp;&nbsp;&nbsp;&nbsp;└─ Zahl (1/2) → ZZ
+</div>
+<div class="steps">
+<div class="step"><span class="sn">Schritt 1</span><div class="st2">Pfad KK: 1/2 × 1/2 = <strong>1/4</strong></div><div class="sv">1/4</div></div>
+<div class="step"><span class="sn">Schritt 2</span><div class="st2">Probe: KK+KZ+ZK+ZZ = 4 × 1/4 = <strong>1 ✅</strong></div></div>
+<div class="step" style="border-left-color:var(--grn)"><span class="sn">Antwort</span><div class="st2">P(2× Kopf) = <strong>1/4 = 25%</strong></div><div class="sv">25%</div></div>
+</div></div>
+
+<div class="card"><div class="ch">🎯 Aufgabe 2 — Kugeln ohne Zurücklegen</div>
+<div style="font-size:12px;font-weight:700;padding:9px 12px;background:#e0f2fe;border-radius:7px;margin-bottom:9px;border-left:3px solid #0ea5e9;line-height:1.7;color:#0c4a6e">
+Säckchen: <strong>3 rote</strong> + <strong>2 blaue</strong> Kugeln (5 gesamt).<br>
+Man zieht <strong>2× ohne Zurücklegen</strong>.<br>
+Frage: Wie wahrscheinlich sind <strong>2 rote</strong>?
+</div>
+<div style="font-family:'DM Mono',monospace;font-size:11px;background:#f0fdf4;border-radius:8px;padding:11px 13px;line-height:2.2;border:1px solid #86efac;margin-bottom:9px">
+1. Zug<br>
+├─ rot (3/5)<br>
+│&nbsp;&nbsp;&nbsp;├─ rot (2/4) → rr ✅<br>
+│&nbsp;&nbsp;&nbsp;└─ blau (2/4) → rb<br>
+└─ blau (2/5)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;├─ rot (3/4) → br<br>
+&nbsp;&nbsp;&nbsp;&nbsp;└─ blau (1/4) → bb
+</div>
+<div class="steps">
+<div class="step"><span class="sn">1. Zug</span><div class="st2">3 rote von 5 → P(rot) = 3/5</div><div class="sv">3/5</div></div>
+<div class="step"><span class="sn">2. Zug</span><div class="st2">1 rote weg → 4 übrig, 2 rot → P(rot) = 2/4</div><div class="sv">2/4</div></div>
+<div class="step" style="border-left-color:var(--grn)"><span class="sn">Pfad ×</span><div class="st2">P(rr) = 3/5 × 2/4 = 6/20 = <strong>3/10 = 30%</strong></div><div class="sv">30%</div></div>
+</div>
+<div class="warn">⚠️ OHNE Zurücklegen → nach jedem Zug Nenner −1 und gezogene Kugel abziehen!</div>
+</div>
+
+<div class="card"><div class="ch">🎯 Aufgabe 3 — Mindestens 1 Treffer</div>
+<div style="font-size:12px;font-weight:700;padding:9px 12px;background:#e0f2fe;border-radius:7px;margin-bottom:9px;border-left:3px solid #0ea5e9;line-height:1.7;color:#0c4a6e">
+Ein Schütze trifft mit P = 2/3.<br>
+Er schießt <strong>2×</strong>.<br>
+Frage: Wie wahrscheinlich ist <strong>mindestens 1 Treffer</strong>?
+</div>
+<div class="steps">
+<div class="step"><span class="sn">Trick!</span><div class="st2"><strong>Mindestens 1</strong> = 1 − P(gar kein Treffer)<br><small style="color:var(--muted)">Das ist viel einfacher zu rechnen!</small></div></div>
+<div class="step"><span class="sn">Kein T.</span><div class="st2">P(kein Treffer) = 1/3 × 1/3 = <strong>1/9</strong></div><div class="sv">1/9</div></div>
+<div class="step" style="border-left-color:var(--grn)"><span class="sn">Antwort</span><div class="st2">P(mind. 1) = 1 − 1/9 = <strong>8/9 ≈ 89%</strong></div><div class="sv">89%</div></div>
+</div>
+<div class="tip">💡 "Mindestens 1" → immer: 1 − P(gar keiner). Merken!</div>
+</div>
+
 <div class="card"><div class="ch">⚡ Quiz</div><div id="qa_t3"></div><button class="cbtn" id="cb_t3" onclick="finT(3)" disabled>Abschließen</button></div>`,
 
 4:`${BK}
-<div class="hero" style="background:linear-gradient(135deg,#5c1a3a,#3a0f25)"><div class="htag">Thema 5</div><h2>✖️ Pfad- & Summenregel</h2><p>Mit Beispielen aus der Klasse!</p><div class="hi">×+</div></div>
-<div class="card"><div class="ch">📋 Beispiel: Karten K, E, O, A</div>
-<div style="font-size:12px;font-weight:600;background:#fafaf7;border-radius:7px;padding:9px 11px;border-left:3px solid var(--grn);margin-bottom:8px;line-height:1.7">
-4 Karten: K, E, O, A — man zieht 2 <strong>ohne Zurücklegen</strong>.<br>
-Kombination „OK" = Kaugummi 🍬
+<div class="hero" style="background:linear-gradient(135deg,#5c1a3a,#3a0f25)"><div class="htag">Thema 5</div><h2>✖️ Summen- & Pfadregel</h2><p>Mehrere Aufgaben mit Baumdiagramm!</p><div class="hi">×+</div></div>
+
+<div class="card"><div class="ch">🎯 Aufgabe 1 — Karten K, E, O, A (aus deiner Klasse!)</div>
+<div style="font-size:12px;font-weight:700;padding:9px 12px;background:#e0f2fe;border-radius:7px;margin-bottom:9px;border-left:3px solid #0ea5e9;line-height:1.7;color:#0c4a6e">
+4 Karten: K, E, O, A. Man zieht <strong>2× ohne Zurücklegen</strong>.<br>
+Kombination „OK" (erst O, dann K) = Kaugummi 🍬<br>
+Frage: Wie wahrscheinlich ist „OK"?
+</div>
+<div style="font-family:'DM Mono',monospace;font-size:11px;background:#f0fdf4;border-radius:8px;padding:11px 13px;line-height:2.2;border:1px solid #86efac;margin-bottom:9px">
+1. Zug (4 Karten)<br>
+├─ K (1/4) → K,E,O,A<br>
+├─ E (1/4) → K,E,O,A<br>
+├─ O (1/4)<br>
+│&nbsp;&nbsp;&nbsp;├─ K (1/3) → OK ✅🍬<br>
+│&nbsp;&nbsp;&nbsp;├─ E (1/3)<br>
+│&nbsp;&nbsp;&nbsp;└─ A (1/3)<br>
+└─ A (1/4) → …
 </div>
 <div class="steps">
 <div class="step"><span class="sn">1. Zug</span><div class="st2">P(O) = 1 von 4 Karten = 1/4</div><div class="sv">1/4</div></div>
 <div class="step"><span class="sn">2. Zug</span><div class="st2">O weg → 3 Karten übrig → P(K) = 1/3</div><div class="sv">1/3</div></div>
-<div class="step" style="border-left-color:var(--grn)"><span class="sn">Pfad</span><div class="st2">P(„OK") = 1/4 × 1/3 = <strong>1/12 ≈ 8,3%</strong></div><div class="sv">1/12</div></div>
-<div class="step"><span class="sn">Erw.</span><div class="st2">30 Schüler × 1/12 ≈ <strong>3 Kaugummis</strong></div><div class="sv">≈3</div></div>
+<div class="step" style="border-left-color:var(--grn)"><span class="sn">Pfad ×</span><div class="st2">P(OK) = 1/4 × 1/3 = <strong>1/12 ≈ 8,3%</strong></div><div class="sv">1/12</div></div>
+<div class="step"><span class="sn">Erwartet</span><div class="st2">30 Schüler × 1/12 ≈ <strong>2,5 ≈ 3 Kaugummis</strong></div><div class="sv">≈3</div></div>
 </div></div>
-<div class="card"><div class="ch">📋 Beispiel: 5 weiße + 5 schwarze Kugeln</div>
+
+<div class="card"><div class="ch">🎯 Aufgabe 2 — Würfel: gerade oder ungerade</div>
+<div style="font-size:12px;font-weight:700;padding:9px 12px;background:#e0f2fe;border-radius:7px;margin-bottom:9px;border-left:3px solid #0ea5e9;line-height:1.7;color:#0c4a6e">
+Ein Würfel wird <strong>2× geworfen</strong>.<br>
+Frage: Wie wahrscheinlich ist <strong>mindestens 1× gerade Zahl</strong>?
+</div>
 <div class="steps">
-<div class="step"><span class="sn">WW</span><div class="st2">5/10 × 4/9 = 20/90 = 2/9</div><div class="sv">2/9</div></div>
-<div class="step"><span class="sn">SS</span><div class="st2">5/10 × 4/9 = 20/90 = 2/9</div><div class="sv">2/9</div></div>
-<div class="step" style="border-left-color:var(--grn)"><span class="sn">+</span><div class="st2">P(gleichfarb.) = 2/9 + 2/9 = <strong>4/9 ≈ 44%</strong></div><div class="sv">44%</div></div>
-<div class="step"><span class="sn">Rest</span><div class="st2">P(verschied.) = 1 − 4/9 = <strong>5/9 ≈ 56%</strong></div><div class="sv">56%</div></div>
+<div class="step"><span class="sn">P(gerade)</span><div class="st2">2,4,6 → 3 von 6 → P(gerade) = 1/2</div><div class="sv">1/2</div></div>
+<div class="step"><span class="sn">Trick</span><div class="st2">Mindestens 1 gerade = 1 − P(beide ungerade)</div></div>
+<div class="step"><span class="sn">Beide ug.</span><div class="st2">P(ug,ug) = 1/2 × 1/2 = 1/4</div><div class="sv">1/4</div></div>
+<div class="step" style="border-left-color:var(--grn)"><span class="sn">Antwort</span><div class="st2">P(mind. 1 gerade) = 1 − 1/4 = <strong>3/4 = 75%</strong></div><div class="sv">75%</div></div>
 </div></div>
+
+<div class="card"><div class="ch">🎯 Aufgabe 3 — 5 weiße + 5 schwarze Kugeln</div>
+<div style="font-size:12px;font-weight:700;padding:9px 12px;background:#e0f2fe;border-radius:7px;margin-bottom:9px;border-left:3px solid #0ea5e9;line-height:1.7;color:#0c4a6e">
+Säckchen: <strong>5 weiße + 5 schwarze</strong> Kugeln.<br>
+Man zieht <strong>2× ohne Zurücklegen</strong>.<br>
+Frage: Wie wahrscheinlich sind <strong>gleichfarbige</strong> Kugeln?
+</div>
+<div class="steps">
+<div class="step"><span class="sn">WW</span><div class="st2">5/10 × 4/9 = 20/90 = <strong>2/9</strong></div><div class="sv">2/9</div></div>
+<div class="step"><span class="sn">SS</span><div class="st2">5/10 × 4/9 = 20/90 = <strong>2/9</strong></div><div class="sv">2/9</div></div>
+<div class="step" style="border-left-color:var(--grn)"><span class="sn">+ (Summe)</span><div class="st2">P(gleichf.) = 2/9 + 2/9 = <strong>4/9 ≈ 44%</strong></div><div class="sv">44%</div></div>
+<div class="step"><span class="sn">Rest</span><div class="st2">P(verschiedf.) = 1 − 4/9 = <strong>5/9 ≈ 56%</strong></div><div class="sv">56%</div></div>
+</div>
+<div class="tip">💡 Beide gleich = WW ODER SS → Summenregel: WW + SS addieren!</div>
+</div>
+
 <div class="card"><div class="ch">⚡ Quiz</div><div id="qa_t4"></div><button class="cbtn" id="cb_t4" onclick="finT(4)" disabled>Abschließen</button></div>`,
 
 5:`${BK}
@@ -669,7 +761,7 @@ async function sSend(){
     sH.push({u:msg,a:r});if(sH.length>6)sH=sH.slice(-6);
     sM('ai',r);
   }catch(e){
-    document.getElementById('sdots_')?.remove()
+    document.getElementById('sdots_')?.remove();
     sM('ai','❌ Verbindungsfehler. Versuch es nochmal!');
   }
   sW=false;document.getElementById('ssend').disabled=false;
