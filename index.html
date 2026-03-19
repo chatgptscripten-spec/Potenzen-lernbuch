@@ -110,6 +110,24 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 .toast{position:fixed;bottom:16px;left:50%;transform:translateX(-50%) translateY(50px);background:var(--grn);color:#fff;padding:7px 16px;border-radius:36px;font-weight:800;font-size:12px;z-index:200;transition:transform .26s;pointer-events:none;font-family:'DM Sans',sans-serif}
 .toast.show{transform:translateX(-50%) translateY(0)}
 @keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
+
+.calc-wrap{max-width:320px;margin:0 auto}
+.calc-screen{background:#1a1a1a;color:#fff;border-radius:10px;padding:16px 14px 10px;margin-bottom:10px;text-align:right}
+.calc-expr{font-size:13px;color:#888;font-family:'DM Mono',monospace;min-height:18px;margin-bottom:4px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.calc-val{font-size:32px;font-weight:700;font-family:'DM Mono',monospace;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.calc-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.cb{padding:16px 6px;border-radius:9px;border:none;font-size:16px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .1s;active:scale(.95)}
+.cb:active{transform:scale(.95)}
+.cb-num{background:#f3f0ea;color:#1a1a1a}
+.cb-num:hover{background:#e8e4dc}
+.cb-op{background:#2a5c2a;color:#fff}
+.cb-op:hover{background:#1d3f1d}
+.cb-eq{background:#c23b0a;color:#fff}
+.cb-eq:hover{background:#9e2e07}
+.cb-cl{background:#888;color:#fff}
+.cb-cl:hover{background:#666}
+.calc-history{margin-top:10px}
+.ch-item{font-size:12px;font-family:'DM Mono',monospace;padding:5px 8px;background:#fafaf7;border-radius:6px;margin-bottom:4px;color:#555;border-left:3px solid var(--grn)}
 </style>
 </head>
 <body>
@@ -125,16 +143,20 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 </div>
 
 <div class="nav">
-  <button class="nbt on" onclick="switchPg('lernen',this)">📚 Lernen</button>
-  <button class="nbt" onclick="switchPg('probe',this)">📝 Probetest</button>
-  <button class="nbt" onclick="switchPg('spick',this)">📋 Spickzettel</button>
+  <button class="nbt on" onclick="switchPg('probe',this)">📝 Probearbeit</button>
+  <button class="nbt" onclick="switchPg('calc',this)">🧮 Rechner</button>
 </div>
 
 <div class="wrap">
 
   <!-- LERNEN -->
-  <div data-pg="lernen" class="show">
+  <div data-pg="lernen">
     <div id="picker">
+      <div style="background:linear-gradient(135deg,#c23b0a,#9e2e07);color:#fff;border-radius:10px;padding:12px 14px;margin-bottom:10px;font-size:13px;font-weight:700;line-height:1.8;text-align:center">
+        ⏱️ <strong>Dein Plan heute:</strong><br>
+        Zuerst alle Themen lernen 📚<br>
+        Dann: Probearbeit (45 Min) bis 12:20 Uhr 💪
+      </div>
       <div class="card" style="background:linear-gradient(135deg,var(--grn),var(--grn2));color:#fff;border:none;font-size:12px;font-weight:600;line-height:1.8">
         <strong>Heute Themen:</strong><br>
         ⚡ Potenzgesetze &nbsp;|&nbsp; 🔬 Wiss. Schreibweise &nbsp;|&nbsp; 🎲 Wahrscheinlichkeit
@@ -145,13 +167,36 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
   </div>
 
   <!-- PROBETEST -->
-  <div data-pg="probe">
-    <div style="background:linear-gradient(135deg,#1a0a2e,#2d1260);color:#fff;border-radius:var(--r);padding:16px;margin-bottom:12px;text-align:center">
-      <div style="font-size:10px;font-weight:800;opacity:.6;letter-spacing:.13em;text-transform:uppercase;margin-bottom:4px">Vorbereitung</div>
-      <div style="font-size:18px;font-weight:900;margin-bottom:3px">📝 Probetest</div>
-      <div style="font-size:11px;opacity:.7">Genau wie die echte Arbeit — teste dich selbst!</div>
+  <div data-pg="probe" class="show">
+    <!-- START SCREEN -->
+    <div id="probe-start" style="text-align:center;padding:30px 16px">
+      <div style="font-size:60px;margin-bottom:12px">📝</div>
+      <div style="font-size:22px;font-weight:900;margin-bottom:6px;color:var(--text)">Probearbeit</div>
+      <div style="font-size:14px;color:var(--muted);margin-bottom:6px;font-weight:600">Basisteil + Hauptteil mit Baumdiagramm</div>
+      <div style="background:#f0fdf4;border:2px solid #86efac;border-radius:10px;padding:12px;margin:14px 0;font-size:13px;font-weight:700;line-height:2;color:var(--text)">
+        ⏱️ Du hast <strong>45 Minuten</strong> Zeit<br>
+        ⏰ Seite sperrt um <strong>12:20 Uhr</strong><br>
+        🤖 Sicks gibt Tipps — aber keine Lösungen!<br>
+        ✅ Am Ende auf <strong>Auswerten</strong> klicken
+      </div>
+      <button onclick="probeStart()" style="padding:16px 40px;background:var(--grn);border:none;border-radius:10px;color:#fff;font-size:18px;font-weight:900;cursor:pointer;font-family:'DM Sans',sans-serif;width:100%;max-width:300px">
+        🚀 Probearbeit starten!
+      </button>
     </div>
-    <div id="probe-content"></div>
+    <!-- PROBE RUNNING -->
+    <div id="probe-running" style="display:none">
+      <div style="background:linear-gradient(135deg,#1a0a2e,#2d1260);color:#fff;border-radius:var(--r);padding:14px 16px;margin-bottom:12px;display:flex;align-items:center;justify-content:space-between;gap:10px">
+        <div>
+          <div style="font-size:11px;opacity:.6;font-weight:800;letter-spacing:.1em;text-transform:uppercase">Probearbeit läuft</div>
+          <div style="font-size:16px;font-weight:900;margin-top:2px">📝 Viel Erfolg! 💪</div>
+        </div>
+        <div style="text-align:right">
+          <div style="font-size:10px;opacity:.6;margin-bottom:3px">Verbleibende Zeit</div>
+          <div style="background:rgba(255,255,255,.15);border-radius:8px;padding:8px 14px;font-family:'DM Mono',monospace;font-size:20px;font-weight:900" id="probe-timer">45:00</div>
+        </div>
+      </div>
+      <div id="probe-content"></div>
+    </div>
   </div>
 
   <!-- SPICKZETTEL -->
@@ -205,6 +250,57 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 
 </div>
 
+
+  <!-- RECHNER -->
+  <div data-pg="calc">
+    <div class="calc-wrap">
+      <div style="text-align:center;font-size:13px;font-weight:700;color:var(--muted);margin-bottom:10px">🧮 Taschenrechner</div>
+      <div class="calc-screen">
+        <div class="calc-expr" id="cexpr">&nbsp;</div>
+        <div class="calc-val" id="cval">0</div>
+      </div>
+      <div class="calc-grid">
+        <button class="cb cb-cl" onclick="cAC()">AC</button>
+        <button class="cb cb-cl" onclick="cSign()">+/−</button>
+        <button class="cb cb-cl" onclick="cPct()">%</button>
+        <button class="cb cb-op" onclick="cOp('÷')">÷</button>
+
+        <button class="cb cb-num" onclick="cNum('7')">7</button>
+        <button class="cb cb-num" onclick="cNum('8')">8</button>
+        <button class="cb cb-num" onclick="cNum('9')">9</button>
+        <button class="cb cb-op" onclick="cOp('×')">×</button>
+
+        <button class="cb cb-num" onclick="cNum('4')">4</button>
+        <button class="cb cb-num" onclick="cNum('5')">5</button>
+        <button class="cb cb-num" onclick="cNum('6')">6</button>
+        <button class="cb cb-op" onclick="cOp('−')">−</button>
+
+        <button class="cb cb-num" onclick="cNum('1')">1</button>
+        <button class="cb cb-num" onclick="cNum('2')">2</button>
+        <button class="cb cb-num" onclick="cNum('3')">3</button>
+        <button class="cb cb-op" onclick="cOp('+')">+</button>
+
+        <button class="cb cb-num" onclick="cNum('0')" style="grid-column:span 2">0</button>
+        <button class="cb cb-num" onclick="cDot()">,</button>
+        <button class="cb cb-eq" onclick="cEq()">=</button>
+      </div>
+      <!-- Potenz-Zeile -->
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:8px">
+        <button class="cb cb-op" onclick="cPow(2)" style="font-size:13px">x²</button>
+        <button class="cb cb-op" onclick="cPow(3)" style="font-size:13px">x³</button>
+        <button class="cb cb-op" onclick="cSqrt()" style="font-size:13px">√x</button>
+        <button class="cb cb-cl" onclick="cDel()" style="font-size:13px">⌫</button>
+      </div>
+      <!-- Eigene Hochzahl -->
+      <div style="display:flex;gap:8px;margin-top:8px;align-items:center">
+        <div style="font-size:13px;font-weight:700;color:var(--muted);flex-shrink:0">xⁿ eigene:</div>
+        <input id="powN" type="number" min="1" max="99" value="4" style="width:60px;padding:8px;border:1.5px solid var(--brd);border-radius:7px;font-size:14px;font-family:'DM Mono',monospace;font-weight:700;text-align:center;outline:none;background:#fafaf7">
+        <button class="cb cb-op" onclick="cPowN()" style="flex:1;font-size:13px">xⁿ berechnen</button>
+      </div>
+      <div class="calc-history" id="chist"></div>
+    </div>
+  </div>
+
 <!-- SICKS CHAT -->
 <button class="sfab" onclick="toggleS()" id="sfab">🤖</button>
 <div class="spanel" id="spanel">
@@ -232,13 +328,13 @@ let pts=0,ans={},dT={},uT={0:true,1:true,2:true,3:true,4:true,5:true};
 function sv(){localStorage.setItem('mla_data',JSON.stringify({pts,ans,dT,uT}));}
 function ld(){try{const d=JSON.parse(localStorage.getItem('mla_data')||'{}');pts=d.pts||0;ans=d.ans||{};dT=d.dT||{};uT=d.uT||{0:true,1:false,2:false,3:false,4:false,5:false};document.getElementById('pts').textContent=pts;}catch(e){}}
 
-window.addEventListener('DOMContentLoaded',()=>{ld();buildGrid();buildProbe();startCD();
+window.addEventListener('DOMContentLoaded',()=>{ld();buildGrid();startCD();
   setTimeout(()=>{sM('ai','Hey! 👋 Ich bin <strong>Sicks</strong>, dein Mathe-Assistent!\nFrag mich alles was du nicht verstehst — ich erkläre kurz und einfach! 😊\n\n⚡ Potenzgesetze\n🔬 Wissenschaftliche Schreibweise\n🎲 Wahrscheinlichkeit');},400);
 });
 
 function startCD(){
   function t(){
-    const d=new Date('2026-03-19T12:30:00')-new Date();
+    const d=new Date('2026-03-19T12:20:00')-new Date();
     const el=document.getElementById('cdt');
     if(d<=0){el.textContent='Die Arbeit läuft! 💪';return;}
     const h=Math.floor(d/3600000),m=Math.floor(d%3600000/60000),s=Math.floor(d%60000/1000);
@@ -247,11 +343,48 @@ function startCD(){
   t();setInterval(t,1000);
 }
 
+let probeTimerInterval=null;
+function probeStart(){
+  // Hide start screen, show running
+  document.getElementById('probe-start').style.display='none';
+  document.getElementById('probe-running').style.display='block';
+  buildProbe();
+  startProbeTimer();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function startProbeTimer(){
+  if(probeTimerInterval)return;
+  const startTime=Date.now();
+  const endTime45=startTime+45*60*1000;
+  const deadline=new Date('2026-03-19T12:20:00').getTime();
+  probeTimerInterval=setInterval(()=>{
+    const now=Date.now();
+    const remaining=Math.min(endTime45-now, deadline-now);
+    const el=document.getElementById('probe-timer');
+    if(!el){clearInterval(probeTimerInterval);return;}
+    if(remaining<=0){
+      clearInterval(probeTimerInterval);
+      el.textContent='⏰ ZEIT UM!';
+      el.style.background='rgba(194,59,10,.8)';
+      el.style.fontSize='18px';
+      // disable all inputs
+      document.querySelectorAll('.pa-inp').forEach(i=>i.disabled=true);
+      document.querySelectorAll('.pa-check').forEach(b=>b.disabled=true);
+      return;
+    }
+    const totalSecs=Math.floor(remaining/1000);
+    const m=Math.floor(totalSecs/60),s=totalSecs%60;
+    const color=totalSecs<300?'rgba(194,59,10,.6)':totalSecs<600?'rgba(184,135,10,.4)':'rgba(255,255,255,.15)';
+    el.style.background=color;
+    el.textContent=String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');
+  },1000);
+}
 function switchPg(n,btn){
   document.querySelectorAll('.nbt').forEach(b=>b.classList.remove('on'));btn.classList.add('on');
   document.querySelectorAll('[data-pg]').forEach(p=>p.classList.remove('show'));
   document.querySelector(`[data-pg="${n}"]`).classList.add('show');
 }
+
 
 const THEMEN=[
   {id:0,i:'⚡',n:'Potenzgesetze Zahlen'},
@@ -571,15 +704,41 @@ Komma nach rechts<br>
 Eine Münze wird <strong>2× geworfen</strong>.<br>
 Frage: Wie wahrscheinlich ist es, <strong>genau 2× Kopf</strong> zu werfen?
 </div>
-<div style="font-family:'DM Mono',monospace;font-size:11px;background:#f0fdf4;border-radius:8px;padding:11px 13px;line-height:2.2;border:1px solid #86efac;margin-bottom:9px">
-Münze<br>
-├─ Kopf (1/2)<br>
-│&nbsp;&nbsp;&nbsp;├─ Kopf (1/2) → KK ✅<br>
-│&nbsp;&nbsp;&nbsp;└─ Zahl (1/2) → KZ<br>
-└─ Zahl (1/2)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;├─ Kopf (1/2) → ZK<br>
-&nbsp;&nbsp;&nbsp;&nbsp;└─ Zahl (1/2) → ZZ
-</div>
+<svg viewBox="0 0 340 200" style="width:100%;border-radius:8px;background:#f0fdf4;border:1.5px solid #86efac;margin-bottom:9px">
+  <!-- root -->
+  <circle cx="50" cy="100" r="18" fill="#2a5c2a"/>
+  <text x="50" y="105" text-anchor="middle" fill="white" font-size="11" font-weight="700">🪙</text>
+  <!-- left branch Kopf -->
+  <line x1="68" y1="88" x2="140" y2="55" stroke="#2a5c2a" stroke-width="2"/>
+  <text x="100" y="63" text-anchor="middle" fill="#2a5c2a" font-size="11" font-weight="700">1/2</text>
+  <circle cx="155" cy="50" r="22" fill="#2a5c2a"/>
+  <text x="155" y="55" text-anchor="middle" fill="white" font-size="10" font-weight="700">Kopf</text>
+  <!-- right branch Zahl -->
+  <line x1="68" y1="112" x2="140" y2="145" stroke="#888" stroke-width="2"/>
+  <text x="100" y="140" text-anchor="middle" fill="#888" font-size="11" font-weight="700">1/2</text>
+  <circle cx="155" cy="150" r="22" fill="#888"/>
+  <text x="155" y="155" text-anchor="middle" fill="white" font-size="10" font-weight="700">Zahl</text>
+  <!-- Kopf → Kopf ✅ -->
+  <line x1="177" y1="44" x2="230" y2="28" stroke="#2a5c2a" stroke-width="2"/>
+  <text x="200" y="28" text-anchor="middle" fill="#2a5c2a" font-size="10" font-weight="700">1/2</text>
+  <rect x="235" y="10" width="90" height="26" rx="6" fill="#dcfce7" stroke="#86efac" stroke-width="1.5"/>
+  <text x="280" y="27" text-anchor="middle" fill="#166534" font-size="11" font-weight="700">KK ✅ 25%</text>
+  <!-- Kopf → Zahl -->
+  <line x1="177" y1="56" x2="230" y2="68" stroke="#888" stroke-width="2"/>
+  <text x="200" y="68" text-anchor="middle" fill="#888" font-size="10" font-weight="700">1/2</text>
+  <rect x="235" y="55" width="70" height="24" rx="6" fill="#f3f0ea" stroke="#ddd6c8" stroke-width="1.5"/>
+  <text x="270" y="71" text-anchor="middle" fill="#555" font-size="11" font-weight="700">KZ</text>
+  <!-- Zahl → Kopf -->
+  <line x1="177" y1="142" x2="230" y2="128" stroke="#888" stroke-width="2"/>
+  <text x="200" y="128" text-anchor="middle" fill="#888" font-size="10" font-weight="700">1/2</text>
+  <rect x="235" y="115" width="70" height="24" rx="6" fill="#f3f0ea" stroke="#ddd6c8" stroke-width="1.5"/>
+  <text x="270" y="131" text-anchor="middle" fill="#555" font-size="11" font-weight="700">ZK</text>
+  <!-- Zahl → Zahl -->
+  <line x1="177" y1="158" x2="230" y2="168" stroke="#888" stroke-width="2"/>
+  <text x="200" y="172" text-anchor="middle" fill="#888" font-size="10" font-weight="700">1/2</text>
+  <rect x="235" y="158" width="70" height="24" rx="6" fill="#f3f0ea" stroke="#ddd6c8" stroke-width="1.5"/>
+  <text x="270" y="174" text-anchor="middle" fill="#555" font-size="11" font-weight="700">ZZ</text>
+</svg>
 <div class="steps">
 <div class="step"><span class="sn">Schritt 1</span><div class="st2">Pfad KK: 1/2 × 1/2 = <strong>1/4</strong></div><div class="sv">1/4</div></div>
 <div class="step"><span class="sn">Schritt 2</span><div class="st2">Probe: KK+KZ+ZK+ZZ = 4 × 1/4 = <strong>1 ✅</strong></div></div>
@@ -592,275 +751,43 @@ Säckchen: <strong>3 rote</strong> + <strong>2 blaue</strong> Kugeln (5 gesamt).
 Man zieht <strong>2× ohne Zurücklegen</strong>.<br>
 Frage: Wie wahrscheinlich sind <strong>2 rote</strong>?
 </div>
-<div style="font-family:'DM Mono',monospace;font-size:11px;background:#f0fdf4;border-radius:8px;padding:11px 13px;line-height:2.2;border:1px solid #86efac;margin-bottom:9px">
-1. Zug<br>
-├─ rot (3/5)<br>
-│&nbsp;&nbsp;&nbsp;├─ rot (2/4) → rr ✅<br>
-│&nbsp;&nbsp;&nbsp;└─ blau (2/4) → rb<br>
-└─ blau (2/5)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;├─ rot (3/4) → br<br>
-&nbsp;&nbsp;&nbsp;&nbsp;└─ blau (1/4) → bb
-</div>
+<svg viewBox="0 0 340 200" style="width:100%;border-radius:8px;background:#f0fdf4;border:1.5px solid #86efac;margin-bottom:9px">
+  <circle cx="50" cy="100" r="18" fill="#2a5c2a"/>
+  <text x="50" y="106" text-anchor="middle" fill="white" font-size="18">👜</text>
+  <!-- rot oben -->
+  <line x1="68" y1="88" x2="138" y2="55" stroke="#c23b0a" stroke-width="2.5"/>
+  <text x="96" y="60" text-anchor="middle" fill="#c23b0a" font-size="11" font-weight="700">3/5</text>
+  <circle cx="153" cy="50" r="22" fill="#c23b0a"/>
+  <text x="153" y="55" text-anchor="middle" fill="white" font-size="10" font-weight="700">rot</text>
+  <!-- blau unten -->
+  <line x1="68" y1="112" x2="138" y2="145" stroke="#1a3a5c" stroke-width="2.5"/>
+  <text x="96" y="140" text-anchor="middle" fill="#1a3a5c" font-size="11" font-weight="700">2/5</text>
+  <circle cx="153" cy="150" r="22" fill="#1a3a5c"/>
+  <text x="153" y="155" text-anchor="middle" fill="white" font-size="10" font-weight="700">blau</text>
+  <!-- rot → rot ✅ -->
+  <line x1="175" y1="43" x2="228" y2="27" stroke="#c23b0a" stroke-width="2"/>
+  <text x="198" y="26" text-anchor="middle" fill="#c23b0a" font-size="10" font-weight="700">2/4</text>
+  <rect x="233" y="10" width="95" height="26" rx="6" fill="#dcfce7" stroke="#86efac" stroke-width="1.5"/>
+  <text x="280" y="27" text-anchor="middle" fill="#166534" font-size="11" font-weight="700">rr ✅ 30%</text>
+  <!-- rot → blau -->
+  <line x1="175" y1="57" x2="228" y2="70" stroke="#1a3a5c" stroke-width="2"/>
+  <text x="198" y="68" text-anchor="middle" fill="#1a3a5c" font-size="10" font-weight="700">2/4</text>
+  <rect x="233" y="57" width="60" height="24" rx="6" fill="#f3f0ea" stroke="#ddd6c8" stroke-width="1.5"/>
+  <text x="263" y="73" text-anchor="middle" fill="#555" font-size="11" font-weight="700">rb</text>
+  <!-- blau → rot -->
+  <line x1="175" y1="143" x2="228" y2="128" stroke="#c23b0a" stroke-width="2"/>
+  <text x="198" y="128" text-anchor="middle" fill="#c23b0a" font-size="10" font-weight="700">3/4</text>
+  <rect x="233" y="115" width="60" height="24" rx="6" fill="#f3f0ea" stroke="#ddd6c8" stroke-width="1.5"/>
+  <text x="263" y="131" text-anchor="middle" fill="#555" font-size="11" font-weight="700">br</text>
+  <!-- blau → blau -->
+  <line x1="175" y1="157" x2="228" y2="170" stroke="#1a3a5c" stroke-width="2"/>
+  <text x="198" y="172" text-anchor="middle" fill="#1a3a5c" font-size="10" font-weight="700">1/4</text>
+  <rect x="233" y="158" width="60" height="24" rx="6" fill="#f3f0ea" stroke="#ddd6c8" stroke-width="1.5"/>
+  <text x="263" y="174" text-anchor="middle" fill="#555" font-size="11" font-weight="700">bb</text>
+</svg>
 <div class="steps">
 <div class="step"><span class="sn">1. Zug</span><div class="st2">3 rote von 5 → P(rot) = 3/5</div><div class="sv">3/5</div></div>
 <div class="step"><span class="sn">2. Zug</span><div class="st2">1 rote weg → 4 übrig, 2 rot → P(rot) = 2/4</div><div class="sv">2/4</div></div>
 <div class="step" style="border-left-color:var(--grn)"><span class="sn">Pfad ×</span><div class="st2">P(rr) = 3/5 × 2/4 = 6/20 = <strong>3/10 = 30%</strong></div><div class="sv">30%</div></div>
 </div>
-<div class="warn">⚠️ OHNE Zurücklegen → nach jedem Zug Nenner −1 und gezogene Kugel abziehen!</div>
-</div>
-
-<div class="card"><div class="ch">🎯 Aufgabe 3 — Mindestens 1 Treffer</div>
-<div style="font-size:12px;font-weight:700;padding:9px 12px;background:#e0f2fe;border-radius:7px;margin-bottom:9px;border-left:3px solid #0ea5e9;line-height:1.7;color:#0c4a6e">
-Ein Schütze trifft mit P = 2/3.<br>
-Er schießt <strong>2×</strong>.<br>
-Frage: Wie wahrscheinlich ist <strong>mindestens 1 Treffer</strong>?
-</div>
-<div class="steps">
-<div class="step"><span class="sn">Trick!</span><div class="st2"><strong>Mindestens 1</strong> = 1 − P(gar kein Treffer)<br><small style="color:var(--muted)">Das ist viel einfacher zu rechnen!</small></div></div>
-<div class="step"><span class="sn">Kein T.</span><div class="st2">P(kein Treffer) = 1/3 × 1/3 = <strong>1/9</strong></div><div class="sv">1/9</div></div>
-<div class="step" style="border-left-color:var(--grn)"><span class="sn">Antwort</span><div class="st2">P(mind. 1) = 1 − 1/9 = <strong>8/9 ≈ 89%</strong></div><div class="sv">89%</div></div>
-</div>
-<div class="tip">💡 "Mindestens 1" → immer: 1 − P(gar keiner). Merken!</div>
-</div>
-
-<div class="card"><div class="ch">⚡ Quiz</div><div id="qa_t3"></div><button class="cbtn" id="cb_t3" onclick="finT(3)" disabled>Abschließen</button></div>`,
-
-4:`${BK}
-<div class="hero" style="background:linear-gradient(135deg,#5c1a3a,#3a0f25)"><div class="htag">Thema 5</div><h2>✖️ Summen- & Pfadregel</h2><p>Mehrere Aufgaben mit Baumdiagramm!</p><div class="hi">×+</div></div>
-
-<div class="card"><div class="ch">🎯 Aufgabe 1 — Karten K, E, O, A (aus deiner Klasse!)</div>
-<div style="font-size:12px;font-weight:700;padding:9px 12px;background:#e0f2fe;border-radius:7px;margin-bottom:9px;border-left:3px solid #0ea5e9;line-height:1.7;color:#0c4a6e">
-4 Karten: K, E, O, A. Man zieht <strong>2× ohne Zurücklegen</strong>.<br>
-Kombination „OK" (erst O, dann K) = Kaugummi 🍬<br>
-Frage: Wie wahrscheinlich ist „OK"?
-</div>
-<div style="font-family:'DM Mono',monospace;font-size:11px;background:#f0fdf4;border-radius:8px;padding:11px 13px;line-height:2.2;border:1px solid #86efac;margin-bottom:9px">
-1. Zug (4 Karten)<br>
-├─ K (1/4) → K,E,O,A<br>
-├─ E (1/4) → K,E,O,A<br>
-├─ O (1/4)<br>
-│&nbsp;&nbsp;&nbsp;├─ K (1/3) → OK ✅🍬<br>
-│&nbsp;&nbsp;&nbsp;├─ E (1/3)<br>
-│&nbsp;&nbsp;&nbsp;└─ A (1/3)<br>
-└─ A (1/4) → …
-</div>
-<div class="steps">
-<div class="step"><span class="sn">1. Zug</span><div class="st2">P(O) = 1 von 4 Karten = 1/4</div><div class="sv">1/4</div></div>
-<div class="step"><span class="sn">2. Zug</span><div class="st2">O weg → 3 Karten übrig → P(K) = 1/3</div><div class="sv">1/3</div></div>
-<div class="step" style="border-left-color:var(--grn)"><span class="sn">Pfad ×</span><div class="st2">P(OK) = 1/4 × 1/3 = <strong>1/12 ≈ 8,3%</strong></div><div class="sv">1/12</div></div>
-<div class="step"><span class="sn">Erwartet</span><div class="st2">30 Schüler × 1/12 ≈ <strong>2,5 ≈ 3 Kaugummis</strong></div><div class="sv">≈3</div></div>
-</div></div>
-
-<div class="card"><div class="ch">🎯 Aufgabe 2 — Würfel: gerade oder ungerade</div>
-<div style="font-size:12px;font-weight:700;padding:9px 12px;background:#e0f2fe;border-radius:7px;margin-bottom:9px;border-left:3px solid #0ea5e9;line-height:1.7;color:#0c4a6e">
-Ein Würfel wird <strong>2× geworfen</strong>.<br>
-Frage: Wie wahrscheinlich ist <strong>mindestens 1× gerade Zahl</strong>?
-</div>
-<div class="steps">
-<div class="step"><span class="sn">P(gerade)</span><div class="st2">2,4,6 → 3 von 6 → P(gerade) = 1/2</div><div class="sv">1/2</div></div>
-<div class="step"><span class="sn">Trick</span><div class="st2">Mindestens 1 gerade = 1 − P(beide ungerade)</div></div>
-<div class="step"><span class="sn">Beide ug.</span><div class="st2">P(ug,ug) = 1/2 × 1/2 = 1/4</div><div class="sv">1/4</div></div>
-<div class="step" style="border-left-color:var(--grn)"><span class="sn">Antwort</span><div class="st2">P(mind. 1 gerade) = 1 − 1/4 = <strong>3/4 = 75%</strong></div><div class="sv">75%</div></div>
-</div></div>
-
-<div class="card"><div class="ch">🎯 Aufgabe 3 — 5 weiße + 5 schwarze Kugeln</div>
-<div style="font-size:12px;font-weight:700;padding:9px 12px;background:#e0f2fe;border-radius:7px;margin-bottom:9px;border-left:3px solid #0ea5e9;line-height:1.7;color:#0c4a6e">
-Säckchen: <strong>5 weiße + 5 schwarze</strong> Kugeln.<br>
-Man zieht <strong>2× ohne Zurücklegen</strong>.<br>
-Frage: Wie wahrscheinlich sind <strong>gleichfarbige</strong> Kugeln?
-</div>
-<div class="steps">
-<div class="step"><span class="sn">WW</span><div class="st2">5/10 × 4/9 = 20/90 = <strong>2/9</strong></div><div class="sv">2/9</div></div>
-<div class="step"><span class="sn">SS</span><div class="st2">5/10 × 4/9 = 20/90 = <strong>2/9</strong></div><div class="sv">2/9</div></div>
-<div class="step" style="border-left-color:var(--grn)"><span class="sn">+ (Summe)</span><div class="st2">P(gleichf.) = 2/9 + 2/9 = <strong>4/9 ≈ 44%</strong></div><div class="sv">44%</div></div>
-<div class="step"><span class="sn">Rest</span><div class="st2">P(verschiedf.) = 1 − 4/9 = <strong>5/9 ≈ 56%</strong></div><div class="sv">56%</div></div>
-</div>
-<div class="tip">💡 Beide gleich = WW ODER SS → Summenregel: WW + SS addieren!</div>
-</div>
-
-<div class="card"><div class="ch">⚡ Quiz</div><div id="qa_t4"></div><button class="cbtn" id="cb_t4" onclick="finT(4)" disabled>Abschließen</button></div>`,
-
-5:`${BK}
-<div class="hero" style="background:linear-gradient(135deg,#2a5c2a,#1a3a1a)"><div class="htag">Thema 6 — Finale</div><h2>🎯 Alles zusammen!</h2><p>Letzter Test vor der Arbeit 💪</p><div class="hi">🏆</div></div>
-<div class="card"><div class="ch">📝 Schnell-Zusammenfassung</div>
-<div class="steps">
-<div class="step"><span class="sn">× → +</span><div class="st2">aⁿ × aᵐ = aⁿ⁺ᵐ — gleiche Basis × → Exponenten addieren</div></div>
-<div class="step"><span class="sn">÷ → −</span><div class="st2">aⁿ ÷ aᵐ = aⁿ⁻ᵐ — gleiche Basis ÷ → Exponenten subtrahieren</div></div>
-<div class="step"><span class="sn">() → ×</span><div class="st2">(aⁿ)ᵐ = aⁿ×ᵐ — Potenz hoch Potenz → multiplizieren</div></div>
-<div class="step"><span class="sn">10ⁿ</span><div class="st2">Groß → positiv | Klein → negativ | a muss 1–10 sein</div></div>
-<div class="step"><span class="sn">P</span><div class="st2">Pfadregel × | Summenregel + | Probe = 1</div></div>
-</div></div>
-<div class="card"><div class="ch">⚡ Abschluss-Quiz</div><div id="qa_t5"></div><button class="cbtn" id="cb_t5" onclick="finT(5)" disabled>🏆 Fertig! Viel Erfolg!</button></div>`,
-};
-
-// PROBEARBEIT
-let probeAns={};
-const PROBE=[
-  {nr:'1',titel:'Potenzgesetze',pts:8,typ:'B',fragen:[
-    {id:'p1a',frage:'5⁵ ÷ 5² = 5<sup>?</sup> — Welcher Exponent?',a:3,h:'5−2=3'},
-    {id:'p1b',frage:'2 · 10⁴ = ? — Ergebnis',a:20000,h:'10⁴=10.000 → 2×10.000=20.000'},
-    {id:'p1c',frage:'(b³)⁻² = b<sup>?</sup> — Welcher Exponent?',a:-6,h:'3×(−2)=−6'},
-    {id:'p1d',frage:'x⁻³ · x⁻⁹ = x<sup>?</sup> — Welcher Exponent?',a:-12,h:'−3+(−9)=−12'},
-  ]},
-  {nr:'2',titel:'Wahrscheinlichkeit — Würfel',pts:6,typ:'B',fragen:[
-    {id:'p2a',frage:'Wie viele gerade Zahlen hat ein Würfel? (absolut)',a:3,h:'2, 4, 6 → 3 Stück'},
-    {id:'p2b',frage:`Relative Wahrscheinlichkeit: P(gerade) = ${br(1,'?')} — Nenner?`,a:2,h:'3/6=1/2 → Nenner 2'},
-    {id:'p2c',frage:'P(gerade) in Prozent = ?%',a:50,h:'1/2=50%'},
-  ]},
-  {nr:'3',titel:'Terme & Runden',pts:6,typ:'B',fragen:[
-    {id:'p3a',frage:'x, +5, ×4, −2 → Term: 4x + ?',a:18,h:'(x+5)·4−2=4x+20−2=4x+18'},
-    {id:'p3b',frage:'721+389+333 ≈ ? (auf 100 gerundet)',a:1400,h:'700+400+300=1400'},
-  ]},
-  {nr:'4',titel:'Gemischte Aufgaben',pts:10,typ:'H',fragen:[
-    {id:'p4a',frage:'(5⁻²)⁴ = 5<sup>?</sup> — Welcher Exponent?',a:-8,h:'−2×4=−8'},
-    {id:'p4b',frage:'3,7 × 10⁵ = ? — Ergebnis',a:370000,h:'3,7×100.000=370.000'},
-    {id:'p4c',frage:'P(gerade Zahl beim Würfel) = ?%',a:50,h:'3 von 6 → 50%'},
-    {id:'p4d',frage:`P(„OK") aus K,E,O,A = ${br(1,'?')} — Nenner?`,a:12,h:'1/4×1/3=1/12'},
-    {id:'p4e',frage:'Würfel 3×: Gesamtzahl Ergebnisse?',a:216,h:'6³=216'},
-  ]},
-];
-function buildProbe(){
-  const c=document.getElementById('probe-content');
-  let html='';
-  PROBE.forEach(auf=>{
-    html+=`<div class="probe-aufgabe">
-      <div class="pa-head"><span>Aufgabe ${auf.nr}: ${auf.titel}</span><span class="pa-pts">${auf.pts} Pkt · ${auf.typ}</span></div>`;
-    auf.fragen.forEach((f,i)=>{
-      html+=`<div class="pa-q">
-        <div class="frage">${String.fromCharCode(97+i)}) ${f.frage}</div>
-        <input class="pa-inp" id="pi_${f.id}" type="number" placeholder="Antwort..." onkeypress="if(event.key==='Enter')chkP('${f.id}',${f.a},'${(f.h||'').replace(/'/g,"&#39;")}')">
-        <div class="pa-fb" id="pf_${f.id}"></div>
-        <button class="pa-check" onclick="chkP('${f.id}',${f.a},'${(f.h||'').replace(/'/g,"&#39;")}')">Prüfen ✓</button>
-      </div>`;
-    });
-    html+='</div>';
-  });
-  const total=PROBE.reduce((s,a)=>s+a.pts,0);
-  html+=`<button style="width:100%;padding:13px;background:linear-gradient(135deg,#1a0a2e,#5b21b6);border:none;border-radius:var(--r);color:#fff;font-size:14px;font-weight:900;cursor:pointer;font-family:'DM Sans',sans-serif;margin-bottom:10px" onclick="auswert()">📊 Auswerten (${total} Pkt möglich)</button>`;
-  c.innerHTML=html;
-}
-function chkP(id,a,hint){
-  const inp=document.getElementById('pi_'+id);const fb=document.getElementById('pf_'+id);
-  if(!inp)return;
-  const v=parseFloat(inp.value.replace(',','.'));
-  if(isNaN(v)){fb.textContent='Zahl eingeben!';fb.className='pa-fb no';return;}
-  if(Math.abs(v-a)<0.6){
-    inp.classList.add('ok');inp.disabled=true;
-    fb.textContent='✅ Richtig!';fb.className='pa-fb ok';
-    probeAns[id]={ok:true};
-  } else {
-    inp.classList.add('no');
-    fb.innerHTML='❌ Richtig: <strong>'+fmt(a)+'</strong> — '+hint;fb.className='pa-fb no';
-    probeAns[id]={ok:false};
-  }
-}
-function auswert(){
-  let got=0,total=0;
-  PROBE.forEach(auf=>{auf.fragen.forEach(f=>{total+=auf.pts/auf.fragen.length;if(probeAns[f.id]?.ok)got+=auf.pts/auf.fragen.length;});});
-  got=Math.round(got);total=Math.round(total);
-  const pct=got/total;
-  let note,farbe;
-  if(pct>=0.875){note='1 🏆';farbe='#22c55e';}
-  else if(pct>=0.75){note='2 😊';farbe='#84cc16';}
-  else if(pct>=0.625){note='3 👍';farbe='#eab308';}
-  else if(pct>=0.5){note='4 📚';farbe='#f97316';}
-  else{note='5 💪';farbe='#ef4444';}
-  const msg=pct>=0.75?'Super vorbereitet!':pct>=0.5?'Noch ein bisschen üben!':'Sicks um Hilfe bitten! 🤖';
-  document.getElementById('probe-content').insertAdjacentHTML('afterbegin',`<div class="probe-score">
-    <div style="font-size:10px;opacity:.6;letter-spacing:.1em;text-transform:uppercase;margin-bottom:5px">Dein Ergebnis</div>
-    <div class="ps-pts" style="color:${farbe}">${got}</div>
-    <div style="font-size:13px;opacity:.7;margin-top:2px">von ${total} Punkten</div>
-    <div class="ps-bar"><div class="ps-fill" style="width:${Math.round(pct*100)}%"></div></div>
-    <div style="font-size:22px;font-weight:900;color:${farbe}">Note ${note}</div>
-    <div style="font-size:13px;opacity:.8;margin-top:5px">${msg}</div>
-  </div>
-  <button style="width:100%;padding:11px;background:var(--grn);border:none;border-radius:var(--r);color:#fff;font-size:13px;font-weight:900;cursor:pointer;font-family:'DM Sans',sans-serif;margin-bottom:8px" onclick="probeReset()">🔄 Nochmal</button>`);
-  window.scrollTo({top:0,behavior:'smooth'});
-}
-function probeReset(){probeAns={};document.getElementById('probe-content').innerHTML='';buildProbe();window.scrollTo({top:0,behavior:'smooth'});}
-
-// SICKS AI
-let sO=false,sW=false,sH=[];
-function toggleS(){
-  sO=!sO;
-  document.getElementById('spanel').classList.toggle('open',sO);
-  if(sO)setTimeout(()=>document.getElementById('sinp').focus(),200);
-}
-function sM(role,text){
-  const c=document.getElementById('smsgs');
-  const d=document.createElement('div');d.className='smsg '+role;
-  const html=text.replace(/\n/g,'<br>').replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>');
-  d.innerHTML=`<div class="sav2">${role==='ai'?'🤖':'Du'}</div><div class="sbbl">${html}</div>`;
-  c.appendChild(d);c.scrollTop=c.scrollHeight;
-}
-function sDots(){
-  const c=document.getElementById('smsgs');
-  const d=document.createElement('div');d.className='smsg ai';d.id='sdots_';
-  d.innerHTML=`<div class="sav2">🤖</div><div class="sbbl"><div class="sdots"><span></span><span></span><span></span></div></div>`;
-  c.appendChild(d);c.scrollTop=c.scrollHeight;
-}
-function sAsk(prompt){
-  if(!sO)toggleS();
-  setTimeout(()=>{document.getElementById('sinp').value=prompt;sSend();},300);
-}
-
-const SICKS_SYSTEM=`Du bist SICKS, ein Mathe-Assistent für Schüler.
-REGELN:
-- Antworte IMMER auf Deutsch
-- Maximal 5 kurze Zeilen — sehr einfach, wie für einen 10-Jährigen
-- Struktur: 1) Regel (1 Satz) 2) Beispiel (1 Satz) 3) Merktrick (1 Satz)
-- Keine langen Erklärungen, keine Seitenzahlen, kein Buch-Verweis
-- Brüche: Zähler/Nenner schreiben
-
-THEMEN FÜR DIE ARBEIT HEUTE:
-POTENZEN: aⁿ×aᵐ=aⁿ⁺ᵐ (+addieren) | aⁿ÷aᵐ=aⁿ⁻ᵐ (-subtrahieren) | (aⁿ)ᵐ=aⁿˣᵐ (×multiplizieren) | a⁰=1 immer | a⁻ⁿ=1/aⁿ | gerade Exp→positiv | ungerade Exp→negativ
-WISS. SCHREIBWEISE: a·10ⁿ mit 1≤a<10 | groß→pos Exp | klein→neg Exp | Komma zählen
-WAHRSCHEINLICHKEIT: Pfadregel × | Summenregel + | Probe=1 | ohne Zurücklegen: Nenner−1 | P(OK)=1/12 | 5W+5S: 4/9≈44%`;
-
-async function sSend(){
-  if(sW)return;
-  const inp=document.getElementById('sinp');
-  const msg=inp.value.trim();if(!msg)return;
-  inp.value='';inp.style.height='auto';
-  document.getElementById('ssend').disabled=true;sW=true;
-  sM('user',msg);sDots();
-
-  try{
-    const messages=[
-      {role:'user',content:SICKS_SYSTEM+'\n\nFRAGE: '+msg}
-    ];
-    // Add history
-    sH.slice(-4).forEach(h=>{
-      messages.push({role:'user',content:h.u});
-      messages.push({role:'assistant',content:h.a});
-    });
-    messages.push({role:'user',content:msg});
-
-    const res=await fetch('https://api.anthropic.com/v1/messages',{
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({
-        model:'claude-sonnet-4-20250514',
-        max_tokens:300,
-        system:SICKS_SYSTEM,
-        messages:[...sH.slice(-4).flatMap(h=>[{role:'user',content:h.u},{role:'assistant',content:h.a}]),{role:'user',content:msg}]
-      })
-    });
-    const data=await res.json();
-    document.getElementById('sdots_')?.remove();
-    const r=data.content?.[0]?.text||'Entschuldigung, ich konnte nicht antworten.';
-    sH.push({u:msg,a:r});if(sH.length>6)sH=sH.slice(-6);
-    sM('ai',r);
-  }catch(e){
-    document.getElementById('sdots_')?.remove();
-    sM('ai','❌ Verbindungsfehler. Versuch es nochmal!');
-  }
-  sW=false;document.getElementById('ssend').disabled=false;
-  document.getElementById('sinp').focus();
-}
-
-let tt;
-function toast(msg){const el=document.getElementById('toast');el.textContent=msg;el.classList.add('show');clearTimeout(tt);tt=setTimeout(()=>el.classList.remove('show'),2400);}
-</script>
-</body>
-</html>
+<div class="warn">⚠️ OHNE Zurücklegen → nach jedem Zug Nenner −1 und gezogene Kugel
