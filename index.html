@@ -227,7 +227,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 <script>
 function br(z,n){return`<span style="display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;margin:0 2px;font-family:'DM Mono',monospace;font-weight:700;line-height:1.15;font-size:.9em"><span style="border-bottom:2px solid currentColor;padding:0 3px">${z}</span><span style="padding:0 3px">${n}</span></span>`;}
 
-let pts=0,ans={},dT={},uT={0:true,1:false,2:false,3:false,4:false,5:false};
+let pts=0,ans={},dT={},uT={0:true,1:true,2:true,3:true,4:true,5:true};
 
 function sv(){localStorage.setItem('mla_data',JSON.stringify({pts,ans,dT,uT}));}
 function ld(){try{const d=JSON.parse(localStorage.getItem('mla_data')||'{}');pts=d.pts||0;ans=d.ans||{};dT=d.dT||{};uT=d.uT||{0:true,1:false,2:false,3:false,4:false,5:false};document.getElementById('pts').textContent=pts;}catch(e){}}
@@ -263,9 +263,9 @@ const THEMEN=[
 ];
 function buildGrid(){
   document.getElementById('tgrid').innerHTML=THEMEN.map(c=>{
-    const lk=!uT[c.id],dn=!!dT[c.id];
-    return`<div class="tc${dn?' dn':''}" onclick="${lk?`toast('🔒 Erst Thema ${c.id} abschließen!')`:`openT(${c.id})`}" style="${lk?'opacity:.35;cursor:not-allowed':''}">
-      <div class="tc-n">Thema ${c.id+1}${lk?' 🔒':dn?' ✅':''}</div>
+    const dn=!!dT[c.id];
+    return`<div class="tc${dn?' dn':''}" onclick="openT(${c.id})">
+      <div class="tc-n">Thema ${c.id+1}${dn?' ✅':''}</div>
       <div class="tc-i">${c.i}</div>
       <div class="tc-t">${c.n}</div>
     </div>`;
@@ -399,7 +399,7 @@ function updCb(key,total){
   btn.textContent=done>=total?'✅ Abschließen & nächstes Thema freischalten':`Noch ${total-done} richtig beantworten`;
 }
 function finT(id){
-  dT[id]=true;if(id<5)uT[id+1]=true;
+  dT[id]=true;
   pts+=50;document.getElementById('pts').textContent=pts;
   sv();toast('🔓 Nächstes Thema frei! +50 Pkt');
   setTimeout(()=>goBack(),600);
