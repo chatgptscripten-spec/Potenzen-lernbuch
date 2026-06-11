@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Mathe 9 — Strahlensatz & Kreis</title>
+<title>Mathe 9 — NRW Probearbeit 12.06.</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;700;900&family=DM+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
@@ -13,8 +13,7 @@
   --text:#e8ecff;--muted:#6b74a8;--dim:#3d4570;
   --blue:#4f8ef7;--blue2:#2563eb;--blue3:#1d4ed8;
   --green:#22c55e;--green2:#16a34a;
-  --red:#f87171;--red2:#dc2626;
-  --orange:#fb923c;--yellow:#fbbf24;--yellow2:#d97706;
+  --red:#f87171;--orange:#fb923c;--yellow:#fbbf24;--yellow2:#d97706;
   --purple:#a78bfa;--purple2:#7c3aed;
   --teal:#2dd4bf;--teal2:#0d9488;
   --r:14px;--r2:10px
@@ -23,26 +22,40 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 #stars{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
 .star{position:absolute;border-radius:50%;background:#fff;animation:twinkle var(--d) ease-in-out infinite}
 @keyframes twinkle{0%,100%{opacity:.15;transform:scale(1)}50%{opacity:.7;transform:scale(1.4)}}
-.hdr{position:sticky;top:0;z-index:100;background:rgba(13,15,26,.95);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);padding:0 14px}
-.hdr-inner{display:flex;align-items:center;gap:10px;height:52px;max-width:820px;margin:0 auto}
+
+/* HEADER */
+.hdr{position:sticky;top:0;z-index:100;background:rgba(13,15,26,.97);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);padding:0 14px}
+.hdr-inner{display:flex;align-items:center;gap:10px;height:52px;max-width:860px;margin:0 auto}
 .hlogo{font-size:15px;font-weight:900;background:linear-gradient(135deg,var(--blue),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;letter-spacing:-.03em}
 .hpts{font-family:'DM Mono',monospace;font-size:12px;font-weight:700;background:linear-gradient(135deg,var(--yellow),var(--orange));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;padding:4px 10px;border-radius:20px;border:1px solid rgba(251,191,36,.25)}
-.cd-bar{background:linear-gradient(90deg,rgba(79,142,247,.12),rgba(167,139,250,.12));border-bottom:1px solid var(--border);padding:6px 14px;text-align:center}
-.cd-inner{display:flex;align-items:center;justify-content:center;gap:12px;max-width:820px;margin:0 auto;flex-wrap:wrap}
-.cd-label{font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
-.cd-units{display:flex;gap:8px}
-.cd-unit{display:flex;flex-direction:column;align-items:center}
-.cd-num{font-family:'DM Mono',monospace;font-size:18px;font-weight:700;color:var(--blue);line-height:1;min-width:32px;text-align:center}
-.cd-sub{font-size:9px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.06em}
-.cd-sep{font-family:'DM Mono',monospace;font-size:18px;color:var(--dim);font-weight:700;padding-top:1px}
-.cd-tag{font-size:10px;font-weight:800;padding:3px 9px;border-radius:20px;background:rgba(248,113,113,.15);color:var(--red);border:1px solid rgba(248,113,113,.3)}
+.tts-btn{padding:5px 11px;background:rgba(167,139,250,.15);border:1px solid rgba(167,139,250,.3);border-radius:20px;color:var(--purple);font-size:11px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .15s;display:flex;align-items:center;gap:5px}
+.tts-btn:hover{background:rgba(167,139,250,.25)}
+.tts-btn.speaking{background:rgba(167,139,250,.3);animation:pulse-tts 1s infinite}
+@keyframes pulse-tts{0%,100%{box-shadow:0 0 0 0 rgba(167,139,250,.4)}50%{box-shadow:0 0 0 6px rgba(167,139,250,0)}}
+
+/* COUNTDOWN */
+.cd-bar{background:linear-gradient(90deg,rgba(79,142,247,.08),rgba(167,139,250,.08));border-bottom:1px solid var(--border);padding:8px 14px}
+.cd-inner{display:flex;align-items:center;justify-content:center;gap:14px;max-width:860px;margin:0 auto;flex-wrap:wrap}
+.cd-label{font-size:11px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
+.cd-units{display:flex;gap:10px;align-items:center}
+.cd-unit{display:flex;flex-direction:column;align-items:center;min-width:44px}
+.cd-num{font-family:'DM Mono',monospace;font-size:22px;font-weight:900;color:var(--blue);line-height:1;background:var(--card);border:1px solid var(--border);border-radius:8px;padding:4px 8px;min-width:44px;text-align:center;transition:all .3s}
+.cd-num.flash{color:var(--yellow);transform:scale(1.1)}
+.cd-sub{font-size:9px;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.07em;margin-top:3px}
+.cd-sep{font-family:'DM Mono',monospace;font-size:20px;color:var(--dim);font-weight:900;padding-bottom:14px}
+.cd-tag{font-size:10px;font-weight:800;padding:4px 11px;border-radius:20px;background:rgba(248,113,113,.15);color:var(--red);border:1px solid rgba(248,113,113,.3)}
+
+/* NAV */
 .nav{background:var(--surface);border-bottom:1px solid var(--border);display:flex;overflow-x:auto;-webkit-overflow-scrolling:touch;position:sticky;top:52px;z-index:99}
 .nav::-webkit-scrollbar{display:none}
 .nbt{padding:11px 14px;font-size:11px;font-weight:700;cursor:pointer;border:none;background:none;color:var(--muted);border-bottom:2px solid transparent;margin-bottom:-1px;font-family:'DM Sans',sans-serif;white-space:nowrap;transition:all .18s;letter-spacing:.01em}
 .nbt:hover{color:var(--text)}
 .nbt.on{color:var(--blue);border-bottom-color:var(--blue)}
-.wrap{max-width:820px;margin:0 auto;padding:16px 14px 130px;position:relative;z-index:1}
+
+.wrap{max-width:860px;margin:0 auto;padding:16px 14px 130px;position:relative;z-index:1}
 [data-pg]{display:none}[data-pg].show{display:block}
+
+/* CARDS */
 .card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:16px;margin-bottom:12px;position:relative;overflow:hidden;animation:fadein .35s ease both}
 .card::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(79,142,247,.04),transparent 60%);pointer-events:none}
 .ch{font-weight:800;font-size:13px;margin-bottom:10px;display:flex;align-items:center;gap:7px;color:var(--text)}
@@ -60,11 +73,15 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 .step{display:flex;gap:9px;align-items:flex-start;padding:10px 12px;background:var(--card2);border-radius:var(--r2);border-left:3px solid var(--blue)}
 .sn{font-family:'DM Mono',monospace;font-size:9px;font-weight:700;background:var(--blue);color:#fff;padding:2px 7px;border-radius:4px;flex-shrink:0;margin-top:2px;letter-spacing:.05em}
 .st2{font-size:12px;font-weight:600;flex:1;line-height:1.7;color:var(--text)}
+
+/* CANVAS */
 .cv-wrap{background:var(--card2);border:1px solid var(--border);border-radius:var(--r2);overflow:hidden;margin:8px 0}
 canvas{display:block;width:100%}
 .srow{padding:8px 12px;border-top:1px solid var(--border);display:flex;align-items:center;gap:9px;font-size:11px;font-weight:700;color:var(--muted)}
 .srow input[type=range]{flex:1;accent-color:var(--blue);height:4px;cursor:pointer}
 .sv2{color:var(--blue);min-width:36px;text-align:right;font-family:'DM Mono',monospace;font-size:11px}
+
+/* TOPIC GRID */
 .tgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px;margin-bottom:12px}
 .tc{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:14px;cursor:pointer;transition:all .18s;text-align:center;position:relative;overflow:hidden}
 .tc:hover{border-color:var(--blue);transform:translateY(-2px);box-shadow:0 8px 24px rgba(79,142,247,.15)}
@@ -74,8 +91,9 @@ canvas{display:block;width:100%}
 .tc-t{font-size:11px;font-weight:800;line-height:1.3;color:var(--text)}
 .back{display:inline-flex;align-items:center;gap:5px;padding:6px 13px;background:var(--card2);border:1px solid var(--border2);border-radius:20px;color:var(--muted);font-size:12px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;margin-bottom:12px;transition:all .15s}
 .back:hover{border-color:var(--blue);color:var(--text)}
+
+/* AUFGABEN */
 .aufg{background:var(--card);border:1px solid var(--border);border-radius:var(--r);margin-bottom:12px;overflow:hidden}
-.aufg:hover{border-color:var(--border2)}
 .aufg-head{padding:11px 15px;display:flex;align-items:center;justify-content:space-between;gap:8px;border-bottom:1px solid var(--border)}
 .aufg-titel{font-weight:800;font-size:13px;display:flex;align-items:center;gap:7px}
 .aufg-body{padding:14px 15px}
@@ -91,7 +109,7 @@ canvas{display:block;width:100%}
 .achk:disabled{opacity:.4;cursor:not-allowed;transform:none}
 .afb{font-size:12px;font-weight:700;margin-top:6px;min-height:16px}
 .afb.ok{color:var(--green)}.afb.no{color:var(--red)}
-.atipp{display:inline-flex;align-items:center;gap:4px;padding:5px 11px;background:rgba(167,139,250,.12);border:1px solid rgba(167,139,250,.3);border-radius:16px;color:var(--purple);font-size:11px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .15s;margin-top:7px}
+.atipp{display:inline-flex;align-items:center;gap:4px;padding:5px 11px;background:rgba(167,139,250,.12);border:1px solid rgba(167,139,250,.3);border-radius:16px;color:var(--purple);font-size:11px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .15s;margin-top:7px;margin-right:5px}
 .atipp:hover{background:rgba(167,139,250,.2)}
 .opts4{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin:9px 0}
 .opt4{padding:10px;border-radius:9px;border:1px solid var(--border2);background:var(--card2);font-family:'DM Mono',monospace;font-size:12px;font-weight:700;cursor:pointer;transition:all .12s;text-align:center;color:var(--text)}
@@ -116,6 +134,8 @@ canvas{display:block;width:100%}
 .loes-btn{padding:6px 13px;background:rgba(167,139,250,.1);border:1px solid rgba(167,139,250,.3);border-radius:8px;color:var(--purple);font-size:11px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;margin-top:7px;transition:all .15s}
 .loes-btn:hover{background:rgba(167,139,250,.18)}
 .loes-box{display:none;margin-top:9px;padding:12px 13px;background:rgba(34,197,94,.07);border:1px solid rgba(34,197,94,.25);border-radius:var(--r2);font-size:12px;font-weight:600;line-height:1.85;color:#86efac;font-family:'DM Mono',monospace}
+
+/* CALC */
 .calc-wrap{max-width:310px;margin:0 auto}
 .cscr{background:#080b14;border:1px solid var(--border2);border-radius:var(--r2);padding:14px 13px 9px;margin-bottom:9px;text-align:right;box-shadow:inset 0 2px 8px rgba(0,0,0,.5)}
 .cexpr{font-size:11px;color:var(--dim);font-family:'DM Mono',monospace;min-height:18px;margin-bottom:3px}
@@ -128,6 +148,22 @@ canvas{display:block;width:100%}
 .ceq{background:linear-gradient(135deg,var(--blue2),var(--purple2));color:#fff;border:none}.ceq:hover{filter:brightness(1.15)}
 .ccl{background:rgba(107,116,168,.2);color:var(--muted);border:1px solid var(--border)}.ccl:hover{background:rgba(107,116,168,.3)}
 .ch-item{font-size:10px;font-family:'DM Mono',monospace;padding:5px 9px;background:var(--card2);border-radius:6px;margin-bottom:4px;color:var(--muted);border-left:2px solid var(--blue)}
+
+/* DUMMIES CARD */
+.dummies-grid{display:grid;grid-template-columns:1fr;gap:10px;margin:10px 0}
+.dummy-card{border-radius:12px;padding:14px;position:relative;overflow:hidden}
+.dc-v{background:linear-gradient(135deg,#0f2a5a,#1d4ed8);border:2px solid rgba(79,142,247,.5)}
+.dc-x{background:linear-gradient(135deg,#2a0f5a,#7c3aed);border:2px solid rgba(167,139,250,.5)}
+.dc-title{font-size:16px;font-weight:900;margin-bottom:8px}
+.dc-formula{font-family:'DM Mono',monospace;font-size:13px;font-weight:700;background:rgba(0,0,0,.3);border-radius:8px;padding:8px 12px;margin:7px 0;line-height:1.8}
+.dc-tip{font-size:11px;font-weight:700;opacity:.75;margin-top:6px;line-height:1.6}
+
+/* ANIMATION für Strahlensatz */
+.anim-container{position:relative;width:100%;height:200px;border-radius:var(--r2);background:var(--card2);border:1px solid var(--border);overflow:hidden;margin:10px 0}
+.anim-label{position:absolute;font-size:10px;font-weight:800;font-family:'DM Mono',monospace;pointer-events:none}
+.play-btn{padding:8px 18px;background:linear-gradient(135deg,var(--blue2),var(--purple2));border:none;border-radius:20px;color:#fff;font-size:12px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;margin:5px 0;transition:all .15s}
+.play-btn:hover{transform:translateY(-1px);box-shadow:0 4px 14px rgba(79,142,247,.4)}
+
 /* AI CHAT */
 .mfab{position:fixed;bottom:20px;right:16px;z-index:200;width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,var(--purple2),var(--blue2));border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:900;box-shadow:0 4px 24px rgba(124,58,237,.5);transition:all .2s;color:#fff;font-family:'DM Mono',monospace}
 .mfab:hover{transform:scale(1.1)}
@@ -161,11 +197,39 @@ canvas{display:block;width:100%}
 .minp:focus{border-color:var(--purple)}
 .msend{background:linear-gradient(135deg,var(--purple2),var(--blue2));border:none;border-radius:8px;color:#fff;padding:8px 12px;font-size:14px;cursor:pointer;flex-shrink:0;transition:all .15s}
 .msend:hover{transform:scale(1.05)}.msend:disabled{opacity:.4;cursor:not-allowed;transform:none}
+
+/* TOAST */
 .toast{position:fixed;bottom:16px;left:50%;transform:translateX(-50%) translateY(70px);background:linear-gradient(135deg,var(--blue2),var(--purple2));color:#fff;padding:9px 20px;border-radius:36px;font-weight:700;font-size:12px;z-index:300;transition:transform .28s cubic-bezier(.34,1.56,.64,1);pointer-events:none;box-shadow:0 6px 20px rgba(37,99,235,.5)}
 .toast.show{transform:translateX(-50%) translateY(0)}
+
 @keyframes fadein{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
 @keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
 @keyframes pop{0%{transform:scale(.88)}60%{transform:scale(1.08)}100%{transform:scale(1)}}
+
+/* EXCEL TABLE STYLE */
+.excel-tbl{width:100%;border-collapse:collapse;font-size:11px;font-weight:600;margin:9px 0}
+.excel-tbl th{background:rgba(34,197,94,.15);color:var(--green);padding:7px 9px;text-align:left;border:1px solid rgba(34,197,94,.3);font-family:'DM Mono',monospace;font-size:10px}
+.excel-tbl td{padding:6px 9px;border:1px solid var(--border);font-family:'DM Mono',monospace}
+.excel-tbl tr:nth-child(even) td{background:rgba(255,255,255,.02)}
+.excel-tbl td.formula{color:var(--green);font-style:italic}
+.excel-tbl td.num{color:var(--blue)}
+.excel-tbl td.result{color:var(--yellow);font-weight:700}
+.col-A{background:rgba(79,142,247,.05)}
+.formel-check{display:grid;grid-template-columns:1fr auto auto;gap:8px;align-items:center;padding:8px 10px;background:var(--card2);border-radius:8px;margin:5px 0;font-size:11px;font-weight:600}
+.fc-formula{font-family:'DM Mono',monospace;color:var(--text)}
+.fc-check{padding:3px 10px;border-radius:6px;border:1px solid var(--border2);background:var(--card);color:var(--muted);font-size:10px;font-weight:700;cursor:pointer;font-family:'DM Mono',monospace;transition:all .12s}
+.fc-check.right{border-color:var(--green);background:rgba(34,197,94,.1);color:var(--green)}
+.fc-check.wrong{border-color:var(--red);background:rgba(248,113,113,.08);color:var(--red)}
+.fc-badge{font-size:10px;font-weight:800}
+
+/* GLEICHUNGEN */
+.eq-card{background:var(--card2);border:1px solid var(--border2);border-radius:var(--r2);padding:12px;margin:8px 0}
+.eq-line{display:flex;align-items:center;gap:8px;padding:5px 0;font-family:'DM Mono',monospace;font-size:13px;font-weight:700}
+.eq-line .op{color:var(--muted);font-size:11px;min-width:30px}
+.eq-line .val{color:var(--text)}
+.eq-line .res{color:var(--green)}
+.eq-line .high{color:var(--yellow)}
+.eq-line .step-lbl{font-size:9px;color:var(--purple);background:rgba(167,139,250,.15);padding:2px 6px;border-radius:4px;margin-left:auto}
 </style>
 </head>
 <body>
@@ -175,109 +239,408 @@ canvas{display:block;width:100%}
   <div class="hdr-inner">
     <div class="hlogo">📐 Mathe · 9. Klasse NRW</div>
     <div style="flex:1"></div>
+    <button class="tts-btn" id="tts-toggle" onclick="toggleTTS()">🔊 Vorlesen</button>
     <div class="hpts">⭐ <span id="pts">0</span> Pkt</div>
   </div>
 </header>
 
 <div class="cd-bar">
   <div class="cd-inner">
-    <div class="cd-label">Arbeit in</div>
+    <div class="cd-label">Probearbeit in</div>
     <div class="cd-units">
-      <div class="cd-unit"><span class="cd-num" id="cd-d">0</span><span class="cd-sub">Tage</span></div>
+      <div class="cd-unit"><span class="cd-num" id="cd-d">00</span><span class="cd-sub">Tage</span></div>
       <div class="cd-sep">:</div>
-      <div class="cd-unit"><span class="cd-num" id="cd-h">0</span><span class="cd-sub">Std</span></div>
+      <div class="cd-unit"><span class="cd-num" id="cd-h">00</span><span class="cd-sub">Std</span></div>
       <div class="cd-sep">:</div>
-      <div class="cd-unit"><span class="cd-num" id="cd-m">0</span><span class="cd-sub">Min</span></div>
+      <div class="cd-unit"><span class="cd-num" id="cd-m">00</span><span class="cd-sub">Min</span></div>
       <div class="cd-sep">:</div>
-      <div class="cd-unit"><span class="cd-num" id="cd-s">0</span><span class="cd-sub">Sek</span></div>
+      <div class="cd-unit"><span class="cd-num" id="cd-s">00</span><span class="cd-sub">Sek</span></div>
     </div>
-    <div class="cd-tag">📅 12.06.2026</div>
+    <div class="cd-tag">🗓️ 12.06.2026 · 12:00 Uhr</div>
   </div>
 </div>
 
 <div class="nav">
-  <button class="nbt on" onclick="switchPg('lernen',this)">📐 Strahlensatz</button>
+  <button class="nbt on" onclick="switchPg('strahl',this)">📐 Strahlensatz</button>
   <button class="nbt" onclick="switchPg('kreis',this)">⭕ Kreis</button>
-  <button class="nbt" onclick="switchPg('proben',this)">✏️ Probearbeit</button>
-  <button class="nbt" onclick="switchPg('spick',this)">📋 Spickzettel</button>
+  <button class="nbt" onclick="switchPg('gleichung',this)">🔢 Gleichungen</button>
+  <button class="nbt" onclick="switchPg('prozent',this)">📊 Prozent</button>
+  <button class="nbt" onclick="switchPg('excel',this)">📋 Excel</button>
+  <button class="nbt" onclick="switchPg('proben',this)">✏️ Übungsaufgaben</button>
+  <button class="nbt" onclick="switchPg('spick',this)">📌 Spickzettel</button>
   <button class="nbt" onclick="switchPg('calc',this)">🧮 Rechner</button>
 </div>
 
 <div class="wrap">
 
 <!-- ══════ STRAHLENSATZ ══════ -->
-<div data-pg="lernen" class="show">
-  <div id="picker">
-    <div style="background:linear-gradient(135deg,#0f1e4a,#1d4ed8);border-radius:var(--r);padding:16px 18px;margin-bottom:14px;text-align:center;position:relative;overflow:hidden">
+<div data-pg="strahl" class="show">
+  <div id="s-picker">
+    <div style="background:linear-gradient(135deg,#0f1e4a,#1d4ed8);border-radius:var(--r);padding:16px 18px;margin-bottom:14px;text-align:center">
       <div style="font-size:32px;margin-bottom:6px">📐</div>
-      <div style="font-size:18px;font-weight:900;letter-spacing:-.03em;margin-bottom:3px">Strahlensätze</div>
-      <div style="font-size:11px;opacity:.55;font-weight:500">V-Figur & X-Figur · interaktive Animationen</div>
+      <div style="font-size:18px;font-weight:900">Strahlensätze</div>
+      <div style="font-size:11px;opacity:.55">V-Figur · X-Figur · alle 3 Sätze · für Dummies</div>
     </div>
-    <div class="tgrid" id="tgrid"></div>
+    <!-- DUMMIES KARTE -->
+    <div class="card" style="border-color:rgba(251,191,36,.4)">
+      <div class="ch">🎯 Strahlensatz für Dummies — das Wichtigste</div>
+      <div class="dummies-grid">
+        <div class="dummy-card dc-v">
+          <div class="dc-title">📐 V-Figur</div>
+          <div style="font-size:11px;opacity:.8;margin-bottom:6px">Scheitel S liegt <strong>außen</strong></div>
+          <div class="dc-formula">
+            Satz 1: SA/AB = SC/CD<br>
+            Satz 2: SA/SB = SC/SD<br>
+            Satz 3: SA/SB = AC/BD
+          </div>
+          <div class="dc-tip">💡 Satz 1 → AB zwischen den Strichen<br>💡 Satz 2 → SB = ganzer Weg von S<br>💡 Satz 3 → Parallelen werden länger</div>
+        </div>
+        <div class="dummy-card dc-x">
+          <div class="dc-title">✖️ X-Figur</div>
+          <div style="font-size:11px;opacity:.8;margin-bottom:6px">Scheitel S liegt <strong>in der Mitte</strong></div>
+          <div class="dc-formula">SA/SB = SC/SD</div>
+          <div class="dc-tip">💡 Gleiche Formel wie Satz 2!<br>💡 Die Striche kreuzen sich<br>💡 Wie beim Fluss-Beispiel</div>
+        </div>
+      </div>
+    </div>
+    <div class="tgrid" id="s-tgrid"></div>
   </div>
-  <div id="lesson" style="display:none"><div id="li"></div></div>
+  <div id="s-lesson" style="display:none"><div id="s-li"></div></div>
 </div>
 
 <!-- ══════ KREIS ══════ -->
 <div data-pg="kreis">
-  <div id="kreis-picker">
+  <div id="k-picker">
     <div style="background:linear-gradient(135deg,#0f3a2e,#16a34a);border-radius:var(--r);padding:16px 18px;margin-bottom:14px;text-align:center">
       <div style="font-size:32px;margin-bottom:6px">⭕</div>
-      <div style="font-size:18px;font-weight:900;letter-spacing:-.03em;margin-bottom:3px">Kreis, Kreisring & Sektor</div>
-      <div style="font-size:11px;opacity:.55;font-weight:500">Umfang · Fläche · Kreisring · Bogenlänge · Satz des Thales</div>
+      <div style="font-size:18px;font-weight:900">Kreis</div>
     </div>
-    <div class="tgrid" id="kreis-grid"></div>
+    <div class="tgrid" id="k-grid"></div>
   </div>
-  <div id="kreis-detail" style="display:none"><div id="kreis-content"></div></div>
+  <div id="k-detail" style="display:none"><div id="k-content"></div></div>
 </div>
 
-<!-- ══════ PROBEARBEIT ══════ -->
-<div data-pg="proben">
-  <div id="aufg-picker">
-    <div style="background:linear-gradient(135deg,#2d1040,#7c3aed);border-radius:var(--r);padding:16px 18px;margin-bottom:14px;text-align:center">
-      <div style="font-size:32px;margin-bottom:6px">📝</div>
-      <div style="font-size:18px;font-weight:900;letter-spacing:-.03em;margin-bottom:3px">Probearbeit-Aufgaben</div>
-      <div style="font-size:11px;opacity:.55;font-weight:500">Genau wie am 12.06 · alle Typen</div>
-    </div>
-    <div class="tgrid" id="aufg-grid"></div>
+<!-- ══════ GLEICHUNGEN ══════ -->
+<div data-pg="gleichung">
+  <div style="background:linear-gradient(135deg,#1a0f3a,#0369a1);border-radius:var(--r);padding:16px 18px;margin-bottom:14px;text-align:center">
+    <div style="font-size:32px;margin-bottom:6px">🔢</div>
+    <div style="font-size:18px;font-weight:900">Gleichungen lösen</div>
+    <div style="font-size:11px;opacity:.55">Wie auf der Tafel — Schritt für Schritt</div>
   </div>
-  <div id="aufg-detail" style="display:none"><div id="aufg-content"></div></div>
+  
+  <div class="card">
+    <div class="ch">📖 Beispiel von der Tafel: ⅓x + 5 = 5,6</div>
+    <div class="eq-card">
+      <div class="eq-line"><span class="val">⅓x + 5 = 5,6</span><span class="step-lbl">Start</span></div>
+      <div class="eq-line"><span class="op">−5</span><span class="val">⅓x = 0,6</span><span class="step-lbl">−5 auf beiden Seiten</span></div>
+      <div class="eq-line"><span class="op">·3</span><span class="val">1·x = 1,8</span><span class="step-lbl">·3 auf beiden Seiten</span></div>
+      <div class="eq-line"><span class="op">÷1</span><span class="res">x = 1,8</span><span class="step-lbl">Lösung ✓</span></div>
+    </div>
+    <button class="play-btn" onclick="speakText('Gleichung lösen: Ein Drittel x plus fünf gleich fünf komma sechs. Erst minus fünf auf beiden Seiten: ein Drittel x gleich null komma sechs. Dann mal drei: x gleich eins komma acht.')">🔊 Erklärung anhören</button>
+  </div>
+
+  <div class="card">
+    <div class="ch">📌 Die 3 Schritte — immer gleich!</div>
+    <div class="steps">
+      <div class="step" style="border-color:var(--orange)"><span class="sn" style="background:var(--yellow2)">1</span><div class="st2"><strong>Zahl ohne x</strong> auf die andere Seite bringen → addieren/subtrahieren</div></div>
+      <div class="step" style="border-color:var(--green)"><span class="sn" style="background:var(--green2)">2</span><div class="st2"><strong>Koeffizient</strong> (Zahl vor x) wegrechnen → multiplizieren/dividieren</div></div>
+      <div class="step" style="border-color:var(--blue)"><span class="sn">3</span><div class="st2"><strong>Probe</strong>: x einsetzen und prüfen ob stimmt</div></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="ch">✏️ Übung 1</div>
+    <div class="aufg-q">Löse: 2x + 4 = 14</div>
+    <div class="aufg-inp-row">
+      <label>x =</label>
+      <input class="ainp" id="eq1" type="number" placeholder="?">
+      <button class="achk" onclick="checkA('eq1',5,0.05,'eq1-fb',10)">Prüfen</button>
+    </div>
+    <div class="afb" id="eq1-fb"></div>
+    <button class="loes-btn" id="eq1-loes-btn" onclick="toggleL('eq1-loes')">🔍 Lösung</button>
+    <div class="loes-box" id="eq1-loes">2x + 4 = 14<br>2x = 10 (−4)<br>x = 5 (÷2)</div>
+  </div>
+
+  <div class="card">
+    <div class="ch">✏️ Übung 2</div>
+    <div class="aufg-q">Löse: ½x − 3 = 1</div>
+    <div class="aufg-inp-row">
+      <label>x =</label>
+      <input class="ainp" id="eq2" type="number" placeholder="?">
+      <button class="achk" onclick="checkA('eq2',8,0.05,'eq2-fb',10)">Prüfen</button>
+    </div>
+    <div class="afb" id="eq2-fb"></div>
+    <button class="loes-btn" id="eq2-loes-btn" onclick="toggleL('eq2-loes')">🔍 Lösung</button>
+    <div class="loes-box" id="eq2-loes">½x − 3 = 1<br>½x = 4 (+3)<br>x = 8 (·2)</div>
+  </div>
+
+  <div class="card">
+    <div class="ch">✏️ Übung 3</div>
+    <div class="aufg-q">Löse: 3x + 7 = 22</div>
+    <div class="aufg-inp-row">
+      <label>x =</label>
+      <input class="ainp" id="eq3" type="number" placeholder="?">
+      <button class="achk" onclick="checkA('eq3',5,0.05,'eq3-fb',10)">Prüfen</button>
+    </div>
+    <div class="afb" id="eq3-fb"></div>
+    <button class="loes-btn" id="eq3-loes-btn" onclick="toggleL('eq3-loes')">🔍 Lösung</button>
+    <div class="loes-box" id="eq3-loes">3x + 7 = 22<br>3x = 15 (−7)<br>x = 5 (÷3)</div>
+  </div>
+</div>
+
+<!-- ══════ PROZENTRECHNUNG ══════ -->
+<div data-pg="prozent">
+  <div style="background:linear-gradient(135deg,#2a0a0a,#dc2626);border-radius:var(--r);padding:16px 18px;margin-bottom:14px;text-align:center">
+    <div style="font-size:32px;margin-bottom:6px">📊</div>
+    <div style="font-size:18px;font-weight:900">Prozentrechnung</div>
+    <div style="font-size:11px;opacity:.55">Grundwert · Prozentwert · Prozentsatz</div>
+  </div>
+
+  <div class="card">
+    <div class="ch">📌 Die 3 Formeln</div>
+    <div class="fml-grid">
+      <div class="fml-card"><div class="fml-label">Prozentwert W</div><div class="fml-expr">W = G · p/100</div><div class="fml-desc">G = Grundwert, p = Prozentsatz</div></div>
+      <div class="fml-card"><div class="fml-label">Grundwert G</div><div class="fml-expr">G = W · 100/p</div><div class="fml-desc">Wenn % und Wert bekannt</div></div>
+      <div class="fml-card" style="grid-column:1/-1"><div class="fml-label">Prozentsatz p</div><div class="fml-expr">p = W · 100/G</div><div class="fml-desc">Wie viel Prozent ist W von G?</div></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="ch">✏️ Aufgabe von der Tafel: 20% sind 150€. Wie viel sind 100%?</div>
+    <div class="eq-card">
+      <div class="eq-line"><span class="val">20% = 150€</span><span class="step-lbl">gegeben</span></div>
+      <div class="eq-line"><span class="op">÷20</span><span class="val">1% = 7,50€</span></div>
+      <div class="eq-line"><span class="op">·100</span><span class="res">100% = 750€</span></div>
+    </div>
+    <div class="aufg-inp-row">
+      <label>G =</label>
+      <input class="ainp" id="pz1" type="number" placeholder="? €">
+      <span style="font-size:11px;color:var(--muted)">€</span>
+      <button class="achk" onclick="checkA('pz1',750,0.5,'pz1-fb',15)">Prüfen</button>
+    </div>
+    <div class="afb" id="pz1-fb"></div>
+    <button class="play-btn" onclick="speakText('Zwanzig Prozent sind hundertfünfzig Euro. Geteilt durch zwanzig: ein Prozent ist sieben Euro fünfzig. Mal hundert: hundert Prozent sind siebenhundertfünfzig Euro.')">🔊 Anhören</button>
+  </div>
+
+  <div class="card">
+    <div class="ch">✏️ Aufgabe: 300m, davon 180m abgesägt. Wie viel % bleibt übrig?</div>
+    <div class="bsp-box">
+      <div class="bsp-steps">Abgesägt: 180m → übrig: 300−180 = 120m<br>p = 120/300 · 100 = <strong style="color:var(--green)">40%</strong></div>
+    </div>
+    <div class="aufg-inp-row">
+      <label>p =</label>
+      <input class="ainp" id="pz2" type="number" placeholder="? %">
+      <span style="font-size:11px;color:var(--muted)">%</span>
+      <button class="achk" onclick="checkA('pz2',40,0.5,'pz2-fb',15)">Prüfen</button>
+    </div>
+    <div class="afb" id="pz2-fb"></div>
+  </div>
+
+  <div class="card">
+    <div class="ch">✏️ Sneaker: 82€, 25% Rabatt. Neuer Preis?</div>
+    <div class="eq-card">
+      <div class="eq-line"><span class="val">25% von 82€</span></div>
+      <div class="eq-line"><span class="op">=</span><span class="val">82 · 25/100 = 20,50€ Rabatt</span></div>
+      <div class="eq-line"><span class="op">=</span><span class="res">82 − 20,50 = 61,50€</span></div>
+    </div>
+    <div class="aufg-inp-row">
+      <label>Preis =</label>
+      <input class="ainp" id="pz3" type="number" step="0.01" placeholder="? €">
+      <span style="font-size:11px;color:var(--muted)">€</span>
+      <button class="achk" onclick="checkA('pz3',61.5,0.05,'pz3-fb',15)">Prüfen</button>
+    </div>
+    <div class="afb" id="pz3-fb"></div>
+  </div>
+
+  <div class="card">
+    <div class="ch">✏️ Weitere Übungen</div>
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <div style="padding:10px 12px;background:var(--card2);border-radius:var(--r2);border-left:3px solid var(--teal)">
+        <div style="font-size:12px;font-weight:700;margin-bottom:7px;color:var(--text)">15% von 200€ = ?</div>
+        <div class="aufg-inp-row" style="margin:0">
+          <input class="ainp" id="pz4" type="number" placeholder="? €">
+          <button class="achk" onclick="checkA('pz4',30,0.5,'pz4-fb',10)">✓</button>
+        </div>
+        <div class="afb" id="pz4-fb"></div>
+      </div>
+      <div style="padding:10px 12px;background:var(--card2);border-radius:var(--r2);border-left:3px solid var(--orange)">
+        <div style="font-size:12px;font-weight:700;margin-bottom:7px;color:var(--text)">45 von 180 = ? %</div>
+        <div class="aufg-inp-row" style="margin:0">
+          <input class="ainp" id="pz5" type="number" placeholder="? %">
+          <button class="achk" onclick="checkA('pz5',25,0.5,'pz5-fb',10)">✓</button>
+        </div>
+        <div class="afb" id="pz5-fb"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════ EXCEL ══════ -->
+<div data-pg="excel">
+  <div style="background:linear-gradient(135deg,#0a2a1e,#16a34a);border-radius:var(--r);padding:16px 18px;margin-bottom:14px;text-align:center">
+    <div style="font-size:32px;margin-bottom:6px">📋</div>
+    <div style="font-size:18px;font-weight:900">Tabellenkalkulation / Excel</div>
+    <div style="font-size:11px;opacity:.55">Formeln · Zellbezüge · wie in der Arbeit</div>
+  </div>
+
+  <div class="card">
+    <div class="ch">📌 Wichtigste Grundregeln</div>
+    <div class="steps">
+      <div class="step"><span class="sn">=</span><div class="st2">Jede Formel beginnt mit <strong>=</strong></div></div>
+      <div class="step"><span class="sn">B5</span><div class="st2">Zelladresse = Spalte + Zeile → B5 = Spalte B, Zeile 5</div></div>
+      <div class="step"><span class="sn">*</span><div class="st2">Multiplikation in Excel = <strong>*</strong> (nicht ×)</div></div>
+      <div class="step"><span class="sn">-</span><div class="st2">Subtraktion: =D6−(D2+D3+D4)</div></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="ch">📊 Aufgabe: Happywood Schulmaterial</div>
+    <table class="excel-tbl">
+      <tr><th>Zeile</th><th>A: Artikel</th><th>B: Preis</th><th>C: Anzahl</th><th>D: Gesamtpreis</th></tr>
+      <tr><td class="col-A">2</td><td>Bleistift</td><td class="num">0,50€</td><td class="num">20</td><td class="result">10,00€</td></tr>
+      <tr><td class="col-A">3</td><td>Radiergummi</td><td class="num">1,50€</td><td class="num">7</td><td class="result">10,50€</td></tr>
+      <tr><td class="col-A">4</td><td>6er Pack Hefte</td><td class="num">1,00€</td><td class="num">25</td><td class="result">25,00€</td></tr>
+      <tr><td class="col-A">5</td><td>Packung Buntstifte</td><td class="num">3,50€</td><td class="num">4</td><td class="result emp">?</td></tr>
+      <tr><td class="col-A">6</td><td colspan="3" style="text-align:right;font-weight:800">gesamt:</td><td class="result">59,50€</td></tr>
+    </table>
+    
+    <div style="font-size:12px;font-weight:700;margin:10px 0 6px;color:var(--text)">a) Gesamtpreis Buntstifte (D5):</div>
+    <div class="aufg-inp-row">
+      <label>D5 =</label>
+      <input class="ainp" id="ex1" type="number" step="0.01" placeholder="? €">
+      <span style="font-size:11px;color:var(--muted)">€</span>
+      <button class="achk" onclick="checkA('ex1',14,0.05,'ex1-fb',10)">✓</button>
+    </div>
+    <div class="afb" id="ex1-fb"></div>
+
+    <div style="font-size:12px;font-weight:700;margin:12px 0 6px;color:var(--text)">b) Welche Formel ist für D5 geeignet? Klicke auf ✓ oder ✗:</div>
+    <div style="display:flex;flex-direction:column;gap:6px;margin:8px 0">
+      <div class="formel-check">
+        <span class="fc-formula">=D6−(D2+D3+D4)</span>
+        <button class="fc-check" onclick="fcCheck(this,'right')">✓</button>
+        <button class="fc-check" onclick="fcCheck(this,'wrong')">✗</button>
+      </div>
+      <div class="formel-check">
+        <span class="fc-formula">=B5*C5</span>
+        <button class="fc-check" onclick="fcCheck(this,'right')">✓</button>
+        <button class="fc-check" onclick="fcCheck(this,'wrong')">✗</button>
+      </div>
+      <div class="formel-check">
+        <span class="fc-formula">=B2+B3+B4+B5</span>
+        <button class="fc-check" onclick="fcCheck(this,'right')">✓</button>
+        <button class="fc-check" onclick="fcCheck(this,'wrong')">✗</button>
+      </div>
+    </div>
+    <div id="fc-answer" style="font-size:11px;font-weight:700;color:var(--muted);margin-top:5px"></div>
+    <button class="loes-btn" id="ex-loes-btn" onclick="toggleL('ex-loes')">🔍 Lösung</button>
+    <div class="loes-box" id="ex-loes">D5 = 3,50 · 4 = 14,00 €<br><br>Geeignete Formeln:<br>✓ =D6−(D2+D3+D4) → Gesamt minus Rest<br>✓ =B5*C5 → Preis × Anzahl<br>✗ =B2+B3+B4+B5 → Falsch! Das addiert nur Preise</div>
+
+    <div style="font-size:12px;font-weight:700;margin:12px 0 6px;color:var(--text)">c) Supermarkt: 10 Hefte = 1,50€. Günstiger als Happywood (1€/Stück)?</div>
+    <div class="bsp-box">
+      <div class="bsp-steps">Happywood: 1€ pro Heft<br>Supermarkt: 1,50€ ÷ 10 = 0,15€ pro Heft<br>→ Supermarkt ist <strong style="color:var(--green)">günstiger!</strong> (0,15€ vs. 1€)</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="ch">📊 Aufgabe: iPad-Projekt (Stufe 10)</div>
+    <table class="excel-tbl">
+      <tr><th></th><th>A</th><th>B</th><th>C: Kosten iPads</th><th>D: Kosten Hüllen</th><th>E: Gesamt</th></tr>
+      <tr><td>1</td><td colspan="2">Preis iPad: 379,99€</td><td></td><td></td><td></td></tr>
+      <tr><td>2</td><td colspan="2">Preis Hülle: 25,90€</td><td></td><td></td><td></td></tr>
+      <tr><td>3</td><td>Klasse</td><td>Anzahl</td><td>Kosten iPads</td><td>Kosten Hüllen</td><td>Gesamt</td></tr>
+      <tr><td>4</td><td>10A</td><td class="num">10</td><td class="emp">?</td><td class="num">259,00€</td><td class="num">4.058,90€</td></tr>
+      <tr><td>5</td><td>10B</td><td class="num">12</td><td class="num">4.559,88€</td><td class="num">310,80€</td><td class="num">4.870,68€</td></tr>
+    </table>
+    <div style="font-size:12px;font-weight:700;margin:10px 0 6px;color:var(--text)">Berechne C4 (verdeckt):</div>
+    <div class="aufg-inp-row">
+      <label>C4 =</label>
+      <input class="ainp" id="ex2" type="number" step="0.01" placeholder="? €">
+      <span style="font-size:11px;color:var(--muted)">€</span>
+      <button class="achk" onclick="checkA('ex2',3799.9,0.1,'ex2-fb',10)">✓</button>
+    </div>
+    <div class="afb" id="ex2-fb"></div>
+    <div class="box b" style="font-size:11px;margin-top:8px">Formel: =B4*$B$1 → Anzahl × iPad-Preis (absoluter Bezug mit $)</div>
+    <div style="font-size:12px;font-weight:700;margin:10px 0 6px;color:var(--text)">Geeignete Formeln für E8 (Summe Gesamt):</div>
+    <div style="display:flex;flex-direction:column;gap:6px">
+      <div class="formel-check">
+        <span class="fc-formula">=C4+C5+C6+C7</span>
+        <button class="fc-check" onclick="fcCheck2(this,'wrong','ex2-fc')">✓</button>
+        <button class="fc-check" onclick="fcCheck2(this,'right','ex2-fc')">✗</button>
+      </div>
+      <div class="formel-check">
+        <span class="fc-formula">=E8-C8</span>
+        <button class="fc-check" onclick="fcCheck2(this,'wrong','ex2-fc')">✓</button>
+        <button class="fc-check" onclick="fcCheck2(this,'right','ex2-fc')">✗</button>
+      </div>
+      <div class="formel-check">
+        <span class="fc-formula">=D4+D5+D6+D7</span>
+        <button class="fc-check" onclick="fcCheck2(this,'wrong','ex2-fc')">✓</button>
+        <button class="fc-check" onclick="fcCheck2(this,'right','ex2-fc')">✗</button>
+      </div>
+      <div class="formel-check">
+        <span class="fc-formula">=B8*B2</span>
+        <button class="fc-check" onclick="fcCheck2(this,'right','ex2-fc')">✓</button>
+        <button class="fc-check" onclick="fcCheck2(this,'wrong','ex2-fc')">✗</button>
+      </div>
+    </div>
+    <div id="ex2-fc" style="font-size:11px;font-weight:700;color:var(--muted);margin-top:5px"></div>
+    <button class="loes-btn" id="ex2-loes-btn" onclick="toggleL('ex2-loes')">🔍 Lösung E8</button>
+    <div class="loes-box" id="ex2-loes">E8 = Summe aller Gesamtpreise<br>✓ =E4+E5+E6+E7 (addiert alle Klassen)<br>✗ =C4+C5+C6+C7 (nur iPad-Kosten)<br>✗ =E8-C8 (Zirkelschluss!)<br>✗ =D4+D5+D6+D7 (nur Hüllen)<br>✓ =B8*B2 wäre nur Hüllen-Kosten gesamt</div>
+  </div>
+</div>
+
+<!-- ══════ ÜBUNGSAUFGABEN ══════ -->
+<div data-pg="proben">
+  <div id="p-picker">
+    <div style="background:linear-gradient(135deg,#2d1040,#7c3aed);border-radius:var(--r);padding:16px 18px;margin-bottom:14px;text-align:center">
+      <div style="font-size:32px;margin-bottom:6px">✏️</div>
+      <div style="font-size:18px;font-weight:900">Übungsaufgaben</div>
+    </div>
+    <div class="tgrid" id="p-grid"></div>
+  </div>
+  <div id="p-detail" style="display:none"><div id="p-content"></div></div>
 </div>
 
 <!-- ══════ SPICKZETTEL ══════ -->
 <div data-pg="spick">
   <div class="card">
-    <div class="ch">📌 Strahlensätze — Alle 3 Formeln</div>
+    <div class="ch">📌 Strahlensätze — Quick Reference</div>
     <div class="fml-grid">
-      <div class="fml-card"><div class="fml-label">1. Strahlensatz</div><div class="fml-expr">SA/AB = SC/CD</div><div class="fml-desc">AB = zwischen den Parallelen</div></div>
-      <div class="fml-card"><div class="fml-label">2. Strahlensatz</div><div class="fml-expr">SA/SB = SC/SD</div><div class="fml-desc">SB = ganzer Weg von S aus</div></div>
-      <div class="fml-card" style="grid-column:1/-1"><div class="fml-label">3. Strahlensatz</div><div class="fml-expr">SA/SB = AC/BD</div><div class="fml-desc">Parallelen wachsen proportional zum Abstand</div></div>
+      <div class="fml-card"><div class="fml-label">1. Strahlensatz</div><div class="fml-expr">SA/AB = SC/CD</div><div class="fml-desc">AB zwischen den Parallelen</div></div>
+      <div class="fml-card"><div class="fml-label">2. Strahlensatz</div><div class="fml-expr">SA/SB = SC/SD</div><div class="fml-desc">SB = ganzer Weg von S</div></div>
+      <div class="fml-card" style="grid-column:1/-1"><div class="fml-label">3. Strahlensatz</div><div class="fml-expr">SA/SB = AC/BD</div><div class="fml-desc">Parallelen wachsen proportional</div></div>
     </div>
     <canvas id="spick-cv" height="140" style="width:100%;border-radius:8px;border:1px solid var(--border);display:block;margin:8px 0"></canvas>
+    <button class="play-btn" onclick="speakText('Strahlensätze: Satz eins: SA durch AB gleich SC durch CD. AB liegt zwischen den Parallelen. Satz zwei: SA durch SB gleich SC durch SD. SB ist der ganze Weg von S aus. Satz drei: SA durch SB gleich AC durch BD. Die Parallelen werden länger.')">🔊 Formeln anhören</button>
   </div>
   <div class="card">
     <div class="ch">⭕ Kreis-Formeln</div>
     <div class="fml-grid">
       <div class="fml-card"><div class="fml-label">Umfang</div><div class="fml-expr">u = 2·π·r</div><div class="fml-desc">oder u = π·d</div></div>
-      <div class="fml-card"><div class="fml-label">Fläche</div><div class="fml-expr">A = π·r²</div><div class="fml-desc">r = Radius</div></div>
-      <div class="fml-card"><div class="fml-label">Bogenlänge</div><div class="fml-expr">b = 2πr·ω/360°</div><div class="fml-desc">ω = Mittelpunktswinkel</div></div>
-      <div class="fml-card"><div class="fml-label">Kreissektor</div><div class="fml-expr">A = πr²·ω/360°</div><div class="fml-desc">auch: A = b·r/2</div></div>
-      <div class="fml-card"><div class="fml-label">Kreisring</div><div class="fml-expr">A = π·(ra²−ri²)</div><div class="fml-desc">ra = außen, ri = innen</div></div>
-      <div class="fml-card"><div class="fml-label">Rechteck-Umfang</div><div class="fml-expr">u = 2a + 2b</div><div class="fml-desc">a, b = Seiten</div></div>
+      <div class="fml-card"><div class="fml-label">Fläche</div><div class="fml-expr">A = π·r²</div></div>
+      <div class="fml-card"><div class="fml-label">Bogenlänge</div><div class="fml-expr">b = 2πr·ω/360°</div></div>
+      <div class="fml-card"><div class="fml-label">Kreissektor</div><div class="fml-expr">A = πr²·ω/360°</div></div>
+      <div class="fml-card"><div class="fml-label">Kreisring</div><div class="fml-expr">A = π·(ra²−ri²)</div></div>
+      <div class="fml-card"><div class="fml-label">Thales</div><div class="fml-expr">ω=180° → δ=90°</div></div>
     </div>
+    <button class="play-btn" onclick="speakText('Kreisformeln: Umfang gleich zwei mal Pi mal r. Fläche gleich Pi mal r hoch zwei. Bogenlänge b gleich zwei mal Pi mal r mal Omega durch 360. Kreisring: A gleich Pi mal r-a hoch zwei minus r-i hoch zwei. Satz des Thales: Wenn Omega gleich 180 Grad, dann ist der Umfangswinkel Delta gleich 90 Grad.')">🔊 Anhören</button>
   </div>
-  <div class="card" style="border-color:rgba(45,212,191,.3)">
-    <div class="ch">🔵 Satz des Thales</div>
-    <div class="box t">Wenn ω = 180° (Mittelpunktswinkel über dem Durchmesser), dann ist der Umfangswinkel δ = <strong>90°</strong>.<br><br>Merke: Jeder Winkel im Halbkreis ist ein rechter Winkel!</div>
-    <canvas id="thales-cv" height="160" style="width:100%;border-radius:8px;border:1px solid var(--border);display:block;margin:8px 0"></canvas>
+  <div class="card">
+    <div class="ch">📊 Prozent & Gleichungen</div>
+    <div class="fml-grid">
+      <div class="fml-card"><div class="fml-label">Prozentwert</div><div class="fml-expr">W = G · p/100</div></div>
+      <div class="fml-card"><div class="fml-label">Grundwert</div><div class="fml-expr">G = W · 100/p</div></div>
+      <div class="fml-card"><div class="fml-label">Gleichung lösen</div><div class="fml-expr">1. −/+ 2. ·/÷</div><div class="fml-desc">Immer beide Seiten gleich!</div></div>
+      <div class="fml-card"><div class="fml-label">Excel Formel</div><div class="fml-expr">=B5*C5</div><div class="fml-desc">Immer mit = beginnen</div></div>
+    </div>
   </div>
   <div class="card" style="border-color:rgba(248,113,113,.3)">
     <div class="ch">🚨 Häufige Fehler</div>
     <div style="display:flex;flex-direction:column;gap:7px;font-size:12px;font-weight:600">
-      <div style="padding:9px 12px;background:rgba(248,113,113,.07);border-radius:var(--r2);border-left:3px solid var(--red)">❌ Satz 1 vs 2 verwechseln → <span style="color:var(--green)">Satz 1: AB zwischen · Satz 2: SB von S aus</span></div>
-      <div style="padding:9px 12px;background:rgba(248,113,113,.07);border-radius:var(--r2);border-left:3px solid var(--red)">❌ Kreisring: nur eine Fläche → <span style="color:var(--green)">Immer beide r² berechnen, dann subtrahieren!</span></div>
-      <div style="padding:9px 12px;background:rgba(248,113,113,.07);border-radius:var(--r2);border-left:3px solid var(--red)">❌ Sektor: falscher Winkel → <span style="color:var(--green)">ω in Grad, immer mit ω/360°</span></div>
-      <div style="padding:9px 12px;background:rgba(248,113,113,.07);border-radius:var(--r2);border-left:3px solid var(--red)">❌ Thales vergessen → <span style="color:var(--green)">ω = 180° → δ = 90° immer!</span></div>
+      <div style="padding:9px 12px;background:rgba(248,113,113,.07);border-radius:var(--r2);border-left:3px solid var(--red)">❌ Satz 1 vs 2 → <span style="color:var(--green)">Satz 1: AB zwischen · Satz 2: SB von S aus</span></div>
+      <div style="padding:9px 12px;background:rgba(248,113,113,.07);border-radius:var(--r2);border-left:3px solid var(--red)">❌ Excel ohne = → <span style="color:var(--green)">Immer =B5*C5 nicht einfach B5*C5</span></div>
+      <div style="padding:9px 12px;background:rgba(248,113,113,.07);border-radius:var(--r2);border-left:3px solid var(--red)">❌ Prozent: G und W verwechseln → <span style="color:var(--green)">G = Ausgangswert (100%)</span></div>
+      <div style="padding:9px 12px;background:rgba(248,113,113,.07);border-radius:var(--r2);border-left:3px solid var(--red)">❌ Kreisring: nur eine Fläche → <span style="color:var(--green)">Beide r² berechnen, dann subtrahieren!</span></div>
     </div>
   </div>
 </div>
@@ -332,19 +695,19 @@ canvas{display:block;width:100%}
 <div class="mpanel" id="mpanel">
   <div class="mhdr">
     <div class="mav">KI</div>
-    <div class="minfo"><h4>KI-Tutor · Mathe 9</h4><p>Erklärt Schritt für Schritt · kostenlos</p></div>
+    <div class="minfo"><h4>KI-Tutor · Mathe 9 NRW</h4><p>Einfache Erklärungen · Schritt für Schritt</p></div>
     <button class="mx" onclick="toggleM()">✕</button>
   </div>
   <div class="mmsgs" id="mmsgs"></div>
   <div class="mquick">
-    <button class="mqb" onclick="mAsk('Erkläre mir V-Figur vs X-Figur beim Strahlensatz')">V vs X?</button>
-    <button class="mqb" onclick="mAsk('Wie berechne ich einen Kreissektor?')">Kreissektor?</button>
-    <button class="mqb" onclick="mAsk('Was ist der Kreisring und wie berechne ich ihn?')">Kreisring?</button>
-    <button class="mqb" onclick="mAsk('Erkläre den Satz des Thales')">Thales?</button>
-    <button class="mqb" onclick="mAsk('Welchen Strahlensatz (1, 2 oder 3) soll ich wählen?')">Welcher Satz?</button>
+    <button class="mqb" onclick="mAsk('Erkläre kurz V vs X Figur')">V vs X?</button>
+    <button class="mqb" onclick="mAsk('Wie löse ich eine Gleichung mit x?')">Gleichung?</button>
+    <button class="mqb" onclick="mAsk('Erkläre Prozentrechnung einfach')">Prozent?</button>
+    <button class="mqb" onclick="mAsk('Was ist der Unterschied Satz 1 und Satz 2?')">Satz 1 vs 2?</button>
+    <button class="mqb" onclick="mAsk('Erkläre Excel Formeln einfach')">Excel?</button>
   </div>
   <div class="mrow">
-    <textarea class="minp" id="minp" rows="1" placeholder="Frag mich was du nicht verstehst..."
+    <textarea class="minp" id="minp" rows="1" placeholder="Was verstehst du nicht?"
       onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();mSend()}"
       oninput="this.style.height='auto';this.style.height=Math.min(this.scrollHeight,65)+'px'"></textarea>
     <button class="msend" id="msend" onclick="mSend()">➤</button>
@@ -356,13 +719,40 @@ canvas{display:block;width:100%}
 <script>
 // ═════ STATE ═════
 let pts=0,ans={},dT={};
-function sv(){try{localStorage.setItem('m9nrw',JSON.stringify({pts,ans,dT}));}catch(e){}}
-function ld(){try{const d=JSON.parse(localStorage.getItem('m9nrw')||'{}');pts=d.pts||0;ans=d.ans||{};dT=d.dT||{};document.getElementById('pts').textContent=pts;}catch(e){}}
+function sv(){try{localStorage.setItem('m9v2',JSON.stringify({pts,ans,dT}));}catch(e){}}
+function ld(){try{const d=JSON.parse(localStorage.getItem('m9v2')||'{}');pts=d.pts||0;ans=d.ans||{};dT=d.dT||{};document.getElementById('pts').textContent=pts;}catch(e){}}
+
+// ═════ TTS ═════
+let ttsEnabled=false,currentUtterance=null;
+function toggleTTS(){
+  ttsEnabled=!ttsEnabled;
+  const btn=document.getElementById('tts-toggle');
+  btn.textContent=ttsEnabled?'🔇 Stopp':'🔊 Vorlesen';
+  btn.classList.toggle('speaking',ttsEnabled);
+  if(!ttsEnabled&&window.speechSynthesis)window.speechSynthesis.cancel();
+}
+function speakText(text){
+  if(!window.speechSynthesis)return;
+  window.speechSynthesis.cancel();
+  const u=new SpeechSynthesisUtterance(text);
+  u.lang='de-DE';u.rate=0.92;u.pitch=1;
+  // Try to find a German voice
+  const voices=window.speechSynthesis.getVoices();
+  const deVoice=voices.find(v=>v.lang.startsWith('de'));
+  if(deVoice)u.voice=deVoice;
+  currentUtterance=u;
+  window.speechSynthesis.speak(u);
+  const btn=document.getElementById('tts-toggle');
+  btn.textContent='🔇 Stopp';btn.classList.add('speaking');
+  u.onend=()=>{btn.textContent='🔊 Vorlesen';btn.classList.remove('speaking');};
+}
+// Auto-read on page switch if enabled
+function maybeSpeak(text){if(ttsEnabled)speakText(text);}
 
 // ═════ STARS ═════
 (function(){
   const c=document.getElementById('stars');
-  for(let i=0;i<60;i++){
+  for(let i=0;i<55;i++){
     const s=document.createElement('div');s.className='star';
     const sz=Math.random()*2+1;
     s.style.cssText=`width:${sz}px;height:${sz}px;left:${Math.random()*100}%;top:${Math.random()*100}%;--d:${2+Math.random()*4}s;animation-delay:${Math.random()*5}s`;
@@ -370,16 +760,28 @@ function ld(){try{const d=JSON.parse(localStorage.getItem('m9nrw')||'{}');pts=d.
   }
 })();
 
-// ═════ COUNTDOWN ═════
+// ═════ COUNTDOWN — bis 12.06.2026 um 12:00 Uhr ═════
+let lastSecs=-1;
 function updateCD(){
-  const target=new Date('2026-06-12T08:00:00');
+  const target=new Date('2026-06-12T12:00:00');
   const diff=target-new Date();
-  if(diff<=0){document.querySelector('.cd-bar').innerHTML='<div style="text-align:center;font-size:13px;font-weight:800;color:var(--red);padding:8px">🎯 Heute ist die Arbeit! Viel Erfolg!</div>';return;}
+  if(diff<=0){
+    document.querySelector('.cd-bar').innerHTML='<div style="text-align:center;font-size:14px;font-weight:900;color:var(--red);padding:10px;animation:pulse-tts 1s infinite">🎯 HEUTE IST DIE ARBEIT! Viel Erfolg! 💪</div>';
+    return;
+  }
   const d=Math.floor(diff/86400000);
   const h=Math.floor((diff%86400000)/3600000);
   const m=Math.floor((diff%3600000)/60000);
   const s=Math.floor((diff%60000)/1000);
-  ['d','h','m','s'].forEach((x,i)=>{document.getElementById('cd-'+x).textContent=String([d,h,m,s][i]).padStart(2,'0');});
+  ['d','h','m','s'].forEach((x,i)=>{
+    const el=document.getElementById('cd-'+x);
+    const val=String([d,h,m,s][i]).padStart(2,'0');
+    if(el.textContent!==val){
+      el.textContent=val;
+      el.classList.add('flash');
+      setTimeout(()=>el.classList.remove('flash'),280);
+    }
+  });
 }
 updateCD();setInterval(updateCD,1000);
 
@@ -388,7 +790,7 @@ function switchPg(n,btn){
   document.querySelectorAll('.nbt').forEach(b=>b.classList.remove('on'));btn.classList.add('on');
   document.querySelectorAll('[data-pg]').forEach(p=>p.classList.remove('show'));
   document.querySelector(`[data-pg="${n}"]`).classList.add('show');
-  if(n==='spick')setTimeout(()=>{drawSpick();drawThales();},60);
+  if(n==='spick')setTimeout(()=>{drawSpick();},60);
 }
 
 // ═════ CANVAS HELPERS ═════
@@ -404,7 +806,7 @@ function infoBox(ctx,l1,v1,l2,v2,H,W){
   ctxt(ctx,l2+' = '+v2,W/2+10,H-18,C.orange,10);
 }
 
-// ═════ SPICKZETTEL CANVAS ═════
+// ═════ SPICK CANVAS ═════
 function drawSpick(){
   const cv=document.getElementById('spick-cv');if(!cv)return;
   const W=cv.offsetWidth||340,H=140;cv.width=W;cv.height=H;
@@ -427,92 +829,56 @@ function drawSpick(){
   ctxt(ctx,'A',A.x+4,A.y-7,C.blue,11);ctxt(ctx,'C',Cp.x+4,Cp.y+14,C.blue,11);
   ctxt(ctx,'B',B.x+4,B.y-7,C.orange,11);ctxt(ctx,'D',D.x+4,D.y+14,C.orange,11);
 }
+window.addEventListener('resize',()=>{drawSpick();Object.values(window._cvRH||{}).forEach(f=>f());});
 
-function drawThales(){
-  const cv=document.getElementById('thales-cv');if(!cv)return;
-  const W=cv.offsetWidth||340,H=160;cv.width=W;cv.height=H;
-  const ctx=cv.getContext('2d');
-  ctx.fillStyle=C.bg;ctx.fillRect(0,0,W,H);
-  const cx=W/2,cy=H/2+10,r=55;
-  ctx.save();ctx.strokeStyle=C.blue;ctx.lineWidth=2;ctx.setLineDash([]);
-  ctx.beginPath();ctx.arc(cx,cy,r,0,Math.PI*2);ctx.stroke();ctx.restore();
-  const A={x:cx-r,y:cy},B={x:cx+r,y:cy};
-  const ang=-Math.PI/3;
-  const P={x:cx+r*Math.cos(ang),y:cy+r*Math.sin(ang)};
-  circ(ctx,A.x,A.y,C.orange,6);circ(ctx,B.x,B.y,C.orange,6);circ(ctx,cx,cy,C.yellow,5);
-  circ(ctx,P.x,P.y,C.green,6);
-  cline(ctx,A.x,A.y,B.x,B.y,C.orange,2);
-  cline(ctx,A.x,A.y,P.x,P.y,C.teal,2);
-  cline(ctx,B.x,B.y,P.x,P.y,C.teal,2);
-  // rechter Winkel
-  const sq=10;
-  const dAP=Math.atan2(P.y-A.y,P.x-A.x);
-  const dBP=Math.atan2(P.y-B.y,P.x-B.x);
-  const p1={x:P.x+sq*Math.cos(dAP+Math.PI),y:P.y+sq*Math.sin(dAP+Math.PI)};
-  const p3={x:P.x+sq*Math.cos(dBP+Math.PI),y:P.y+sq*Math.sin(dBP+Math.PI)};
-  const p2={x:p1.x+p3.x-P.x,y:p1.y+p3.y-P.y};
-  ctx.save();ctx.strokeStyle=C.green;ctx.lineWidth=1.5;ctx.beginPath();ctx.moveTo(p1.x,p1.y);ctx.lineTo(p2.x,p2.y);ctx.lineTo(p3.x,p3.y);ctx.stroke();ctx.restore();
-  ctxt(ctx,'A',A.x-18,A.y+4,C.orange,12);
-  ctxt(ctx,'B',B.x+6,B.y+4,C.orange,12);
-  ctxt(ctx,'M',cx-15,cy+4,C.yellow,11);
-  ctxt(ctx,'P',P.x+7,P.y-3,C.green,12);
-  ctxt(ctx,'δ = 90° immer!',cx-45,H-5,C.green,11);
-  ctxt(ctx,'ω = 180° (Durchmesser)',10,14,C.blue,10);
-}
-
-// ═════ STRAHLENSATZ THEMEN ═════
-const THEMEN=[
+// ═════ STRAHLENSATZ TOPICS ═════
+const S_THEMEN=[
   {id:0,i:'💡',n:'Grundidee'},
   {id:1,i:'📐',n:'1. Strahlensatz'},
   {id:2,i:'📏',n:'2. Strahlensatz'},
   {id:3,i:'📊',n:'3. Strahlensatz'},
   {id:4,i:'✖️',n:'X-Figur'},
-  {id:5,i:'🏆',n:'Alles — Quiz'},
 ];
-function buildGrid(){
-  document.getElementById('tgrid').innerHTML=THEMEN.map(t=>{
-    const d=!!dT['t'+t.id];
-    return`<div class="tc${d?' dn':''}" onclick="openT(${t.id})">
+function buildSGrid(){
+  document.getElementById('s-tgrid').innerHTML=S_THEMEN.map(t=>{
+    const d=!!dT['st'+t.id];
+    return`<div class="tc${d?' dn':''}" onclick="openS(${t.id})">
       <div class="tc-n">Thema ${t.id+1}${d?' ✓':''}</div>
       <div class="tc-i">${t.i}</div>
       <div class="tc-t">${t.n}</div>
     </div>`;
   }).join('');
 }
-function openT(id){
-  document.getElementById('picker').style.display='none';
-  document.getElementById('lesson').style.display='block';
-  document.getElementById('li').innerHTML=TCONTENT[id]||'';
+
+function openS(id){
+  document.getElementById('s-picker').style.display='none';
+  document.getElementById('s-lesson').style.display='block';
+  document.getElementById('s-li').innerHTML=S_CONTENT[id]||'';
   setTimeout(()=>{
-    if(id===0)setupCV('cv0',drawCV0);
-    if(id===1)setupCV('cv1',drawCV1);
-    if(id===2)setupCV('cv2',drawCV2);
-    if(id===3)setupCV('cv3',drawCV3);
-    if(id===4)setupCV('cv4',drawCVX);
-    buildQ(id);
+    setupAnimCanvas(id);
+    buildSQ(id);
   },60);
   window.scrollTo({top:0,behavior:'smooth'});
 }
-function goBack(){document.getElementById('picker').style.display='block';document.getElementById('lesson').style.display='none';buildGrid();}
-const BK=`<button class="back" onclick="goBack()">← Zurück</button>`;
+function goBackS(){document.getElementById('s-picker').style.display='block';document.getElementById('s-lesson').style.display='none';buildSGrid();}
+const BK=`<button class="back" onclick="goBackS()">← Zurück</button>`;
 
-function setupCV(cvId,drawFn){
-  const cv=document.getElementById(cvId);if(!cv)return;
-  const sid=cvId.replace('cv','s');
-  const s=document.getElementById(sid);
-  const svEl=document.getElementById(sid+'v');
-  if(!s)return;
-  function update(){
+// Canvas animation
+function setupAnimCanvas(id){
+  const cv=document.getElementById('acv'+id);if(!cv)return;
+  const sid='asl'+id;const svEl=document.getElementById('aslv'+id);
+  const sl=document.getElementById(sid);if(!sl)return;
+  const drawFns={0:drawV0,1:drawV1,2:drawV2,3:drawV3,4:drawVX};
+  function upd(){
     const W=cv.offsetWidth||340,H=200;cv.width=W;cv.height=H;
-    drawFn(cv.getContext('2d'),W,H,parseFloat(s.value)/100);
-    if(svEl)svEl.textContent=s.value+'%';
+    drawFns[id]&&drawFns[id](cv.getContext('2d'),W,H,parseFloat(sl.value)/100);
+    if(svEl)svEl.textContent=sl.value+'%';
   }
-  s.addEventListener('input',update);update();
-  window._cvRH=window._cvRH||{};window._cvRH[cvId]=update;
+  sl.addEventListener('input',upd);upd();
+  window._cvRH=window._cvRH||{};window._cvRH['acv'+id]=upd;
 }
-window.addEventListener('resize',()=>{Object.values(window._cvRH||{}).forEach(f=>f());drawSpick();drawThales();});
 
-function drawCV0(ctx,W,H,t){
+function drawV0(ctx,W,H,t){
   ctx.fillStyle=C.bg;ctx.fillRect(0,0,W,H);
   const sx=36,sy=H/2,L=W-54,a1=-0.3,a2=0.3;
   cline(ctx,sx,sy,sx+Math.cos(a1)*L,sy+Math.sin(a1)*L,C.dim,1.5);
@@ -531,7 +897,7 @@ function drawCV0(ctx,W,H,t){
   const SC=Math.hypot(Cp.x-sx,Cp.y-sy),CD=Math.hypot(D.x-Cp.x,D.y-Cp.y);
   infoBox(ctx,'SA/AB',(SA/AB).toFixed(2),'SC/CD',(SC/CD).toFixed(2),H,W);
 }
-function drawCV1(ctx,W,H,t){
+function drawV1(ctx,W,H,t){
   ctx.fillStyle=C.bg;ctx.fillRect(0,0,W,H);
   const sx=36,sy=H/2,L=W-54,a1=-0.3,a2=0.3;
   cline(ctx,sx,sy,sx+Math.cos(a1)*L,sy+Math.sin(a1)*L,C.dim,1.5);
@@ -553,7 +919,7 @@ function drawCV1(ctx,W,H,t){
   const SC=Math.hypot(Cp.x-sx,Cp.y-sy),CD=Math.hypot(D.x-Cp.x,D.y-Cp.y);
   infoBox(ctx,'SA/AB',(SA/AB).toFixed(2),'SC/CD',(SC/CD).toFixed(2),H,W);
 }
-function drawCV2(ctx,W,H,t){
+function drawV2(ctx,W,H,t){
   ctx.fillStyle=C.bg;ctx.fillRect(0,0,W,H);
   const sx=36,sy=H/2,L=W-54,a1=-0.3,a2=0.3;
   cline(ctx,sx,sy,sx+Math.cos(a1)*L,sy+Math.sin(a1)*L,C.dim,1.5);
@@ -564,8 +930,8 @@ function drawCV2(ctx,W,H,t){
   const B={x:sx+Math.cos(a1)*L*t2,y:sy+Math.sin(a1)*L*t2};
   const D={x:sx+Math.cos(a2)*L*t2,y:sy+Math.sin(a2)*L*t2};
   cline(ctx,A.x,A.y,Cp.x,Cp.y,C.blue,3);cline(ctx,B.x,B.y,D.x,D.y,C.orange,3);
-  cline(ctx,sx,sy,A.x,A.y,C.blue,4);
   cline(ctx,sx,sy,B.x,B.y,C.orange,2,[5,3]);
+  cline(ctx,sx,sy,D.x,D.y,C.orange,2,[5,3]);
   circ(ctx,sx,sy,C.yellow,7);[A,Cp].forEach(p=>circ(ctx,p.x,p.y,C.blue));[B,D].forEach(p=>circ(ctx,p.x,p.y,C.orange));
   ctxt(ctx,'S',sx-18,sy+5,C.yellow,13);
   ctxt(ctx,'A',A.x+4,A.y-8,C.blue,11);ctxt(ctx,'C',Cp.x+4,Cp.y+14,C.blue,11);
@@ -574,7 +940,7 @@ function drawCV2(ctx,W,H,t){
   const SC=Math.hypot(Cp.x-sx,Cp.y-sy),SD=Math.hypot(D.x-sx,D.y-sy);
   infoBox(ctx,'SA/SB',(SA/SB).toFixed(2),'SC/SD',(SC/SD).toFixed(2),H,W);
 }
-function drawCV3(ctx,W,H,t){
+function drawV3(ctx,W,H,t){
   ctx.fillStyle=C.bg;ctx.fillRect(0,0,W,H);
   const sx=36,sy=H/2,L=W-54,a1=-0.38,a2=0.38;
   cline(ctx,sx,sy,sx+Math.cos(a1)*L,sy+Math.sin(a1)*L,C.dim,1.5);
@@ -593,7 +959,7 @@ function drawCV3(ctx,W,H,t){
   const AC=Math.hypot(Cp.x-A.x,Cp.y-A.y),BD=Math.hypot(D.x-B.x,D.y-B.y);
   infoBox(ctx,'SA/SB',(SA/SB).toFixed(2),'AC/BD',(AC/BD).toFixed(2),H,W);
 }
-function drawCVX(ctx,W,H,t){
+function drawVX(ctx,W,H,t){
   ctx.fillStyle=C.bg;ctx.fillRect(0,0,W,H);
   const cx=W/2,cy=H/2;
   const t1=t*0.9,t2=Math.min(t+0.38,0.9);
@@ -622,807 +988,486 @@ function shuf(a){const r=[...a];for(let i=r.length-1;i>0;i--){const j=Math.floor
 function fmt(n){return Number.isInteger(n)?String(n):String(Math.round(n*10000)/10000).replace('.',',');}
 function mkO(a){const s=new Set([a]);let tries=0;const d=Math.abs(a)>50?15:Math.abs(a)>10?3:1.5;while(s.size<4&&tries++<300){const c=+(a+([-d,-d*2,d,d*2][Math.floor(Math.random()*4)])).toFixed(2);if(c!==a&&c>0)s.add(c);}return shuf([...s].slice(0,4));}
 
-const QD={
-  t0:[
-    {q:'Wie heißt der Startpunkt der Strahlen?',txt:true,opts:['Scheitel S','Mittelpunkt M','Ursprung O','Pol P'],cor:'Scheitel S',h:'Immer Scheitel S!'},
-    {q:'Was bleibt beim Strahlensatz konstant?',txt:true,opts:['Das Verhältnis der Strecken','Die absolute Länge','Der Abstand vom Scheitel','Der Winkel'],cor:'Das Verhältnis der Strecken',h:'Immer das Verhältnis!'},
-    {q:'Wie viele Strahlensätze gibt es?',a:3,h:'Genau 3!'},
-  ],
-  t1:[
-    {q:'SA = 4, AB = 2. Was ist SA/AB?',a:2,h:'4 ÷ 2 = 2'},
-    {q:'SA/AB = SC/CD. SA=6, AB=3, SC=8. Was ist CD?',a:4,h:'6/3=2 → CD=8÷2=4'},
-    {q:'SA=10, AB=5, SC=12. Was ist CD?',a:6,h:'10/5=2 → CD=12÷2=6'},
-  ],
-  t2:[
-    {q:'SA=4, SB=8. SA/SB = ?',a:0.5,h:'4÷8=0,5'},
-    {q:'SA/SB=SC/SD. SA=4, SB=12, SC=5. Was ist SD?',a:15,h:'4/12=1/3 → SD=5÷(1/3)=15'},
-    {q:'SA=6, SB=18, SC=4. Was ist SD?',a:12,h:'6/18=1/3 → SD=12'},
-  ],
-  t3:[
-    {q:'SA=2, SB=6. BD ist wie viel mal länger als AC?',a:3,h:'6/2=3'},
-    {q:'SA=3, SB=9, AC=4. Was ist BD?',a:12,h:'9/3=3 → BD=4×3=12'},
-    {q:'SA=4, SB=8, BD=10. Was ist AC?',a:5,h:'4/8=0,5 → AC=10×0,5=5'},
-  ],
-  t4:[
-    {q:'X-Figur: Der Scheitel S liegt...',txt:true,opts:['In der Mitte (Schnittpunkt)','Am Rand','Außerhalb','Auf der Parallele'],cor:'In der Mitte (Schnittpunkt)',h:'Bei X-Figur ist S in der Mitte!'},
-    {q:'SA=6, SB=9. SA/SB = ?',a:0.667,h:'6÷9≈0,667'},
-    {q:'X-Figur: SA=3, SB=12, SC=4. Was ist SD?',a:16,h:'3/12=4/SD → SD=16'},
-  ],
-  t5:[
-    {q:'SA=6, AB=3. SA/AB = ?',a:2,h:'6÷3=2'},
-    {q:'SA/SB=SC/SD. SA=5, SB=15, SC=4. Was ist SD?',a:12,h:'5/15=1/3 → SD=12'},
-    {q:'SA=2, SB=10, AC=3. Was ist BD?',a:15,h:'2/10=0,2 → BD=3÷0,2=15'},
-    {q:'Satz 1 vs 2: Unterschied?',txt:true,opts:['Satz 1: AB zwischen, Satz 2: SB von S aus','Satz 1 ist für X-Figur','Kein Unterschied','Satz 2 hat keine Formel'],cor:'Satz 1: AB zwischen, Satz 2: SB von S aus',h:'Genau!'},
-  ],
+const SQD={
+  0:[{q:'Was bleibt beim Strahlensatz konstant?',txt:true,opts:['Das Verhältnis','Die Länge','Der Abstand','Der Winkel'],cor:'Das Verhältnis',h:'Immer das Verhältnis!'},
+     {q:'Wie heißt der Startpunkt?',txt:true,opts:['Scheitel S','Punkt A','Mittelpunkt M','Pol P'],cor:'Scheitel S',h:'Immer S!'}],
+  1:[{q:'SA=4, AB=2 → SA/AB = ?',a:2,h:'4÷2=2'},{q:'SA=6, AB=3, SC=8 → CD=?',a:4,h:'6/3=2 → CD=8÷2=4'}],
+  2:[{q:'SA=4, SB=8 → SA/SB = ?',a:0.5,h:'4÷8=0,5'},{q:'SA=4,SB=12,SC=5 → SD=?',a:15,h:'4/12=1/3 → SD=15'}],
+  3:[{q:'SA=2,SB=6 → BD wie viel mal länger als AC?',a:3,h:'6/2=3'},{q:'SA=3,SB=9,AC=4 → BD=?',a:12,h:'9/3=3 → BD=12'}],
+  4:[{q:'X-Figur: S liegt...',txt:true,opts:['In der Mitte','Am Rand','Außerhalb','Oben'],cor:'In der Mitte',h:'Bei X liegt S im Schnittpunkt'},
+     {q:'SA=3,SB=12,SC=4 → SD=?',a:16,h:'3/12=4/SD → SD=16'}],
 };
 
-function buildQ(id){
-  const key='t'+id;const all=QD[key];if(!all)return;
-  const wrap=document.getElementById('qa_'+key);if(!wrap)return;
-  const pool=shuf(all).slice(0,Math.min(4,all.length));
-  window['_qp_'+key]=pool;
+function buildSQ(id){
+  const all=SQD[id];if(!all)return;
+  const wrap=document.getElementById('sqa_'+id);if(!wrap)return;
+  const pool=shuf(all).slice(0,2);window['_sqp_'+id]=pool;
   wrap.innerHTML=pool.map((q,i)=>{
     if(q.txt){
-      return`<div class="aufg" id="qc_${key}_${i}" style="margin-bottom:8px">
-        <div style="padding:10px 13px;font-weight:700;font-size:12px;line-height:1.55;color:var(--text)">${q.q}</div>
-        <div class="opts4" style="padding:0 13px 10px">${q.opts.map(o=>`<button class="opt4" onclick="chkTxt('${key}',${i},'${o.replace(/'/g,'&#39;')}','${q.cor.replace(/'/g,'&#39;')}','${(q.h||'').replace(/'/g,'&#39;')}')">${o}</button>`).join('')}</div>
-        <div class="afb" id="qf_${key}_${i}" style="padding:0 13px 9px"></div>
+      return`<div class="aufg" id="sqc_${id}_${i}" style="margin-bottom:8px">
+        <div style="padding:10px 13px;font-weight:700;font-size:12px;line-height:1.55">${q.q}</div>
+        <div class="opts4" style="padding:0 13px 10px">${q.opts.map(o=>`<button class="opt4" onclick="chkTxt('sq${id}',${i},'${o.replace(/'/g,'&#39;')}','${q.cor.replace(/'/g,'&#39;')}','${(q.h||'').replace(/'/g,'&#39;')}')">${o}</button>`).join('')}</div>
+        <div class="afb" id="sqf_${id}_${i}" style="padding:0 13px 9px"></div>
       </div>`;
     }else{
       const opts=mkO(q.a);
-      return`<div class="aufg" id="qc_${key}_${i}" style="margin-bottom:8px">
-        <div style="padding:10px 13px;font-weight:700;font-size:12px;line-height:1.55;color:var(--text)">${q.q}</div>
-        <div class="opts4" style="padding:0 13px 10px">${opts.map(o=>`<button class="opt4" onclick="chk('${key}',${i},${o},${q.a},'${(q.h||'').replace(/'/g,'&#39;')}')">${fmt(o)}</button>`).join('')}</div>
-        <div class="afb" id="qf_${key}_${i}" style="padding:0 13px 9px"></div>
-        <div style="padding:0 13px 9px"><button class="atipp" onclick='mAsk("Aufgabe: ${q.q.replace(/'/g,'')} — Tipp bitte!")'>🤖 Tipp</button></div>
+      return`<div class="aufg" id="sqc_${id}_${i}" style="margin-bottom:8px">
+        <div style="padding:10px 13px;font-weight:700;font-size:12px;line-height:1.55">${q.q}</div>
+        <div class="opts4" style="padding:0 13px 10px">${opts.map(o=>`<button class="opt4" onclick="chkNum('sq${id}',${i},${o},${q.a},'${(q.h||'').replace(/'/g,'&#39;')}')">${fmt(o)}</button>`).join('')}</div>
+        <div class="afb" id="sqf_${id}_${i}" style="padding:0 13px 9px"></div>
       </div>`;
     }
   }).join('');
-  updCb(key,pool.length);
 }
+
 function chkTxt(key,i,chosen,cor,hint){
   const k=key+'_'+i;if(ans[k])return;
-  const card=document.getElementById('qc_'+key+'_'+i);
-  const fb=document.getElementById('qf_'+key+'_'+i);
-  card.querySelectorAll('.opt4').forEach(b=>b.disabled=true);
+  const card=document.getElementById('sqc_'+key.replace('sq','')+'_'+i);
+  const fb=document.getElementById('sqf_'+key.replace('sq','')+'_'+i);
+  card?.querySelectorAll('.opt4').forEach(b=>b.disabled=true);
   if(chosen===cor){
-    card.querySelectorAll('.opt4').forEach(b=>{if(b.textContent.trim()===chosen)b.classList.add('ok');});
-    fb.textContent='✅ Richtig!';fb.className='afb ok';
+    card?.querySelectorAll('.opt4').forEach(b=>{if(b.textContent.trim()===chosen)b.classList.add('ok');});
+    if(fb){fb.textContent='✅ Richtig!';fb.className='afb ok';}
     ans[k]=true;pts+=10;document.getElementById('pts').textContent=pts;sv();toast('+10 Punkte! ⭐');
-    updCb(key,window['_qp_'+key]?.length||3);card.style.animation='pop .4s';
   }else{
-    card.querySelectorAll('.opt4').forEach(b=>{if(b.textContent.trim()===chosen)b.classList.add('no');if(b.textContent.trim()===cor)b.classList.add('ok');});
-    fb.innerHTML='❌ Richtig: <strong>'+cor+'</strong> — '+hint;fb.className='afb no';
-    card.style.animation='shake .3s';
-    setTimeout(()=>{card.style.animation='';card.querySelectorAll('.opt4').forEach(b=>{b.disabled=false;b.classList.remove('no','ok');});fb.textContent='';},3500);
+    card?.querySelectorAll('.opt4').forEach(b=>{if(b.textContent.trim()===chosen)b.classList.add('no');if(b.textContent.trim()===cor)b.classList.add('ok');});
+    if(fb){fb.innerHTML='❌ Richtig: <strong>'+cor+'</strong>';fb.className='afb no';}
+    setTimeout(()=>{card?.querySelectorAll('.opt4').forEach(b=>{b.disabled=false;b.classList.remove('no','ok');});if(fb)fb.textContent='';},3500);
   }
 }
-function chk(key,i,chosen,a,hint){
+function chkNum(key,i,chosen,a,hint){
   const k=key+'_'+i;if(ans[k])return;
-  const card=document.getElementById('qc_'+key+'_'+i);
-  const fb=document.getElementById('qf_'+key+'_'+i);
-  card.querySelectorAll('.opt4').forEach(b=>b.disabled=true);
-  let cl2=null;
-  card.querySelectorAll('.opt4').forEach(b=>{if(Math.abs(parseFloat(b.textContent.replace(',','.'))-chosen)<0.05)cl2=b;});
+  const id2=key.replace('sq','');
+  const card=document.getElementById('sqc_'+id2+'_'+i);
+  const fb=document.getElementById('sqf_'+id2+'_'+i);
+  card?.querySelectorAll('.opt4').forEach(b=>b.disabled=true);
   if(Math.abs(chosen-a)<0.05){
-    if(cl2)cl2.classList.add('ok');fb.textContent='✅ Richtig!';fb.className='afb ok';
+    card?.querySelectorAll('.opt4').forEach(b=>{if(Math.abs(parseFloat(b.textContent.replace(',','.'))-chosen)<0.05)b.classList.add('ok');});
+    if(fb){fb.textContent='✅ Richtig!';fb.className='afb ok';}
     ans[k]=true;pts+=10;document.getElementById('pts').textContent=pts;sv();toast('+10 Punkte! ⭐');
-    updCb(key,window['_qp_'+key]?.length||3);card.style.animation='pop .4s';
   }else{
-    if(cl2)cl2.classList.add('no');
-    card.querySelectorAll('.opt4').forEach(b=>{if(Math.abs(parseFloat(b.textContent.replace(',','.'))-a)<0.05)b.classList.add('ok');});
-    fb.innerHTML='❌ Richtig: <strong>'+fmt(a)+'</strong> — '+hint;fb.className='afb no';
-    card.style.animation='shake .3s';
-    setTimeout(()=>{card.style.animation='';card.querySelectorAll('.opt4').forEach(b=>{b.disabled=false;b.classList.remove('no','ok');});fb.textContent='';},3500);
+    card?.querySelectorAll('.opt4').forEach(b=>{
+      if(Math.abs(parseFloat(b.textContent.replace(',','.'))-chosen)<0.05)b.classList.add('no');
+      if(Math.abs(parseFloat(b.textContent.replace(',','.'))-a)<0.05)b.classList.add('ok');
+    });
+    if(fb){fb.innerHTML='❌ Richtig: <strong>'+fmt(a)+'</strong> — '+hint;fb.className='afb no';}
+    setTimeout(()=>{card?.querySelectorAll('.opt4').forEach(b=>{b.disabled=false;b.classList.remove('no','ok');});if(fb)fb.textContent='';},3500);
   }
-}
-function updCb(key,total){
-  const btn=document.getElementById('cb_'+key);if(!btn)return;
-  const done=Object.keys(ans).filter(k=>k.startsWith(key+'_')).length;
-  btn.disabled=done<total;
-  btn.textContent=done>=total?'✅ Thema abschließen!':'Noch '+(total-done)+' Frage(n)';
-}
-function finT(id){
-  dT['t'+id]=true;pts+=50;document.getElementById('pts').textContent=pts;sv();
-  toast('🎉 +50 Punkte!');setTimeout(goBack,700);
 }
 
-// ═════ THEMEN INHALTE ═════
-const TCONTENT={
+const S_CONTENT={
 0:`${BK}
-<div style="background:linear-gradient(135deg,#0f1e4a,#1d4ed8);border-radius:var(--r);padding:16px 18px;margin-bottom:14px;text-align:center">
-  <div style="font-size:32px;margin-bottom:6px">💡</div>
-  <div style="font-size:18px;font-weight:900">Was ist ein Strahlensatz?</div>
-  <div style="font-size:11px;opacity:.55;font-weight:500">Die Grundidee</div>
-</div>
+<div style="background:linear-gradient(135deg,#0f1e4a,#1d4ed8);border-radius:var(--r);padding:16px 18px;margin-bottom:14px;text-align:center"><div style="font-size:32px">💡</div><div style="font-size:18px;font-weight:900">Was ist ein Strahlensatz?</div></div>
 <div class="card">
-  <div class="ch">🎯 Die Kernidee</div>
-  <div class="box b" style="font-size:13px;font-weight:700;text-align:center">Zwei Geraden starten am Scheitel S.<br>Eine Parallele schneidet beide — die <strong>Verhältnisse bleiben immer gleich!</strong></div>
-  <div class="cv-wrap"><canvas id="cv0" height="200"></canvas>
-  <div class="srow">Parallele: <input type="range" id="s0" min="20" max="72" value="40"> <span class="sv2" id="s0v">40%</span></div></div>
-  <div class="box g">👀 Egal wo die Parallele liegt — das Verhältnis ändert sich <strong>nicht</strong>!</div>
+<div class="ch">🎯 In einem Satz</div>
+<div class="box b" style="font-size:14px;font-weight:800;text-align:center">Zwei Geraden ab einem Punkt S.<br>Eine Linie quer durch beide → <strong>Verhältnisse bleiben gleich!</strong></div>
+<div class="cv-wrap"><canvas id="acv0" height="200"></canvas>
+<div class="srow">Schiebe: <input type="range" id="asl0" min="20" max="72" value="40"> <span class="sv2" id="aslv0">40%</span></div></div>
+<div class="box g">🔍 Egal wo — das Verhältnis bleibt immer gleich!</div>
+<button class="play-btn" onclick="speakText('Strahlensatz Grundidee: Zwei Geraden starten am Scheitel S. Eine Parallele schneidet beide. Egal wo die Parallele liegt, das Verhältnis der Strecken bleibt immer gleich!')">🔊 Anhören</button>
 </div>
-<div class="card">
-  <div class="ch">🗺️ Begriffe</div>
-  <div class="steps">
-    <div class="step" style="border-color:var(--yellow)"><span class="sn" style="background:var(--yellow2)">S</span><div class="st2"><strong>Scheitel S</strong> — Startpunkt beider Strahlen</div></div>
-    <div class="step"><span class="sn">||</span><div class="st2"><strong>Parallele</strong> — Querlinie durch beide Strahlen</div></div>
-    <div class="step"><span class="sn">a/b</span><div class="st2"><strong>Verhältnis</strong> — SA÷AB = konstant, egal wo</div></div>
-    <div class="step" style="border-color:var(--teal)"><span class="sn" style="background:var(--teal2)">V</span><div class="st2"><strong>V-Figur</strong> — Scheitel außen, klassisch</div></div>
-    <div class="step" style="border-color:var(--purple)"><span class="sn" style="background:var(--purple2)">X</span><div class="st2"><strong>X-Figur</strong> — Scheitel in der Mitte (über Kreuz)</div></div>
-  </div>
-</div>
-<div class="card"><div class="ch">⚡ Quiz</div><div id="qa_t0"></div>
-<button class="achk" id="cb_t0" onclick="finT(0)" style="width:100%;margin-top:10px;padding:12px" disabled>Thema abschließen</button></div>`,
+<div class="card"><div class="ch">⚡ Quiz</div><div id="sqa_0"></div>
+<button class="achk" id="scb_0" onclick="finS(0)" style="width:100%;margin-top:10px;padding:12px" disabled>Thema abschließen</button></div>`,
 
 1:`${BK}
-<div style="background:linear-gradient(135deg,#0f1e4a,#2563eb);border-radius:var(--r);padding:16px 18px;margin-bottom:14px;text-align:center">
-  <div style="font-size:32px;margin-bottom:6px">📐</div>
-  <div style="font-size:18px;font-weight:900">1. Strahlensatz</div>
-  <div style="font-size:11px;opacity:.55">SA / AB = SC / CD</div>
-</div>
+<div style="background:linear-gradient(135deg,#0f1e4a,#2563eb);border-radius:var(--r);padding:16px 18px;margin-bottom:14px;text-align:center"><div style="font-size:32px">📐</div><div style="font-size:18px;font-weight:900">1. Strahlensatz</div><div style="font-size:11px;opacity:.55">SA / AB = SC / CD</div></div>
 <div class="card">
-  <div class="ch">📌 Formel</div>
-  <div class="formel">SA / AB = SC / CD<div class="sub">AB = Abstand zwischen den Parallelen (nicht von S aus!)</div></div>
-  <div class="box y">💡 <strong>Merktrick:</strong> Beim 1. Satz liegt AB <em>zwischen</em> den Parallelen.<br>A und B sind die Punkte auf einem Strahl.</div>
+<div class="ch">📌 Formel & Merktrick</div>
+<div class="formel">SA / AB = SC / CD<div class="sub">AB = Abschnitt ZWISCHEN den Parallelen</div></div>
+<div class="box y">💡 <strong>Merktrick:</strong> "AB ist das Stück dazwischen" — nicht von S aus!</div>
+<div class="cv-wrap"><canvas id="acv1" height="200"></canvas>
+<div class="srow">Schiebe: <input type="range" id="asl1" min="20" max="72" value="38"> <span class="sv2" id="aslv1">38%</span></div></div>
+<div class="bsp-box"><div class="bsp-title">Tafel-Beispiel: Turm-Aufgabe</div>
+<div class="bsp-steps">601/5 = h/2,5 → h = 601/5 · 2,5 = 300,5 m</div></div>
+<button class="play-btn" onclick="speakText('Erster Strahlensatz: SA durch AB gleich SC durch CD. AB liegt zwischen den zwei Parallelen. Merktrick: AB ist das Stück dazwischen.')">🔊 Anhören</button>
 </div>
-<div class="card">
-  <div class="ch">✏️ Beispiel — Turm</div>
-  <div class="bsp-box">
-    <div class="bsp-title">Wie das Tafel-Beispiel (Golden Gate Bridge)</div>
-    <div class="aufg-q" style="font-size:11px">601/5 = h/2,5 → h = (601/5) · 2,5 = <strong style="color:var(--green)">300,5 m</strong></div>
-    <div class="bsp-steps">Schritt 1: SA/AB = SC/CD aufschreiben<br>Schritt 2: x isolieren → mal nehmen oder teilen<br>Schritt 3: Ergebnis mit Einheit</div>
-  </div>
-</div>
-<div class="card"><div class="ch">👁️ Animation</div>
-<div class="cv-wrap"><canvas id="cv1" height="200"></canvas>
-<div class="srow">Parallele: <input type="range" id="s1" min="20" max="72" value="38"> <span class="sv2" id="s1v">38%</span></div></div></div>
-<div class="card"><div class="ch">⚡ Quiz</div><div id="qa_t1"></div>
-<button class="achk" id="cb_t1" onclick="finT(1)" style="width:100%;margin-top:10px;padding:12px" disabled>Thema abschließen</button></div>`,
+<div class="card"><div class="ch">⚡ Quiz</div><div id="sqa_1"></div>
+<button class="achk" id="scb_1" onclick="finS(1)" style="width:100%;margin-top:10px;padding:12px" disabled>✓ Abschließen</button></div>`,
 
 2:`${BK}
-<div style="background:linear-gradient(135deg,#0a2a1e,#16a34a);border-radius:var(--r);padding:16px 18px;margin-bottom:14px;text-align:center">
-  <div style="font-size:32px;margin-bottom:6px">📏</div>
-  <div style="font-size:18px;font-weight:900">2. Strahlensatz</div>
-  <div style="font-size:11px;opacity:.55">SA / SB = SC / SD</div>
-</div>
+<div style="background:linear-gradient(135deg,#0a2a1e,#16a34a);border-radius:var(--r);padding:16px 18px;margin-bottom:14px;text-align:center"><div style="font-size:32px">📏</div><div style="font-size:18px;font-weight:900">2. Strahlensatz</div><div style="font-size:11px;opacity:.55">SA / SB = SC / SD</div></div>
 <div class="card">
-  <div class="ch">📌 Formel</div>
-  <div class="formel" style="background:linear-gradient(135deg,#0a2218,#0f3a1e)">SA / SB = SC / SD<div class="sub">SB = ganzer Weg von S aus bis zur 2. Parallele</div></div>
-  <div class="box y">🧠 <strong>Merktrick:</strong> Beim 2. Satz starten SA und SB <em>beide bei S</em>!<br>Beim 1. Satz liegt AB zwischen den Parallelen.</div>
+<div class="ch">📌 Formel & Merktrick</div>
+<div class="formel" style="background:linear-gradient(135deg,#0a2218,#0f3a1e)">SA / SB = SC / SD<div class="sub">SB = ganzer Weg von S bis zur zweiten Parallele</div></div>
+<div class="box y">🧠 <strong>Merktrick:</strong> "SB beginnt bei S" — also der ganze Weg von S!</div>
+<div class="cv-wrap"><canvas id="acv2" height="200"></canvas>
+<div class="srow">Schiebe: <input type="range" id="asl2" min="20" max="72" value="38"> <span class="sv2" id="aslv2">38%</span></div></div>
+<div class="bsp-box"><div class="bsp-title">Beispiel</div>
+<div class="bsp-steps">SA=4, SB=16, SC=3 → 4/16=3/SD → SD=12</div></div>
+<button class="play-btn" onclick="speakText('Zweiter Strahlensatz: SA durch SB gleich SC durch SD. SB ist der ganze Weg von S bis zur zweiten Parallele. Merktrick: SB beginnt immer bei S.')">🔊 Anhören</button>
 </div>
-<div class="card">
-  <div class="ch">✏️ Beispiel</div>
-  <div class="bsp-box">
-    <div class="bsp-title">SA=4, SB=16, SC=3. Was ist SD?</div>
-    <div class="bsp-steps">4/16 = 3/SD<br>0,25 = 3/SD<br>SD = 3/0,25 = <strong style="color:var(--green)">12</strong></div>
-  </div>
-</div>
-<div class="card"><div class="ch">👁️ Animation</div>
-<div class="cv-wrap"><canvas id="cv2" height="200"></canvas>
-<div class="srow">Parallele: <input type="range" id="s2" min="20" max="72" value="38"> <span class="sv2" id="s2v">38%</span></div></div></div>
-<div class="card"><div class="ch">⚡ Quiz</div><div id="qa_t2"></div>
-<button class="achk" id="cb_t2" onclick="finT(2)" style="width:100%;margin-top:10px;padding:12px" disabled>Thema abschließen</button></div>`,
+<div class="card"><div class="ch">⚡ Quiz</div><div id="sqa_2"></div>
+<button class="achk" id="scb_2" onclick="finS(2)" style="width:100%;margin-top:10px;padding:12px" disabled>✓ Abschließen</button></div>`,
 
 3:`${BK}
-<div style="background:linear-gradient(135deg,#2d1010,#dc2626);border-radius:var(--r);padding:16px 18px;margin-bottom:14px;text-align:center">
-  <div style="font-size:32px;margin-bottom:6px">📊</div>
-  <div style="font-size:18px;font-weight:900">3. Strahlensatz</div>
-  <div style="font-size:11px;opacity:.55">SA / SB = AC / BD</div>
-</div>
+<div style="background:linear-gradient(135deg,#2d1010,#dc2626);border-radius:var(--r);padding:16px 18px;margin-bottom:14px;text-align:center"><div style="font-size:32px">📊</div><div style="font-size:18px;font-weight:900">3. Strahlensatz</div><div style="font-size:11px;opacity:.55">SA / SB = AC / BD</div></div>
 <div class="card">
-  <div class="ch">📌 Formel</div>
-  <div class="formel" style="background:linear-gradient(135deg,#1a0909,#2d1010)">SA / SB = AC / BD<div class="sub">Länge der Parallelen wächst proportional zum Abstand</div></div>
-  <div class="box o">Je weiter die Parallele vom Scheitel, desto <strong>länger</strong> sie! Doppelter Abstand = doppelte Länge.</div>
+<div class="ch">📌 Formel</div>
+<div class="formel" style="background:linear-gradient(135deg,#1a0909,#2d1010)">SA / SB = AC / BD<div class="sub">Parallelen werden proportional länger</div></div>
+<div class="box o">Je weiter die Parallele von S entfernt ist, desto länger ist sie!</div>
+<div class="cv-wrap"><canvas id="acv3" height="200"></canvas>
+<div class="srow">Schiebe: <input type="range" id="asl3" min="20" max="72" value="38"> <span class="sv2" id="aslv3">38%</span></div></div>
+<button class="play-btn" onclick="speakText('Dritter Strahlensatz: SA durch SB gleich AC durch BD. Die Parallelen werden proportional länger. Doppelter Abstand bedeutet doppelte Länge.')">🔊 Anhören</button>
 </div>
-<div class="card">
-  <div class="ch">✏️ Beispiel</div>
-  <div class="bsp-box">
-    <div class="bsp-title">SA=3, SB=9, AC=4. Was ist BD?</div>
-    <div class="bsp-steps">3/9 = 4/BD → BD = 4·9/3 = <strong style="color:var(--green)">12</strong></div>
-  </div>
-</div>
-<div class="card"><div class="ch">👁️ Animation</div>
-<div class="cv-wrap"><canvas id="cv3" height="200"></canvas>
-<div class="srow">Parallele: <input type="range" id="s3" min="20" max="72" value="38"> <span class="sv2" id="s3v">38%</span></div></div></div>
-<div class="card"><div class="ch">⚡ Quiz</div><div id="qa_t3"></div>
-<button class="achk" id="cb_t3" onclick="finT(3)" style="width:100%;margin-top:10px;padding:12px" disabled>Thema abschließen</button></div>`,
+<div class="card"><div class="ch">⚡ Quiz</div><div id="sqa_3"></div>
+<button class="achk" id="scb_3" onclick="finS(3)" style="width:100%;margin-top:10px;padding:12px" disabled>✓ Abschließen</button></div>`,
 
 4:`${BK}
-<div style="background:linear-gradient(135deg,#1a0a2e,#7c3aed);border-radius:var(--r);padding:16px 18px;margin-bottom:14px;text-align:center">
-  <div style="font-size:32px;margin-bottom:6px">✖️</div>
-  <div style="font-size:18px;font-weight:900">X-Figur — über Kreuz</div>
-  <div style="font-size:11px;opacity:.55">Scheitel S liegt in der Mitte!</div>
-</div>
+<div style="background:linear-gradient(135deg,#1a0a2e,#7c3aed);border-radius:var(--r);padding:16px 18px;margin-bottom:14px;text-align:center"><div style="font-size:32px">✖️</div><div style="font-size:18px;font-weight:900">X-Figur</div><div style="font-size:11px;opacity:.55">Scheitel S liegt in der Mitte!</div></div>
 <div class="card">
-  <div class="ch">💡 Was ist die X-Figur?</div>
-  <div class="box p">Bei der <strong>X-Figur</strong> kreuzen sich die zwei Geraden — S liegt <strong>zwischen</strong> den Punkten.<br>Trotzdem gilt: SA/SB = SC/SD (2. Strahlensatz!)</div>
-  <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:9px 0">
-    <div style="padding:10px;background:rgba(45,212,191,.07);border:1px solid rgba(45,212,191,.25);border-radius:var(--r2);font-size:12px;font-weight:700;text-align:center"><div style="font-size:20px;margin-bottom:3px">V</div><div style="color:var(--teal)">V-Figur</div><div style="font-size:10px;color:var(--muted);margin-top:2px">S außen</div></div>
-    <div style="padding:10px;background:rgba(167,139,250,.08);border:1px solid rgba(167,139,250,.25);border-radius:var(--r2);font-size:12px;font-weight:700;text-align:center"><div style="font-size:20px;margin-bottom:3px">X</div><div style="color:var(--purple)">X-Figur</div><div style="font-size:10px;color:var(--muted);margin-top:2px">S in der Mitte</div></div>
+<div class="ch">💡 V vs X</div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:9px 0">
+  <div style="padding:12px;background:rgba(45,212,191,.07);border:1px solid rgba(45,212,191,.25);border-radius:var(--r2);text-align:center">
+    <div style="font-size:22px;margin-bottom:4px">∨</div>
+    <div style="font-size:12px;font-weight:800;color:var(--teal)">V-Figur</div>
+    <div style="font-size:10px;color:var(--muted);margin-top:3px">S liegt außen</div>
+  </div>
+  <div style="padding:12px;background:rgba(167,139,250,.08);border:1px solid rgba(167,139,250,.25);border-radius:var(--r2);text-align:center">
+    <div style="font-size:22px;margin-bottom:4px">✕</div>
+    <div style="font-size:12px;font-weight:800;color:var(--purple)">X-Figur</div>
+    <div style="font-size:10px;color:var(--muted);margin-top:3px">S liegt in der Mitte</div>
   </div>
 </div>
-<div class="card">
-  <div class="ch">✏️ Fluss-Beispiel (wie auf dem Projektor)</div>
-  <div class="bsp-box">
-    <div class="bsp-title">Breite des Flusses — X-Figur (1. Strahlensatz)</div>
-    <div class="bsp-steps">6,3/3,1 = x/2,9 → x = (6,3/3,1)·2,9<br>x = <strong style="color:var(--green)">5,89 cm</strong></div>
-  </div>
+<div class="cv-wrap"><canvas id="acv4" height="200"></canvas>
+<div class="srow">Schiebe: <input type="range" id="asl4" min="20" max="72" value="45"> <span class="sv2" id="aslv4">45%</span></div></div>
+<div class="bsp-box"><div class="bsp-title">Fluss-Beispiel (wie auf dem Projektor)</div>
+<div class="bsp-steps">6,3/3,1 = x/2,9 → x = (6,3/3,1)·2,9 = 5,89 cm</div></div>
+<button class="play-btn" onclick="speakText('X-Figur: Der Scheitel S liegt in der Mitte, wo sich die Geraden kreuzen. Die Formel ist die gleiche wie beim zweiten Strahlensatz: SA durch SB gleich SC durch SD. Beim Fluss-Beispiel: sechs komma drei durch drei komma eins mal zwei komma neun gleich fünf komma neun.')">🔊 Anhören</button>
 </div>
-<div class="card"><div class="ch">👁️ X-Figur Animation</div>
-<div class="cv-wrap"><canvas id="cv4" height="200"></canvas>
-<div class="srow">Verschieben: <input type="range" id="s4" min="20" max="72" value="45"> <span class="sv2" id="s4v">45%</span></div></div></div>
-<div class="card"><div class="ch">⚡ Quiz</div><div id="qa_t4"></div>
-<button class="achk" id="cb_t4" onclick="finT(4)" style="width:100%;margin-top:10px;padding:12px" disabled>Thema abschließen</button></div>`,
-
-5:`${BK}
-<div style="background:linear-gradient(135deg,#0f1e4a,#7c3aed);border-radius:var(--r);padding:16px 18px;margin-bottom:14px;text-align:center">
-  <div style="font-size:32px;margin-bottom:6px">🏆</div>
-  <div style="font-size:18px;font-weight:900">Alles — Final-Quiz</div>
-  <div style="font-size:11px;opacity:.55">Gemischte Fragen aus allen Strahlensätzen</div>
-</div>
-<div class="card">
-  <div class="ch">⚡ Schnellübersicht</div>
-  <div style="display:flex;flex-direction:column;gap:7px;font-size:12px;font-weight:600">
-    <div style="padding:9px 12px;background:rgba(79,142,247,.08);border-radius:var(--r2);border-left:3px solid var(--blue)">📐 <strong>1. Satz:</strong> SA/AB = SC/CD — AB zwischen Parallelen</div>
-    <div style="padding:9px 12px;background:rgba(34,197,94,.08);border-radius:var(--r2);border-left:3px solid var(--green)">📏 <strong>2. Satz:</strong> SA/SB = SC/SD — SB von S aus</div>
-    <div style="padding:9px 12px;background:rgba(251,146,60,.08);border-radius:var(--r2);border-left:3px solid var(--orange)">📊 <strong>3. Satz:</strong> SA/SB = AC/BD — Parallelen wachsen</div>
-    <div style="padding:9px 12px;background:rgba(167,139,250,.08);border-radius:var(--r2);border-left:3px solid var(--purple)">✖️ <strong>X-Figur:</strong> SA/SB = SC/SD — S in der Mitte</div>
-  </div>
-</div>
-<div class="card"><div class="ch">🏆 Quiz</div><div id="qa_t5"></div>
-<button class="achk" id="cb_t5" onclick="finT(5)" style="width:100%;margin-top:10px;padding:12px;background:linear-gradient(135deg,#1d4ed8,#7c3aed)" disabled>🏆 Strahlensätze gemeistert!</button></div>`,
+<div class="card"><div class="ch">⚡ Quiz</div><div id="sqa_4"></div>
+<button class="achk" id="scb_4" onclick="finS(4)" style="width:100%;margin-top:10px;padding:12px" disabled>✓ Abschließen</button></div>`,
 };
 
-// ═════ KREIS THEMEN ═════
-const KREIS_THEMEN=[
+function finS(id){
+  dT['st'+id]=true;pts+=30;document.getElementById('pts').textContent=pts;sv();
+  toast('🎉 +30 Punkte!');setTimeout(goBackS,600);
+}
+
+// ═════ KREIS TOPICS ═════
+const K_THEMEN=[
   {id:'grundl',i:'⭕',n:'Vollkreis'},
   {id:'ring',i:'🔵',n:'Kreisring'},
   {id:'sektor',i:'🥧',n:'Kreissektor'},
   {id:'thales',i:'📐',n:'Satz des Thales'},
-  {id:'rechteck',i:'▭',n:'Rechteck'},
-  {id:'tabelle',i:'📊',n:'Tabellen ausfüllen'},
+  {id:'tabelle',i:'📊',n:'Tabellen'},
 ];
-function buildKreisGrid(){
-  document.getElementById('kreis-grid').innerHTML=KREIS_THEMEN.map(t=>`
-    <div class="tc" onclick="openKreis('${t.id}')">
-      <div class="tc-n">Kreis</div>
-      <div class="tc-i">${t.i}</div>
-      <div class="tc-t">${t.n}</div>
+function buildKGrid(){
+  document.getElementById('k-grid').innerHTML=K_THEMEN.map(t=>`
+    <div class="tc" onclick="openK('${t.id}')">
+      <div class="tc-n">Kreis</div><div class="tc-i">${t.i}</div><div class="tc-t">${t.n}</div>
     </div>`).join('');
 }
-function openKreis(id){
-  document.getElementById('kreis-picker').style.display='none';
-  document.getElementById('kreis-detail').style.display='block';
-  document.getElementById('kreis-content').innerHTML=KREIS_CONTENT[id]||'';
+function openK(id){
+  document.getElementById('k-picker').style.display='none';
+  document.getElementById('k-detail').style.display='block';
+  document.getElementById('k-content').innerHTML=KC[id]||'';
   setTimeout(()=>{
-    if(id==='grundl')drawKreis();
-    if(id==='ring')drawRing();
-    if(id==='sektor')drawSektor();
-    if(id==='thales')drawThalesDetail();
+    const cvEl=document.getElementById('kcv_'+id);
+    if(cvEl){
+      const kDrawFns={grundl:drawKreis,ring:drawRing,sektor:drawSektor,thales:drawThalesK};
+      const fn=kDrawFns[id];
+      if(fn){const W=cvEl.offsetWidth||340,H=220;cvEl.width=W;cvEl.height=H;fn(cvEl.getContext('2d'),W,H);}
+    }
   },60);
   window.scrollTo({top:0,behavior:'smooth'});
 }
-function goBackKreis(){
-  document.getElementById('kreis-picker').style.display='block';
-  document.getElementById('kreis-detail').style.display='none';
-}
-const KBK=`<button class="back" onclick="goBackKreis()">← Zurück</button>`;
+function goBackK(){document.getElementById('k-picker').style.display='block';document.getElementById('k-detail').style.display='none';}
+const KBK=`<button class="back" onclick="goBackK()">← Zurück</button>`;
 
-function drawKreis(){
-  const cv=document.getElementById('cv-kreis');if(!cv)return;
-  const W=cv.offsetWidth||340,H=220;cv.width=W;cv.height=H;
-  const ctx=cv.getContext('2d');ctx.fillStyle=C.bg;ctx.fillRect(0,0,W,H);
-  const cx=W/2,cy=H/2,r=70;
+function drawKreis(ctx,W,H){
+  ctx.fillStyle=C.bg;ctx.fillRect(0,0,W,H);
+  const cx=W/2,cy=H/2,r=65;
   ctx.save();ctx.strokeStyle=C.blue;ctx.lineWidth=2;ctx.beginPath();ctx.arc(cx,cy,r,0,Math.PI*2);ctx.stroke();ctx.restore();
-  cline(ctx,cx,cy,cx+r,cy,C.orange,2);
-  cline(ctx,cx-r,cy,cx+r,cy,C.dim,1,[4,3]);
+  cline(ctx,cx,cy,cx+r,cy,C.orange,2);cline(ctx,cx-r,cy,cx+r,cy,C.dim,1,[4,3]);
   circ(ctx,cx,cy,C.yellow,5);
-  ctxt(ctx,'M',cx-15,cy+5,C.yellow,12);
-  ctxt(ctx,'r',cx+r/2-4,cy-8,C.orange,12);
-  ctxt(ctx,'d = 2r',cx-r-5,cy-10,C.blue,10);
-  ctxt(ctx,'u = 2·π·r',cx-40,cy+r+20,C.teal,12);
-  ctxt(ctx,'A = π·r²',cx-35,cy+r+36,C.green,12);
+  ctxt(ctx,'M',cx-16,cy+5,C.yellow,12);ctxt(ctx,'r',cx+r/2-4,cy-9,C.orange,12);
+  ctxt(ctx,'u = 2·π·r',cx-40,cy+r+22,C.teal,12);ctxt(ctx,'A = π·r²',cx-35,cy+r+38,C.green,12);
 }
-function drawRing(){
-  const cv=document.getElementById('cv-ring');if(!cv)return;
-  const W=cv.offsetWidth||340,H=220;cv.width=W;cv.height=H;
-  const ctx=cv.getContext('2d');ctx.fillStyle=C.bg;ctx.fillRect(0,0,W,H);
-  const cx=W/2,cy=H/2,ra=70,ri=35;
-  ctx.save();ctx.fillStyle='rgba(79,142,247,.15)';ctx.strokeStyle=C.blue;ctx.lineWidth=2;
-  ctx.beginPath();ctx.arc(cx,cy,ra,0,Math.PI*2);ctx.fill();ctx.stroke();ctx.restore();
-  ctx.save();ctx.fillStyle=C.bg;ctx.strokeStyle=C.teal;ctx.lineWidth=2;
-  ctx.beginPath();ctx.arc(cx,cy,ri,0,Math.PI*2);ctx.fill();ctx.stroke();ctx.restore();
-  cline(ctx,cx,cy,cx+ra,cy,C.blue,2);
-  cline(ctx,cx,cy,cx+ri,cy,C.teal,2);
-  circ(ctx,cx,cy,C.yellow,5);
-  ctxt(ctx,'ra',cx+ra/2+8,cy-8,C.blue,12);
-  ctxt(ctx,'ri',cx+ri/2-14,cy+14,C.teal,12);
-  ctxt(ctx,'A = π·(ra²−ri²)',cx-65,cy+ra+22,C.orange,12);
+function drawRing(ctx,W,H){
+  ctx.fillStyle=C.bg;ctx.fillRect(0,0,W,H);
+  const cx=W/2,cy=H/2,ra=68,ri=34;
+  ctx.save();ctx.fillStyle='rgba(79,142,247,.15)';ctx.strokeStyle=C.blue;ctx.lineWidth=2;ctx.beginPath();ctx.arc(cx,cy,ra,0,Math.PI*2);ctx.fill();ctx.stroke();ctx.restore();
+  ctx.save();ctx.fillStyle=C.bg;ctx.strokeStyle=C.teal;ctx.lineWidth=2;ctx.beginPath();ctx.arc(cx,cy,ri,0,Math.PI*2);ctx.fill();ctx.stroke();ctx.restore();
+  cline(ctx,cx,cy,cx+ra,cy,C.blue,2);cline(ctx,cx,cy,cx+ri,cy,C.teal,2);
+  ctxt(ctx,'ra',cx+ra/2+5,cy-8,C.blue,12);ctxt(ctx,'ri',cx+ri/2-14,cy+14,C.teal,12);
+  ctxt(ctx,'A = π·(ra²−ri²)',cx-65,cy+ra+20,C.orange,12);
 }
-function drawSektor(){
-  const cv=document.getElementById('cv-sektor');if(!cv)return;
-  const W=cv.offsetWidth||340,H=220;cv.width=W;cv.height=H;
-  const ctx=cv.getContext('2d');ctx.fillStyle=C.bg;ctx.fillRect(0,0,W,H);
-  const cx=W/2,cy=H/2+15,r=75,a1=-Math.PI/2-0.4,a2=-Math.PI/2+1.8;
-  ctx.save();ctx.fillStyle='rgba(79,142,247,.12)';ctx.strokeStyle=C.blue;ctx.lineWidth=2;
-  ctx.beginPath();ctx.moveTo(cx,cy);ctx.arc(cx,cy,r,a1,a2);ctx.closePath();
-  ctx.fill();ctx.stroke();ctx.restore();
+function drawSektor(ctx,W,H){
+  ctx.fillStyle=C.bg;ctx.fillRect(0,0,W,H);
+  const cx=W/2,cy=H/2+15,r=72,a1=-Math.PI/2-0.4,a2=-Math.PI/2+1.8;
+  ctx.save();ctx.fillStyle='rgba(79,142,247,.12)';ctx.strokeStyle=C.blue;ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(cx,cy);ctx.arc(cx,cy,r,a1,a2);ctx.closePath();ctx.fill();ctx.stroke();ctx.restore();
   ctx.save();ctx.strokeStyle=C.orange;ctx.lineWidth=3;ctx.beginPath();ctx.arc(cx,cy,r,a1,a2,false);ctx.stroke();ctx.restore();
-  ctx.save();ctx.strokeStyle=C.purple;ctx.lineWidth=1.5;ctx.beginPath();ctx.arc(cx,cy,22,a1,a2);ctx.stroke();ctx.restore();
-  ctxt(ctx,'ω',cx+20,cy-2,C.purple,13);
-  ctxt(ctx,'r',cx+25,cy-30,C.blue,11);
-  ctxt(ctx,'b (Bogen)',cx+r*0.3,cy-r*0.65,C.orange,11);
-  ctxt(ctx,'A = π·r²·ω/360°',10,H-15,C.blue,11);
-  ctxt(ctx,'b = 2πr·ω/360°',10,H-1,C.orange,11);
-  circ(ctx,cx,cy,C.yellow,5);
+  ctxt(ctx,'ω',cx+18,cy-2,C.purple,13);ctxt(ctx,'b (Bogen)',cx+25,cy-r*0.6,C.orange,11);
+  ctxt(ctx,'A = π·r²·ω/360°',10,H-16,C.blue,11);ctxt(ctx,'b = 2πr·ω/360°',10,H-2,C.orange,11);
 }
-function drawThalesDetail(){
-  const cv=document.getElementById('cv-thales2');if(!cv)return;
-  const W=cv.offsetWidth||340,H=200;cv.width=W;cv.height=H;
-  const ctx=cv.getContext('2d');ctx.fillStyle=C.bg;ctx.fillRect(0,0,W,H);
-  const cx=W/2,cy=H/2+15,r=65;
+function drawThalesK(ctx,W,H){
+  ctx.fillStyle=C.bg;ctx.fillRect(0,0,W,H);
+  const cx=W/2,cy=H/2+10,r=60;
   ctx.save();ctx.strokeStyle=C.blue;ctx.lineWidth=2;ctx.beginPath();ctx.arc(cx,cy,r,0,Math.PI*2);ctx.stroke();ctx.restore();
-  const A={x:cx-r,y:cy},B={x:cx+r,y:cy};
-  const ang=-Math.PI/2.5;
+  const A={x:cx-r,y:cy},B={x:cx+r,y:cy},ang=-Math.PI/2.5;
   const P={x:cx+r*Math.cos(ang),y:cy+r*Math.sin(ang)};
-  circ(ctx,A.x,A.y,C.orange,6);circ(ctx,B.x,B.y,C.orange,6);circ(ctx,cx,cy,C.yellow,5);circ(ctx,P.x,P.y,C.green,6);
-  cline(ctx,A.x,A.y,B.x,B.y,C.orange,2);
-  cline(ctx,A.x,A.y,P.x,P.y,C.teal,2);
-  cline(ctx,B.x,B.y,P.x,P.y,C.teal,2);
-  const sq=10;
-  const dAP=Math.atan2(P.y-A.y,P.x-A.x);
-  const dBP=Math.atan2(P.y-B.y,P.x-B.x);
+  cline(ctx,A.x,A.y,B.x,B.y,C.orange,2);cline(ctx,A.x,A.y,P.x,P.y,C.teal,2);cline(ctx,B.x,B.y,P.x,P.y,C.teal,2);
+  circ(ctx,A.x,A.y,C.orange,6);circ(ctx,B.x,B.y,C.orange,6);circ(ctx,P.x,P.y,C.green,6);
+  const sq=10,dAP=Math.atan2(P.y-A.y,P.x-A.x),dBP=Math.atan2(P.y-B.y,P.x-B.x);
   const p1={x:P.x+sq*Math.cos(dAP+Math.PI),y:P.y+sq*Math.sin(dAP+Math.PI)};
   const p3={x:P.x+sq*Math.cos(dBP+Math.PI),y:P.y+sq*Math.sin(dBP+Math.PI)};
   const p2={x:p1.x+p3.x-P.x,y:p1.y+p3.y-P.y};
   ctx.save();ctx.strokeStyle=C.green;ctx.lineWidth=1.5;ctx.beginPath();ctx.moveTo(p1.x,p1.y);ctx.lineTo(p2.x,p2.y);ctx.lineTo(p3.x,p3.y);ctx.stroke();ctx.restore();
-  ctxt(ctx,'A',A.x-18,A.y+4,C.orange,12);ctxt(ctx,'B',B.x+6,B.y+4,C.orange,12);ctxt(ctx,'M',cx-15,cy+4,C.yellow,11);ctxt(ctx,'P',P.x+7,P.y-3,C.green,12);
-  ctxt(ctx,'δ = 90°',P.x+14,P.y+6,C.green,11);
-  ctxt(ctx,'ω = 180° (Durchmesser)',10,14,C.blue,10);
+  ctxt(ctx,'A',A.x-18,A.y+4,C.orange,12);ctxt(ctx,'B',B.x+6,B.y+4,C.orange,12);ctxt(ctx,'P',P.x+7,P.y-3,C.green,12);
+  ctxt(ctx,'δ = 90° immer!',cx-40,H-5,C.green,11);
 }
 
-const KREIS_CONTENT={
+const KC={
 grundl:`${KBK}
-<div style="background:linear-gradient(135deg,#0a2216,#16a34a);border-radius:var(--r);padding:16px 18px;margin-bottom:14px;text-align:center">
-  <div style="font-size:32px;margin-bottom:6px">⭕</div>
-  <div style="font-size:18px;font-weight:900">Vollkreis — Grundlagen</div>
-  <div style="font-size:11px;opacity:.55">Umfang, Fläche, Radius, Durchmesser</div>
-</div>
+<div style="background:linear-gradient(135deg,#0a2216,#16a34a);border-radius:var(--r);padding:16px 18px;margin-bottom:14px;text-align:center"><div style="font-size:32px">⭕</div><div style="font-size:18px;font-weight:900">Vollkreis</div></div>
 <div class="card">
-  <div class="ch">📌 Formeln</div>
-  <div class="fml-grid">
-    <div class="fml-card"><div class="fml-label">Umfang</div><div class="fml-expr">u = 2·π·r</div><div class="fml-desc">auch: u = π·d</div></div>
-    <div class="fml-card"><div class="fml-label">Fläche</div><div class="fml-expr">A = π·r²</div><div class="fml-desc">π ≈ 3,14159</div></div>
-  </div>
-  <div class="cv-wrap"><canvas id="cv-kreis" height="220"></canvas></div>
+<div class="ch">📌 Formeln</div>
+<div class="fml-grid">
+  <div class="fml-card"><div class="fml-label">Umfang</div><div class="fml-expr">u = 2·π·r</div><div class="fml-desc">auch: u = π·d</div></div>
+  <div class="fml-card"><div class="fml-label">Fläche</div><div class="fml-expr">A = π·r²</div></div>
 </div>
-<div class="card">
-  <div class="ch">✏️ Beispiel r = 7,5 cm</div>
-  <div class="bsp-box"><div class="bsp-steps">d = 2 · 7,5 = 15 cm<br>u = 2 · π · 7,5 ≈ 47,1 cm<br>A = π · 7,5² ≈ 176,7 cm²</div></div>
-</div>
-<div class="card">
-  <div class="ch">🔄 Umkehrformeln</div>
-  <div class="box b" style="font-size:11px">r aus u: r = u / (2π)<br>r aus A: r = √(A/π)<br>d = 2r immer!</div>
+<canvas id="kcv_grundl" height="220" style="width:100%;border-radius:8px;display:block;margin:8px 0"></canvas>
+<div class="bsp-box"><div class="bsp-title">r = 7,5 cm</div>
+<div class="bsp-steps">u = 2·π·7,5 ≈ 47,1 cm<br>A = π·7,5² ≈ 176,7 cm²</div></div>
+<button class="play-btn" onclick="speakText('Vollkreis Formeln: Umfang gleich zwei mal Pi mal r. Fläche gleich Pi mal r Quadrat. Beispiel r gleich sieben komma fünf: Umfang ungefähr 47 komma 1 Zentimeter. Fläche ungefähr 176 komma 7 Quadratzentimeter.')">🔊 Anhören</button>
 </div>`,
 
 ring:`${KBK}
-<div style="background:linear-gradient(135deg,#0a1e3a,#0369a1);border-radius:var(--r);padding:16px 18px;margin-bottom:14px;text-align:center">
-  <div style="font-size:32px;margin-bottom:6px">🔵</div>
-  <div style="font-size:18px;font-weight:900">Kreisring</div>
-  <div style="font-size:11px;opacity:.55">Großer Kreis minus kleiner Kreis</div>
-</div>
+<div style="background:linear-gradient(135deg,#0a1e3a,#0369a1);border-radius:var(--r);padding:16px 18px;margin-bottom:14px;text-align:center"><div style="font-size:32px">🔵</div><div style="font-size:18px;font-weight:900">Kreisring</div></div>
 <div class="card">
-  <div class="ch">📌 Formel</div>
-  <div class="formel">A = π · (ra² − ri²)<div class="sub">ra = Außenradius · ri = Innenradius</div></div>
-  <div class="cv-wrap"><canvas id="cv-ring" height="220"></canvas></div>
-  <div class="box t" style="margin-top:8px">💡 Einfach: erst großen Kreis berechnen, dann kleinen abziehen!</div>
-</div>
-<div class="card">
-  <div class="ch">✏️ Beispiel</div>
-  <div class="bsp-box"><div class="bsp-title">ra = 8 cm, ri = 5 cm</div>
-    <div class="bsp-steps">A = π · (8² − 5²)<br>A = π · (64 − 25)<br>A = π · 39<br>A ≈ <strong style="color:var(--green)">122,5 cm²</strong></div>
-  </div>
+<div class="ch">📌 Formel</div>
+<div class="formel">A = π · (ra² − ri²)<div class="sub">ra = Außenradius · ri = Innenradius</div></div>
+<canvas id="kcv_ring" height="220" style="width:100%;border-radius:8px;display:block;margin:8px 0"></canvas>
+<div class="bsp-box"><div class="bsp-title">ra=8, ri=5</div>
+<div class="bsp-steps">A = π·(64−25) = π·39 ≈ 122,5 cm²</div></div>
+<button class="play-btn" onclick="speakText('Kreisring: A gleich Pi mal r-a Quadrat minus r-i Quadrat. r-a ist der große Radius außen, r-i der kleine Radius innen. Beispiel: r-a 8, r-i 5 ergibt Pi mal 39, das sind ungefähr 122 Quadratzentimeter.')">🔊 Anhören</button>
 </div>`,
 
 sektor:`${KBK}
-<div style="background:linear-gradient(135deg,#1a1208,#d97706);border-radius:var(--r);padding:16px 18px;margin-bottom:14px;text-align:center">
-  <div style="font-size:32px;margin-bottom:6px">🥧</div>
-  <div style="font-size:18px;font-weight:900">Kreissektor</div>
-  <div style="font-size:11px;opacity:.55">Bogenlänge b und Fläche A</div>
-</div>
+<div style="background:linear-gradient(135deg,#1a1208,#d97706);border-radius:var(--r);padding:16px 18px;margin-bottom:14px;text-align:center"><div style="font-size:32px">🥧</div><div style="font-size:18px;font-weight:900">Kreissektor</div></div>
 <div class="card">
-  <div class="ch">📌 Formeln</div>
-  <div class="fml-grid">
-    <div class="fml-card"><div class="fml-label">Bogenlänge b</div><div class="fml-expr">b = 2πr · ω/360°</div><div class="fml-desc">ω = Mittelpunktswinkel</div></div>
-    <div class="fml-card"><div class="fml-label">Fläche A</div><div class="fml-expr">A = πr² · ω/360°</div><div class="fml-desc">auch: A = b·r/2</div></div>
-  </div>
-  <div class="cv-wrap"><canvas id="cv-sektor" height="220"></canvas></div>
+<div class="ch">📌 Formeln</div>
+<div class="fml-grid">
+  <div class="fml-card"><div class="fml-label">Bogenlänge</div><div class="fml-expr">b = 2πr·ω/360°</div></div>
+  <div class="fml-card"><div class="fml-label">Fläche</div><div class="fml-expr">A = πr²·ω/360°</div></div>
 </div>
-<div class="card">
-  <div class="ch">✏️ Beispiel r = 16 cm, ω = 108°</div>
-  <div class="bsp-box"><div class="bsp-steps">b = 2·π·16·108/360 ≈ <strong style="color:var(--green)">30,16 cm</strong><br>A = π·256·108/360 ≈ <strong style="color:var(--green)">241,3 cm²</strong></div></div>
-</div>
-<div class="card">
-  <div class="ch">✏️ Wenn b und r gegeben → A</div>
-  <div class="bsp-box"><div class="bsp-title">b = 10,2 cm, r = 5,3 cm</div>
-    <div class="bsp-steps">A = b·r/2 = 10,2·5,3/2 = <strong style="color:var(--green)">27,03 cm²</strong></div>
-  </div>
+<canvas id="kcv_sektor" height="220" style="width:100%;border-radius:8px;display:block;margin:8px 0"></canvas>
+<div class="bsp-box"><div class="bsp-title">r=16, ω=108°</div>
+<div class="bsp-steps">b = 2·π·16·108/360 ≈ 30,16 cm<br>A = π·256·108/360 ≈ 241,3 cm²</div></div>
+<button class="play-btn" onclick="speakText('Kreissektor: Bogenlänge b gleich zwei mal Pi mal r mal Omega durch 360. Fläche A gleich Pi mal r Quadrat mal Omega durch 360. Omega ist der Mittelpunktswinkel in Grad.')">🔊 Anhören</button>
 </div>`,
 
 thales:`${KBK}
-<div style="background:linear-gradient(135deg,#0a1a2e,#1d4ed8);border-radius:var(--r);padding:16px 18px;margin-bottom:14px;text-align:center">
-  <div style="font-size:32px;margin-bottom:6px">📐</div>
-  <div style="font-size:18px;font-weight:900">Satz des Thales</div>
-  <div style="font-size:11px;opacity:.55">Umfangswinkel über dem Durchmesser = 90°</div>
-</div>
+<div style="background:linear-gradient(135deg,#0a1a2e,#1d4ed8);border-radius:var(--r);padding:16px 18px;margin-bottom:14px;text-align:center"><div style="font-size:32px">📐</div><div style="font-size:18px;font-weight:900">Satz des Thales</div></div>
 <div class="card">
-  <div class="ch">📌 Der Satz</div>
-  <div class="formel">ω = 180° → δ = 90°<div class="sub">Jeder Winkel im Halbkreis ist ein rechter Winkel</div></div>
-  <div class="cv-wrap"><canvas id="cv-thales2" height="200"></canvas></div>
-</div>
-<div class="card">
-  <div class="ch">💡 Merken</div>
-  <div class="box t">Wenn AB der <strong>Durchmesser</strong> ist und P irgendwo auf dem Kreisbogen liegt, dann ist der Winkel bei P immer <strong>genau 90°</strong>!<br><br>Egal wohin du P auf dem Kreisbogen verschiebst.</div>
-</div>
-<div class="card">
-  <div class="ch">✏️ Wann anwenden?</div>
-  <div class="box b">Im Schulbuch siehst du: ω = 180° steht dran → du weißt sofort: δ = 90°.<br>Oder: du erkennst, dass eine Seite des Dreiecks der Durchmesser ist.</div>
-</div>`,
-
-rechteck:`${KBK}
-<div style="background:linear-gradient(135deg,#1a1208,#65a30d);border-radius:var(--r);padding:16px 18px;margin-bottom:14px;text-align:center">
-  <div style="font-size:32px;margin-bottom:6px">▭</div>
-  <div style="font-size:18px;font-weight:900">Rechteck</div>
-  <div style="font-size:11px;opacity:.55">Umfang und Fläche</div>
-</div>
-<div class="card">
-  <div class="ch">📌 Formeln</div>
-  <div class="fml-grid">
-    <div class="fml-card"><div class="fml-label">Umfang</div><div class="fml-expr">u = 2a + 2b</div><div class="fml-desc">a, b = Seiten</div></div>
-    <div class="fml-card"><div class="fml-label">Fläche</div><div class="fml-expr">A = a · b</div><div class="fml-desc">Länge × Breite</div></div>
-  </div>
-</div>
-<div class="card">
-  <div class="ch">✏️ Beispiel von der Tafel: a = 7,5 cm, b = 5 cm</div>
-  <div class="bsp-box"><div class="bsp-steps">A = 7,5 · 5 = 37,5 cm²<br>u = 2·7,5 + 2·5 = 15 + 10 = <strong style="color:var(--green)">25 cm</strong></div></div>
+<div class="ch">📌 Der Satz</div>
+<div class="formel">ω = 180° → δ = 90°<div class="sub">Umfangswinkel über dem Durchmesser = immer 90°</div></div>
+<canvas id="kcv_thales" height="200" style="width:100%;border-radius:8px;display:block;margin:8px 0"></canvas>
+<div class="box t">Egal wohin P auf dem Kreis sitzt — der Winkel bei P ist immer <strong>90°</strong>!</div>
+<button class="play-btn" onclick="speakText('Satz des Thales: Wenn Omega gleich 180 Grad ist, also AB der Durchmesser ist, dann ist der Umfangswinkel Delta immer genau 90 Grad. Egal wo Punkt P auf dem Kreisbogen liegt.')">🔊 Anhören</button>
 </div>`,
 
 tabelle:`${KBK}
-<div style="background:linear-gradient(135deg,#0a1a2e,#0369a1);border-radius:var(--r);padding:16px 18px;margin-bottom:14px;text-align:center">
-  <div style="font-size:32px;margin-bottom:6px">📊</div>
-  <div style="font-size:18px;font-weight:900">Tabellen ausfüllen</div>
-  <div style="font-size:11px;opacity:.55">Vollkreis und Kreissektor</div>
-</div>
+<div style="background:linear-gradient(135deg,#0a1a2e,#0369a1);border-radius:var(--r);padding:16px 18px;margin-bottom:14px;text-align:center"><div style="font-size:32px">📊</div><div style="font-size:18px;font-weight:900">Tabellen ausfüllen</div></div>
 <div class="card">
-  <div class="ch">📌 Strategie</div>
-  <div class="steps">
-    <div class="step"><span class="sn">1</span><div class="st2">Welche Werte sind gegeben?</div></div>
-    <div class="step"><span class="sn">2</span><div class="st2">r gegeben → direkt u und A berechnen</div></div>
-    <div class="step"><span class="sn">3</span><div class="st2">u gegeben → r = u/(2π), dann A</div></div>
-    <div class="step"><span class="sn">4</span><div class="st2">A gegeben → r = √(A/π), dann u</div></div>
-  </div>
-</div>
-<div class="card">
-  <div class="ch">📊 Vollkreis-Tabelle (Musterlösung)</div>
-  <table class="tbl">
-    <tr><th>r</th><th>d</th><th>u</th><th>A</th></tr>
-    <tr><td class="emp">7,5 cm</td><td>15,0 cm</td><td>47,1 cm</td><td>176,7 cm²</td></tr>
-    <tr><td>15,0 mm</td><td class="emp">30,0 mm</td><td>94,2 mm</td><td>706,9 mm²</td></tr>
-    <tr><td>1,27 cm</td><td>2,5 cm</td><td class="emp">8,0 cm</td><td>5,1 cm²</td></tr>
-    <tr><td>56,4 cm</td><td>112,8 cm</td><td>354,2 cm</td><td class="emp">10000 cm²</td></tr>
-  </table>
-</div>
-<div class="card">
-  <div class="ch">📊 Kreissektor-Tabelle (Musterlösung)</div>
-  <table class="tbl">
-    <tr><th>r</th><th>ω</th><th>b</th><th>A</th></tr>
-    <tr><td class="emp">3,5 m</td><td class="emp">200°</td><td>12,22 m</td><td>21,38 m²</td></tr>
-    <tr><td>7,24 cm</td><td class="emp">95°</td><td>12,0 cm</td><td>43,4 cm²</td></tr>
-    <tr><td class="emp">3,5 m</td><td>26,2°</td><td class="emp">1,6 m</td><td>2,8 m²</td></tr>
-    <tr><td>4,7 m</td><td class="emp">350°</td><td class="emp">28,7 m</td><td>69,3 m²</td></tr>
-  </table>
+<div class="ch">📊 Vollkreis-Tabelle</div>
+<table class="tbl">
+  <tr><th>r</th><th>d</th><th>u</th><th>A</th></tr>
+  <tr><td class="emp">7,5 cm</td><td>15,0 cm</td><td>47,1 cm</td><td>176,7 cm²</td></tr>
+  <tr><td>1,27 cm</td><td>2,5 cm</td><td class="emp">8,0 cm</td><td>5,1 cm²</td></tr>
+  <tr><td>56,4 cm</td><td>112,8 cm</td><td>354,2 cm</td><td class="emp">10000 cm²</td></tr>
+</table>
+<div class="ch" style="margin-top:12px">📊 Kreissektor-Tabelle</div>
+<table class="tbl">
+  <tr><th>r</th><th>ω</th><th>b</th><th>A</th></tr>
+  <tr><td class="emp">3,5 m</td><td class="emp">200°</td><td>12,2 m</td><td>21,4 m²</td></tr>
+  <tr><td>7,24 cm</td><td class="emp">95°</td><td>12,0 cm</td><td>43,4 cm²</td></tr>
+</table>
 </div>`,
 };
 
 // ═════ PROBEARBEIT ═════
-const AUFG_SETS=[
-  {id:'eiffel',i:'🗼',n:'Turm-Aufgabe',sub:'2. Strahlensatz'},
-  {id:'fluss',i:'🌊',n:'Breite des Flusses',sub:'X-Figur'},
-  {id:'maibaum',i:'🌲',n:'Schatten & Höhe',sub:'Strahlensatz'},
+const P_SETS=[
+  {id:'eiffel',i:'🗼',n:'Turm (2. Satz)',sub:'wie auf der Tafel'},
+  {id:'fluss',i:'🌊',n:'Fluss (X-Figur)',sub:'wie auf dem Projektor'},
+  {id:'maibaum',i:'🌲',n:'Schatten/Höhe',sub:'Strahlensatz'},
   {id:'kreis1',i:'📐',n:'Kreis-Tabelle',sub:'r, d, u, A'},
   {id:'kreis2',i:'🥧',n:'Kreissektoren',sub:'b und A'},
-  {id:'ring',i:'🔵',n:'Kreisring',sub:'ra und ri'},
+  {id:'ring2',i:'🔵',n:'Kreisring',sub:'ra und ri'},
   {id:'platz',i:'🏛️',n:'Platz pflastern',sub:'Kreisfläche'},
-  {id:'blech',i:'🔧',n:'Deckel aus Blech',sub:'Prozent'},
+  {id:'blech',i:'🔧',n:'Blech-Aufgabe',sub:'Prozent'},
 ];
-function buildAufgGrid(){
-  document.getElementById('aufg-grid').innerHTML=AUFG_SETS.map(a=>`
-    <div class="tc" onclick="openAufg('${a.id}')">
-      <div class="tc-n">${a.sub}</div>
-      <div class="tc-i">${a.i}</div>
-      <div class="tc-t">${a.n}</div>
+function buildPGrid(){
+  document.getElementById('p-grid').innerHTML=P_SETS.map(a=>`
+    <div class="tc" onclick="openP('${a.id}')">
+      <div class="tc-n">${a.sub}</div><div class="tc-i">${a.i}</div><div class="tc-t">${a.n}</div>
     </div>`).join('');
 }
-function openAufg(id){
-  document.getElementById('aufg-picker').style.display='none';
-  document.getElementById('aufg-detail').style.display='block';
-  document.getElementById('aufg-content').innerHTML=AUFG_CONTENT[id]||'';
+function openP(id){
+  document.getElementById('p-picker').style.display='none';
+  document.getElementById('p-detail').style.display='block';
+  document.getElementById('p-content').innerHTML=PC[id]||'';
   window.scrollTo({top:0,behavior:'smooth'});
 }
-function goBackAufg(){document.getElementById('aufg-picker').style.display='block';document.getElementById('aufg-detail').style.display='none';}
-const ABK=`<button class="back" onclick="goBackAufg()">← Zurück</button>`;
+function goBackP(){document.getElementById('p-picker').style.display='block';document.getElementById('p-detail').style.display='none';}
+const PBK=`<button class="back" onclick="goBackP()">← Zurück</button>`;
 
+const PC={
+eiffel:`${PBK}
+<div style="background:linear-gradient(135deg,#1a1208,#ca8a04);border-radius:var(--r);padding:16px 18px;margin-bottom:14px;text-align:center"><div style="font-size:32px">🗼</div><div style="font-size:18px;font-weight:900">Turm-Aufgabe — wie auf der Tafel</div></div>
+<div class="aufg">
+<div class="aufg-head"><div class="aufg-titel">📖 Aufgabe</div></div>
+<div class="aufg-body">
+<div class="aufg-q">Mensch 2,5 m groß, steht 5 m vom Punkt A. Turm steht 596 m hinter A (gesamt 601 m von S). Berechne Turmhöhe h.</div>
+<div class="eq-card">
+<div class="eq-line"><span class="val">601/5 = h/2,5</span><span class="step-lbl">2. Strahlensatz</span></div>
+<div class="eq-line"><span class="op">·2,5</span><span class="val">h = 601/5 · 2,5</span></div>
+<div class="eq-line"><span class="op">=</span><span class="res">h = 300,5 m</span></div>
+</div>
+<div class="aufg-inp-row"><label>h =</label>
+<input class="ainp" id="ef-h" type="number" step="0.1" placeholder="? m">
+<button class="achk" onclick="checkA('ef-h',300.5,1,'ef-fb',20)">Prüfen</button></div>
+<div class="afb" id="ef-fb"></div>
+<button class="loes-btn" id="ef-l-btn" onclick="toggleL('ef-l')">🔍 Lösung</button>
+<div class="loes-box" id="ef-l">601/5 = h/2,5 → h = 601/5 · 2,5 = 300,5 m</div>
+</div></div>`,
+
+fluss:`${PBK}
+<div style="background:linear-gradient(135deg,#0a1e2e,#0369a1);border-radius:var(--r);padding:16px 18px;margin-bottom:14px;text-align:center"><div style="font-size:32px">🌊</div><div style="font-size:18px;font-weight:900">Breite des Flusses — X-Figur</div></div>
+<div class="aufg">
+<div class="aufg-head"><div class="aufg-titel">📖 Aufgabe (wie Projektor)</div></div>
+<div class="aufg-body">
+<div class="aufg-q">6,3/3,1 = x/2,9 — Berechne x.</div>
+<div class="aufg-inp-row"><label>x =</label>
+<input class="ainp" id="fl-x" type="number" step="0.01" placeholder="? cm">
+<button class="achk" onclick="checkA('fl-x',5.89,0.05,'fl-fb',20)">Prüfen</button></div>
+<div class="afb" id="fl-fb"></div>
+<button class="loes-btn" id="fl-l-btn" onclick="toggleL('fl-l')">🔍 Lösung</button>
+<div class="loes-box" id="fl-l">6,3/3,1 · 2,9 = x → x = 5,89 cm</div>
+</div></div>`,
+
+maibaum:`${PBK}
+<div style="background:linear-gradient(135deg,#0a2216,#15803d);border-radius:var(--r);padding:16px 18px;margin-bottom:14px;text-align:center"><div style="font-size:32px">🌲</div><div style="font-size:18px;font-weight:900">Schatten & Höhe</div></div>
+<div class="aufg">
+<div class="aufg-head"><div class="aufg-titel">📖 Aufgabe</div></div>
+<div class="aufg-body">
+<div class="aufg-q">Mensch 1,62 m groß, Schatten 2,9 m. Turm hat Schatten 20 m. Wie hoch ist der Turm?</div>
+<div class="aufg-inp-row"><label>h =</label>
+<input class="ainp" id="mb-h" type="number" step="0.01" placeholder="? m">
+<button class="achk" onclick="checkA('mb-h',11.17,0.05,'mb-fb',20)">Prüfen</button></div>
+<div class="afb" id="mb-fb"></div>
+<button class="loes-btn" id="mb-l-btn" onclick="toggleL('mb-l')">🔍 Lösung</button>
+<div class="loes-box" id="mb-l">1,62/2,9 = h/20 → h = 1,62·20/2,9 ≈ 11,17 m</div>
+</div></div>`,
+
+kreis1:`${PBK}
+<div style="background:linear-gradient(135deg,#0a2216,#16a34a);border-radius:var(--r);padding:16px 18px;margin-bottom:14px;text-align:center"><div style="font-size:32px">📐</div><div style="font-size:18px;font-weight:900">Kreis-Tabelle</div></div>
+<div class="aufg"><div class="aufg-head"><div class="aufg-titel">r = 7,5 cm</div></div>
+<div class="aufg-body">
+<div class="aufg-inp-row"><label>d=</label><input class="ainp" id="k1d" type="number" step="0.1" placeholder="cm"><button class="achk" onclick="checkA('k1d',15,0.05,'k1d-fb',8)">✓</button></div>
+<div class="afb" id="k1d-fb"></div>
+<div class="aufg-inp-row"><label>u=</label><input class="ainp" id="k1u" type="number" step="0.1" placeholder="cm"><button class="achk" onclick="checkA('k1u',47.1,0.2,'k1u-fb',8)">✓</button></div>
+<div class="afb" id="k1u-fb"></div>
+<div class="aufg-inp-row"><label>A=</label><input class="ainp" id="k1a" type="number" step="0.1" placeholder="cm²"><button class="achk" onclick="checkA('k1a',176.7,0.5,'k1a-fb',8)">✓</button></div>
+<div class="afb" id="k1a-fb"></div>
+<button class="loes-btn" id="k1-l-btn" onclick="toggleL('k1-l')">🔍 Lösung</button>
+<div class="loes-box" id="k1-l">d=15cm · u=2·π·7,5≈47,1cm · A=π·56,25≈176,7cm²</div>
+</div></div>`,
+
+kreis2:`${PBK}
+<div style="background:linear-gradient(135deg,#1a1208,#d97706);border-radius:var(--r);padding:16px 18px;margin-bottom:14px;text-align:center"><div style="font-size:32px">🥧</div><div style="font-size:18px;font-weight:900">Kreissektoren</div></div>
+<div class="aufg"><div class="aufg-head"><div class="aufg-titel">α=108°, r=16 cm → b=?</div></div>
+<div class="aufg-body">
+<div class="aufg-inp-row"><label>b=</label><input class="ainp" id="k2b" type="number" step="0.01" placeholder="cm"><button class="achk" onclick="checkA('k2b',30.16,0.15,'k2b-fb',12)">✓</button></div>
+<div class="afb" id="k2b-fb"></div>
+<button class="loes-btn" id="k2-l-btn" onclick="toggleL('k2-l')">🔍</button>
+<div class="loes-box" id="k2-l">b=2·π·16·108/360≈30,16cm</div>
+</div></div>
+<div class="aufg"><div class="aufg-head"><div class="aufg-titel">b=10,2cm, r=5,3cm → A=?</div></div>
+<div class="aufg-body">
+<div class="aufg-inp-row"><label>A=</label><input class="ainp" id="k2a" type="number" step="0.01" placeholder="cm²"><button class="achk" onclick="checkA('k2a',27.03,0.15,'k2a-fb',12)">✓</button></div>
+<div class="afb" id="k2a-fb"></div>
+<button class="loes-btn" id="k2a-l-btn" onclick="toggleL('k2a-l')">🔍</button>
+<div class="loes-box" id="k2a-l">A=b·r/2=10,2·5,3/2=27,03cm²</div>
+</div></div>`,
+
+ring2:`${PBK}
+<div style="background:linear-gradient(135deg,#0a1e3a,#0369a1);border-radius:var(--r);padding:16px 18px;margin-bottom:14px;text-align:center"><div style="font-size:32px">🔵</div><div style="font-size:18px;font-weight:900">Kreisring</div></div>
+<div class="aufg"><div class="aufg-head"><div class="aufg-titel">ra=8cm, ri=5cm</div></div>
+<div class="aufg-body">
+<div class="aufg-inp-row"><label>A=</label><input class="ainp" id="rg-a" type="number" step="0.1" placeholder="cm²"><button class="achk" onclick="checkA('rg-a',122.52,0.5,'rg-fb',20)">Prüfen</button></div>
+<div class="afb" id="rg-fb"></div>
+<button class="loes-btn" id="rg-l-btn" onclick="toggleL('rg-l')">🔍 Lösung</button>
+<div class="loes-box" id="rg-l">A=π·(64−25)=π·39≈122,52cm²</div>
+</div></div>`,
+
+platz:`${PBK}
+<div style="background:linear-gradient(135deg,#0a1a2e,#1d4ed8);border-radius:var(--r);padding:16px 18px;margin-bottom:14px;text-align:center"><div style="font-size:32px">🏛️</div><div style="font-size:18px;font-weight:900">Platz pflastern</div></div>
+<div class="aufg"><div class="aufg-head"><div class="aufg-titel">d=18m, Baum r=2m</div></div>
+<div class="aufg-body">
+<div class="aufg-q">Wie viele m² Pflaster? Kosten bei 124€/m²?</div>
+<div class="aufg-inp-row"><label>A=</label><input class="ainp" id="pl-a" type="number" step="0.1" placeholder="m²"><button class="achk" onclick="checkA('pl-a',241.9,0.5,'pl-fb',12)">✓</button></div>
+<div class="afb" id="pl-fb"></div>
+<div class="aufg-inp-row"><label>€=</label><input class="ainp" id="pl-k" type="number" step="1" placeholder="€"><button class="achk" onclick="checkA('pl-k',29996,200,'pl-kfb',12)">✓</button></div>
+<div class="afb" id="pl-kfb"></div>
+<button class="loes-btn" id="pl-l-btn" onclick="toggleL('pl-l')">🔍</button>
+<div class="loes-box" id="pl-l">A_groß=π·81≈254,5m² · A_Baum=π·4≈12,6m²<br>A_Pflaster≈241,9m² · Kosten≈29996€</div>
+</div></div>`,
+
+blech:`${PBK}
+<div style="background:linear-gradient(135deg,#1a1a0a,#65a30d);border-radius:var(--r);padding:16px 18px;margin-bottom:14px;text-align:center"><div style="font-size:32px">🔧</div><div style="font-size:18px;font-weight:900">Deckel aus Blech</div></div>
+<div class="aufg"><div class="aufg-head"><div class="aufg-titel">50×50cm, 25 Deckel</div></div>
+<div class="aufg-body">
+<div class="aufg-q">Quadrat 50×50cm. 5×5=25 kreisförmige Deckel (d=10cm). a) Gesamtfläche der Deckel? b) Abfall in %?</div>
+<div class="aufg-inp-row"><label>A=</label><input class="ainp" id="bl-a" type="number" step="0.1" placeholder="cm²"><button class="achk" onclick="checkA('bl-a',1963.5,2,'bl-fb',12)">✓</button></div>
+<div class="afb" id="bl-fb"></div>
+<div class="aufg-inp-row"><label>%=</label><input class="ainp" id="bl-p" type="number" step="0.1" placeholder="%"><button class="achk" onclick="checkA('bl-p',21.5,0.5,'bl-pfb',12)">✓</button></div>
+<div class="afb" id="bl-pfb"></div>
+<button class="loes-btn" id="bl-l-btn" onclick="toggleL('bl-l')">🔍</button>
+<div class="loes-box" id="bl-l">25·π·25≈1963,5cm² · Abfall=536,5cm² → 21,5%</div>
+</div></div>`,
+};
+
+// ═════ HELPERS ═════
 function checkA(inputId,correct,tolerance,fbId,ptsV){
   const inp=document.getElementById(inputId);const fb=document.getElementById(fbId);if(!inp)return;
   const v=parseFloat(inp.value.replace(',','.'));
-  if(isNaN(v)){fb.textContent='Zahl eingeben!';fb.className='afb no';return;}
+  if(isNaN(v)){if(fb){fb.textContent='Zahl eingeben!';fb.className='afb no';}return;}
   if(Math.abs(v-correct)<=tolerance){
-    inp.classList.add('ok');fb.textContent='✅ Richtig! 🎉';fb.className='afb ok';
-    inp.disabled=true;pts+=ptsV;document.getElementById('pts').textContent=pts;sv();toast('+'+ptsV+' Punkte!');
+    inp.classList.add('ok');if(fb){fb.textContent='✅ Richtig! 🎉';fb.className='afb ok';}
+    inp.disabled=true;pts+=ptsV;document.getElementById('pts').textContent=pts;sv();toast('+'+ptsV+' Punkte! ⭐');
   }else{
-    inp.classList.add('no');fb.innerHTML='❌ Ergebnis liegt bei <strong>'+correct+'</strong>';fb.className='afb no';
-    setTimeout(()=>{inp.classList.remove('no');inp.value='';fb.textContent='';},3500);
+    inp.classList.add('no');if(fb){fb.innerHTML='❌ Ergebnis: <strong>'+correct+'</strong>';fb.className='afb no';}
+    setTimeout(()=>{inp.classList.remove('no');inp.value='';if(fb)fb.textContent='';},3000);
   }
 }
 function toggleL(id){
   const box=document.getElementById(id);const btn=document.getElementById(id+'-btn');
+  if(!box)return;
   const show=box.style.display==='none'||!box.style.display;
   box.style.display=show?'block':'none';
-  btn.textContent=show?'🔼 Verbergen':'🔍 Lösung';
+  if(btn)btn.textContent=show?'🔼 Verbergen':'🔍 Lösung';
+}
+function fcCheck(btn,type){
+  const row=btn.closest('.formel-check');
+  const formula=row.querySelector('.fc-formula').textContent;
+  const correct=formula==='=D6−(D2+D3+D4)'||formula==='=B5*C5';
+  const userSaysRight=type==='right';
+  const isCorrect=(correct&&userSaysRight)||(!correct&&!userSaysRight);
+  btn.classList.add(isCorrect?'right':'wrong');
+  btn.textContent=isCorrect?'✓':'✗';
+  const ans2=document.getElementById('fc-answer');
+  if(ans2&&isCorrect){ans2.textContent='✅ Richtig!';ans2.style.color='var(--green)';}
+  else if(ans2){ans2.textContent='❌ Nochmal überlegen!';ans2.style.color='var(--red)';}
+}
+function fcCheck2(btn,type,fbId){
+  btn.classList.add(type==='right'?'right':'wrong');
+  const fb=document.getElementById(fbId);
+  if(fb&&type==='right'){fb.textContent='✅ Richtig!';fb.style.color='var(--green)';}
+  else if(fb){fb.textContent='❌ Nochmal!';fb.style.color='var(--red)';}
 }
 
-const AUFG_CONTENT={
-eiffel:`${ABK}
-<div style="background:linear-gradient(135deg,#1a1208,#ca8a04);border-radius:var(--r);padding:16px 18px;margin-bottom:14px;text-align:center">
-  <div style="font-size:32px;margin-bottom:6px">🗼</div>
-  <div style="font-size:18px;font-weight:900">Turm-Aufgabe</div>
-  <div style="font-size:11px;opacity:.55">Wie auf der Tafel — 2. Strahlensatz</div>
-</div>
-<div class="aufg">
-  <div class="aufg-head"><div class="aufg-titel">📖 Aufgabe</div></div>
-  <div class="aufg-body">
-    <div class="aufg-q">Ein 2,5 m großer Mensch steht 5 m vom Messpunkt A entfernt. Der Turm steht 596 m von A entfernt (gesamt 601 m von S). Berechne die Höhe h des Turms mit dem 2. Strahlensatz.</div>
-    <div class="box b" style="font-size:11px">Tipp: 2,5/h = 5/601 oder: h/601 = 2,5/5</div>
-  </div>
-</div>
-<div class="aufg">
-  <div class="aufg-head"><div class="aufg-titel">✏️ Lösung</div></div>
-  <div class="aufg-body">
-    <div class="aufg-inp-row">
-      <label>h =</label>
-      <input class="ainp" id="eiffel-h" type="number" step="0.1" placeholder="? m">
-      <span style="font-size:12px;font-weight:700;color:var(--muted)">m</span>
-      <button class="achk" onclick="checkA('eiffel-h',300.5,2,'eiffel-fb',20)">Prüfen</button>
-    </div>
-    <div class="afb" id="eiffel-fb"></div>
-    <button class="atipp" onclick='mAsk("Turm: Mensch 2,5m, 5m weg. Turm 601m weg. 2. Strahlensatz. Wie rechne ich h?")'>🤖 KI-Tipp</button>
-    <button class="loes-btn" id="eiffel-loes-btn" onclick="toggleL('eiffel-loes')">🔍 Lösung</button>
-    <div class="loes-box" id="eiffel-loes">601/5 = h/2,5<br>h = (601/5) · 2,5<br>h = <strong>300,5 m</strong></div>
-  </div>
-</div>`,
-
-fluss:`${ABK}
-<div style="background:linear-gradient(135deg,#0a1e2e,#0369a1);border-radius:var(--r);padding:16px 18px;margin-bottom:14px;text-align:center">
-  <div style="font-size:32px;margin-bottom:6px">🌊</div>
-  <div style="font-size:18px;font-weight:900">Breite des Flusses — X-Figur</div>
-</div>
-<div class="aufg">
-  <div class="aufg-head"><div class="aufg-titel">📖 Aufgabe (wie auf dem Projektor)</div></div>
-  <div class="aufg-body">
-    <div class="aufg-q">In der Zeichnung gilt: 6,3/3,1 = x/2,9. Berechne x (Breite des Flusses).</div>
-    <div class="box p">X-Figur: SA/SZ = SC/SB → 1. Strahlensatz über Kreuz</div>
-  </div>
-</div>
-<div class="aufg">
-  <div class="aufg-head"><div class="aufg-titel">✏️ Lösung</div></div>
-  <div class="aufg-body">
-    <div class="aufg-inp-row">
-      <label>x =</label>
-      <input class="ainp" id="fluss-x" type="number" step="0.01" placeholder="? cm">
-      <span style="font-size:12px;font-weight:700;color:var(--muted)">cm</span>
-      <button class="achk" onclick="checkA('fluss-x',5.89,0.05,'fluss-fb',20)">Prüfen</button>
-    </div>
-    <div class="afb" id="fluss-fb"></div>
-    <button class="loes-btn" id="fluss-loes-btn" onclick="toggleL('fluss-loes')">🔍 Lösung</button>
-    <div class="loes-box" id="fluss-loes">6,3/3,1 = x/2,9<br>x = (6,3/3,1) · 2,9<br>x = <strong>5,89 cm</strong></div>
-  </div>
-</div>`,
-
-maibaum:`${ABK}
-<div style="background:linear-gradient(135deg,#0a2216,#15803d);border-radius:var(--r);padding:16px 18px;margin-bottom:14px;text-align:center">
-  <div style="font-size:32px;margin-bottom:6px">🌲</div>
-  <div style="font-size:18px;font-weight:900">Schatten & Höhe</div>
-</div>
-<div class="aufg">
-  <div class="aufg-head"><div class="aufg-titel">📖 Aufgabe</div></div>
-  <div class="aufg-body">
-    <div class="aufg-q">Ein 1,62 m großer Mensch wirft einen 2,9 m langen Schatten. Ein Turm wirft gleichzeitig einen 20 m langen Schatten. Wie hoch ist der Turm?</div>
-  </div>
-</div>
-<div class="aufg">
-  <div class="aufg-head"><div class="aufg-titel">✏️ Lösung</div></div>
-  <div class="aufg-body">
-    <div class="aufg-inp-row">
-      <label>h =</label>
-      <input class="ainp" id="mai-h" type="number" step="0.01" placeholder="? m">
-      <span style="font-size:12px;font-weight:700;color:var(--muted)">m</span>
-      <button class="achk" onclick="checkA('mai-h',11.17,0.05,'mai-fb',20)">Prüfen</button>
-    </div>
-    <div class="afb" id="mai-fb"></div>
-    <button class="loes-btn" id="mai-loes-btn" onclick="toggleL('mai-loes')">🔍 Lösung</button>
-    <div class="loes-box" id="mai-loes">1,62/2,9 = h/20<br>h = 1,62·20/2,9<br>h ≈ <strong>11,17 m</strong></div>
-  </div>
-</div>`,
-
-kreis1:`${ABK}
-<div style="background:linear-gradient(135deg,#0a2216,#16a34a);border-radius:var(--r);padding:16px 18px;margin-bottom:14px;text-align:center">
-  <div style="font-size:32px;margin-bottom:6px">📐</div>
-  <div style="font-size:18px;font-weight:900">Kreis-Tabelle</div>
-</div>
-<div class="aufg">
-  <div class="aufg-head"><div class="aufg-titel">📖 Aufgabe 1 — r = 7,5 cm</div></div>
-  <div class="aufg-body">
-    <div class="aufg-q">Berechne d, u und A für r = 7,5 cm. Runde auf eine Stelle.</div>
-    <div class="aufg-inp-row">
-      <label>d =</label>
-      <input class="ainp" id="k1-d" type="number" step="0.1" placeholder="? cm">
-      <span style="font-size:11px;color:var(--muted)">cm</span>
-      <button class="achk" onclick="checkA('k1-d',15,0.05,'k1-d-fb',10)">✓</button>
-    </div>
-    <div class="afb" id="k1-d-fb"></div>
-    <div class="aufg-inp-row">
-      <label>u =</label>
-      <input class="ainp" id="k1-u" type="number" step="0.1" placeholder="? cm">
-      <span style="font-size:11px;color:var(--muted)">cm</span>
-      <button class="achk" onclick="checkA('k1-u',47.1,0.2,'k1-u-fb',10)">✓</button>
-    </div>
-    <div class="afb" id="k1-u-fb"></div>
-    <div class="aufg-inp-row">
-      <label>A =</label>
-      <input class="ainp" id="k1-a" type="number" step="0.1" placeholder="? cm²">
-      <span style="font-size:11px;color:var(--muted)">cm²</span>
-      <button class="achk" onclick="checkA('k1-a',176.7,0.5,'k1-a-fb',10)">✓</button>
-    </div>
-    <div class="afb" id="k1-a-fb"></div>
-    <button class="loes-btn" id="k1-loes-btn" onclick="toggleL('k1-loes')">🔍 Lösung</button>
-    <div class="loes-box" id="k1-loes">d = 2·7,5 = 15 cm<br>u = 2·π·7,5 ≈ 47,1 cm<br>A = π·7,5² ≈ 176,7 cm²</div>
-  </div>
-</div>`,
-
-kreis2:`${ABK}
-<div style="background:linear-gradient(135deg,#1a1208,#d97706);border-radius:var(--r);padding:16px 18px;margin-bottom:14px;text-align:center">
-  <div style="font-size:32px;margin-bottom:6px">🥧</div>
-  <div style="font-size:18px;font-weight:900">Kreissektoren</div>
-</div>
-<div class="aufg">
-  <div class="aufg-head"><div class="aufg-titel">📖 Aufgabe 2a — Bogenlänge</div></div>
-  <div class="aufg-body">
-    <div class="aufg-q">Berechne b: α = 108°, r = 16 cm.</div>
-    <div class="aufg-inp-row">
-      <label>b =</label>
-      <input class="ainp" id="k2-b" type="number" step="0.01" placeholder="? cm">
-      <span style="font-size:11px;color:var(--muted)">cm</span>
-      <button class="achk" onclick="checkA('k2-b',30.16,0.15,'k2-b-fb',15)">✓</button>
-    </div>
-    <div class="afb" id="k2-b-fb"></div>
-    <button class="loes-btn" id="k2-loes-btn" onclick="toggleL('k2-loes')">🔍 Lösung</button>
-    <div class="loes-box" id="k2-loes">b = 2·π·16·108/360 ≈ <strong>30,16 cm</strong></div>
-  </div>
-</div>
-<div class="aufg">
-  <div class="aufg-head"><div class="aufg-titel">📖 Aufgabe 2b — Fläche aus b und r</div></div>
-  <div class="aufg-body">
-    <div class="aufg-q">Berechne A: b = 10,2 cm, r = 5,3 cm.</div>
-    <div class="aufg-inp-row">
-      <label>A =</label>
-      <input class="ainp" id="k2-as" type="number" step="0.01" placeholder="? cm²">
-      <span style="font-size:11px;color:var(--muted)">cm²</span>
-      <button class="achk" onclick="checkA('k2-as',27.03,0.15,'k2-as-fb',15)">✓</button>
-    </div>
-    <div class="afb" id="k2-as-fb"></div>
-    <button class="loes-btn" id="k2-as-loes-btn" onclick="toggleL('k2-as-loes')">🔍 Lösung</button>
-    <div class="loes-box" id="k2-as-loes">A = b·r/2 = 10,2·5,3/2 = <strong>27,03 cm²</strong></div>
-  </div>
-</div>`,
-
-ring:`${ABK}
-<div style="background:linear-gradient(135deg,#0a1e3a,#0369a1);border-radius:var(--r);padding:16px 18px;margin-bottom:14px;text-align:center">
-  <div style="font-size:32px;margin-bottom:6px">🔵</div>
-  <div style="font-size:18px;font-weight:900">Kreisring</div>
-</div>
-<div class="aufg">
-  <div class="aufg-head"><div class="aufg-titel">📖 Aufgabe — Kreisring</div></div>
-  <div class="aufg-body">
-    <div class="aufg-q">Berechne die Fläche des Kreisrings: ra = 8 cm, ri = 5 cm.</div>
-    <div class="box b" style="font-size:11px">A = π · (ra² − ri²)</div>
-  </div>
-</div>
-<div class="aufg">
-  <div class="aufg-head"><div class="aufg-titel">✏️ Lösung</div></div>
-  <div class="aufg-body">
-    <div class="aufg-inp-row">
-      <label>A =</label>
-      <input class="ainp" id="ring-a" type="number" step="0.1" placeholder="? cm²">
-      <span style="font-size:12px;font-weight:700;color:var(--muted)">cm²</span>
-      <button class="achk" onclick="checkA('ring-a',122.52,0.5,'ring-fb',20)">Prüfen</button>
-    </div>
-    <div class="afb" id="ring-fb"></div>
-    <button class="loes-btn" id="ring-loes-btn" onclick="toggleL('ring-loes')">🔍 Lösung</button>
-    <div class="loes-box" id="ring-loes">A = π · (8² − 5²)<br>A = π · (64 − 25)<br>A = π · 39<br>A ≈ <strong>122,52 cm²</strong></div>
-  </div>
-</div>`,
-
-platz:`${ABK}
-<div style="background:linear-gradient(135deg,#0a1a2e,#1d4ed8);border-radius:var(--r);padding:16px 18px;margin-bottom:14px;text-align:center">
-  <div style="font-size:32px;margin-bottom:6px">🏛️</div>
-  <div style="font-size:18px;font-weight:900">Platz pflastern</div>
-</div>
-<div class="aufg">
-  <div class="aufg-head"><div class="aufg-titel">📖 Aufgabe</div></div>
-  <div class="aufg-body">
-    <div class="aufg-q">Runder Platz d = 18 m. In der Mitte ein Baum mit r = 2 m.<br>a) Wie viel m² Pflastersteine?<br>b) Kosten: 1 m² = 124 €</div>
-  </div>
-</div>
-<div class="aufg">
-  <div class="aufg-head"><div class="aufg-titel">✏️ Teil a) Fläche</div></div>
-  <div class="aufg-body">
-    <div class="box b" style="font-size:11px">r_groß = 9 m, r_Baum = 2 m → A = A_groß − A_Baum</div>
-    <div class="aufg-inp-row">
-      <label>A =</label>
-      <input class="ainp" id="platz-a" type="number" step="0.1" placeholder="? m²">
-      <span style="font-size:11px;color:var(--muted)">m²</span>
-      <button class="achk" onclick="checkA('platz-a',241.9,0.5,'platz-a-fb',15)">✓</button>
-    </div>
-    <div class="afb" id="platz-a-fb"></div>
-    <div class="aufg-inp-row" style="margin-top:9px">
-      <label>€ =</label>
-      <input class="ainp" id="platz-k" type="number" step="1" placeholder="? €">
-      <span style="font-size:11px;color:var(--muted)">€</span>
-      <button class="achk" onclick="checkA('platz-k',29996,200,'platz-k-fb',15)">✓</button>
-    </div>
-    <div class="afb" id="platz-k-fb"></div>
-    <button class="loes-btn" id="platz-loes-btn" onclick="toggleL('platz-loes')">🔍 Lösung</button>
-    <div class="loes-box" id="platz-loes">A_groß = π·81 ≈ 254,5 m²<br>A_Baum = π·4 ≈ 12,6 m²<br>A_Pflaster ≈ 241,9 m²<br>Kosten ≈ <strong>29.996 €</strong></div>
-  </div>
-</div>`,
-
-blech:`${ABK}
-<div style="background:linear-gradient(135deg,#1a1a0a,#65a30d);border-radius:var(--r);padding:16px 18px;margin-bottom:14px;text-align:center">
-  <div style="font-size:32px;margin-bottom:6px">🔧</div>
-  <div style="font-size:18px;font-weight:900">Deckel aus Blech</div>
-</div>
-<div class="aufg">
-  <div class="aufg-head"><div class="aufg-titel">📖 Aufgabe</div></div>
-  <div class="aufg-body">
-    <div class="aufg-q">Quadrat 50×50 cm, 5×5 = 25 kreisförmige Deckel.<br>a) Gesamtfläche der Deckel?<br>b) Abfall in %?</div>
-    <div class="box y" style="font-size:11px">Jeder Deckel: d = 50/5 = 10 cm → r = 5 cm</div>
-  </div>
-</div>
-<div class="aufg">
-  <div class="aufg-head"><div class="aufg-titel">✏️ Lösung</div></div>
-  <div class="aufg-body">
-    <div class="aufg-inp-row">
-      <label>A =</label>
-      <input class="ainp" id="blech-a" type="number" step="0.1" placeholder="? cm²">
-      <span style="font-size:11px;color:var(--muted)">cm²</span>
-      <button class="achk" onclick="checkA('blech-a',1963.5,2,'blech-a-fb',15)">✓</button>
-    </div>
-    <div class="afb" id="blech-a-fb"></div>
-    <div class="aufg-inp-row">
-      <label>% =</label>
-      <input class="ainp" id="blech-p" type="number" step="0.1" placeholder="? %">
-      <span style="font-size:11px;color:var(--muted)">%</span>
-      <button class="achk" onclick="checkA('blech-p',21.5,0.5,'blech-p-fb',15)">✓</button>
-    </div>
-    <div class="afb" id="blech-p-fb"></div>
-    <button class="loes-btn" id="blech-loes-btn" onclick="toggleL('blech-loes')">🔍 Lösung</button>
-    <div class="loes-box" id="blech-loes">A_Blech = 2500 cm²<br>A_Deckel = 25·π·25 ≈ 1963,5 cm²<br>Abfall = 536,5 cm²<br>% = 536,5/2500·100 ≈ <strong>21,5 %</strong></div>
-  </div>
-</div>`,
-};
-
-// ═════ KI CHAT — FIXED ═════
+// ═════ KI CHAT ═════
 let mO=false,mW=false,mH=[];
 function toggleM(){
   mO=!mO;
@@ -1444,15 +1489,18 @@ function mDots(){
 }
 function mAsk(p){if(!mO)toggleM();setTimeout(()=>{document.getElementById('minp').value=p;mSend();},300);}
 
-const SYS=`Du bist ein Mathe-Tutor für 9. Klasse Realschule NRW. Themen: Strahlensätze (V-Figur, X-Figur, alle 3 Sätze), Kreis (u=2πr, A=πr²), Kreisring (A=π(ra²−ri²)), Kreissektor (b=2πr·ω/360°, A=πr²·ω/360°), Satz des Thales (ω=180° → δ=90°), Rechteck (u=2a+2b, A=a·b).
+const SYS=`Du bist ein Mathe-Tutor, 9. Klasse Realschule NRW. 
 
-Stil:
+Themen: Strahlensätze (V-Figur, X-Figur), Gleichungen (lineare), Prozentrechnung, Tabellenkalkulation/Excel, Kreis (Umfang, Fläche, Kreisring, Kreissektor), Satz des Thales.
+
+STIL — SEHR WICHTIG:
 - Immer auf Deutsch
-- Max 6 Zeilen
-- Schritt-für-Schritt mit konkreten Zahlen
-- Nie die Lösung der exakten Aufgabe verraten — führe mit Hinweisen hin
-- Motivierend: "Fast!", "Genau!", "Super!"
-- Formeln klar darstellen`;
+- KURZ: maximal 4 Zeilen!
+- Einfachste Sprache, keine Fachwörter
+- Konkrete Zahlen zeigen
+- Nie die Lösung verraten — nur Tipps
+- Motivierend: "Fast!", "Super!", "Genau so!"
+- Eine Formel, eine Erklärung, fertig`;
 
 async function mSend(){
   if(mW)return;
@@ -1467,22 +1515,23 @@ async function mSend(){
       headers:{'Content-Type':'application/json'},
       body:JSON.stringify({
         model:'claude-sonnet-4-20250514',
-        max_tokens:500,
+        max_tokens:300,
         system:SYS,
         messages:[
-          ...mH.slice(-6).flatMap(h=>[{role:'user',content:h.u},{role:'assistant',content:h.a}]),
+          ...mH.slice(-4).flatMap(h=>[{role:'user',content:h.u},{role:'assistant',content:h.a}]),
           {role:'user',content:msg}
         ]
       })
     });
     const data=await res.json();
     document.getElementById('mdots_')?.remove();
-    const r=data.content?.[0]?.text||'Keine Antwort — versuch es nochmal.';
-    mH.push({u:msg,a:r});if(mH.length>8)mH=mH.slice(-8);
+    const r=data.content?.[0]?.text||'Nochmal versuchen!';
+    mH.push({u:msg,a:r});if(mH.length>6)mH=mH.slice(-6);
     mMsg('ai',r);
+    if(ttsEnabled)speakText(r.replace(/<[^>]*>/g,''));
   }catch(e){
     document.getElementById('mdots_')?.remove();
-    mMsg('ai','❌ Netzwerkfehler. Nochmal versuchen!');
+    mMsg('ai','❌ Netzwerk-Fehler. Nochmal klicken!');
   }
   mW=false;document.getElementById('msend').disabled=false;
   document.getElementById('minp').focus();
@@ -1514,14 +1563,16 @@ function cHistClear(){cHistArr=[];document.getElementById('chist').innerHTML='';
 
 // ═════ TOAST ═════
 let tt;
-function toast(msg){const el=document.getElementById('toast');el.textContent=msg;el.classList.add('show');clearTimeout(tt);tt=setTimeout(()=>el.classList.remove('show'),2700);}
+function toast(msg){const el=document.getElementById('toast');el.textContent=msg;el.classList.add('show');clearTimeout(tt);tt=setTimeout(()=>el.classList.remove('show'),2500);}
 
 // ═════ INIT ═════
 window.addEventListener('DOMContentLoaded',()=>{
-  ld();buildGrid();buildAufgGrid();buildKreisGrid();
+  ld();buildSGrid();buildPGrid();buildKGrid();buildPGrid();
+  // Load voices for TTS
+  if(window.speechSynthesis)window.speechSynthesis.getVoices();
   setTimeout(()=>{
-    mMsg('ai','Hey! 👋 Ich bin dein **KI-Tutor** für die Arbeit am 12.06.\n\nIch erkläre Strahlensatz, Kreisring, Kreissektor und Thales — immer mit Schritt-für-Schritt.\n\n💡 Ich verrate keine Lösungen, aber ich helfe dir, sie selbst zu finden!');
-  },500);
+    mMsg('ai','Hey! 👋 Ich bin dein **KI-Tutor**.\n\nEinfache Erklärungen für Strahlensatz, Kreis, Prozent, Gleichungen und Excel!\n\nEinfach fragen — ich antworte kurz und klar 🎯');
+  },400);
 });
 </script>
 </body>
